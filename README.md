@@ -1,5 +1,5 @@
 therminox
 =========
-testeintrag\n
-testeintrag2\n
+testeintrag
+testeintrag2
 testeintrag3
