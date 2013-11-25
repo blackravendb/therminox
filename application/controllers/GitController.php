@@ -11,7 +11,7 @@ class GitController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-	`git push origin master`;
+	`git pull origin master`;
 }
 
 
