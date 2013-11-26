@@ -11,7 +11,6 @@ class IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-        echo "blub12345678";
     }
 
 
