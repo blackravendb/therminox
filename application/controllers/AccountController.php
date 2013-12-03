@@ -15,7 +15,17 @@ class AccountController extends Zend_Controller_Action
 
     public function loginAction()
     {
-        // action body
+		$form = new Application_Form_Login();
+		if ($this->_request->isPost()) {
+			$formData = $this->_request->getPost();
+			if ($form->isValid($formData)) {
+				echo 'success';
+				exit;
+			} else {
+				$form->populate($formData);
+			}
+		}
+		$this->view->form = $form;
     }
 
     public function logoutAction()
