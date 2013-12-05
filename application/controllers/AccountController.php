@@ -17,12 +17,10 @@ class AccountController extends Zend_Controller_Action
     {
 		$form = new Application_Form_Login();
 		if ($this->_request->isPost()) {
-			$formData = $this->_request->getPost();
-			if ($form->isValid($formData)) {
-				echo 'success';
-				exit;
+			if ($form->isValid($this->_request->getPost())) {
+				$this->_redirect('/startseite/index');
 			} else {
-				$form->populate($formData);
+				//$this->view->errors = $form->getErrors();
 			}
 		}
 		$this->view->form = $form;
@@ -35,7 +33,15 @@ class AccountController extends Zend_Controller_Action
 
     public function registerAction()
     {
-        // action body
+        $form = new Application_Form_Register();
+        if ($this->_request->isPost()) {
+        	if ($form->isValid($this->_request->getPost())) {
+        		
+        	} else {
+        		//$this->view->errors = $form->getErrors();
+        	}
+        }
+        $this->view->form = $form;
     }
 
     public function confirmAction()

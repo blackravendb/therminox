@@ -3,6 +3,17 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
+	protected function _initDoctype()
+	{
+		$this->bootstrap('view');
+		$view = $this->getResource('view');
+		$view->setEncoding('UTF-8');
+		$view->doctype('HTML5');
+		$view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+	}
+	
+	
+
 	protected function _initViewHelpers()
 	{
 		$view = new Zend_View();

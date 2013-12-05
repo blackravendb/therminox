@@ -1,8 +1,10 @@
+<?php echo $this->doctype() ?>
 <html>
 	<head>
+		<?php echo $this->headMeta(); ?>
 		<?php echo $this->jQuery(); ?>
 	</head>
 	<body>
-		<?php echo $this->layout()->content; ?>
+		<div id="content"><?php echo $this->layout()->content ?></div>
 	</body>
 </html>
