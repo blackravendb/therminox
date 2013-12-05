@@ -3,8 +3,16 @@
 	<head>
 		<?php echo $this->headMeta(); ?>
 		<?php echo $this->jQuery(); ?>
+		<?php echo $this->headLink();?>
 	</head>
 	<body>
-		<div id="content"><?php echo $this->layout()->content ?></div>
+	<div id ="banner">
+		<div id = "account"></div>
+	</div>
+	<div id = "menu"></div>
+	<div id = "admin_letzteProdukte"></div>
+	<div id = "inhalt">
+	<?php echo $this->layout()->content; ?>
+	</div>
 	</body>
 </html>
