@@ -1,8 +1,16 @@
 <html>
 	<head>
 		<?php echo $this->jQuery(); ?>
+		<?php echo $this->headLink();?>
 	</head>
 	<body>
-		<?php echo $this->layout()->content; ?>
+	<div id ="banner">
+		<div id = "account"></div>
+	</div>
+	<div id = "menu"></div>
+	<div id = "admin_letzteProdukte"></div>
+	<div id = "inhalt">
+	<?php echo $this->layout()->content; ?>
+	</div>
 	</body>
 </html>

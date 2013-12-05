@@ -1,0 +1,39 @@
+div#banner{
+	margin-top: 10px;
+	margin-left: 160px;
+	height: 150px;
+	background-color: black;	/*kann gelöscht werden, nur zur demo*/
+}
+
+div#account{
+	position:relative;
+	float: right;
+	width: 600px;
+	height: 50px;
+	top: 100px;
+	margin-right: 155px;
+	background-color: orange;	/*kann gelöscht werden, nur zur demo*/
+}
+
+div#menu{
+	margin-left: 10px;
+	width: 150px;
+	background-color: green;	/*kann gelöscht werden, nur zur demo*/
+	height: 750px;				/*kann gelöscht werden, nur zur demo*/
+	float: left;
+}
+
+div#inhalt{
+	background-color: grey;		/*kann gelöscht werden, nur zur demo*/
+	margin-left: 165px;
+	margin-right: 155px;
+	margin-top: 5px;
+	height: 750px;				/*kann gelöscht werden, nur zur demo*/
+}
+
+div#admin_letzteProdukte{
+	width: 150px;
+	float:right;
+	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
+	height: 755px;				/*kann gelöscht werden, nur zur demo*/
+}
