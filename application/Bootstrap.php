@@ -20,6 +20,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
 		$view->headLink()->appendStylesheet('/css/layout.css');
+		
+		$view->headTitle()->setSeparator(' - ');
+		$view->headTitle('Therminox Wärmetechnik');
 
 		// Use locale jquery lib in /public/js
 // 		$view->jQuery()->addStylesheet('/js/jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css')

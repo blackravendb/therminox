@@ -3,16 +3,17 @@ div#banner{
 	margin-left: 160px;
 	height: 150px;
 	background-color: black;	/*kann gelöscht werden, nur zur demo*/
+	overflow: hidden;
 }
 
 div#account{
-	position:relative;
 	float: right;
 	width: 600px;
 	height: 50px;
-	top: 100px;
+	margin-top: 100px;
 	margin-right: 155px;
 	background-color: orange;	/*kann gelöscht werden, nur zur demo*/
+	overflow: hidden;
 }
 
 div#menu{
@@ -21,6 +22,7 @@ div#menu{
 	background-color: green;	/*kann gelöscht werden, nur zur demo*/
 	height: 750px;				/*kann gelöscht werden, nur zur demo*/
 	float: left;
+	overflow: hidden;
 }
 
 div#inhalt{
@@ -28,12 +30,14 @@ div#inhalt{
 	margin-left: 165px;
 	margin-right: 155px;
 	margin-top: 5px;
-	height: 750px;				/*kann gelöscht werden, nur zur demo*/
+	height: 745px;				/*kann gelöscht werden, nur zur demo*/
+	overflow: hidden;
 }
 
 div#admin_letzteProdukte{
 	width: 150px;
 	float:right;
 	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
-	height: 755px;				/*kann gelöscht werden, nur zur demo*/
+	height: 750px;				/*kann gelöscht werden, nur zur demo*/
+	overflow: hidden;
 }
