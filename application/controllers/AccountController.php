@@ -19,8 +19,6 @@ class AccountController extends Zend_Controller_Action
 		if ($this->_request->isPost()) {
 			if ($form->isValid($this->_request->getPost())) {
 				$this->_redirect('/startseite/index');
-			} else {
-				//$this->view->errors = $form->getErrors();
 			}
 		}
 		$this->view->form = $form;
@@ -36,9 +34,7 @@ class AccountController extends Zend_Controller_Action
         $form = new Application_Form_Register();
         if ($this->_request->isPost()) {
         	if ($form->isValid($this->_request->getPost())) {
-        		
-        	} else {
-        		//$this->view->errors = $form->getErrors();
+        		$this->_redirect('/startseite/index');
         	}
         }
         $this->view->form = $form;
