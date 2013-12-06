@@ -123,7 +123,7 @@ class Application_Form_Register extends Zend_Form
     	));
     	$country->addMultiOptions($countries)
     	->setValue($locale->getRegion());
-    	
+
     	$validator = new Zend_Validate_PostCode();
     	$plz = new Zend_Form_Element_Text('plz');
     	$plz->setRequired(true)
