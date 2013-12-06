@@ -10,7 +10,8 @@ class StartseiteController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+           $test = new Application_Model_BegriffeMapper();
+           $this->view->entries = $test->fetchAll();
     }
 
 

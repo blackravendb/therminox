@@ -40,6 +40,11 @@
       </layoutsDirectory>
       <modelsDirectory>
         <modelFile modelName="Account"/>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="Begriffe"/>
+        </dbTableDirectory>
+        <modelFile modelName="BegriffeMapper"/>
+        <modelFile modelName="Begriffe"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

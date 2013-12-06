@@ -1,4 +1,8 @@
 <br /><br />
 <div id="view-content">
 	<p>View script for controller <b>Startseite</b> and script/action name <b>index</b></p>
+	<?php foreach ($this->entries as $entry): ?>
+    <dt><?php echo $this->escape($entry->Begriff) ?></dt>
+    <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
+    <?php endforeach ?>
 </div>
