@@ -1,3 +1,25 @@
-div#inhalt{
+.errors {
+	color: #BF0A0A;
+}
+
+ul.errors {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.errors li {
+	display: inline;
+}
+
+td {
+	//border: 1px solid black;
+}
+
+div#register {
 	font-size: 0.9em;
+}
+
+#country {
+	width: 142px;
 }

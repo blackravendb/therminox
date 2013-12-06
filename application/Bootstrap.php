@@ -12,7 +12,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 	}
 	
-	
+	protected function _initLocale()
+	{
+		$locale = new Zend_Locale();
+		Zend_Registry::set('Zend_Locale', $locale);
+		return $locale;
+	}
 
 	protected function _initViewHelpers()
 	{
