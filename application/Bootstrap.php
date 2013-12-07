@@ -32,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 // 		->setLocalPath('/js/jquery/js/jquery-1.10.2.min.js')
 // 		->setUiLocalPath('/js/jquery/js/jquery-ui-1.10.3.custom.min.js');
 		
-		//Use jquery lib from google CDN (better than locale)
+		//Use jquery lib from google CDN (better than local)
 		$view->jQuery()->enable()->uiEnable()//enable jquery ; ->setCdnSsl(true) if need to load from ssl location
  		->setVersion('1.10.2')->setUiVersion('1.10.3')
  		->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css');

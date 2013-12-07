@@ -1,4 +1,10 @@
 <?php $this->headTitle()->append('Registrieren'); ?>
 <?php $this->headLink()->appendStylesheet('/css/login.css'); ?>
-<h3>Registrieren</h3>
-<?php echo $this->form ?>
+<div id="register_wrapper">
+	<h3>Registrieren</h3>
+	<p>Bitte füllen Sie alle Pflichtfelder aus, um einen neuen Benutzer zu registrieren.</p>
+	<div id="register_container">
+		<?php echo $this->form; ?>
+		<small>*Pflichtfelder</small>
+	</div>
+</div>

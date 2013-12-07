@@ -18,7 +18,9 @@ class AccountController extends Zend_Controller_Action
 		$form = new Application_Form_Login();
 		if ($this->_request->isPost()) {
 			if ($form->isValid($this->_request->getPost())) {
-				$this->_redirect('/startseite/index');
+				if ($this->_process($form->getValues())) {
+					$this->_helper->redirector('startseite', 'index');
+				}
 			}
 		}
 		$this->view->form = $form;
@@ -26,7 +28,8 @@ class AccountController extends Zend_Controller_Action
 
     public function logoutAction()
     {
-        // action body
+        Zend_Auth::getInstance()->clearIdentity();
+		$this->_helper->redirector('startseite', 'index'); 
     }
 
     public function registerAction()
@@ -34,7 +37,7 @@ class AccountController extends Zend_Controller_Action
         $form = new Application_Form_Register();
         if ($this->_request->isPost()) {
         	if ($form->isValid($this->_request->getPost())) {
-        		$this->_redirect('/startseite/index');
+        		$this->_helper->redirector('startseite', 'index');
         	}
         }
         $this->view->form = $form;
@@ -60,7 +63,34 @@ class AccountController extends Zend_Controller_Action
         // action body
     }
 
-
+    protected function _process($values)
+    {
+    	$adapter = $this->_getAuthAdapter();
+    	$adapter->setIdentity($values['email']); 
+    	$adapter->setCredential($values['password']);
+    	
+    	$auth = Zend_Auth::getInstance();
+    	$result = $auth->authenticate($adapter);
+    	if ($result->isValid()) {
+    		$user = $adapter->getResultRowObject();
+    		$auth->getStorage()->write($user);
+    		return true;
+    	}
+    	return false;
+    }
+    
+    protected function _getAuthAdapter() {
+    
+    	$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+    	$authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
+    
+    	$authAdapter->setTableName('') //Datenbanktabellenname
+    	->setIdentityColumn('email') //Spaltenname der email
+    	->setCredentialColumn('password') //Spaltenname des passwords
+    	->setCredentialTreatment('MD5(?) AND bestaetigt = 1'); //evtl. SHA1(CONCAT(?,salt))
+    
+    	return $authAdapter;
+    }
 }
 
 

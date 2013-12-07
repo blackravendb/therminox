@@ -45,6 +45,7 @@ class Application_Form_Login extends Zend_Form
     	$email->setRequired(true)
     		  ->setLabel('Benutzername')
     		  ->setDecorators($this->elementDecorators)
+    		  ->addFilter('StringTrim')
     		  ->addErrorMessage('Bitte geben Sie Ihren Benutzernamen an.');
  
     	$password = new Zend_Form_Element_Password('password');

@@ -26,7 +26,7 @@ class Application_Form_Register extends Zend_Form
 					array('tag' => 'tr')
 			)
 	);
-	
+
 	public $buttonDecorators = array(
 			'ViewHelper',
 			array(array('data' => 'HtmlTag'), array('tag' => 'td', 'class' => 'element')),
@@ -42,8 +42,9 @@ class Application_Form_Register extends Zend_Form
    
     	$email = new Zend_Form_Element_Text('email');
     	$email->setRequired(true)
-    	->setLabel('Email-Adresse')
+    	->setLabel('Email-Adresse*')
     	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
     	->setValidators(array(
     		array('NotEmpty', true),
             array('EmailAddress', true)
@@ -52,30 +53,47 @@ class Application_Form_Register extends Zend_Form
     	 
     	$password = new Zend_Form_Element_Password('password');
     	$password->setRequired(true)
-    	->setLabel('Passwort')
+    	->setLabel('Passwort*')
     	->setDecorators($this->elementDecorators)
-    	->addErrorMessage('Bitte geben Sie ein Passwort an.');
+    	->setValidators(array(
+    			array('NotEmpty', true),
+    			array('StringLength', true, array('min' => 6, 'max' => 50))
+    	));
+    	$password->getValidator('NotEmpty')->setMessage('Das Password darf nicht leer sein.');
+    	$password->getValidator('StringLength')->setMessage('Das Password muss mind. 6 Zeichen haben.');
+
     	
     	$confirm_password = new Zend_Form_Element_Password('confirm_password');
     	$confirm_password->setRequired(true)
-    	->setLabel('Passwort bestätigen')
+    	->setLabel('Passwort bestätigen*')
     	->setDecorators($this->elementDecorators)
     	->addErrorMessage('Die Passwörter stimmen nicht überein.')
     	->addValidator('Identical', false, array('token' => 'password'));
     	
     	$title = new Zend_Form_Element_Select('title');
-    	$title->setLabel('Anrede')
+    	$title->setLabel('Anrede*')
     	->setDecorators($this->elementDecorators)
     	->addMultiOptions(array(
     			'herr' => 'Herr',
     			'frau' => 'Frau'
     	));
     	
+    	$company = new Zend_Form_Element_Text('company');
+    	$company->setLabel('Firma')
+    	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
+    	->setValidators(array(
+    			array('Alnum', true, array('allowWhiteSpace' => true)),
+    			array('StringLength', true, array('min' => 0, 'max' => 50))
+    	));
+    	$company->getValidator('Alnum')->setMessage('Das Feld darf nur Buchstaben enthalten.');
+    	$company->getValidator('StringLength')->setMessage('Die Firma darf höchstens 50 Zeichen haben.');
     	
     	$name = new Zend_Form_Element_Text('name');
     	$name->setRequired(true)
-    	->setLabel('Vorname')
+    	->setLabel('Vorname*')
     	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
     	->setValidators(array(
     		array('NotEmpty', true),
             array('Alpha', true, array('allowWhiteSpace' => true)),
@@ -87,8 +105,9 @@ class Application_Form_Register extends Zend_Form
     	
     	$lastname = new Zend_Form_Element_Text('lastname');
     	$lastname->setRequired(true)
-    	->setLabel('Nachname')
+    	->setLabel('Nachname*')
     	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
     	->setValidators(array(
     		array('NotEmpty', true),
             array('Alpha', true, array('allowWhiteSpace' => true)),
@@ -100,21 +119,31 @@ class Application_Form_Register extends Zend_Form
     	
     	$street = new Zend_Form_Element_Text('street');
     	$street->setRequired(true)
-    	->setLabel('Straße')
+    	->setLabel('Straße*')
     	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
     	->setValidators(array(
     			array('NotEmpty', true),
-    			array('StringLength', true, array('min' => 2, 'max' => 50))
+    			array('StringLength', true, array('max' => 50))
     	));
     	$street->getValidator('NotEmpty')->setMessage('Bitte geben Sie Ihre Straße an.');
-    	$street->getValidator('StringLength')->setMessage('Die Straße muss zwischen 2 und 50 Zeichen lang sein.');
+    	$street->getValidator('StringLength')->setMessage('Die Straße darf höchstens 50 Zeichen lang sein.');
+    	
+    	$address = new Zend_Form_Element_Text('address');
+    	$address->setLabel('Adresszusatz')
+    	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
+    	->setValidators(array(
+    			array('StringLength', false, array('min' => 0, 'max' => 30))
+    	));
+    	$address->getValidator('StringLength')->setMessage('Der Adresszusatz darf höchstens 30 Zeichen haben.');
     	
     	$locale = Zend_Registry::getInstance()->get("Zend_Locale"); 
     	$countries = ($locale->getTranslationList('Territory', $locale->getLanguage(), 2));
     	asort($countries, SORT_LOCALE_STRING); 
     	$country = new Zend_Form_Element_Select('country', array(
     			'decorators' => $this->elementDecorators,
-    			'label' => _('Land'),
+    			'label' => _('Land*'),
     			'required' => true,
     			'filters' => array(
     					'StringTrim'
@@ -128,8 +157,9 @@ class Application_Form_Register extends Zend_Form
     	$myValidator = new App_Validate_MyPostCode();
     	$plz = new Zend_Form_Element_Text('plz');
     	$plz->setRequired(true)
-    	->setLabel('Postleitzahl')
+    	->setLabel('Postleitzahl*')
     	->setDecorators($this->elementDecorators)
+    	->addFilter('StringTrim')
     	->addValidator($myValidator, false)
     	->addErrorMessage('Bitte geben Sie eine gültige Postleitzahl für das ausgewählte Land an.');
     	 
@@ -138,7 +168,8 @@ class Application_Form_Register extends Zend_Form
     	$submit->setLabel('Registrieren')
     	->setDecorators($this->buttonDecorators);
     	
-    	$this->addElements(array($email, $password, $confirm_password, $title, $name, $lastname, $street, $country, $plz, $submit));
+    	$this->addElements(array($email, $password, $confirm_password, $company, $title, $name, $lastname, $street, $address, $country, $plz, $submit));
+	
     }
 
     public function loadDefaultDecorators()

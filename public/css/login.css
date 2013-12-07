@@ -23,3 +23,15 @@ div#register {
 #country {
 	width: 142px;
 }
+
+div#register_wrapper {
+	margin: 0 25px;
+}
+
+div#register_container {
+	margin: 0 50px;
+}
+
+div#login_wrapper {
+	margin: 0 25px;
+}
