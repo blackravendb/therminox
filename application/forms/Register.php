@@ -124,16 +124,14 @@ class Application_Form_Register extends Zend_Form
     	$country->addMultiOptions($countries)
     	->setValue($locale->getRegion());
 
-    	$validator = new Zend_Validate_PostCode();
+
+    	$myValidator = new App_Validate_MyPostCode();
     	$plz = new Zend_Form_Element_Text('plz');
     	$plz->setRequired(true)
     	->setLabel('Postleitzahl')
     	->setDecorators($this->elementDecorators)
-    	->setValidators(array(
-    			array('NotEmpty', true),
-    			$validator
-    	))
-    	->addErrorMessage('Bitte geben Sie eine gültige Postleitzahl an.');
+    	->addValidator($myValidator, false)
+    	->addErrorMessage('Bitte geben Sie eine gültige Postleitzahl für das ausgewählte Land an.');
     	 
     	
     	$submit = new Zend_Form_Element_Submit('submit');
