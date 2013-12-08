@@ -19,7 +19,7 @@ class AccountController extends Zend_Controller_Action
 		if ($this->_request->isPost()) {
 			if ($form->isValid($this->_request->getPost())) {
 				if ($this->_process($form->getValues())) {
-					$this->_helper->redirector('index', 'startseite');
+					$this->_helper->redirector->gotoSimple('index', 'startseite');
 				}
 			}
 		}
