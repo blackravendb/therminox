@@ -32,6 +32,8 @@
       <formsDirectory>
         <formFile formName="Login"/>
         <formFile formName="Register"/>
+        <formFile formName="Lost"/>
+        <formFile formName="Password"/>
       </formsDirectory>
       <layoutsDirectory enabled="false">
         <layoutScriptsDirectory>
