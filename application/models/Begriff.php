@@ -2,8 +2,8 @@
 
 class Application_Model_Begriff
 {
-	protected $_Begriff;
-	protected $_Erklaerung_ID;
+	protected $_begriff;
+	protected $_begrifferklaerung_id;
 	
 	public function __construct(array $options = null)
 	{
@@ -42,48 +42,26 @@ class Application_Model_Begriff
 		return $this;
 	}
 	
-// 	public function setComment($text)
-// 	{
-// 		$this->_comment = (string) $text;
-// 		return $this;
-// 	}
-	
-// 	public function getComment()
-// 	{
-// 		return $this->_comment;
-// 	}
-	
-// 	public function setEmail($email)
-// 	{
-// 		$this->_email = (string) $email;
-// 		return $this;
-// 	}
-	
-// 	public function getEmail()
-// 	{
-// 		return $this->_email;
-// 	}
-	
-	public function setErklaerungID($ts)
+	public function setBegrifferklaerung_id($ts)
 	{
-		$this->_Erklaerung_ID = (int) $ts;
+		$this->_begrifferklaerung_id = (int) $ts;
 		return $this;
 	}
 	
-	public function getErklaerungID()
+	public function getBegrifferklaerung_id()
 	{
-		return $this->_Erklaerung_ID;
+		return $this->_begrifferklaerung_id;
 	}
 	
 	public function setBegriff($id)
 	{
-		$this->_Begriff =  $id;
+		$this->_begriff =  $id;
 		return $this;
 	}
 	
 	public function getBegriff()
 	{
-		return $this->_Begriff;
+		return $this->_begriff;
 	}
 
 }
