@@ -29,7 +29,7 @@ class AccountController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-		$this->_helper->redirector('startseite', 'index'); 
+		$this->_helper->redirector->gotoSimple('index', 'startseite');
     }
 
     public function registerAction()
@@ -37,7 +37,7 @@ class AccountController extends Zend_Controller_Action
         $form = new Application_Form_Register();
         if ($this->_request->isPost()) {
         	if ($form->isValid($this->_request->getPost())) {
-        		$this->_helper->redirector('startseite', 'index');
+        		$this->_helper->redirector->gotoSimple('index', 'startseite');
         	}
         }
         $this->view->form = $form;
