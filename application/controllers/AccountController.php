@@ -67,7 +67,7 @@ class AccountController extends Zend_Controller_Action
     {
     	$adapter = $this->_getAuthAdapter();
     	$adapter->setIdentity($values['email']); 
-    	$adapter->setCredential($values['passwort']);
+    	$adapter->setCredential($values['password']);
     	
     	$auth = Zend_Auth::getInstance();
     	$result = $auth->authenticate($adapter);
