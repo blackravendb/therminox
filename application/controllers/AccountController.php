@@ -66,8 +66,8 @@ class AccountController extends Zend_Controller_Action
     protected function _process($values)
     {
     	$adapter = $this->_getAuthAdapter();
-    	$adapter->setIdentity($values['email']); 
-    	$adapter->setCredential($values['password']);
+    	$adapter->setIdentity($values['e-mail']); 
+    	$adapter->setCredential($values['passwort']);
     	
     	$auth = Zend_Auth::getInstance();
     	$result = $auth->authenticate($adapter);
@@ -84,10 +84,10 @@ class AccountController extends Zend_Controller_Action
     	$dbAdapter = Zend_Db_Table::getDefaultAdapter();
     	$authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
     
-    	$authAdapter->setTableName('') //Datenbanktabellenname
-    	->setIdentityColumn('email') //Spaltenname der email
-    	->setCredentialColumn('password') //Spaltenname des passwords
-    	->setCredentialTreatment('MD5(?) AND bestaetigt = 1'); //evtl. SHA1(CONCAT(?,salt))
+    	$authAdapter->setTableName('benutzer') //Datenbanktabellenname
+    	->setIdentityColumn('e-mail') //Spaltenname der email
+    	->setCredentialColumn('passwort') //Spaltenname des passwords
+    	->setCredentialTreatment('SHA1(?)'); //evtl. 'SHA1(CONCAT(?,salt)) &  AND bestaetigt = 1'
     
     	return $authAdapter;
     }
