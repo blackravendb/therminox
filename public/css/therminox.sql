@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. Dez 2013 um 15:20
+-- Erstellungszeit: 08. Dez 2013 um 19:11
 -- Server Version: 5.5.33-1
 -- PHP-Version: 5.5.6-1
 
@@ -31,6 +31,13 @@ CREATE TABLE IF NOT EXISTS `anrede` (
   `anrede` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `anrede`
+--
+
+INSERT INTO `anrede` (`id`, `anrede`) VALUES
+(1, 'Herr');
 
 -- --------------------------------------------------------
 
@@ -64,15 +71,22 @@ CREATE TABLE IF NOT EXISTS `begrifferklaerung` (
 --
 
 CREATE TABLE IF NOT EXISTS `benutzer` (
-  `e-mail` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `nachname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `vorname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `passwort` char(16) COLLATE utf8_unicode_ci NOT NULL,
-  `berechtigung` blob NOT NULL,
+  `passwort` char(40) COLLATE utf8_unicode_ci NOT NULL,
+  `berechtigung` blob,
   `anrede_id` int(11) NOT NULL,
-  PRIMARY KEY (`e-mail`),
+  PRIMARY KEY (`email`),
   KEY `anrede_id` (`anrede_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `benutzer`
+--
+
+INSERT INTO `benutzer` (`email`, `nachname`, `vorname`, `passwort`, `berechtigung`, `anrede_id`) VALUES
+('max.mustermann@test.de', 'Mustermann', 'Max', '906072001efddf3e11e6d2b5782f4777fe038739', '', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `benutzer` (
 
 CREATE TABLE IF NOT EXISTS `lieferadresse` (
   `id` int(11) NOT NULL,
-  `benutzer_e-mail` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `benutzer_email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `nachname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `vorname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `strasse` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -91,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `lieferadresse` (
   `anrede_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `anrede_id` (`anrede_id`),
-  KEY `benutzer_e-mail` (`benutzer_e-mail`),
+  KEY `benutzer_e-mail` (`benutzer_email`),
   KEY `plz` (`plz`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -115,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `plz2ort` (
 
 CREATE TABLE IF NOT EXISTS `rechnungsadresse` (
   `id` int(11) NOT NULL,
-  `benutzer_e-mail` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `benutzer_email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `nachname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `vorname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `strasse` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -124,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `rechnungsadresse` (
   `anrede_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `anrede_id` (`anrede_id`),
-  KEY `benutzer_e-mail` (`benutzer_e-mail`),
+  KEY `benutzer_e-mail` (`benutzer_email`),
   KEY `plz` (`plz`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -148,7 +162,7 @@ ALTER TABLE `benutzer`
 -- Constraints der Tabelle `lieferadresse`
 --
 ALTER TABLE `lieferadresse`
-  ADD CONSTRAINT `lieferadresse_ibfk_3` FOREIGN KEY (`benutzer_e-mail`) REFERENCES `benutzer` (`e-mail`),
+  ADD CONSTRAINT `lieferadresse_ibfk_3` FOREIGN KEY (`benutzer_email`) REFERENCES `benutzer` (`email`),
   ADD CONSTRAINT `lieferadresse_ibfk_1` FOREIGN KEY (`anrede_id`) REFERENCES `anrede` (`id`),
   ADD CONSTRAINT `lieferadresse_ibfk_2` FOREIGN KEY (`plz`) REFERENCES `plz2ort` (`plz`);
 
@@ -156,7 +170,7 @@ ALTER TABLE `lieferadresse`
 -- Constraints der Tabelle `rechnungsadresse`
 --
 ALTER TABLE `rechnungsadresse`
-  ADD CONSTRAINT `rechnungsadresse_ibfk_3` FOREIGN KEY (`benutzer_e-mail`) REFERENCES `benutzer` (`e-mail`),
+  ADD CONSTRAINT `rechnungsadresse_ibfk_3` FOREIGN KEY (`benutzer_email`) REFERENCES `benutzer` (`email`),
   ADD CONSTRAINT `rechnungsadresse_ibfk_1` FOREIGN KEY (`anrede_id`) REFERENCES `anrede` (`id`),
   ADD CONSTRAINT `rechnungsadresse_ibfk_2` FOREIGN KEY (`plz`) REFERENCES `plz2ort` (`plz`);
 
