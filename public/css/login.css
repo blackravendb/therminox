@@ -8,10 +8,6 @@ ul.errors {
 	padding: 0;
 }
 
-.errors li {
-	display: inline;
-}
-
 td {
 	//border: 1px solid black;
 }
