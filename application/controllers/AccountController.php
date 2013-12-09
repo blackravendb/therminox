@@ -6,6 +6,9 @@ class AccountController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
+    	if ($this->_helper->flashMessenger->hasMessages()) {
+    		$this->view->messages = $this->_helper->flashMessenger->getMessages();
+    	}
     }
 
     public function indexAction()
@@ -19,6 +22,7 @@ class AccountController extends Zend_Controller_Action
 		if ($this->_request->isPost()) {
 			if ($form->isValid($this->_request->getPost())) {
 				if ($this->_process($form->getValues())) {
+					$this->_helper->flashMessenger->addMessage('Anmeldung erfolgreich');
 					$this->_helper->redirector->gotoSimple('index', 'startseite');
 				}
 			}

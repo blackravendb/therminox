@@ -6,9 +6,9 @@ class Zend_View_Helper_LoggedIn extends Zend_View_Helper_Abstract
 	{
 		$auth = Zend_Auth::getInstance();
 		if ($auth->hasIdentity()) {
-			$email = $auth->getIdentity()->vorname;
-			$logoutUrl = $this->view->url(array('controller'=>'account', 'action'=>'logout'), null, true);
-			return 'Willkommen, ' . $email . ". <a href='{$logoutUrl}'>Abmelden</a>";
+			$vorname = $auth->getIdentity()->vorname;
+			$logoutUrl = $this->view->url(array('controller'=>'account', 'action'=>'logout'));
+			return 'Willkommen, ' . $vorname . '. <a href="' . $logoutUrl .'">Abmelden</a>';
 		}
 
 		$request = Zend_Controller_Front::getInstance()->getRequest();
@@ -18,6 +18,7 @@ class Zend_View_Helper_LoggedIn extends Zend_View_Helper_Abstract
 			return '';
 		}
 		$loginUrl = $this->view->url(array('controller'=>'account', 'action'=>'login'));
-		return  "<a href='$loginUrl'>Anmelden</a>";
+		return  '<a href="' . $loginUrl . '">Anmelden</a>';
+		
 	}
 }

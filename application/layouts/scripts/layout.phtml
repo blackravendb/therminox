@@ -9,6 +9,9 @@
 			  echo $this->headScript(); ?>
 	</head>
 	<body>
+	<?php if ( count($this->messages) > 0 ) { //Flashmessenger will probably need its own div in the layout
+		printf("<div id='flash'>%s</div>", $this->messages[0]); 
+	}?>
 	<div id ="banner"><?php echo $this->render('banner.phtml');?>
 		<div id = "account"><?php echo $this->render('account.phtml');?></div>
 	</div>
