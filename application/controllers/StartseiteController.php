@@ -16,9 +16,6 @@ class StartseiteController extends Zend_Controller_Action
            $test = new Application_Model_BegriffMapper();
            $this->view->entries = $test->fetchAll();
     }
-	
-    public function agbAction(){
-    	
-    }
+
 
 }
