@@ -39,7 +39,7 @@ div#inhalt{
 	margin-right: 155px;
 	margin-top: 5px;
 	padding: 15px;
-	padding-bottom: 70px;		/* Höhe ist abhänig von Höhe Fusszeile  (ca. 10px mehr) */
+/*	padding-bottom: 70px;		/* Höhe ist abhänig von Höhe Fusszeile  (ca. 10px mehr) */
 	overflow: hidden;
 }
 
@@ -49,6 +49,10 @@ div#admin_letzteProdukte{
 	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
 	height: 750px;				/*kann gelöscht werden, nur zur demo*/
 	overflow: hidden;
+}
+
+div#content{
+	padding-bottom: 70px;
 }
 
 div#wrapper{

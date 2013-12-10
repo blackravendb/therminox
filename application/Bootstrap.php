@@ -11,6 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->doctype('HTML5');
 		$view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 		$view->headTitle('Therminox Wärmetechnik')->setSeparator(' - ');
+		$view->headLink()->appendStylesheet('/css/layout.css');
 	}
 	
 	protected function _initLocale()
@@ -25,7 +26,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view = new Zend_View();
 		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
-		$view->headLink()->appendStylesheet('/css/layout.css');
 
 		// Use locale jquery lib in /public/js
 // 		$view->jQuery()->addStylesheet('/js/jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css')

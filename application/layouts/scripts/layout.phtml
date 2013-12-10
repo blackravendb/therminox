@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<div id ="wrapper">
+		<div id = "content">
 						<?php if ( count($this->messages) > 0 ) { //Flashmessenger will probably need its own div in the layout
 					printf("<div id='flash'>%s</div>", $this->messages[0]); 
 				}?>
@@ -21,6 +22,7 @@
 				<div id = "inhalt">
 						<?php echo $this->layout()->content; ?>
 				</div>	
+				</div>
 				<div id = "fusszeile">
 						<?php echo $this->render('fusszeile.phtml')?>
 				</div>
