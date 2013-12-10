@@ -3,7 +3,7 @@
 class Application_Form_Login extends Zend_Form
 {
 
-	public $elementDecorators = array(
+	private $elementDecorators = array(
 			'ViewHelper',
 			array(
 					array('data' => 'HtmlTag'),
@@ -27,7 +27,7 @@ class Application_Form_Login extends Zend_Form
 			)
 	);
 	
-	public $buttonDecorators = array(
+	private $buttonDecorators = array(
 			'ViewHelper',
 			array(array('data' => 'HtmlTag'), array('tag' => 'td', 'class' => 'element')),
 			array(array('label' => 'HtmlTag'), array('tag' => 'td', 'placement' => 'prepend')),
@@ -43,10 +43,11 @@ class Application_Form_Login extends Zend_Form
     	
     	$email = new Zend_Form_Element_Text('email');
     	$email->setRequired(true)
-    		  ->setLabel('Benutzername')
+    		  ->setLabel('E-mail Adresse')
     		  ->setDecorators($this->elementDecorators)
     		  ->addFilter('StringTrim')
-    		  ->addErrorMessage('Bitte geben Sie Ihren Benutzernamen an.');
+    		  ->addValidator('EmailAddress')
+    		  ->addErrorMessage('Bitte geben Sie Ihre E-mail Adresse an.');
  
     	$password = new Zend_Form_Element_Password('password');
     	$password->setRequired(true)
