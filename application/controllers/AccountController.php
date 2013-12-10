@@ -88,7 +88,7 @@ class AccountController extends Zend_Controller_Action
     	$auth = Zend_Auth::getInstance();
     	$result = $auth->authenticate($adapter);
     	if ($result->isValid()) {
-    		$user = $adapter->getResultRowObject();
+    		$user = $adapter->getResultRowObject(null, 'passwort');
     		$auth->getStorage()->write($user);
     		return true;
     	}
