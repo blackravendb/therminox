@@ -1,11 +1,10 @@
-/*
- * jQuery UI Multilevel Accordion v.1
- * 
- * Copyright (c) 2011 Pieter Pareit
- *
- * http://www.scriptbreaker.com
- *
- */
+/*****************************************************************************
+ ** This file contains scripts which are required on every page.            **
+ *****************************************************************************/
+
+/*****************************************************************************
+ ** Sidemenu: Copyright (c) 2011 Pieter Pareit http://www.scriptbreaker.com **
+ *****************************************************************************/
 $(document).ready(function() {
 	$(".topnav").accordion({
 		accordion:false,
@@ -94,3 +93,10 @@ $(document).ready(function() {
     }
 });
 })(jQuery);
+
+/*****************************************************************************
+ ** Hides the Flashmessenger after 5 seconds   (5000 milliseconds)          **
+ *****************************************************************************/
+setTimeout(function() {
+    $('#flash').hide();
+}, 5000);

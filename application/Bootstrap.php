@@ -13,7 +13,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headTitle('Therminox Wärmetechnik')->setSeparator(' - ');
 		$view->headLink()->appendStylesheet('/css/layout.css');
 		$view->headLink()->appendStylesheet('/css/menu.css');
-		$view->headScript()->appendFile('/js/scriptbreaker-multiple-accordion-1.js');
+		$view->headScript()->appendFile('/js/global.js');
 	}
 	
 	protected function _initLocale()
