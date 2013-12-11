@@ -3,7 +3,7 @@
 class Application_Form_Register extends Zend_Form
 {
 
-	public $elementDecorators = array(
+	private $elementDecorators = array(
 			'ViewHelper',
 			array(
 					array('data' => 'HtmlTag'),
@@ -27,7 +27,7 @@ class Application_Form_Register extends Zend_Form
 			)
 	);
 
-	public $buttonDecorators = array(
+	private $buttonDecorators = array(
 			'ViewHelper',
 			array(array('data' => 'HtmlTag'), array('tag' => 'td', 'class' => 'element')),
 			array(array('label' => 'HtmlTag'), array('tag' => 'td', 'placement' => 'prepend')),

@@ -54,12 +54,24 @@ class AccountController extends Zend_Controller_Action
 
     public function recoverAction()
     {
-        // action body
+		$form = new Application_Form_Recover();
+        if ($this->_request->isPost()) {
+        	if ($form->isValid($this->_request->getPost())) {
+        		$this->_helper->redirector->gotoSimple('index', 'startseite');
+        	}
+        }
+        $this->view->form = $form;
     }
 
     public function passwordAction()
     {
-        // action body
+    	$form = new Application_Form_Password();
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+    			$this->_helper->redirector->gotoSimple('index', 'startseite');
+    		}
+    	}
+    	$this->view->form = $form;
     }
 
     public function profileAction()
@@ -76,7 +88,7 @@ class AccountController extends Zend_Controller_Action
     	$auth = Zend_Auth::getInstance();
     	$result = $auth->authenticate($adapter);
     	if ($result->isValid()) {
-    		$user = $adapter->getResultRowObject();
+    		$user = $adapter->getResultRowObject(null, 'passwort');
     		$auth->getStorage()->write($user);
     		return true;
     	}

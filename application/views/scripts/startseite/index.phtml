@@ -1,4 +1,5 @@
-<br /><br />
+<!DOCTYPE html>
+<html lang="de">
 <div id="view-content">
 	<p>View script for controller <b>Startseite</b> and script/action name <b>index</b></p>
 	<?php foreach ($this->entries as $entry): ?>
@@ -6,3 +7,187 @@
     <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
     <?php endforeach ?>
 </div>
+
+<!-- Startseite -->
+<head>
+	<title>Startseite</title>
+	<style type="layout/css"></style>
+</head>
+<body>
+	<div id="inhalt">
+	<div align="center">
+	<h1>ThermInox Wärmetechnik</h1>
+		<h2>Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
+		<br/><br/>
+		<br/><br/>
+		<h3>Wärmetauscher</h3>
+		<br/><br/>
+		<table border="0" cellpadding="4" width="100%">
+			<colgroup>
+    			<col width="4*">
+  				<col width="2*">
+    			<col width="1*">
+  			</colgroup>
+  			<tr>
+    			<th><h4>gelötete Wärmetauscher</h4></th>
+    			<th><h4>geschraubte Wärmetauscher</h4></th>
+    			<th><h4>Rohrbündel</h4></th>
+  			</tr>
+ 			<tr>
+   				<td align="center" valign="top"><a href=""><img src="public/pictures/geloetet.png" alt="gelöteter Wärmetauscher"></a></td> <!-- wird nicht angezeigt! -->
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/geschraubt.png" alt="geschraubter Wärmetauscher"></a></td>
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/Rohrbuendel.png" alt="Rohrbündel"></a></td>
+  			</tr>
+		</table>
+		<br/><br/>
+		<br/><br/>
+		<h3>Pufferspeicher</h3>
+		<br/><br/>
+		<table border="0" cellpadding="4" width="100%">
+			<colgroup>
+    			<col width="4*">
+  				<col width="2*">
+    			<col width="1*">
+  			</colgroup>
+  			<tr>
+    			<th><h4>VVX</h4></th>
+    			<th><h4>LAS</h4></th>
+  			</tr>
+ 			<tr>
+   				<td align="center" valign="top"><a href=""><img src="public/pictures/vvx.png" alt="VVX"></a></td> <!-- wird nicht angezeigt! -->
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/las.png" alt="LAS"></a></td>
+  			</tr>
+		</table>
+		<br/><br/>
+		<br/><br/>
+		<h3>Wassererwärmer</h3>
+		<br/><br/>
+		<table border="0" cellpadding="4" width="100%">
+			<colgroup>
+    			<col width="4*">
+  				<col width="2*">
+    			<col width="1*">
+  			</colgroup>
+  			<tr>
+    			<th><h4>SHI/SHE</h4></th>
+    			<th><h4>VVI</h4></th>
+    			<th><h4>VVE</h4>
+  			</tr>
+ 			<tr>
+   				<td align="center" valign="top"><a href=""><img src="public/pictures/shishe.png" alt="SHI/SHE"></a></td> <!-- wird nicht angezeigt! -->
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/vvi.png" alt="VVI"></a></td>
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/vve.png" alt="VVE"></a></td>
+  			</tr>
+		</table>
+		<br/><br/>
+		<br/><br/>
+		<table border="0" cellpadding="4" width="100%">
+			<colgroup>
+    			<col width="4*">
+  				<col width="2*">
+    			<col width="1*">
+  			</colgroup>
+  			<tr>
+    			<th><h3>Ladesysteme</h3></th>
+    			<th><h3>Durchlauferhitzer</h3></th>
+  			</tr>
+ 			<tr>
+   				<td align="center" valign="top"><a href=""><img src="public/pictures/Ladesysteme.png" alt="Ladesystem"></a></td> <!-- wird nicht angezeigt! -->
+    			<td align="center" valign="top"><a href=""><img src="public/pictures/Durchlauferhitzer.png" alt="Durchlauferhitzer"></a></td>
+  			</tr>
+		</table>
+		
+</div>
+</div>
+
+<!-- Produktberater  -->
+<h3>Produktberater</h3>
+<body>
+<?php $this->headTitle()->append('Productadviser'); ?>
+<?php $this->headLink()->appendStylesheet('/css/produktadviser.css');?>
+<p> Speicherkapazität:
+<input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
+<span id="range">0</span>
+<script type="text/javascript">
+function showValue(newValue)
+{
+	document.getElementById("range").innerHTML=newValue;
+}
+</script>
+</p>
+<p>Leergewicht: 
+<input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
+<span id="range">0</span>
+<script type="text/javascript">
+function showValue(newValue)
+{
+	document.getElementById("range").innerHTML=newValue;
+}
+</script>
+</p>
+<p> Eigenschaft: 
+</body>
+
+
+<!-- Slider JQuery -->
+<head>
+<title>Speicherkapazität</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+$(function() {
+$( "#slider-speicherkapazität" ).slider({
+range: true,
+min: 0,
+max: 500,
+values: [ 75, 300 ],
+slide: function( event, ui ) {
+$( "#amount1" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+}
+});
+$( "#amount1" ).val( "$" + $( "#slider-speicherkapazität" ).slider( "values", 0 ) +
+" - $" + $( "#slider-speicherkapazität" ).slider( "values", 1 ) );
+});
+</script>
+</head>
+<body>
+<p>
+<label for="amount1">Speicherkapazität:</label>
+<input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<div id="slider-speicherkapazität"></div>
+</body>
+</html>
+
+
+<!--  nochmal :D -->
+<head>
+<title>Leergewicht</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+$(function() {
+$( "#slider-leergewicht" ).slider({
+range: true,
+min: 0,
+max: 500,
+values: [ 75, 300 ],
+slide: function( event, ui ) {
+$( "#amount2" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+}
+});
+$( "#amount2" ).val( "$" + $( "#slider-leergewicht" ).slider( "values", 0 ) +
+" - $" + $( "#slider-leergewicht" ).slider( "values", 1 ) );
+});
+</script>
+</head>
+<body>
+<p>
+<label for="amount2">Leergewicht:</label>
+<input type="text" id="amount2" style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<div id="slider-leergewicht"></div>
+</body>
+</html>
