@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="de">
 <div id="view-content">
-	<p>View script for controller <b>Startseite</b> and script/action name <b>index</b></p>
 	<?php foreach ($this->entries as $entry): ?>
     <dt><?php echo $this->escape($entry->Begriff) ?></dt>
     <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
     <?php endforeach ?>
 </div>
-
-<!-- Startseite -->
-<head>
-	<title>Startseite</title>
-	<style type="layout/css"></style>
-</head>
-<body>
-	<div id="inhalt">
 	<div align="center">
 	<h1>ThermInox Wärmetechnik</h1>
 		<h2>Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
@@ -98,7 +87,6 @@
 		</table>
 		
 </div>
-</div>
 
 <!-- Produktberater  -->
 <h3>Produktberater</h3>
@@ -130,7 +118,6 @@ function showValue(newValue)
 
 
 <!-- Slider JQuery -->
-<head>
 <title>Speicherkapazität</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -151,19 +138,13 @@ $( "#amount1" ).val( "$" + $( "#slider-speicherkapazität" ).slider( "values", 0
 " - $" + $( "#slider-speicherkapazität" ).slider( "values", 1 ) );
 });
 </script>
-</head>
-<body>
 <p>
 <label for="amount1">Speicherkapazität:</label>
 <input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">
 </p>
 <div id="slider-speicherkapazität"></div>
-</body>
-</html>
-
 
 <!--  nochmal :D -->
-<head>
 <title>Leergewicht</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -182,12 +163,8 @@ $( "#amount2" ).val( "$" + $( "#slider-leergewicht" ).slider( "values", 0 ) +
 " - $" + $( "#slider-leergewicht" ).slider( "values", 1 ) );
 });
 </script>
-</head>
-<body>
 <p>
 <label for="amount2">Leergewicht:</label>
 <input type="text" id="amount2" style="border:0; color:#f6931f; font-weight:bold;">
 </p>
 <div id="slider-leergewicht"></div>
-</body>
-</html>
