@@ -82,7 +82,7 @@ class AccountController extends Zend_Controller_Action
     protected function _process($values)
     {
     	$adapter = $this->_getAuthAdapter();
-    	$adapter->setIdentity($values['email']); 
+    	$adapter->setIdentity($values['email']); // form values
     	$adapter->setCredential($values['password']);
     	
     	$auth = Zend_Auth::getInstance();
