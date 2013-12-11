@@ -6,6 +6,8 @@ class App_Acl extends Zend_Acl
 		$this->add(new Zend_Acl_Resource('index'));
 		$this->add(new Zend_Acl_Resource('startseite'));
 		$this->add(new Zend_Acl_Resource('account'));
+		$this->add(new Zend_Acl_Resource('git'));
+		$this->add(new Zend_Acl_Resource('error'));
 		
 		$this->addRole(new Zend_Acl_Role('gast'));
 		$this->addRole(new Zend_Acl_Role('benutzer'), 'gast'); // erbt von gast
