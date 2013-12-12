@@ -5,6 +5,9 @@
     <?php endforeach ?>
 </div>
 	<?php $this->headLink()->appendStylesheet('/css/olli.css');?>
+	
+	<?php echo $this->produktberater;?>
+	
 	<div align="center">
 	<h1>ThermInox Wärmetechnik</h1>
 		<h2>Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
@@ -69,12 +72,12 @@
 <input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
 <span id="range">0</span>
 <script type="text/javascript">
-function showValue(newValue)
-{
-	document.getElementById("range").innerHTML=newValue;
-}
+
+
+
 </script>
 </p>
+
 <p>Leergewicht: 
 <input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
 <span id="range">0</span>
