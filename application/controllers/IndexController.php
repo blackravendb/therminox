@@ -10,7 +10,12 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->_redirect('/startseite');
+       $this->_redirect('/startseite');
+ $benutzer = new Application_Model_BenutzerMapper();
+ 
+ $ergebnis = $benutzer->fetchAll();
+ 
+ $this->view->ergebnis = $ergebnis;
     }
 
 

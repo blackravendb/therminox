@@ -1,3 +1,9 @@
 <br /><br />
 <div id="view-content">
+<?php
+foreach ($this->ergebnis as $entry): ?>
+    <dt><?php echo $this->escape($entry->vorname) ?></dt>
+    <dd><?php echo $this->escape($entry->nachname) ?></dd>
+    <dd><?php echo $this->escape($entry->email) ?></dd>
+    <?php endforeach ?>
 </div>
