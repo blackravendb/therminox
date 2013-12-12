@@ -15,18 +15,19 @@
 							printf("<div id='flash'>%s</div>", $this->messages[0]); 
 						}?>
 						<div id ="banner">
-								<div id = "account"><?php echo $this->render('account.phtml');?></div>
-								<?php echo $this->render('banner.phtml');?>
+								<div id = "account"><?php echo $this->render('_layout/account.phtml');?></div>
+								<?php echo $this->render('_layout/banner.phtml');?>
 						</div>
-						<div id = "menu"><?php echo $this->render('menu.phtml');?></div>
-						<div id = "admin_letzteProdukte"><?php echo $this->render('admin_letzteProdukte.phtml');?></div>
+						<div id = "menu"><?php echo $this->render('_layout/menu.phtml');?></div>
+						<div id = "admin_letzteProdukte"><?php echo $this->render('_layout/admin_letzteProdukte.phtml');?></div>
 						<div id = "inhalt">
 								<?php echo $this->layout()->content; ?>
 						</div>	
 						<div class = "clear"></div>
+						<div style=(font:bold;)></div>
 				</div>
 				<div id = "fusszeile">
-						<?php echo $this->render('fusszeile.phtml')?>
+						<?php echo $this->render('_layout/fusszeile.phtml')?>
 				</div>
 		</div>
 	</body>

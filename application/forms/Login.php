@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Login extends Zend_Form
+class Application_Form_Login extends App_Form
 {
 
 	private $elementDecorators = array(
@@ -58,7 +58,7 @@ class Application_Form_Login extends Zend_Form
     	$submit = new Zend_Form_Element_Submit('submit');
     	$submit->setLabel('Anmelden')
     		   ->setDecorators($this->buttonDecorators);
-    		     	
+    	 	
     	$this->addElements(array($email, $password, $submit));
     }
 

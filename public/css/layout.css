@@ -24,7 +24,7 @@ height: 100%;
 div#banner{
 	margin-left: 150px;
 	height: 150px;
-	background-color: black;	/*kann gelöscht werden, nur zur demo*/
+/*	background-color: black;	/*kann gelöscht werden, nur zur demo*/
 	overflow: hidden;
 }
 
@@ -41,14 +41,14 @@ div#account{
 
 div#menu{
 	width: 150px;
-	background-color: green;	/*kann gelöscht werden, nur zur demo*/
-	height: 500px;				/*kann gelöscht werden, nur zur demo*/
+/*	background-color: green;	/*kann gelöscht werden, nur zur demo*/
+/*	height: 500px;				/*kann gelöscht werden, nur zur demo*/
 	float: left;
 	overflow: hidden;
 }
 
 div#inhalt{
-	background-color: grey;		/*kann gelöscht werden, nur zur demo*/
+/*	background-color: grey;		/*kann gelöscht werden, nur zur demo*/
 	margin-left: 155px;
 	margin-right: 155px;
 	margin-top: 5px;
@@ -59,8 +59,8 @@ div#inhalt{
 div#admin_letzteProdukte{
 	width: 150px;
 	float:right;
-	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
-	height: 500px;				/*kann gelöscht werden, nur zur demo*/
+/*	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
+/*	height: 500px;				/*kann gelöscht werden, nur zur demo*/
 	overflow: hidden;
 }
 
@@ -86,11 +86,21 @@ div#fusszeile{
 }
 
 div#bannerImage{
-	width: 100%;
-	height: 100%;
+	float: left;
+	position: absolute;
+	width: 850px;
+	height: 150px;
 	background-image:url("/_files/images/logo_therminox.jpg");
 	background-repeat: no-repeat;
-	
+}
+
+div#bannerImageWiederholung{
+	float: left;
+	position: absolute;
+	background-image:url("/_files/images/banner_wiederholung.png");
+	background-repeat: repeat-x;
+	height: 150px;
+	max-width: 100%;
 }
 
 /* Style Klassen */

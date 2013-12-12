@@ -23,5 +23,10 @@ class StartseiteController extends Zend_Controller_Action
     public function agbAction(){
     	
     }
+    
+//     public function __call($methodName, $args)
+//     {
+//     	echo "ArticleController::__call()<br />";
+//     }
 
 }
