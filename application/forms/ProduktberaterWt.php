@@ -1,5 +1,5 @@
 <?php
-class Application_Form_ProduktberaterWt extends Zend_Form {
+class Application_Form_ProduktberaterWt extends App_Form {
 
 	 public function __construct($options = null)
     {	
@@ -24,12 +24,10 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 		$maxHeight = new ZendX_JQuery_Form_Element_Slider('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
 				->setJQueryParams(array('min' => 0, 'max' => 60, 'value' => 15));
-		$this->addElements(array($slider));
 		
 		$maxWidth = new ZendX_JQuery_Form_Element_Slider('Breite');
 		$maxWidth->setLabel('Maximale Breite:')
 				->setJQueryParams(array('min' => 0, 'max' => 60, 'value' => 15));
-		$this->addElements(array($slider));
 		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');

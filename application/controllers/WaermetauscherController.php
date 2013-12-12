@@ -5,16 +5,21 @@ class WaermetauscherController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->view->title = "Produktberater";
+       
+    }
+
+    public function indexAction()
+    {
+     $this->view->title = "Produktberater";
         
         $form = new Application_Form_ProduktberaterWt();
         $this->view->produktberater = $form;
         
-        if($produktberater->_request->isPost())
+        if($this->_request->isPost())
         {
         	$formData = $this->_request->getPost();
         	
-        	if($produktberater->isValid($formData))
+        	if($this->isValid($formData))
         	{
         		$temp = $produktberater->getValue('Temperatur');
         		$einsatzgbt = $produktberater->getValue('Einsatzgebiet');
@@ -31,11 +36,6 @@ class WaermetauscherController extends Zend_Controller_Action
         		$produktberater->populate($formData);
         	}
         }
-    }
-
-    public function indexAction()
-    {
-        
     }
 
     public function geloetetAction()
