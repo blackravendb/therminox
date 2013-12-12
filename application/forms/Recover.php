@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Recover extends Zend_Form
+class Application_Form_Recover extends App_Form
 {
     private $elementDecorators = array(
     		'ViewHelper',

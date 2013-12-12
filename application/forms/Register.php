@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Register extends Zend_Form
+class Application_Form_Register extends App_Form
 {
 
 	private $elementDecorators = array(

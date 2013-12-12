@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Password extends Zend_Form
+class Application_Form_Password extends App_Form
 {
     private $elementDecorators = array(
     		'ViewHelper',

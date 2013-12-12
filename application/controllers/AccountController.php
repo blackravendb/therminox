@@ -117,7 +117,7 @@ class AccountController extends Zend_Controller_Action
     	->setIdentityColumn('email') //Spaltenname der email
     	->setCredentialColumn('passwort') //Spaltenname des passwords
     	->setCredentialTreatment('SHA1(?)'); //evtl. 'SHA1(CONCAT(?,salt)) &  AND bestaetigt = 1'
-    
+    	//generate salt $salt = bin2hex(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM));
     	return $authAdapter;
     }
 }
