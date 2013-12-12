@@ -15,6 +15,9 @@ class StartseiteController extends Zend_Controller_Action
     {
            $test = new Application_Model_BegriffMapper();
            $this->view->entries = $test->fetchAll();
+           
+           $produktberater = new Application_Form_ProduktberaterWt();
+           $this->view->produktberater = $produktberater;
     }
 	
     public function agbAction(){
