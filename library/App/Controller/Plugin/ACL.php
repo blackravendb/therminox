@@ -22,6 +22,10 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 		
 		$role = 'gast'; // Zeile löschen, wenn in der Datenbank Berechtigung funktioniert
 		
+		if (! $this->_acl->has($controller)) {
+			$controller = null;
+		}
+		
 		if (! $this->_acl->isAllowed ( $role, $controller, $action )) {
 			
 			if ('gast' == $role) {
