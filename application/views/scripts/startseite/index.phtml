@@ -4,11 +4,9 @@
     <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
     <?php endforeach ?>
 </div>
-	<?php $this->headLink()->appendStylesheet('/css/olli.css');?>
-	
-	<?php echo $this->produktberater;?>
-	
+	<?php $this->headLink()->appendStylesheet('/css/olli.css');?>	
 	<div align="center">
+	<h3>Willkommen bei</h3>
 	<h1>ThermInox Wärmetechnik</h1>
 		<h2>Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
 			<br/><br/>
@@ -62,75 +60,3 @@
 			<h3>Durchlauferhitzer</h3>
 				<img src="/_files/images/Durchlauferhitzer.png" alt="Durchlauferhitzer" id="bilder">
 				<p>Die Durchlaufwassererwärmer dienen der bedarfsgerechten Warmwasserbereitung aus Nah- bzw. Fernwärme. Sie zeichnen sich durch geringe Wärmeverluste und einen hohen Wirkungsgrad aus.</p>
-				<br/>
-				<br/><br/>
-<!-- Produktberater  -->
-<h3>Produktberater</h3>
-<?php $this->headTitle()->append('Productadviser'); ?>
-<?php $this->headLink()->appendStylesheet('/css/produktadviser.css');?>
-<p> Speicherkapazität:
-<input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
-<span id="range">0</span>
-<script type="text/javascript">
-
-
-
-</script>
-</p>
-
-<p>Leergewicht: 
-<input type="range" min="0" max="50" value="0" step="5" onchange="showValue(this.value)" />
-<span id="range">0</span>
-<script type="text/javascript">
-function showValue(newValue)
-{
-	document.getElementById("range").innerHTML=newValue;
-}
-</script>
-</p>
-<p> Eigenschaft: 
-
-
-<!-- Slider JQuery -->
-<script>
-$(function() {
-$( "#slider-speicherkapazität" ).slider({
-range: true,
-min: 0,
-max: 500,
-values: [ 75, 300 ],
-slide: function( event, ui ) {
-$( "#amount1" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-}
-});
-$( "#amount1" ).val( "$" + $( "#slider-speicherkapazität" ).slider( "values", 0 ) +
-" - $" + $( "#slider-speicherkapazität" ).slider( "values", 1 ) );
-});
-</script>
-<p>
-<label for="amount1">Speicherkapazität:</label>
-<input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-<div id="slider-speicherkapazität"></div>
-
-<!--  nochmal :D -->
-<script>
-$(function() {
-$( "#slider-leergewicht" ).slider({
-range: true,
-min: 0,
-max: 500,
-values: [ 75, 300 ],
-slide: function( event, ui ) {
-$( "#amount2" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-}
-});
-$( "#amount2" ).val( "$" + $( "#slider-leergewicht" ).slider( "values", 0 ) +
-" - $" + $( "#slider-leergewicht" ).slider( "values", 1 ) );
-});
-</script>
-<p>
-<label for="amount2">Leergewicht:</label>
-<input type="text" id="amount2" style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-<div id="slider-leergewicht"></div>

@@ -7,6 +7,8 @@ class Application_Form_ProduktberaterWt extends App_Form {
     	
     	$temp = new Zend_Form_Element_Text('Temperatur');
     	$temp->setLabel('Temperatur:')
+    		->addValidator('numbers', false, array('[1-9]'))
+    		->addValidator('StringLength', false, array(3))
     		->addFilter('StripTags')
             ->addFilter('StringTrim');
         
@@ -23,11 +25,15 @@ class Application_Form_ProduktberaterWt extends App_Form {
         		
 		$maxHeight = new ZendX_JQuery_Form_Element_Slider('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
-				->setJQueryParams(array('min' => 0, 'max' => 60, 'value' => 15));
-		
+				->setJQueryParams(array('min' => 170, 'max' => 1100, 'value' => 1));	
+				
 		$maxWidth = new ZendX_JQuery_Form_Element_Slider('Breite');
 		$maxWidth->setLabel('Maximale Breite:')
-				->setJQueryParams(array('min' => 0, 'max' => 60, 'value' => 15));
+				->setJQueryParams(array('min' => 70, 'max' => 400, 'value' => 1));
+		
+		$maxLength = new ZendX_JQuery_Form_Element_Slider('Länge');
+		$maxLength->setLabel('Maximale Länge:')
+				->setJQueryParams(array('min' => 20, 'max' => 500, 'value' => 1));
 		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');

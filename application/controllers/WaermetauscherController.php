@@ -13,6 +13,8 @@ class WaermetauscherController extends Zend_Controller_Action
      $this->view->title = "Produktberater";
         
         $form = new Application_Form_ProduktberaterWt();
+        $form->setMethod('post');
+        
         $this->view->produktberater = $form;
         
         if($this->_request->isPost())
@@ -33,7 +35,7 @@ class WaermetauscherController extends Zend_Controller_Action
         		}
         	}
         	else{
-        		$produktberater->populate($formData);
+        		echo $form;
         	}
         }
     }
