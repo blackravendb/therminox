@@ -1,7 +1,7 @@
 .topnav {
 	width: 150px;
 	padding: 40px 28px 25px 0;
-	font-family: "CenturyGothicRegular", "Century Gothic", Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 ul.topnav {
@@ -25,7 +25,7 @@ ul.topnav li a {
 }
 
 ul.topnav li a:hover {
-	background-color:#675C7C;
+	background-color:#BABABA;
 	color:white;
 }
 
@@ -49,18 +49,17 @@ ul.topnav ul li a {
 }
 
 ul.topnav ul li a:hover {
-	background-color:#D3C99C;
-	color:#675C7C;
+	background-color:#BABABA;
+	color:white;
 }
 
 ul.topnav ul ul li a {
-	color:silver;
 	padding-left: 40px;
 }
 
 ul.topnav ul ul li a:hover {
-	background-color:#D3CEB8;
-	color:#675C7C;
+	background-color:#BABABA;
+	color:white;
 }
 
 ul.topnav span{
