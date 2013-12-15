@@ -14,10 +14,7 @@
 					<?php if ( count($this->messages) > 0 ) { 
 						echo '<div id="flash">' . $this->messages[0] . '</div>';
 					}?>
-					<div id ="banner">
-							<div id = "account"><?php echo $this->render('_layout/account.phtml');?></div>
-							<?php echo $this->render('_layout/banner.phtml');?>
-					</div>
+					<div id ="banner"><?php echo $this->render('_layout/banner.phtml');?></div>
 					<div id = "menu"><?php echo $this->render('_layout/menu.phtml');?></div>
 					<div id = "admin_letzteProdukte"><?php echo $this->render('_layout/admin_letzteProdukte.phtml');?></div>
 					<div id = "inhalt">

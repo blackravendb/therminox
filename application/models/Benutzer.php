@@ -105,7 +105,7 @@ class Application_Model_Benutzer
 	{
 		$_anrede = new Application_Model_AnredeMapper();
 		$_anrede->fetchAll();
-		return $_anrede->find($id, $_anrede->getDbTable());
+		return $_anrede->find($id, $_anrede);
 	}
 	
 	public function getAnrede_id()

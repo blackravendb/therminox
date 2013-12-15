@@ -21,7 +21,6 @@ height: 100%;
 
 /* Style ID's */
 div#banner{
-	margin-left: 150px;
 	height: 150px;
 /*	background-color: black;	/*kann gelöscht werden, nur zur demo*/
 	overflow: hidden;
@@ -99,7 +98,7 @@ div#bannerImageWiederholung{
 	background-image:url("/_files/images/banner_wiederholung.png");
 	background-repeat: repeat-x;
 	height: 150px;
-	max-width: 100%;
+	width: 100%;
 }
 
 div#flash{
