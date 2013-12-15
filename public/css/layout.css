@@ -106,7 +106,7 @@ div#flash{
     position: fixed;
     display: inline-block;
     width: 30%;
-    bottom: 0; /* should be top, but image is always on top. */
+    top: 0; 
     left: 0;
     right: 0; 
 	margin: 0 auto;
