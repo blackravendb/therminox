@@ -20,7 +20,6 @@ height: 100%;
 
 
 /* Style ID's */
-
 div#banner{
 	margin-left: 150px;
 	height: 150px;
@@ -103,6 +102,21 @@ div#bannerImageWiederholung{
 	max-width: 100%;
 }
 
+div#flash{
+	clear: both;
+    position: fixed;
+    display: inline-block;
+    width: 30%;
+    bottom: 0; /* should be top, but image is always on top. */
+    left: 0;
+    right: 0; 
+	margin: 0 auto;
+    background-color: #6B6B6B;
+    color: #FFFFFF;
+    text-align: center;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+}
 /* Style Klassen */
 
 div.clear{

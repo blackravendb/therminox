@@ -95,8 +95,10 @@ $(document).ready(function() {
 })(jQuery);
 
 /*****************************************************************************
- ** Hides the Flashmessenger after 5 seconds   (5000 milliseconds)          **
+ ** Removes the Flashmessenger after 5 seconds   (5000 milliseconds)        **
  *****************************************************************************/
-setTimeout(function() {
-    $('#flash').hide();
+setTimeout(function(){
+	$("div#flash").fadeOut("slow", function () {
+			$(this).remove();
+	});
 }, 5000);
