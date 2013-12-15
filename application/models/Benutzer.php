@@ -109,9 +109,7 @@ class Application_Model_Benutzer
 	
 	public function getAnrede_id()
  	{
-// 		$_anrede = new Application_Model_AnredeMapper();
-// 		$_anrede->fetchAll();
-// 		return $_anrede->find($_anrede_id, $_anrede);
+ 		return $this->_anrede_id;
 	}
 
 }
