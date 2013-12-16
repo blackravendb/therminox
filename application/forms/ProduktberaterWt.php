@@ -14,14 +14,30 @@ class Application_Form_ProduktberaterWt extends App_Form {
         	
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')
-        			->addMultiOption($einsatzgbt)
+        			//->addMultiOptions() warten auf Datenbank
+         			->addMultiOption('Fernwärme', 'Fernwärme')
+         			->addMultiOption('Solaranlage', 'Solaranlage')
+         			->addMultiOption('Erdbohrung', 'Erdbohrung')
         			->addFilter('StripTags')
            			->addFilter('StringTrim');
     	
+       $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss', array(
+        		'multiOptions' => array(
+       				'3/8" IG' => '3/8" IG', 
+       				'1/2" AG' => '1/2" AG', 
+       				'3/4" AG' => '3/4" AG'
+       			)
+       		));
+       	$anschluss->setLabel('Anschlüsse:');
+       	
+       /*    			
         $anschluss = new Zend_Form_Element_Multiselect('Anschluss');
-        $anschluss->setLabel('Anschlüsse:');
+        $anschluss->setLabel('Anschlüsse:')
         		//->addMultiOptions($anschlüsse); warten auf Datenbank
-        		
+        		->addMultiOption('3/8" IG','3/8" IG')
+        		->addMultiOption('1/2" AG', '1/2" AG')
+        		->addMultiOption('3/4" AG', '3/4" AG');
+        	*/	
         		
 		$maxHeight = new ZendX_JQuery_Form_Element_Slider('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
