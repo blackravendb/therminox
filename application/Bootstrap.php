@@ -11,9 +11,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->doctype('HTML5');
 		$view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 		$view->headTitle('Therminox Wärmetechnik')->setSeparator(' - ');
-		$view->headLink()->appendStylesheet('/css/layout.css');
-		$view->headLink()->appendStylesheet('/css/menu.css');
-		$view->headScript()->appendFile('/js/global.js');
+		$view->headLink()->appendStylesheet('/_files/css/layout.css');
+		$view->headLink()->appendStylesheet('/_files/css/menu.css');
+		$view->headScript()->appendFile('/_files/js/global.js');
 	}
 	
 	protected function _initLocale()
