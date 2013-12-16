@@ -7,11 +7,11 @@ class Application_Form_ProduktberaterWt extends App_Form {
     	
     	$temp = new Zend_Form_Element_Text('Temperatur');
     	$temp->setLabel('Temperatur:')
-    		->addValidator('numbers', false, array('[1-9]'))
-    		->addValidator('StringLength', false, array(3))
+    		/*->addValidator('numbers', false, array('[1-9]'))
+    		->addValidator('StringLength', false, array(3)) */
     		->addFilter('StripTags')
             ->addFilter('StringTrim');
-        	
+        
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')
         			//->addMultiOptions() warten auf Datenbank

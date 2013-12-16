@@ -21,22 +21,17 @@ class WaermetauscherController extends Zend_Controller_Action
         {
         	$formData = $this->_request->getPost();
         	
-        	if($this->isValid($formData))
+        	if($form->isValid($formData))
         	{
-        		$temp = $produktberater->getValue('Temperatur');
-        		$einsatzgbt = $produktberater->getValue('Einsatzgebiet');
-        		$anschluss = $produktberater->getValue('Anschluss');
-        		$maxHeight = $produktberater->getValue('Hoehe');
-        		$maxWidth = $produktberater->getValue('Breite');
+        		$temp = $form->getValue('Temperatur');
+        		$einsatzgbt = $form->getValue('Einsatzgebiet');
+        		$anschluss = $form->getValue('Anschluss');
+        		$maxHeight = $form->getValue('Hoehe');
+        		$maxWidth = $form->getValue('Breite');
         		
-        		if($einsatzgbt != null){
         			//TODO
         			//Datenbankabfragen
         		}
-        	}
-        	else{
-        		echo $form;
-        	}
         }
     }
 
