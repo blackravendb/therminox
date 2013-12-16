@@ -38,16 +38,19 @@ class WaermetauscherController extends Zend_Controller_Action
     public function geloetetAction()
     {
         // action body
+        //view methode für gelötete artikel
     }
 
     public function geschraubtAction()
     {
         // action body
+        // view methode für geschraubte, gesondertes angebotsformular!
     }
 
     public function rohrbuendelAction()
     {
         // action body
+        // view methode für rohrbündel, gesondertes angebotsformular!
     }
 
 
