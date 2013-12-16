@@ -24,6 +24,10 @@ class StartseiteController extends Zend_Controller_Action
     	
     }
     
+    public function datenschutzAction(){
+    	
+    }
+    
 //     public function __call($methodName, $args)
 //     {
 //     	echo "ArticleController::__call()<br />";
