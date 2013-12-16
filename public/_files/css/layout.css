@@ -27,11 +27,12 @@ div#banner{
 }
 
 div#account{
+	position: absolute;
 	float: left;
 	width: 510px;
 	height: 40px;
-	margin-top: 112px;
-	margin-left: 335px;
+	top: 112px;
+	left: 335px;
 /*	background-color: orange;	/*kann gelöscht werden, nur zur demo*/
 	overflow: hidden;
 	padding-top: 6px;
