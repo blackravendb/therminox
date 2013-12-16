@@ -38,8 +38,11 @@ class AccountController extends Zend_Controller_Action
 
     public function logoutAction()
     {
-        Zend_Auth::getInstance()->clearIdentity();
-        $this->_helper->flashMessenger->addMessage('Erfolgreich abgemeldet');
+    	$auth = Zend_Auth::getInstance();
+    	if($auth->hasIdentity()) {
+    		$auth->clearIdentity();
+    		$this->_helper->flashMessenger->addMessage('Erfolgreich abgemeldet');
+    	}
 		$this->_helper->redirector->gotoSimple('index', 'startseite');
     }
 

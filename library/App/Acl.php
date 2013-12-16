@@ -9,20 +9,19 @@ class App_Acl extends Zend_Acl
 		$this->add(new Zend_Acl_Resource('git'));
 		$this->add(new Zend_Acl_Resource('error'));
 		
-		$this->addRole(new Zend_Acl_Role('gast'));
-		$this->addRole(new Zend_Acl_Role('benutzer'), 'gast'); // erbt von gast
-		$this->addRole(new Zend_Acl_Role('admin'), 'benutzer');
+		$this->addRole(new Zend_Acl_Role('Gast'));
+		$this->addRole(new Zend_Acl_Role('Benutzer'), 'Gast'); // erbt von Gast
+		$this->addRole(new Zend_Acl_Role('Administrator'), 'Benutzer');
 
-		$this->allow('gast');
-// 		$this->allow('gast', 'index');
-// 		$this->allow('gast', 'startseite');
-// 		$this->allow('gast', 'account'); // löschen wenn Berechtigungen in DB eingepflegt sind
+		$this->allow('Gast');
+// 		$this->allow('Gast', 'index');
+// 		$this->allow('Gast', 'git');
+// 		$this->allow('Gast', 'startseite');		
+// 		$this->allow('Gast', 'account', array('login', 'register'));
 		
-// 		//$this->allow('gast', 'account', array('login', 'register'));
-		
-// 		$this->allow('benutzer', 'index');
-// 		$this->allow('benutzer', 'startseite');
-// 		$this->allow('benutzer', 'account');
+// 		$this->allow('Benutzer', 'index');
+// 		$this->allow('Benutzer', 'startseite');
+// 		$this->allow('Benutzer', 'account');
 		
 	}
 }

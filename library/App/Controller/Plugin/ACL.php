@@ -1,6 +1,5 @@
 <?php
 class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
-	
 	private $_auth = null;
 	private $_acl = null;
 	
@@ -15,20 +14,20 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 		$role = null;
 		
 		if ($this->_auth->hasIdentity ()) {
-			$role = $this->_auth->getIdentity ()->berechtigung;
+			$role = $this->_auth->getIdentity()->berechtigung;
 		} else {
-			$role = 'gast';
+			$role = 'Gast';
 		}
 		
-		$role = 'gast'; // Zeile löschen, wenn in der Datenbank Berechtigung funktioniert
+		$role = 'Gast'; // Zeile löschen, wenn in der Datenbank Berechtigung funktioniert
 		
-		if (! $this->_acl->has($controller)) {
+		if (! $this->_acl->has ( $controller )) {
 			$controller = null;
 		}
 		
 		if (! $this->_acl->isAllowed ( $role, $controller, $action )) {
 			
-			if ('gast' == $role) {
+			if ('Gast' == $role) {
 				$request->setControllerName ( 'account' );
 				$request->setActionName ( 'login' );
 			} else {
