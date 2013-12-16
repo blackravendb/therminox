@@ -14,7 +14,6 @@ class Application_Model_DbTable_Anrede extends Zend_Db_Table_Abstract
     				'onDelete'			=> 'self::RESTRICT',
     				'onUpdate'			=> 'self::RESTRICT'
     		)
-    );
-    
+    );   
 }
 

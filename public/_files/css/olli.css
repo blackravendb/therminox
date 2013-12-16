@@ -35,7 +35,7 @@ dt#Hoehe-label{
 	margin-top: 110px; 	
 }
 
-select#Einsatzgebiet, select#Anschluss, div#Hoehe-slider, div#Breite-slider{
+select#Einsatzgebiet, dd#Anschluss-element, div#Hoehe-slider, div#Breite-slider{
 	position: absolute;
 	margin-left: 140px;
 	padding: 3px;
@@ -44,34 +44,34 @@ input#Temperatur{
 	position: absolute;
 	display: inline-block;
 	margin-left: 140px;
-	top: 227px;
+	top: 233px;
 	padding: 3px;
-	font-size: 20px;
+	font-size: 15px;
 	border: 1px solid #000000;
-	height: 20px;
+	height: 15px;
 	width: 40px;
 }
 
 select#Einsatzgebiet{
 	top: 265px;
-	width: 100px;
+	width: 150px;
 	heigth: 20px;
 }
 
-select#Anschluss{
+dd#Anschluss-element{
 	top: 303px;
 	width: 300px;
 	height: 100px;	
 }
 
 div#Hoehe-slider{
-	top: 435px;
+	top: 440px;
 	width: 300px;
 	height: 7px;
 }
 
 div#Breite-slider{
-	top: 470px;
+	top: 477px;
 	width:300px;
 	height: 7px;	
 }
