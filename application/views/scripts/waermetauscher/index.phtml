@@ -1,17 +1,38 @@
 <?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
 <h1>Produktberater</h1>
-     
-<?php echo $this->produktberater;?>
+<?php echo $this->produktberaterWt;?>
 
-<!--  
-<div id="Tabelle">
+<?php 
+if($this->showVor == true){
+?>
+<div id="TabelleWt">
 
-<h1>Vorschläge:</h1>
-
+<h1>Vorschläge</h1>
+<table border="1">
+  <tr>
+    <th>Produktname</th>
+    <th>Temperatur</th>
+    <th>Einsatzgebiet</th>
+    <th>Anschlüsse</th>
+    <th>Höhe</th>
+    <th>Breite</th>
+    <th>Länge</th>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>....</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+</table>
 </div>
--->
+<?php 
+}
+?>
 
-     
 
      
 

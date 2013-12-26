@@ -5,17 +5,17 @@ class WaermetauscherController extends Zend_Controller_Action
 
     public function init()
     {
-       
+       $this->view->showVor = false; //VorschlÃ¤ge werden noch nicht angezeigt
     }
 
     public function indexAction()
     {
-     $this->view->title = "Produktberater";
+     $this->view->title = "ProduktberaterWÃ¤rmetauscher";
         
         $form = new Application_Form_ProduktberaterWt();
         $form->setMethod('post');
         
-        $this->view->produktberater = $form;
+        $this->view->produktberaterWt = $form;
         
         if($this->_request->isPost())
         {
@@ -28,9 +28,13 @@ class WaermetauscherController extends Zend_Controller_Action
         		$anschluss = $form->getValue('Anschluss');
         		$maxHeight = $form->getValue('Hoehe');
         		$maxWidth = $form->getValue('Breite');
+        		$maxLength = $form->getValue('Laenge');
+        		
+      			$this->view->showVor = true; //VorschlÃ¤ge werden angezeigt
         		
         			//TODO
         			//Datenbankabfragen
+        			//Suchergebnisse anzeigen lassen
         		}
         }
     }
@@ -38,19 +42,19 @@ class WaermetauscherController extends Zend_Controller_Action
     public function geloetetAction()
     {
         // action body
-        //view methode für gelötete artikel
+        //view methode fï¿½r gelï¿½tete artikel
     }
 
     public function geschraubtAction()
     {
         // action body
-        // view methode für geschraubte, gesondertes angebotsformular!
+        // view methode fï¿½r geschraubte, gesondertes angebotsformular!
     }
 
     public function rohrbuendelAction()
     {
         // action body
-        // view methode für rohrbündel, gesondertes angebotsformular!
+        // view methode fï¿½r rohrbï¿½ndel, gesondertes angebotsformular!
     }
 
 
