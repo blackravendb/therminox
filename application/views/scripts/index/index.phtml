@@ -1,6 +1,15 @@
 <br /><br />
 <div id="view-content">
 <?php
-echo $this->mustermann['anrede']."<br>".$this->mustermann['vorname']." ".$this->mustermann['nachname']."<br>".$this->mustermann['email'];
+
+echo "Einzelne Zeile per getBenutzer abrufen:<br>";
+echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
+?>
+<br><br><br>
+<?php 
+echo "Alle Benutzer per fetchAll abrufen:<br>";
+foreach($this->mustermaenner as $mustermann){
+echo $mustermann->getAnrede() ." ". $mustermann->getVorname() ." ". $mustermann->getNachname() ." ". "<br>".$mustermann->getEmail() . "<br><br>";
+}
 ?>
 </div>

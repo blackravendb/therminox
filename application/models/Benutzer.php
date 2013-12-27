@@ -7,7 +7,7 @@ class Application_Model_Benutzer
 	protected $_vorname;
 	protected $_passwort;
 	protected $_berechtigung;
-	protected $_anrede_id;
+	protected $_anrede;
 	
 	public function __construct(array $options = null)
 	{
@@ -100,16 +100,13 @@ class Application_Model_Benutzer
 	{
 		return $this->_berechtigung;
 	}
-	
-	public function setAnrede_id($id)
-	{
-		$this->_anrede_id = $id;
-		return $this;
+
+	public function setAnrede($anrede){
+		$this->_anrede = $anrede;
 	}
 	
-	public function getAnrede_id()
- 	{
- 		return $this->_anrede_id;
+	public function getAnrede(){
+		return $this->_anrede;
 	}
 
 }
