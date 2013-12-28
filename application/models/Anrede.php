@@ -42,21 +42,22 @@ class Application_Model_Anrede
 		return $this;
 	}
 
-	public function setId($id)
-	{
+	public function setId($id) {
 		$this->_id = (int) $id;
 		return $this;
 	}
 
-	public function getId()
-	{
+	public function getId() {
 		return $this->_id;
 	}
 
-	public function setAnrede($anrede)
-	{
+	public function setAnrede($anrede) {
 		$this->_anrede =  $anrede;
 		return $this;
+	}
+	
+	public function getAnrede() {
+		return $this->_anrede;
 	}
 }
 
