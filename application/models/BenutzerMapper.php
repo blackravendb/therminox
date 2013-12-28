@@ -41,7 +41,7 @@ protected $_dbTable;
 		
 		$data = $this->getDbTable()->getBenutzer($email);
 		
-		if($data = "")
+		if($data == "")
 			return;
 		
 		$entry = new Application_Model_Benutzer();
