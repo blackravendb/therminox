@@ -9,6 +9,10 @@
 			  echo $this->headScript(); ?>
 	</head>
 	<body>
+		<noscript>
+	 		Für diese Seite muss JavaScript aktiviert sein. 
+	 		<style>div { display:none; }</style>
+		</noscript>
 		<div id ="wrapper">
 				<div id = "content">
 					<div id ="banner"><?php echo $this->render('_layout/banner.phtml');?></div>
