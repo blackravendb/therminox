@@ -1,4 +1,17 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Angebot</b> and script/action name <b>anzeigen</b></p>
-</div>
+<title>Ihr Warenkorb</title>
+<body>
+	<fieldset id="inhalte">
+		<legend>Angebot /ANGEBOTSID/</legend>
+		<p>
+            <?php
+				echo empty ( $this->cartContents )
+					? 'Angebot enthält noch keine Artikel'
+					: $this->makelist ( "mytab", $this->cartContents, null, array ( 'id' => 'testing' ) );
+			?>
+		</p>
+	</fieldset>
+
+	<a href="/artikel">Zur&uuml;ck</a> |
+	<a href="/angebot/remove">Angebot verwerfen</a>
+
+</body>
