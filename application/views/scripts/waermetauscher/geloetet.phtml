@@ -1,4 +1,34 @@
 <br /><br />
 <div id="view-content">
 	<p>View script for controller <b>Waermetauscher</b> and script/action name <b>geloetet</b></p>
+	
+	<?php 
+	//Artikeldaten anordnen und anzeigen
+	$container = $this->art_display;
+	
+	var_dump($this->art_display);
+	$art_name = $container[0];
+	$art_loc  = $container[1];
+	$art_temp = $container[2];
+	// Anschlüsse fehlen noch
+	$art_height = $container[3];
+	$art_width  = $container[4];
+	$art_code = $container[5];
+	//echo $container['art'];
+	echo '<br>';
+	echo '<h1>'.$art_name.'</h1>('.$art_code.')';
+	echo '<br>';
+	echo '<h3>Brenntemperatur:</h3>';
+	echo $art_temp.'°C';
+	echo '<br>';
+	echo '<h3>Einsatzgebiet:</h3>';
+	echo $art_loc;
+	echo '<br>';
+	echo '<h3>Abmessungen:</h3>';
+	echo '<b>Maximale Höhe: </b>'.$art_height.' mm<br>';
+	echo '<b>Maximale Breite: </b>'.$art_width.' mm<br>';
+	echo '<br>';
+	echo '<h3>Anschlüsse:</h3>';
+	?>
+	
 </div>

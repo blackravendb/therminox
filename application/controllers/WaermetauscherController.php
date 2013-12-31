@@ -4,6 +4,7 @@ class WaermetauscherController extends Zend_Controller_Action
 
     public function init()
     {	session_start();
+    require_once 'Cart/ShoppingCart.php';
     }
 
     public function indexAction()
@@ -27,26 +28,48 @@ class WaermetauscherController extends Zend_Controller_Action
 				
 				// TODO
 				// Datenbankabfragen
+			
 			}
 		}	
     }
 
     public function geloetetAction()
     {
-		// action body
-		// view methode für gelötete artikel
+    	$request = $this->getRequest ();
+		$art = $request->getParam ( 'artikel' );
+		if (null != $art) {
+			//Artikeldaten aus db auslesen und aufbereiten
+			//Statement: SELECT * FROM Waermetauscher WHERE ID like ?, $art;
+			$entries = array();
+			$art_name = "Testartikel";//$entries['Artikelname'];
+			$art_temp = 1200; //$entries['Temperatur'];
+			$art_loc  = "Draussen";//$entries['Einsatzgebiet'];
+			// Anschlüsse fehlen noch
+			$art_height = 1230; //$entries['Maximale Höhe'];
+			$art_width  = 123; // $entries['Maximale Breite'];
+			
+			$container = array($art_name,$art_loc,$art_temp,$art_height,$art_width,$art);
+			
+			$this->view->art_display = $container;
+			
+					} else {
+			$this->view->message = 'Artikel konnte nicht gefunden werden';
+			if (isset ( $_SERVER ['HTTP_REFERER'] )) {
+				$this->view->link = $_SERVER ['HTTP_REFERER'];
+			} else {
+				$this->view->link = '/Waermetauscher';
+			}
+		}
     }
 
     public function geschraubtAction()
     {
-		// action body
-		// view methode für geschraubte, gesondertes angebotsformular!
+		//befindet sich alles im view da statische seite 
     }
 
     public function rohrbuendelAction()
     {
-		// action body
-		// view methode für rohrb�ndel, gesondertes angebotsformular!
+    	//befindet sich alles im view da statische seite
     }
 
     public function bearbeitenAction()
