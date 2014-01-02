@@ -8,16 +8,24 @@ class Application_Model_Benutzer
 	protected $_passwort;
 	protected $_berechtigung;
 	protected $_anrede;
+	protected $_changed;
 	
-	public function __construct(array $options = null)
-	{
+	public function __construct(array $options = null) {
 		if (is_array($options)) {
 			$this->setOptions($options);
 		}
+		
+		$this->_changed = array(
+				"nachname" => 0,
+				"vorname" => 0,
+				"passwort" => 0,
+				"berechtigung" => 0,
+				"anrede" => 0
+				
+		);		
 	}
 	
-	public function __set($name, $value)
-	{
+	public function __set($name, $value) {
 		$method = 'set' . $name;
 		if (('mapper' == $name) || !method_exists($this, $method)) {
 			throw new Exception('Ungültige Benutzer Eigenschaft');
@@ -25,8 +33,7 @@ class Application_Model_Benutzer
 		$this->$method($value);
 	}
 	
-	public function __get($name)
-	{
+	public function __get($name) {
 		$method = 'get' . $name;
 		if (('mapper' == $name) || !method_exists($this, $method)) {
 			throw new Exception('Ungültige Benutzer Eigenschaft');
@@ -34,11 +41,12 @@ class Application_Model_Benutzer
 		return $this->$method();
 	}
 	
-	public function setOptions(array $options)
-	{
+	public function setOptions(array $options) {
 		$methods = get_class_methods($this);
+		
 		foreach ($options as $key => $value) {
 			$method = 'set' . ucfirst($key);
+			
 			if (in_array($method, $methods)) {
 				$this->$method($value);
 			}
@@ -46,7 +54,26 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function setEmail($email)
+	public function toArray() {
+		return array(
+				"email" => $this->_email,
+				"nachname" => $this->_nachname,
+				"vorname" => $this->_vorname,
+				"passwort" => $this->_passwort,
+				"berechtigung" => $this->_berechtigung,
+				"anrede" => $this->_anrede
+		);
+	}
+	
+	public function isChanged($name) {
+		if(isset($this->_changed[$name])){
+			if($this->_changed[$name] == 1)
+				return true;
+		}
+		return false;
+	}
+	
+	private function setEmail($email)
 	{
 		$this->_email =  $email;
 		return $this;
@@ -59,6 +86,7 @@ class Application_Model_Benutzer
 	
 	public function setNachname($name)
 	{
+		$this->_changed['nachname'] = 1;
 		$this->_nachname =  $name;
 		return $this;
 	}
@@ -70,6 +98,7 @@ class Application_Model_Benutzer
 	
 	public function setVorname($name)
 	{
+		$this->_changed['vorname'] = 1;
 		$this->_vorname =  $name;
 		return $this;
 	}
@@ -81,6 +110,7 @@ class Application_Model_Benutzer
 	
 	public function setPasswort($pw)
 	{
+		$this->_changed['passwort'] = 1;
 		$this->_passwort =  $pw;
 		return $this;
 	}
@@ -92,6 +122,7 @@ class Application_Model_Benutzer
 	
 	public function setBerechtigung($blob)
 	{
+		$this->_changed['berechtigung'] = 1;
 		$this->_berechtigung =  $blob;
 		return $this;
 	}
@@ -101,11 +132,14 @@ class Application_Model_Benutzer
 		return $this->_berechtigung;
 	}
 
-	public function setAnrede($anrede){
+	public function setAnrede($anrede)
+	{
+		$this->_changed['anrede'] = 1;
 		$this->_anrede = $anrede;
 	}
 	
-	public function getAnrede(){
+	public function getAnrede()
+	{
 		return $this->_anrede;
 	}
 

@@ -20,19 +20,19 @@ protected $_dbTable;
 		return $this->_dbTable;
 	}
 	
+	protected function setAttributs($row){
+		unset($row['id']);
+		$entry = new Application_Model_Benutzer($row);
+		
+		return $entry;
+	}
+	
 	
 	public function fetchAll() {
 		$resultSet = $this->getDbTable()->fetchAll();
 		$entries = array ();
 		foreach ( $resultSet as $row ) {
-			$entry = new Application_Model_Benutzer();
-			$entry->setBerechtigung($row['berechtigung'])
-				->setEmail($row['email'])
-				->setNachname($row['nachname'])
-				->setPasswort($row['passwort'])
-				->setVorname($row['vorname'])
-				->setAnrede($row['anrede']);
-			$entries [] = $entry;
+			$entries [] = $this->setAttributs($row);
 		}
 		return $entries;
 	}
@@ -44,15 +44,11 @@ protected $_dbTable;
 		if($data == "")
 			return;
 		
-		$entry = new Application_Model_Benutzer();
+		return $this->setAttributs($data);
+	}
+	
+	public function updateBenutzer(Application_Model_Benutzer $benutzer){
 		
-		$entry->setBerechtigung($data['berechtigung'])
-			->setEmail($email)
-			->setNachname($data['nachname'])
-			->setPasswort($data['passwort'])
-			->setVorname($data['vorname'])
-			->setAnrede($data['anrede']);
-		
-		return $entry;
+		return $this->getDbTable()->updateBenutzer($benutzer);
 	}
 }

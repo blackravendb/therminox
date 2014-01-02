@@ -37,7 +37,6 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
        		->from('benutzer')
     		->join('anrede', 'benutzer.anrede_id = anrede.id')
     		->where('email = ?', $email);
-    	
     	 $data = $this->fetchRow($this->select);
     	 
     	 //Select Befehl wieder zurücksetzen
@@ -55,6 +54,48 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	//Select Befehl wieder zurücksetzen
     	$this->init();
     	return $data ->toArray();
+    }
+    
+    public function updateBenutzer(Application_Model_Benutzer $benutzer) {
+    	
+    	$where = $this->getAdapter()->quoteInto('email = ?', $benutzer->getEmail());
+    	
+    	
+    	//Alle Felder, die sich nicht verändert haben, löschen
+    	$benutzerData = $benutzer->toArray();
+    	foreach($benutzerData as $key => $value){
+    		if(!$benutzer->isChanged($key)){
+    			unset($benutzerData[$key]);
+    		}
+    	}
+    	
+    	//überprüfen, ob sich überhaupt Felder verändert haben
+    	if(sizeof($benutzerData) == 0){
+    		return false;
+    	}
+    	
+    	//Überprüfen, ob sich Anrede verändert hat
+    	if(key_exists("anrede", $benutzerData)){
+    		
+    		$this->select
+    		->from('anrede')
+    		->where('anrede = ?', $benutzerData['anrede']);
+    		
+    		$anrede = $this->fetchRow($this->select);
+    		
+    		if($anrede == "")
+    			return false;
+    		
+    		$this->select =$this->init();
+    		
+    		//Neuen Wert in Array speichern
+    		$benutzerData['anrede_id'] = $anrede['id'];
+    		
+    		//Anrede aus Array löschen
+    		unset($benutzerData['anrede']);
+    	}
+    	
+    	$this->update($benutzerData, $where);
     }
     
     

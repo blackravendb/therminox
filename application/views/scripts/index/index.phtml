@@ -1,7 +1,6 @@
 <br /><br />
 <div id="view-content">
 <?php
-
 echo "Einzelne Zeile per getBenutzer abrufen:<br>";
 echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
 ?>
@@ -11,5 +10,20 @@ echo "Alle Benutzer per fetchAll abrufen:<br>";
 foreach($this->mustermaenner as $mustermann){
 echo $mustermann->getAnrede() ." ". $mustermann->getVorname() ." ". $mustermann->getNachname() ." ". "<br>".$mustermann->getEmail() . "<br><br>";
 }
+?>
+
+
+<?php 
+$benutzerMapper = new Application_Model_BenutzerMapper();
+
+$test = $benutzerMapper->getBenutzer("test@test.de");
+echo $test->getPasswort()."<br>";
+
+//$test->setPasswort("maeh");
+//$test->setAnrede("Herr");
+
+
+
+// $benutzerMapper->updateBenutzer($test);
 ?>
 </div>

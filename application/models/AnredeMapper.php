@@ -21,18 +21,22 @@ class Application_Model_AnredeMapper {
 		return $this->_dbTable;
 	}
 	
+	protected function setAttributs($row){
+		$entry = new Application_Model_Anrede();
+		$entry->setAnrede($row['anrede'])
+			->setId($row['id']);
+		
+		return $entry;
+	}
+	
 	public function getAnredeById($id) {
 		
 		$data = $this->getDbTable()->find($id);
 		
 		if($data = "")
 			return;
-		
-		$entry = new Application_Model_Anrede();
-		
-		$entry->setAnrede($data['anrede'])
-			->setId($id);
-		return entry;
+
+		return $this->setAttributs($data);
 	}
 	
 	public function getIdByAnrede($anrede) {
@@ -42,21 +46,15 @@ class Application_Model_AnredeMapper {
 		if($data = "")
 			return;
 		
-		$entry = new Application_Model_Anrede();
-		
-		$entry->setAnrede($anrede)
-			->setId($data['id']);
-		return entry;
+		return $this->setAttributs($data);
 	}
 	
 	public function fetchAll() {
 		$resultSet = $this->getDbTable()->fetchAll ();
 		$entries = array ();
 		foreach ( $resultSet as $row ) {
-			$entry = new Application_Model_Anrede();
-			$entry->setId($row['id'])
-				->setAnrede($row['anrede']);
-			$entries [] = $entry;
+			
+			$entries [] = $this->setAttributs($row);
 		}
 		return $entries;
 	}

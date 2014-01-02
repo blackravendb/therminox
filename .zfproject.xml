@@ -64,7 +64,6 @@
           <dbTableFile dbTableName="Begrifferklaerung"/>
           <dbTableFile dbTableName="Benutzer"/>
           <dbTableFile dbTableName="Lieferadresse"/>
-          <dbTableFile dbTableName="Plz2ort"/>
           <dbTableFile dbTableName="Rechnungsadresse"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
@@ -72,14 +71,12 @@
         <modelFile modelName="BegrifferklaerungMapper"/>
         <modelFile modelName="BenutzerMapper"/>
         <modelFile modelName="LieferadresseMapper"/>
-        <modelFile modelName="Plz2ortMapper"/>
         <modelFile modelName="RechnungsadresseMapper"/>
         <modelFile modelName="Anrede"/>
         <modelFile modelName="Begriff"/>
         <modelFile modelName="Begrifferklaerung"/>
         <modelFile modelName="Benutzer"/>
         <modelFile modelName="Lieferadresse"/>
-        <modelFile modelName="Plz2ort"/>
         <modelFile modelName="Rechnungsadresse"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>

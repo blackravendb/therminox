@@ -16,6 +16,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headScript()->appendFile('/_files/js/global.js');
 	}
 	
+// 	protected function _initDbAdapter(){
+// 		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
+// 		$profiler->setEnabled(true);
+// 		$dbAdapter->setProfiler($profiler);
+// 	}
+	
 	protected function _initLocale()
 	{
 		$locale = new Zend_Locale();
