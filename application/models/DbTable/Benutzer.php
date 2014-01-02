@@ -77,27 +77,44 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	//Überprüfen, ob sich Anrede verändert hat
     	if(key_exists("anrede", $benutzerData)){
     		
-    		$this->select
-    		->from('anrede')
-    		->where('anrede = ?', $benutzerData['anrede']);
-    		
-    		$anrede = $this->fetchRow($this->select);
-    		
-    		if($anrede == "")
-    			return false;
-    		
-    		$this->select =$this->init();
-    		
-    		//Neuen Wert in Array speichern
-    		$benutzerData['anrede_id'] = $anrede['id'];
-    		
-    		//Anrede aus Array löschen
-    		unset($benutzerData['anrede']);
+    		$anredeDbt = new Application_Model_DbTable_Anrede();
+    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
+    	if($anrede == "")
+    		return false;
+    	
+    	$benutzerData['anrede_id'] =$anrede['id'];
+    	unset($benutzerData['anrede']);
     	}
     	
-    	$this->update($benutzerData, $where);
+    	return $this->update($benutzerData, $where);
+    }
+
+    public function insertBenutzer(Application_Model_Benutzer $benutzer){
+    	$benutzerData = $benutzer->toArray();
+    	
+    	
+    	foreach($benutzerData as $key => $value){
+    		if($value == ""){
+    			return false;	
+    		}    		
+    	}
+    	
+    	$anredeDbt = new Application_Model_DbTable_Anrede();
+    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
+    	if($anrede == "")
+    		return false;
+    	
+    	$benutzerData['anrede_id'] =$anrede['id'];
+    	unset($benutzerData['anrede']);
+    	
+    	return $this->insert($benutzerData);
     }
     
+    public function deleteBenutzer ($email){
+    	$where = $this->getAdapter()->quoteInto('email = ?', $email);
+    	
+    	return $this->delete($where);
+    }
     
 }
 

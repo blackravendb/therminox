@@ -19,11 +19,25 @@ $benutzerMapper = new Application_Model_BenutzerMapper();
 $test = $benutzerMapper->getBenutzer("test@test.de");
 echo $test->getPasswort()."<br>";
 
-//$test->setPasswort("maeh");
-//$test->setAnrede("Herr");
+// $test->setPasswort("maeh");
+// $test->setAnrede("Herr");
 
 
 
 // $benutzerMapper->updateBenutzer($test);
+
+//Benutzer einfügen
+
+$testbenutzer = new Application_Model_Benutzer();
+$testbenutzer->setAnrede("Frau");
+$testbenutzer->setBerechtigung("Benutzer");
+$testbenutzer->setNachname("Maier");
+$testbenutzer->setVorname("Bob");
+$testbenutzer->setPasswort("blub123");
+$testbenutzer->setEmail("bob.maier2@email.de");
+
+//$benutzerMapper->insertBenutzer($testbenutzer);
+
+$benutzerMapper->deleteBenutzer($testbenutzer);
 ?>
 </div>

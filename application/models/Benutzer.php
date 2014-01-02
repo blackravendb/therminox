@@ -73,7 +73,7 @@ class Application_Model_Benutzer
 		return false;
 	}
 	
-	private function setEmail($email)
+	public function setEmail($email)
 	{
 		$this->_email =  $email;
 		return $this;

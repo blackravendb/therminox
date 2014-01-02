@@ -51,4 +51,14 @@ protected $_dbTable;
 		
 		return $this->getDbTable()->updateBenutzer($benutzer);
 	}
+	
+	public function insertBenutzer(Application_Model_Benutzer $benutzer) {
+		
+		return $this->getDbTable()->insertBenutzer($benutzer);
+	}
+	
+	public function deleteBenutzer(Application_Model_Benutzer $benutzer){
+		
+		return $this->getDbTable()->deleteBenutzer($benutzer->getEmail());
+	}
 }
