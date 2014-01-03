@@ -112,4 +112,10 @@ class WaermetauscherController extends Zend_Controller_Action {
 			}
 		}
 	}
+	
+	public function hinzufuegen() {
+		$form = new Application_Form_PsErstellen();
+		
+		$this->view->form = $form;
+	}
 }
