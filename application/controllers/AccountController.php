@@ -27,6 +27,12 @@ class AccountController extends Zend_Controller_Action
 			if ($form->isValid($this->_request->getPost())) {
 				if ($this->_process($form->getValues())) {
 					$this->_helper->flashMessenger->addMessage('Anmeldung erfolgreich');
+					$mysession = new Zend_Session_Namespace('mysession');
+					if(isset($mysession->destination_url)) {
+						$url = $mysession->destination_url;
+						unset($mysession->destination_url);
+						$this->_redirect($url);
+					}
 					$this->_helper->redirector->gotoSimple('index', 'startseite');
 				} else {
 					$this->view->errorMessage = "Anmeldung fehlgeschlagen. Email oder Passwort falsch.";
@@ -51,9 +57,21 @@ class AccountController extends Zend_Controller_Action
         $form = new Application_Form_Register();
         if ($this->_request->isPost()) {
         	if ($form->isValid($this->_request->getPost())) {
-        		//save user in db
-        		$this->_helper->flashMessenger->addMessage('Erfolgreich registriert');
-        		$this->_helper->redirector->gotoSimple('index', 'startseite');
+        		$userMapper = new Application_Model_BenutzerMapper();
+        		if($userMapper->existEmail($form->getValue('email'))) {
+        			$this->view->errorMessage = "Diese Email ist bereits registriert.";
+        		} else {
+        			$user = new Application_Model_Benutzer();
+        			$user->setBerechtigung('Benutzer');
+        			$user->setAnrede($form->getValue('title'));
+        			$user->setVorname($form->getValue('name'));
+        			$user->setNachname($form->getValue('lastname'));
+        			$user->setPasswort(sha1($form->getValue('password')));
+        			$userMapper->insertBenutzer($user, $form->getValue('email'));
+        			
+        			$this->_helper->flashMessenger->addMessage('Erfolgreich registriert');
+        			$this->_helper->redirector->gotoSimple('index', 'startseite');
+        		}
         	}
         }
         $this->view->form = $form;

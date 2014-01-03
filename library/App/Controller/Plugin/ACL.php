@@ -9,6 +9,9 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 	}
 	
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
+		
+		$mysession = new Zend_Session_Namespace('mysession');
+		
 		$controller = $request->getControllerName ();
 		$action = $request->getActionName ();
 		$role = null;
@@ -30,8 +33,8 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 		}
 		
 		if (! $this->_acl->isAllowed ( $role, $controller, $action )) {
-			
 			if ('Gast' == $role) {
+				$mysession->destination_url = $request->getPathInfo();
 				$request->setControllerName ( 'account' );
 				$request->setActionName ( 'login' );
 			} else {
