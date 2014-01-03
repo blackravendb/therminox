@@ -73,8 +73,11 @@ class Application_Model_Benutzer
 		return false;
 	}
 	
-	public function setEmail($email)
+	private function setEmail($email)
 	{
+		if($email == "")
+			return false;
+		
 		$this->_email =  $email;
 		return $this;
 	}
@@ -86,6 +89,9 @@ class Application_Model_Benutzer
 	
 	public function setNachname($name)
 	{
+		if($name == "")
+			return false;
+		
 		$this->_changed['nachname'] = 1;
 		$this->_nachname =  $name;
 		return $this;
@@ -98,6 +104,9 @@ class Application_Model_Benutzer
 	
 	public function setVorname($name)
 	{
+		if($name == "")
+			return false;
+		
 		$this->_changed['vorname'] = 1;
 		$this->_vorname =  $name;
 		return $this;
@@ -110,6 +119,9 @@ class Application_Model_Benutzer
 	
 	public function setPasswort($pw)
 	{
+		if($pw == "")
+			return false;
+		
 		$this->_changed['passwort'] = 1;
 		$this->_passwort =  $pw;
 		return $this;
@@ -120,10 +132,13 @@ class Application_Model_Benutzer
 		return $this->_passwort;
 	}
 	
-	public function setBerechtigung($blob)
+	public function setBerechtigung($berechtigung)
 	{
+		if($berechtigung == "")
+			return false;
+		
 		$this->_changed['berechtigung'] = 1;
-		$this->_berechtigung =  $blob;
+		$this->_berechtigung =  $berechtigung;
 		return $this;
 	}
 	
@@ -134,6 +149,9 @@ class Application_Model_Benutzer
 
 	public function setAnrede($anrede)
 	{
+		if($anrede == "")
+			return false;
+		
 		$this->_changed['anrede'] = 1;
 		$this->_anrede = $anrede;
 	}

@@ -65,6 +65,8 @@
           <dbTableFile dbTableName="Benutzer"/>
           <dbTableFile dbTableName="Lieferadresse"/>
           <dbTableFile dbTableName="Rechnungsadresse"/>
+          <dbTableFile dbTableName="WaermetauscherGeloetet"/>
+          <dbTableFile dbTableName="Stutzenmaterial"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
         <modelFile modelName="BegriffMapper"/>

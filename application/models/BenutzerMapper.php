@@ -52,9 +52,9 @@ protected $_dbTable;
 		return $this->getDbTable()->updateBenutzer($benutzer);
 	}
 	
-	public function insertBenutzer(Application_Model_Benutzer $benutzer) {
+	public function insertBenutzer(Application_Model_Benutzer $benutzer, $email) {
 		
-		return $this->getDbTable()->insertBenutzer($benutzer);
+		return $this->getDbTable()->insertBenutzer($benutzer, $email);
 	}
 	
 	public function deleteBenutzer(Application_Model_Benutzer $benutzer){

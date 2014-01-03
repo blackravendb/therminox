@@ -89,8 +89,9 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	return $this->update($benutzerData, $where);
     }
 
-    public function insertBenutzer(Application_Model_Benutzer $benutzer){
+    public function insertBenutzer(Application_Model_Benutzer $benutzer, $email){
     	$benutzerData = $benutzer->toArray();
+    	$benutzerData['email'] = $email;
     	
     	
     	foreach($benutzerData as $key => $value){
