@@ -41,6 +41,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	 
     	 //Select Befehl wieder zurücksetzen
     	 $this->init();
+    	 
+    	 //überprüfen, ob abfrage leer ist
+    	 if($data == "")
+    	 	return false;
+    	 
     	 return $data->toArray();
     }
     
@@ -122,7 +127,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	return false;
     }
     
-    private function getAnrede_idByAnrede($anrede){
+    private function getAnrede_idByAnrede($anrede) {
     	$anredeDbt = new Application_Model_DbTable_Anrede();
     	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
     	if($anrede == "")
