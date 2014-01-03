@@ -33,17 +33,26 @@
           <actionMethod actionName="geloetet"/>
           <actionMethod actionName="geschraubt"/>
           <actionMethod actionName="rohrbuendel"/>
+		  <actionMethod actionName="entfernen"/>
+		  <actionMethod actionName="hinzufuegen"/>
+		  <actionMethod actionName="bearbeiten"/>
         </controllerFile>
         <controllerFile controllerName="Pufferspeicher">
           <actionMethod actionName="index"/>
           <actionMethod actionName="vvx"/>
           <actionMethod actionName="las"/>
+		  <actionMethod actionName="entfernen"/>
+		  <actionMethod actionName="hinzufuegen"/>
+		  <actionMethod actionName="bearbeiten"/>
         </controllerFile>
         <controllerFile controllerName="Wassererwaermer">
           <actionMethod actionName="index"/>
           <actionMethod actionName="vve"/>
           <actionMethod actionName="shi"/>
           <actionMethod actionName="vvi"/>
+		  <actionMethod actionName="entfernen"/>
+		  <actionMethod actionName="hinzufuegen"/>
+		  <actionMethod actionName="bearbeiten"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -51,6 +60,10 @@
         <formFile formName="Register"/>
         <formFile formName="Lost"/>
         <formFile formName="Password"/>
+		<formFile formName="ArtikelErstellen"/>
+		<formFile formName="WtErstellen"/>
+		<formFile formName="PsErstellen"/>
+		<formFile formName="WwErstellen"/>
       </formsDirectory>
       <layoutsDirectory enabled="false">
         <layoutScriptsDirectory>

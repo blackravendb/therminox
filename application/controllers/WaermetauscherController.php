@@ -79,7 +79,9 @@ class WaermetauscherController extends Zend_Controller_Action
 
     public function hinzufuegenAction()
     {
-        // action body
+        $form = new Application_Form_WtErstellen();
+        
+        $this->view->form = $form;
     }
 
     public function entfernenAction()

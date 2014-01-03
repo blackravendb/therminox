@@ -150,6 +150,12 @@ class WassererwaermerController extends Zend_Controller_Action {
 			}
 		}
 	}
+	
+	public function hinzufuegen() {
+		$form = new Application_Form_WwErstellen();
+		
+		$this->view->form = $form;
+	}
 }
 
 
