@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Benutzer
+class Application_Model_Benutzer extends Application_Model_TableAbstract
 {
 	protected $_email;
 	protected $_nachname;
@@ -8,51 +8,6 @@ class Application_Model_Benutzer
 	protected $_passwort;
 	protected $_berechtigung;
 	protected $_anrede;
-	protected $_changed;
-	
-	public function __construct(array $options = null) {
-		if (is_array($options)) {
-			$this->setOptions($options);
-		}
-		
-		$this->_changed = array(
-				"nachname" => 0,
-				"vorname" => 0,
-				"passwort" => 0,
-				"berechtigung" => 0,
-				"anrede" => 0
-				
-		);		
-	}
-	
-	public function __set($name, $value) {
-		$method = 'set' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Ungültige Benutzer Eigenschaft');
-		}
-		$this->$method($value);
-	}
-	
-	public function __get($name) {
-		$method = 'get' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Ungültige Benutzer Eigenschaft');
-		}
-		return $this->$method();
-	}
-	
-	public function setOptions(array $options) {
-		$methods = get_class_methods($this);
-		
-		foreach ($options as $key => $value) {
-			$method = 'set' . ucfirst($key);
-			
-			if (in_array($method, $methods)) {
-				$this->$method($value);
-			}
-		}
-		return $this;
-	}
 	
 	public function toArray() {
 		return array(
@@ -65,16 +20,8 @@ class Application_Model_Benutzer
 		);
 	}
 	
-	public function isChanged($name) {
-		if(isset($this->_changed[$name])){
-			if($this->_changed[$name] == 1)
-				return true;
-		}
-		return false;
-	}
-	
-	private function setEmail($email)
-	{
+	//Primary Key protected function, benötig außerdem kein Zugriff auf _changed
+	protected function setEmail($email) {
 		if($email == "")
 			return false;
 		
@@ -82,13 +29,11 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function getEmail()
-	{
+	public function getEmail() {
 		return $this->_email;
 	}
 	
-	public function setNachname($name)
-	{
+	public function setNachname($name) {
 		if($name == "")
 			return false;
 		
@@ -97,8 +42,7 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function getNachname()
-	{
+	public function getNachname() {
 		return $this->_nachname;
 	}
 	
@@ -112,13 +56,11 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function getVorname()
-	{
+	public function getVorname() {
 		return $this->_vorname;
 	}
 	
-	public function setPasswort($pw)
-	{
+	public function setPasswort($pw) {
 		if($pw == "")
 			return false;
 		
@@ -127,13 +69,11 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function getPasswort()
-	{
+	public function getPasswort() {
 		return $this->_passwort;
 	}
 	
-	public function setBerechtigung($berechtigung)
-	{
+	public function setBerechtigung($berechtigung) {
 		if($berechtigung == "")
 			return false;
 		
@@ -142,13 +82,11 @@ class Application_Model_Benutzer
 		return $this;
 	}
 	
-	public function getBerechtigung()
-	{
+	public function getBerechtigung() {
 		return $this->_berechtigung;
 	}
 
-	public function setAnrede($anrede)
-	{
+	public function setAnrede($anrede) {
 		if($anrede == "")
 			return false;
 		
@@ -156,8 +94,7 @@ class Application_Model_Benutzer
 		$this->_anrede = $anrede;
 	}
 	
-	public function getAnrede()
-	{
+	public function getAnrede() {
 		return $this->_anrede;
 	}
 

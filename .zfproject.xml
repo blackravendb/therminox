@@ -82,6 +82,8 @@
         <modelFile modelName="Rechnungsadresse"/>
         <modelFile modelName="WaermetauscherGeloetet"/>
         <modelFile modelName="Stutzenmaterial"/>
+        <modelFile modelName="TableAbstract"/>
+        <modelFile modelName="TableInterface"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

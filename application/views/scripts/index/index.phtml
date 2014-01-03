@@ -35,8 +35,15 @@ $testbenutzer->setNachname("Maier");
 $testbenutzer->setVorname("Bob");
 $testbenutzer->setPasswort("blub123");
 
-$benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
+//$benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
 
-$benutzerMapper->deleteBenutzer($testbenutzer);
+//$benutzerMapper->deleteBenutzer($testbenutzer);
+
+if($benutzerMapper->existEmail("test@test.de")){
+	echo "<br>email existiert<br>";
+}
+else{
+	echo "<br>email existiert nicht<br>";
+}
 ?>
 </div>

@@ -61,4 +61,8 @@ protected $_dbTable;
 		
 		return $this->getDbTable()->deleteBenutzer($benutzer->getEmail());
 	}
+	
+	public function existEmail ($email){
+		return $this->getDbTable()->existEmail($email);
+	}
 }

@@ -77,13 +77,8 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	//Überprüfen, ob sich Anrede verändert hat
     	if(key_exists("anrede", $benutzerData)){
     		
-    		$anredeDbt = new Application_Model_DbTable_Anrede();
-    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
-    	if($anrede == "")
-    		return false;
-    	
-    	$benutzerData['anrede_id'] =$anrede['id'];
-    	unset($benutzerData['anrede']);
+    		$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede_id']);
+    		unset($benutzerData['anrede']);
     	}
     	
     	return $this->update($benutzerData, $where);
@@ -100,12 +95,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     		}    		
     	}
     	
-    	$anredeDbt = new Application_Model_DbTable_Anrede();
-    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
-    	if($anrede == "")
-    		return false;
-    	
-    	$benutzerData['anrede_id'] =$anrede['id'];
+    	$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede_id']);
     	unset($benutzerData['anrede']);
     	
     	return $this->insert($benutzerData);
@@ -115,6 +105,30 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	$where = $this->getAdapter()->quoteInto('email = ?', $email);
     	
     	return $this->delete($where);
+    }
+    
+    public function existEmail($email) {
+    	$this->select
+    	->from(array('benutzer'),
+    			array('email'))
+    	->where('email = ?', $email);
+    	
+    	$data = $this->fetchRow($this->select);
+    	$this->init();
+    	
+    	if($data != "") 
+    		return true;
+    	
+    	return false;
+    }
+    
+    private function getAnrede_idByAnrede($anrede){
+    	$anredeDbt = new Application_Model_DbTable_Anrede();
+    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
+    	if($anrede == "")
+    		return false;
+    		
+    	return $anrede['id'];
     }
     
 }

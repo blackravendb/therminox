@@ -1,4 +1,0 @@
-<?php
-Abstract Class ModelTableAbstract {
-	
-}
