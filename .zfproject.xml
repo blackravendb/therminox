@@ -80,6 +80,8 @@
         <modelFile modelName="Benutzer"/>
         <modelFile modelName="Lieferadresse"/>
         <modelFile modelName="Rechnungsadresse"/>
+        <modelFile modelName="WaermetauscherGeloetet"/>
+        <modelFile modelName="Stutzenmaterial"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

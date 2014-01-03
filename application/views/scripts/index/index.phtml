@@ -34,9 +34,8 @@ $testbenutzer->setBerechtigung("Benutzer");
 $testbenutzer->setNachname("Maier");
 $testbenutzer->setVorname("Bob");
 $testbenutzer->setPasswort("blub123");
-$testbenutzer->setEmail("bob.maier2@email.de");
 
-//$benutzerMapper->insertBenutzer($testbenutzer);
+$benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
 
 $benutzerMapper->deleteBenutzer($testbenutzer);
 ?>
