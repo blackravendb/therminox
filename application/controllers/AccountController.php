@@ -109,7 +109,7 @@ class AccountController extends Zend_Controller_Action
 	    		$user = $userMapper->getBenutzer($link->getEmail());
 	    		$user->setBestaetigt(TRUE);
 	    		//delete $link from database
-	    		//$linkMapper->deleteLink($link);
+	    		//$linkMapper->deleteLink($link->getId());
 	    		$userMapper->insertBenutzer($user, $user->getEmail());
 	    	} else {
 	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
@@ -175,8 +175,7 @@ class AccountController extends Zend_Controller_Action
     	$authAdapter->setTableName('benutzer') //Datenbanktabellenname
     	->setIdentityColumn('email') //Spaltenname der email
     	->setCredentialColumn('passwort') //Spaltenname des passwords
-    	->setCredentialTreatment('SHA1(?)'); //evtl. 'SHA1(CONCAT(?,salt)) AND bestaetigt = 1'
-    	//generate salt $salt = bin2hex(mcrypt_create_iv(20, MCRYPT_DEV_URANDOM));
+    	->setCredentialTreatment('SHA1(CONCAT(?,salt)) AND bestaetigt = 1');
     	return $authAdapter;
     }
 }
