@@ -17,9 +17,8 @@ echo $mustermann->getAnrede() ." ". $mustermann->getVorname() ." ". $mustermann-
 $benutzerMapper = new Application_Model_BenutzerMapper();
 
 $test = $benutzerMapper->getBenutzer("test@test.de");
-echo $test->getPasswort()."<br>";
-echo "<br><br>".$test->getBestaetigt();
-echo "<br>".$test->getSalt();
+$test->setPasswort("geheim");
+$benutzerMapper->updateBenutzer($test);
 
 
 // $test->setPasswort("maeh");

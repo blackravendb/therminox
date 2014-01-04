@@ -59,10 +59,9 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setPasswort($pw) {
-		if($this->_passwort != $pw) {
-			$this->_changed['passwort'] = 1;
-			$this->_passwort =  $pw;
-		}
+		$this->setSalt(App_Util::generateHexString());
+		$this->_passwort = sha1($pw.$this->getSalt());
+		$this->_changed['passwort'] = 1;
 		return $this;
 	}
 	
@@ -70,11 +69,9 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_passwort;
 	}
 	
-	public function setSalt($salt){
-		if($this->_salt != $salt) {
-			$this->_changed['salt'] = 1;
+	private function setSalt($salt){
 			$this->_salt = $salt;
-		}
+			$this->_changed['salt'] = 1;
 	}
 	
 	public function getSalt(){
