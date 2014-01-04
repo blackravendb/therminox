@@ -11,7 +11,7 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 				"id" => $this->_id,
 				"email" => $this->_email,
 				"hexaString" => $this->_hexaString,
-				"typ" => $this->_typ
+				"typ" => $this_typ
 		);
 	}
 	
@@ -22,9 +22,6 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 	}
 	
 	public function setEmail($email) {
-		if($email == "")
-			return false;
-	
 		$this->_email =  $email;
 		return $this;
 	}
@@ -34,9 +31,6 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 	}
 	
 	public function setHexaString($string) {
-		if($string == "")
-			return false;
-		
 		$this->_hexaString = $string;
 	}
 	
@@ -45,9 +39,6 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 	}
 	
 	public function setTyp($typ){
-		if($typ == "")
-			return false;
-		
 		$this->_typ = (int)$typ;
 	}
 	

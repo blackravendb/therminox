@@ -93,14 +93,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	$benutzerData = $benutzer->toArray();
     	$benutzerData['email'] = $email;
     	
-    	
-    	foreach($benutzerData as $key => $value) {
-    		if($value == ""){
-    			return false;	
-    		}    		
-    	}
-    	
-    	$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede_id']);
+    	$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede']);
     	unset($benutzerData['anrede']);
     	
     	return $this->insert($benutzerData);
@@ -129,11 +122,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     
     private function getAnrede_idByAnrede($anrede) {
     	$anredeDbt = new Application_Model_DbTable_Anrede();
-    	$anrede = $anredeDbt->getIdByAnrede($benutzerData['anrede']);
+    	$anredeData = $anredeDbt->getIdByAnrede($anrede);
     	if($anrede == "")
     		return false;
     		
-    	return $anrede['id'];
+    	return $anredeData['id'];
     }
     
 }

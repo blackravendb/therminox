@@ -102,7 +102,7 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setBestaetigt($boolean) {
-		if($this->_bestaetigt != $boolean) {
+		if($this->_bestaetigt !== $boolean) {
 			$this->_changed['bestaetigt'] = 1;
 			$this->_bestaetigt = $boolean;
 		}
