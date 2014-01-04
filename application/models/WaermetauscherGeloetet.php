@@ -9,6 +9,7 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 	protected $_hoehe;
 	protected $_breite;
 	protected $_stutzenmaterial;
+	protected $_waermetauscherGeloetetUnterkategorie;
 	
 	public function toArray() {
 		return array(
@@ -18,7 +19,8 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 				"temperatur" => $this->_temperatur,
 				"hoehe" => $this->_hoehe,
 				"breite" => $this->_breite,
-				"stuzenmaterial" => $this->_stutzenmaterial
+				"stuzenmaterial" => $this->_stutzenmaterial,
+				"waermetauscherGeloetetUnterkategorie" => $this->_waermetauscherGeloetetUnterkategorie
 		);
 	}
 	
@@ -99,6 +101,14 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 	
 	public function getStutzenmaterial () {
 		return $this->_stutzenmaterial;
+	}
+	
+	public function setWaermetauscherGeloetetUnterkategorie($wtGeloetetUnterkategorie){
+		$this->_waermetauscherGeloetetUnterkategorie[] = $wtGeloetetUnterkategorie;
+	}
+	
+	public function getWaermetauscherGeloetetUnterkategorie(){
+		return $this->_waermetauscherGeloetetUnterkategorie;
 	}
 	
 	

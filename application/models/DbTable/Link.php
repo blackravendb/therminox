@@ -42,6 +42,18 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     	 
     	return $data->toArray();
     }
+    
+    public function insertLink (Application_Model_Link $link) {
+    	$linkData = $link->toArray();
+    	
+    	return $this->insert($linkData);
+    }
+    
+    public function deleteLink($id){
+    	$where = $this->getAdapter()->quoteInto('id = ?', $id);
+    	
+    	return $this->delete($where);
+    }
 
 
 }

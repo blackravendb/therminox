@@ -64,6 +64,14 @@ if(!($bhd21 = $waermetauschermapper->getWaermetauscherGeloetetByModel("BHD21")))
 else
 echo '<br>'.$bhd21->getStutzenmaterial();
 
+//print_r($bhd21->getWaermetauscherGeloetetUnterkategorie()['0']);
+
+$blub = $bhd21->getWaermetauscherGeloetetUnterkategorie();
+foreach($blub as $key){
+echo "<br>blub<br>";
+}
+echo $blub[0][2]->getLaenge();
+
 
 //$linkMapper = new Application_Model_LinkMapper();
 

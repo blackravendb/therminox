@@ -62,6 +62,14 @@ class Application_Model_WaermetauscherGeloetetUnterkategorie extends Application
 		return $this->_platten;
 	}
 	
+	public function setLaenge($laenge) {
+		$this->_laenge = $laenge;
+	}
+	
+	public function getLaenge() {
+		return $this->_laenge;
+	}
+	
 	public function setLeergewicht($gewicht){
 		if($gewicht == ""){
 			return false;

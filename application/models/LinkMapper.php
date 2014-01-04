@@ -43,6 +43,14 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 		}
 		return $ret;
 	}
+	
+	public function insertLink(Application_Model_Link $link) {
+		return $this->getDbTable()->insertLink($link);
+	}
+	
+	public function deleteLink($id){
+		return $this->getDbTable()->deleteLink($id);
+	}
 
 }
 

@@ -10,8 +10,9 @@ class Application_Model_WaermetauscherGeloetetMapper extends Application_Model_M
 	}
 	
 	protected function setAttributs($row) {
+		$row['0']['waermetauscherGeloetetUnterkategorie'] = array();
 		foreach($row['1'] as $key => $value){
-			$row['waermetauscherGeloetetUnterkategorie'] = new Application_Model_WaermetauscherGeloetetUnterkategorie($value);
+			$row['0']['waermetauscherGeloetetUnterkategorie'][] = new Application_Model_WaermetauscherGeloetetUnterkategorie($value);
 		}
 		$entry = new Application_Model_WaermetauscherGeloetet($row['0']);
 		
@@ -38,7 +39,7 @@ class Application_Model_WaermetauscherGeloetetMapper extends Application_Model_M
 		$data = $this->getDbTable()->getWaermetauscherGeloetet(array('id' => (int)$id));
 	
 		if($data == "")
-			return false;
+			return ;
 	
 		return $this->setAttributs($data['0']);
 	}

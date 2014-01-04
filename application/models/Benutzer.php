@@ -26,9 +26,6 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	
 	//Primary Key protected function, benötig außerdem kein Zugriff auf _changed
 	protected function setEmail($email) {
-		if($email == "")
-			return false;
-		
 		$this->_email =  $email;
 		return $this;
 	}
@@ -38,11 +35,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setNachname($name) {
-		if($name == "")
-			return false;
-		
-		$this->_changed['nachname'] = 1;
-		$this->_nachname =  $name;
+		if($this->_nachname != $name) {
+			$this->_changed['nachname'] = 1;
+			$this->_nachname =  $name;
+		}
 		return $this;
 	}
 	
@@ -50,13 +46,11 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_nachname;
 	}
 	
-	public function setVorname($name)
-	{
-		if($name == "")
-			return false;
-		
-		$this->_changed['vorname'] = 1;
-		$this->_vorname =  $name;
+	public function setVorname($name) {
+		if($this->_vorname != $name) {
+			$this->_changed['vorname'] = 1;
+			$this->_vorname =  $name;
+		}
 		return $this;
 	}
 	
@@ -65,11 +59,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setPasswort($pw) {
-		if($pw == "")
-			return false;
-		
-		$this->_changed['passwort'] = 1;
-		$this->_passwort =  $pw;
+		if($this->_passwort != $pw) {
+			$this->_changed['passwort'] = 1;
+			$this->_passwort =  $pw;
+		}
 		return $this;
 	}
 	
@@ -78,10 +71,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setSalt($salt){
-		if($salt == "")
-			return false;
-		
-		$this->_salt = $salt;
+		if($this->_salt != $salt) {
+			$this->_changed['salt'] = 1;
+			$this->_salt = $salt;
+		}
 	}
 	
 	public function getSalt(){
@@ -89,11 +82,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setBerechtigung($berechtigung) {
-		if($berechtigung == "")
-			return false;
-		
-		$this->_changed['berechtigung'] = 1;
-		$this->_berechtigung =  $berechtigung;
+		if($this->_berechtigung != $berechtigung) {
+			$this->_changed['berechtigung'] = 1;
+			$this->_berechtigung =  $berechtigung;
+		}
 		return $this;
 	}
 	
@@ -102,11 +94,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 
 	public function setAnrede($anrede) {
-		if($anrede == "")
-			return false;
-		
-		$this->_changed['anrede'] = 1;
-		$this->_anrede = $anrede;
+		if($this->_anrede != $anrede) {
+			$this->_changed['anrede'] = 1;
+			$this->_anrede = $anrede;
+		}
 	}
 	
 	public function getAnrede() {
@@ -114,7 +105,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function setBestaetigt($boolean) {
-		$this->_bestaetigt = $boolean;
+		if($this->_bestaetigt != $boolean) {
+			$this->_changed['bestaetigt'] = 1;
+			$this->_bestaetigt = $boolean;
+		}
 	}
 
 	public function getBestaetigt(){
