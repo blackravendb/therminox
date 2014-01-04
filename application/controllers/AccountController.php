@@ -67,7 +67,27 @@ class AccountController extends Zend_Controller_Action
         			$user->setVorname($form->getValue('name'));
         			$user->setNachname($form->getValue('lastname'));
         			$user->setPasswort(sha1($form->getValue('password')));
-        			$userMapper->insertBenutzer($user, $form->getValue('email'));
+        			//$userMapper->insertBenutzer($user, $form->getValue('email'));
+        			
+        			$key = App_Util::generateHexString();
+        			
+        			$link = new Application_Model_Link();
+        			$link->setEmail($form->getValue('email'));
+        			$link->setHexaString($key);
+        			$link->setTyp(0); // 0: account confirmation 
+        			$linkMapper = new Application_Model_LinkMapper();
+        			//$linkMapper->insertLink($link);
+        			
+        			
+        			$mail = new App_Mail();
+        			$mail->assignValues(array(
+        				'name' => $form->getValue('name'),
+        				'key'  => $key
+        			));
+        			$mail->addTo($form->getValue('email'));
+        			$mail->setSubject('Ihre Registrierung bei Therminox');
+        			$mail->setFrom('test.therminox@gmail.com', 'Therminox');
+        			$mail->send('register');
         			
         			$this->_helper->flashMessenger->addMessage('Erfolgreich registriert');
         			$this->_helper->redirector->gotoSimple('index', 'startseite');
@@ -79,7 +99,25 @@ class AccountController extends Zend_Controller_Action
 
     public function confirmAction()
     {
-        // action body
+        $key = $this->_request->getParam('key');
+        $validator = new Zend_Validate_Hex();
+	    if ($validator->isValid($key) && strlen($key) === 40) {
+	    	$linkMapper = new Application_Model_LinkMapper();
+	    	$link = $linkMapper->getLinkByHexaString($key);
+	    	if($link && $link->getId() == 0){ //check if account confirm type
+	    		$userMapper = new Application_Model_BenutzerMapper();
+	    		$user = $userMapper->getBenutzer($link->getEmail());
+	    		$user->setBestaetigt(TRUE);
+	    		//delete $link from database
+	    		//$linkMapper->deleteLink($link);
+	    		$userMapper->insertBenutzer($user, $user->getEmail());
+	    	} else {
+	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
+	    	}
+	    	$this->view->test = "valid";
+		} else {
+			$this->view->errorMessage = 'Schlüssel hat kein gültiges Format';
+		}
     }
 
     public function recoverAction()
@@ -129,16 +167,16 @@ class AccountController extends Zend_Controller_Action
     	return false;
     }
     
-    protected function _getAuthAdapter() {
-    
+    protected function _getAuthAdapter() 
+    {
     	$dbAdapter = Zend_Db_Table::getDefaultAdapter();
     	$authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
     
     	$authAdapter->setTableName('benutzer') //Datenbanktabellenname
     	->setIdentityColumn('email') //Spaltenname der email
     	->setCredentialColumn('passwort') //Spaltenname des passwords
-    	->setCredentialTreatment('SHA1(?)'); //evtl. 'SHA1(CONCAT(?,salt)) &  AND bestaetigt = 1'
-    	//generate salt $salt = bin2hex(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM));
+    	->setCredentialTreatment('SHA1(?)'); //evtl. 'SHA1(CONCAT(?,salt)) AND bestaetigt = 1'
+    	//generate salt $salt = bin2hex(mcrypt_create_iv(20, MCRYPT_DEV_URANDOM));
     	return $authAdapter;
     }
 }
