@@ -6,8 +6,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	protected $_nachname;
 	protected $_vorname;
 	protected $_passwort;
+	protected $_salt;
 	protected $_berechtigung;
 	protected $_anrede;
+	protected $_bestaetigt;
 	
 	public function toArray() {
 		return array(
@@ -15,8 +17,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 				"nachname" => $this->_nachname,
 				"vorname" => $this->_vorname,
 				"passwort" => $this->_passwort,
+				"salt" => $this->_salt,
 				"berechtigung" => $this->_berechtigung,
-				"anrede" => $this->_anrede
+				"anrede" => $this->_anrede,
+				"bestaetigt" => $this->_bestaetigt
 		);
 	}
 	
@@ -73,6 +77,17 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_passwort;
 	}
 	
+	public function setSalt($salt){
+		if($salt == "")
+			return false;
+		
+		$this->_salt = $salt;
+	}
+	
+	public function getSalt(){
+		return $this->_salt;
+	}
+	
 	public function setBerechtigung($berechtigung) {
 		if($berechtigung == "")
 			return false;
@@ -97,5 +112,12 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	public function getAnrede() {
 		return $this->_anrede;
 	}
+	
+	public function setBestaetigt($boolean) {
+		$this->_bestaetigt = $boolean;
+	}
 
+	public function getBestaetigt(){
+		return $this->_bestaetigt;
+	}
 }

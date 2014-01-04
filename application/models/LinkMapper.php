@@ -31,7 +31,7 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 	}
 	
 	public function getLinkByHexaString($string) {
-		$data = $this->getDbTable()->getLinkByEmail($email);
+		$data = $this->getDbTable()->getLinkByHexaString($email);
 		
 		if($data == "")
 			return false;

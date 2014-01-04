@@ -18,6 +18,8 @@ $benutzerMapper = new Application_Model_BenutzerMapper();
 
 $test = $benutzerMapper->getBenutzer("test@test.de");
 echo $test->getPasswort()."<br>";
+echo "<br><br>".$test->getBestaetigt();
+echo "<br>".$test->getSalt();
 
 
 // $test->setPasswort("maeh");
@@ -63,12 +65,12 @@ else
 echo '<br>'.$bhd21->getStutzenmaterial();
 
 
-$linkMapper = new Application_Model_LinkMapper();
+//$linkMapper = new Application_Model_LinkMapper();
 
-$fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
+// $fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
 
-echo $fall['0']->getHexaString();
+// echo $fall['0']->getHexaString();
 
-echo $fall['0']->getEmail();
+// echo $fall['0']->getEmail();
 ?>
 </div>

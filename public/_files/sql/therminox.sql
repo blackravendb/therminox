@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 04. Jan 2014 um 17:16
+-- Erstellungszeit: 04. Jan 2014 um 17:40
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -77,8 +77,10 @@ CREATE TABLE IF NOT EXISTS `benutzer` (
   `nachname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `vorname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `passwort` char(40) COLLATE utf8_unicode_ci NOT NULL,
+  `salt` char(40) COLLATE utf8_unicode_ci NOT NULL,
   `berechtigung` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `anrede_id` int(11) NOT NULL,
+  `bestaetigt` tinyint(1) NOT NULL,
   PRIMARY KEY (`email`),
   KEY `anrede_id` (`anrede_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -87,11 +89,11 @@ CREATE TABLE IF NOT EXISTS `benutzer` (
 -- Daten für Tabelle `benutzer`
 --
 
-INSERT INTO `benutzer` (`email`, `nachname`, `vorname`, `passwort`, `berechtigung`, `anrede_id`) VALUES
-('admin@test.de', 'min', 'ad', '1', 'Administrator', 1),
-('bob.maier2@email.de', 'Maier', 'Bob', 'blub123', 'Benutzer', 2),
-('max.mustermann@test.de', 'Mustermann', 'Max', '2', 'Benutzer', 1),
-('test@test.de', 'test', 'test', 'maeh', 'Benutzer', 1);
+INSERT INTO `benutzer` (`email`, `nachname`, `vorname`, `passwort`, `salt`, `berechtigung`, `anrede_id`, `bestaetigt`) VALUES
+('admin@test.de', 'min', 'ad', '1', '', 'Administrator', 1, 0),
+('bob.maier2@email.de', 'Maier', 'Bob', 'blub123', '', 'Benutzer', 2, 0),
+('max.mustermann@test.de', 'Mustermann', 'Max', '2', '', 'Benutzer', 1, 0),
+('test@test.de', 'test', 'test', 'maeh', 'abcd', 'Benutzer', 1, 0);
 
 -- --------------------------------------------------------
 
