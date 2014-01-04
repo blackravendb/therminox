@@ -105,13 +105,15 @@ class AccountController extends Zend_Controller_Action
 	    if ($validator->isValid($key) && strlen($key) === 40) {
 	    	$linkMapper = new Application_Model_LinkMapper();
 	    	$link = $linkMapper->getLinkByHexaString($key);
-	    	if($link && $link->getId() == 0){ //check if account confirm type
+	    	if($link && $link->getTyp() === 0){ //check if account confirm type
 	    		$userMapper = new Application_Model_BenutzerMapper();
 	    		$user = $userMapper->getBenutzer($link->getEmail());
 	    		$user->setBestaetigt(TRUE);
 	    		//delete $link from database
 	    		$linkMapper->deleteLink($link->getId());
 	    		$userMapper->insertBenutzer($user, $user->getEmail());
+	    		$this->_helper->flashMessenger->addMessage('Email erfolgreich bestätigt.');
+	    		$this->_helper->redirector->gotoSimple('index', 'startseite');
 	    	} else {
 	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
 	    	}
