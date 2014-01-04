@@ -104,7 +104,10 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 	}
 	
 	public function setWaermetauscherGeloetetUnterkategorie($wtGeloetetUnterkategorie){
-		$this->_waermetauscherGeloetetUnterkategorie[] = $wtGeloetetUnterkategorie;
+		if(is_array($wtGeloetetUnterkategorie))
+			$this->_waermetauscherGeloetetUnterkategorie = $wtGeloetetUnterkategorie;
+		else
+			$this->_waermetauscherGeloetetUnterkategorie[] = $wtGeloetetUnterkategorie;
 	}
 	
 	public function getWaermetauscherGeloetetUnterkategorie(){

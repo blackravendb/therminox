@@ -30,14 +30,14 @@ $benutzerMapper->updateBenutzer($test);
 
 //Benutzer einfügen
 
-$testbenutzer = new Application_Model_Benutzer();
-$testbenutzer->setAnrede("Frau");
-$testbenutzer->setBerechtigung("Benutzer");
-$testbenutzer->setNachname("Maier");
-$testbenutzer->setVorname("Bob");
-$testbenutzer->setPasswort("blub123");
+// $testbenutzer = new Application_Model_Benutzer();
+// $testbenutzer->setAnrede("Frau");
+// $testbenutzer->setBerechtigung("Benutzer");
+// $testbenutzer->setNachname("Maier");
+// $testbenutzer->setVorname("Bob");
+// $testbenutzer->setPasswort("blub123");
 
-$benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
+// $benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
 
 //$benutzerMapper->deleteBenutzer($testbenutzer);
 
@@ -69,7 +69,7 @@ $blub = $bhd21->getWaermetauscherGeloetetUnterkategorie();
 foreach($blub as $key){
 echo "<br>blub<br>";
 }
-echo $blub[0][2]->getLaenge();
+echo $blub[0]->getLaenge();
 
 
 //$linkMapper = new Application_Model_LinkMapper();
