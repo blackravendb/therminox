@@ -67,6 +67,7 @@ class AccountController extends Zend_Controller_Action
         			$user->setVorname($form->getValue('name'));
         			$user->setNachname($form->getValue('lastname'));
         			$user->setPasswort(sha1($form->getValue('password')));
+        			$user->setBestaetigt(0);
         			$userMapper->insertBenutzer($user, $form->getValue('email'));
         			
         			$key = App_Util::generateHexString();
