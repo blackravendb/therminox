@@ -28,6 +28,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Registry::set('Zend_Locale', $locale);
 		return $locale;
 	}
+	
+	protected function _initEmail()
+	{
+		$config = array(
+			'auth' => 'login',
+			'ssl' => 'tls',
+			'port' => 587,
+			'username' => 'test.therminox@gmail.com',
+			'password' => 'asdF123$'
+		);
+		$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+		Zend_Mail::setDefaultTransport($transport);
+	}
 
 	protected function _initViewHelpers()
 	{
