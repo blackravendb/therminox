@@ -65,7 +65,7 @@ echo '<br>'.$bhd21->getStutzenmaterial();
 
 $linkMapper = new Application_Model_LinkMapper();
 
-$fall = $linkMapper->getLinkByEmail("max.mustermann@test.de");
+$fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
 
 echo $fall['0']->getHexaString();
 

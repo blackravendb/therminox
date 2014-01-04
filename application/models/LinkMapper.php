@@ -29,6 +29,20 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 		}
 		return $ret;
 	}
+	
+	public function getLinkByHexaString($string) {
+		$data = $this->getDbTable()->getLinkByEmail($email);
+		
+		if($data == "")
+			return false;
+		
+		$ret = array();
+		
+		foreach ($data as $key => $value){
+			$ret[$key]= $this->setAttributs($value);
+		}
+		return $ret;
+	}
 
 }
 

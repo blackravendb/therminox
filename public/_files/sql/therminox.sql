@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 03. Jan 2014 um 22:49
+-- Erstellungszeit: 04. Jan 2014 um 17:16
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -118,6 +118,27 @@ CREATE TABLE IF NOT EXISTS `lieferadresse` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `link`
+--
+
+CREATE TABLE IF NOT EXISTS `link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `hexaString` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `typ` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `link`
+--
+
+INSERT INTO `link` (`id`, `email`, `hexaString`, `typ`) VALUES
+(1, 'max.mustermann@test.de', 'asdfasdfsd54f4sdaf564sd6f', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `rechnungsadresse`
 --
 
@@ -147,7 +168,14 @@ CREATE TABLE IF NOT EXISTS `stutzenmaterial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `stutzenmaterial`
+--
+
+INSERT INTO `stutzenmaterial` (`id`, `name`) VALUES
+(1, 'Edelstahl AISI 304 Mat. 1.4301');
 
 -- --------------------------------------------------------
 
@@ -165,7 +193,42 @@ CREATE TABLE IF NOT EXISTS `waermetauscherGeloetet` (
   `breite` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `stutzenmaterial_id` (`stutzenmaterial_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Daten für Tabelle `waermetauscherGeloetet`
+--
+
+INSERT INTO `waermetauscherGeloetet` (`id`, `model`, `betriebsdruck`, `temperatur`, `stutzenmaterial_id`, `hoehe`, `breite`) VALUES
+(2, 'BHD21', 30, 195, 1, 191, 73);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `waermetauscherGeloetetUnterkategorie`
+--
+
+CREATE TABLE IF NOT EXISTS `waermetauscherGeloetetUnterkategorie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `waermetauscherGeloetet_id` int(11) NOT NULL,
+  `platten` int(11) NOT NULL,
+  `laenge` int(11) NOT NULL,
+  `leergewicht` float NOT NULL,
+  `flaeche` float NOT NULL,
+  `inhaltPrimaer` float DEFAULT NULL,
+  `inhaltSekundaer` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `waermetauscherGeloetet_id` (`waermetauscherGeloetet_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `waermetauscherGeloetetUnterkategorie`
+--
+
+INSERT INTO `waermetauscherGeloetetUnterkategorie` (`id`, `waermetauscherGeloetet_id`, `platten`, `laenge`, `leergewicht`, `flaeche`, `inhaltPrimaer`, `inhaltSekundaer`) VALUES
+(1, 2, 12, 27, 0.9, 0.14, NULL, NULL),
+(2, 2, 20, 45, 1.2, 0.24, NULL, NULL),
+(3, 2, 30, 67, 1.4, 0.36, NULL, NULL);
 
 --
 -- Constraints der exportierten Tabellen
@@ -202,6 +265,12 @@ ALTER TABLE `rechnungsadresse`
 --
 ALTER TABLE `waermetauscherGeloetet`
   ADD CONSTRAINT `waermetauscherGeloetet_ibfk_1` FOREIGN KEY (`stutzenmaterial_id`) REFERENCES `stutzenmaterial` (`id`);
+
+--
+-- Constraints der Tabelle `waermetauscherGeloetetUnterkategorie`
+--
+ALTER TABLE `waermetauscherGeloetetUnterkategorie`
+  ADD CONSTRAINT `waermetauscherGeloetetUnterkategorie_ibfk_1` FOREIGN KEY (`waermetauscherGeloetet_id`) REFERENCES `waermetauscherGeloetet` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

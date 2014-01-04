@@ -27,6 +27,21 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     	
     	return $data->toArray();
     }
+    
+    public function getLinkByHexaString($string) {
+    	$this->select
+    	->from($this->_name)
+    	->where('hexaString =?', $string);
+    	 
+    	$data =$this->fetchAll($this->select);
+    	 
+    	$this->init();
+    	 
+    	if($data == "")
+    		return false;
+    	 
+    	return $data->toArray();
+    }
 
 
 }
