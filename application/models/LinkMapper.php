@@ -1,0 +1,34 @@
+<?php
+
+class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
+
+	public function getDbTable() {
+		if (null === $this->_dbTable) {
+			$this->setDbTable ( 'Application_Model_DbTable_Link' );
+		}
+		return $this->_dbTable;
+	}
+	
+	protected function setAttributs($row) {
+		$entry = new Application_Model_Link($row);
+	
+		return $entry;
+	}
+	
+	public function getLinkByEmail($email){
+		
+		$data = $this->getDbTable()->getLinkByEmail($email);
+		
+		if($data == "")
+			return false;
+		
+		$ret = array();
+		
+		foreach ($data as $key => $value){
+			$ret[$key]= $this->setAttributs($value);
+		}
+		return $ret;
+	}
+
+}
+

@@ -33,26 +33,26 @@
           <actionMethod actionName="geloetet"/>
           <actionMethod actionName="geschraubt"/>
           <actionMethod actionName="rohrbuendel"/>
-		  <actionMethod actionName="entfernen"/>
-		  <actionMethod actionName="hinzufuegen"/>
-		  <actionMethod actionName="bearbeiten"/>
+          <actionMethod actionName="entfernen"/>
+          <actionMethod actionName="hinzufuegen"/>
+          <actionMethod actionName="bearbeiten"/>
         </controllerFile>
         <controllerFile controllerName="Pufferspeicher">
           <actionMethod actionName="index"/>
           <actionMethod actionName="vvx"/>
           <actionMethod actionName="las"/>
-		  <actionMethod actionName="entfernen"/>
-		  <actionMethod actionName="hinzufuegen"/>
-		  <actionMethod actionName="bearbeiten"/>
+          <actionMethod actionName="entfernen"/>
+          <actionMethod actionName="hinzufuegen"/>
+          <actionMethod actionName="bearbeiten"/>
         </controllerFile>
         <controllerFile controllerName="Wassererwaermer">
           <actionMethod actionName="index"/>
           <actionMethod actionName="vve"/>
           <actionMethod actionName="shi"/>
           <actionMethod actionName="vvi"/>
-		  <actionMethod actionName="entfernen"/>
-		  <actionMethod actionName="hinzufuegen"/>
-		  <actionMethod actionName="bearbeiten"/>
+          <actionMethod actionName="entfernen"/>
+          <actionMethod actionName="hinzufuegen"/>
+          <actionMethod actionName="bearbeiten"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -60,10 +60,10 @@
         <formFile formName="Register"/>
         <formFile formName="Lost"/>
         <formFile formName="Password"/>
-		<formFile formName="ArtikelErstellen"/>
-		<formFile formName="WtErstellen"/>
-		<formFile formName="PsErstellen"/>
-		<formFile formName="WwErstellen"/>
+        <formFile formName="ArtikelErstellen"/>
+        <formFile formName="WtErstellen"/>
+        <formFile formName="PsErstellen"/>
+        <formFile formName="WwErstellen"/>
       </formsDirectory>
       <layoutsDirectory enabled="false">
         <layoutScriptsDirectory>
@@ -80,6 +80,8 @@
           <dbTableFile dbTableName="Rechnungsadresse"/>
           <dbTableFile dbTableName="WaermetauscherGeloetet"/>
           <dbTableFile dbTableName="Stutzenmaterial"/>
+          <dbTableFile dbTableName="WaermetauscherGeloetetUnterkategorie"/>
+          <dbTableFile dbTableName="Link"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
         <modelFile modelName="BegriffMapper"/>
@@ -97,6 +99,11 @@
         <modelFile modelName="Stutzenmaterial"/>
         <modelFile modelName="TableAbstract"/>
         <modelFile modelName="TableInterface"/>
+        <modelFile modelName="WaermetauscherGeloetetMapper"/>
+        <modelFile modelName="MapperAbstract"/>
+        <modelFile modelName="WaermetauscherGeloetetUnterkategorie"/>
+        <modelFile modelName="Link"/>
+        <modelFile modelName="LinkMapper"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

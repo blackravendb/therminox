@@ -19,6 +19,7 @@ $benutzerMapper = new Application_Model_BenutzerMapper();
 $test = $benutzerMapper->getBenutzer("test@test.de");
 echo $test->getPasswort()."<br>";
 
+
 // $test->setPasswort("maeh");
 // $test->setAnrede("Herr");
 
@@ -28,12 +29,12 @@ echo $test->getPasswort()."<br>";
 
 //Benutzer einfügen
 
-$testbenutzer = new Application_Model_Benutzer();
-$testbenutzer->setAnrede("Frau");
-$testbenutzer->setBerechtigung("Benutzer");
-$testbenutzer->setNachname("Maier");
-$testbenutzer->setVorname("Bob");
-$testbenutzer->setPasswort("blub123");
+// $testbenutzer = new Application_Model_Benutzer();
+// $testbenutzer->setAnrede("Frau");
+// $testbenutzer->setBerechtigung("Benutzer");
+// $testbenutzer->setNachname("Maier");
+// $testbenutzer->setVorname("Bob");
+// $testbenutzer->setPasswort("blub123");
 
 //$benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
 
@@ -45,5 +46,29 @@ if($benutzerMapper->existEmail("test@test.de")){
 else{
 	echo "<br>email existiert nicht<br>";
 }
+
+//Wärmetauscher Tests:
+
+$waermetauscher = new Application_Model_WaermetauscherGeloetet();
+
+$waermetauscher->setModel("test");
+
+echo $waermetauscher->getModel();
+
+$waermetauschermapper = new Application_Model_WaermetauscherGeloetetMapper();
+$bhd21 = $waermetauschermapper->getWaermetauscherGeloetetByModel("BHD21");
+if(!($bhd21 = $waermetauschermapper->getWaermetauscherGeloetetByModel("BHD21")))
+	echo "bhd21 anfrage fehlgeschlagen";
+else
+echo '<br>'.$bhd21->getStutzenmaterial();
+
+
+$linkMapper = new Application_Model_LinkMapper();
+
+$fall = $linkMapper->getLinkByEmail("max.mustermann@test.de");
+
+echo $fall['0']->getHexaString();
+
+echo $fall['0']->getEmail();
 ?>
 </div>

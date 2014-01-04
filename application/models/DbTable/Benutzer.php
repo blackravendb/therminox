@@ -94,7 +94,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	$benutzerData['email'] = $email;
     	
     	
-    	foreach($benutzerData as $key => $value){
+    	foreach($benutzerData as $key => $value) {
     		if($value == ""){
     			return false;	
     		}    		
