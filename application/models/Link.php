@@ -11,7 +11,7 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 				"id" => $this->_id,
 				"email" => $this->_email,
 				"hexaString" => $this->_hexaString,
-				"typ" => $this_typ
+				"typ" => $this->_typ
 		);
 	}
 	
