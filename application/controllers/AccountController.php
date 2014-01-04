@@ -67,7 +67,7 @@ class AccountController extends Zend_Controller_Action
         			$user->setVorname($form->getValue('name'));
         			$user->setNachname($form->getValue('lastname'));
         			$user->setPasswort(sha1($form->getValue('password')));
-        			//$userMapper->insertBenutzer($user, $form->getValue('email'));
+        			$userMapper->insertBenutzer($user, $form->getValue('email'));
         			
         			$key = App_Util::generateHexString();
         			
@@ -76,7 +76,7 @@ class AccountController extends Zend_Controller_Action
         			$link->setHexaString($key);
         			$link->setTyp(0); // 0: account confirmation 
         			$linkMapper = new Application_Model_LinkMapper();
-        			//$linkMapper->insertLink($link);
+        			$linkMapper->insertLink($link);
         			
         			
         			$mail = new App_Mail();
@@ -109,7 +109,7 @@ class AccountController extends Zend_Controller_Action
 	    		$user = $userMapper->getBenutzer($link->getEmail());
 	    		$user->setBestaetigt(TRUE);
 	    		//delete $link from database
-	    		//$linkMapper->deleteLink($link->getId());
+	    		$linkMapper->deleteLink($link->getId());
 	    		$userMapper->insertBenutzer($user, $user->getEmail());
 	    	} else {
 	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
