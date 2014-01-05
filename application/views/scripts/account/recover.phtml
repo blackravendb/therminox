@@ -1,6 +1,10 @@
-<?php $this->headLink()->appendStylesheet('/_files/css/login.css');?>
-<h3>Passwort vergessen?</h3>
-<p> Bei Eingabe deiner E-Mail-Adresse wird dir umgehend eine Bestätigungsemail zugesendet,
-in der du einen Link zum zurücksetzen deines Passwortes findest. <p>
-<br>
-<?php echo $this->form; ?>
+<?php $this->headTitle()->append('Neues Passwort'); ?>
+<?php $this->headLink()->appendStylesheet('/_files/css/login.css'); ?>
+<div id="recover_wrapper">
+	<h3>Neues Passwort</h3>
+	<p>Bitte geben Sie ihr neues Passwort ein.</p>
+	<?php echo $this->Errors($this->errorMessage);?>
+	<div id="recover_container">
+		<?php echo $this->form; ?>
+	</div>
+</div>

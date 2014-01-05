@@ -66,7 +66,7 @@ class AccountController extends Zend_Controller_Action
         			$user->setAnrede($form->getValue('title'));
         			$user->setVorname($form->getValue('name'));
         			$user->setNachname($form->getValue('lastname'));
-        			$user->setPasswort(sha1($form->getValue('password')));
+        			$user->setKlartextPasswort($form->getValue('password'));
         			$user->setBestaetigt(0);
         			$userMapper->insertBenutzer($user, $form->getValue('email'));
         			
@@ -118,23 +118,83 @@ class AccountController extends Zend_Controller_Action
 	    	} else {
 	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
 	    	}
-	    	$this->view->test = "valid";
 		} else {
 			$this->view->errorMessage = 'Schlüssel hat kein gültiges Format';
 		}
     }
-
+    
+    /**
+     * Initiate Password Recovery Process
+     */
+    public function lostAction()
+    {
+    	$form = new Application_Form_Lost();
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+    			//send email to recover password
+    			$userMapper = new Application_Model_BenutzerMapper();
+    			$user = $userMapper->getBenutzer($form->getValue('email'));
+    			if($user){
+    				$key = App_Util::generateHexString();
+    				
+    				$link = new Application_Model_Link();
+    				$link->setEmail($form->getValue('email'));
+    				$link->setHexaString($key);
+    				$link->setTyp(1); // 1: password recovery
+    				$linkMapper = new Application_Model_LinkMapper();
+    				$linkMapper->insertLink($link);
+    				
+    				$mail = new App_Mail();
+    				$mail->assignValues(array(
+    						'name' => $user->getVorname(),
+    						'key'  => $key
+    				));
+    				$mail->addTo($form->getValue('email'));
+    				$mail->setSubject('Therminox - Passwort verloren');
+    				$mail->setFrom('test.therminox@gmail.com', 'Therminox');
+    				$mail->send('lost');
+    				$this->_helper->flashMessenger->addMessage('Bitte überprüfen Sie Ihre E-mails für weitere Anweisungen');
+    				$this->_helper->redirector->gotoSimple('index', 'startseite');
+    			} else {
+    				$this->view->errorMessage = 'Diese E-mail ist nicht registriert.';
+    			}
+    		}
+    	}
+    	$this->view->form = $form;
+    }
+    
+	/**
+	 * Complete Password Recovery Process, user can create a new password.
+	 */
     public function recoverAction()
     {
-		$form = new Application_Form_Recover();
-        if ($this->_request->isPost()) {
-        	if ($form->isValid($this->_request->getPost())) {
-        		//send email to recover password
-        		$this->_helper->flashMessenger->addMessage('Bitte überprüfen Sie Ihre E-mails für weitere Anweisungen');
-        		$this->_helper->redirector->gotoSimple('index', 'startseite');
-        	}
-        }
-        $this->view->form = $form;
+    	$key = $this->_request->getParam('key');
+    	$validator = new Zend_Validate_Hex();
+    	if ($validator->isValid($key) && strlen($key) === 40) {
+    		$linkMapper = new Application_Model_LinkMapper();
+    		$link = $linkMapper->getLinkByHexaString($key);
+    		if($link && $link->getTyp() === 1){ //check if password recovery type
+    			$form = new Application_Form_Recover($key);
+    			if ($this->_request->isPost()) {
+    				if ($form->isValid($this->_request->getPost())) {
+    					$userMapper = new Application_Model_BenutzerMapper();
+    					$user = $userMapper->getBenutzer($link->getEmail());
+    					$user->setPasswort($form->getValue('password'));
+    					$userMapper->updateBenutzer($user);
+    			
+    					$linkMapper->deleteLink($link);
+    					
+    					$this->_helper->flashMessenger->addMessage('Passwort erfolgreich geändert');
+    					$this->_helper->redirector->gotoSimple('index', 'startseite');
+    				}
+    			}
+    			$this->view->form = $form;
+    		} else {
+    			$this->view->errorMessage = 'Schlüssel nicht gefunden.';
+    		}
+    	} else {
+    		$this->view->errorMessage = 'Schlüssel hat kein gültiges Format';
+    	}
     }
 
     public function passwordAction()
@@ -142,9 +202,17 @@ class AccountController extends Zend_Controller_Action
     	$form = new Application_Form_Password();
     	if ($this->_request->isPost()) {
     		if ($form->isValid($this->_request->getPost())) {
-    			//save new password in db
-    			$this->_helper->flashMessenger->addMessage('Passwort erfolgreich geändert');
-    			$this->_helper->redirector->gotoSimple('index', 'startseite');
+    			$userMapper = new Application_Model_BenutzerMapper();
+    			$user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+    			$old_password = sha1($form->getValue('old_password') . $user->getSalt());
+    			if($user->getPasswort() === $old_password) {
+    				$user->setKlartextPasswort($form->getValue('new_password'));
+    				$userMapper->updateBenutzer($user);
+    				$this->_helper->flashMessenger->addMessage('Passwort erfolgreich geändert');
+    				$this->_helper->redirector->gotoSimple('index', 'startseite');
+    			} else {
+    				$this->view->errorMessage = 'Altes Passwort ist falsch.';
+    			}
     		}
     	}
     	$this->view->form = $form;
