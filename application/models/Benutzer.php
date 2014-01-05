@@ -74,7 +74,7 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_passwort;
 	}
 	
-	private function setSalt($salt){
+	protected function setSalt($salt){
 			$this->_salt = $salt;
 			$this->_changed['salt'] = 1;
 	}

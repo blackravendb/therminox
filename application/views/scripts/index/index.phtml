@@ -83,10 +83,6 @@ echo '--------------------------------------------------------------------------
 
 // // echo $fall['0']->getEmail();
 
- $benutzerMapper = new Application_Model_BenutzerMapper();
-
- $test = $benutzerMapper->getBenutzer("test@test.de");
- echo $test->getPasswort();
  
  echo "<br>";
  $wtmapper = new Application_Model_WaermetauscherMapper();
@@ -97,8 +93,8 @@ echo '--------------------------------------------------------------------------
  $wtmapper->setAnschluss(array('3/8" IG', '1/2" AG', '3/4" AG'));
  $wtmapper->setHoeheMax(450);
  $wtmapper->setHoeheMin(100);
-// $wtmapper->setBreiteMax(150);
-// $wtmapper->setBreiteMin(10);
+ $wtmapper->setBreiteMax(150);
+ $wtmapper->setBreiteMin(10);
   $produkt = $wtmapper->getWaermetauscher();
   
   echo '<br><br><br>';
