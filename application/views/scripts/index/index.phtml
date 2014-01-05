@@ -82,6 +82,19 @@ echo '--------------------------------------------------------------------------
 // // echo $fall['0']->getHexaString();
 
 // // echo $fall['0']->getEmail();
+echo "<br>";
+ $wtmapper = new Application_Model_WaermetauscherMapper();
+ 
+ $wtmapper->setTemperaturMax(200);
+ $wtmapper->setTemperaturMin(100);
+ $produkt = $wtmapper->getWaermetauscher();
+ if($produkt != ""){
+ 	foreach($produkt as $key => $value){
+		echo $value->getModel().'<br>';
+		echo $value->getTemperatur().'<br>';
+	}
+ }
+ 
 //
  echo '<br>-------------------------------------------------------------------------------------';
  echo '<br><br><br>';

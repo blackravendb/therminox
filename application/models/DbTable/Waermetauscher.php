@@ -15,7 +15,10 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	->setIntegrityCheck(false);
     }
     
-    public function getWaermetauscher($params){
+    public function getWaermetauscherByParams($params) {
+    	//fals zuvor ein Setter aufgerufen wurde ohne getWaermetauscher danach aufzurufen
+    	$this->init();
+    	
     	$this->select
     	->from($this->_name)
     	->join('stutzenmaterial', "$this->_name.stutzenmaterial_id = stutzenmaterial.id", array('name as stutzenmaterial'));
@@ -54,6 +57,51 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	
     	return $ret;		
     }
+    
+    //Setter für Produktberater
+
+    public function setTemperaturMin($temp) {
+    	 $this->select
+    	 ->where('temperatur >= ?', $temp);
+    }
+    
+    public function setTemperaturMax($temp) {
+    	$this->select
+    	->where('temperatur <= ?', $temp);
+    }
+    
+    public function setHoeheMin($hoehe) {
+    	$this->select
+    	->where('hoehe >= ?', $hoehe);
+    }
+    
+    public function setHoeheMax($hoehe) {
+    	$this->select
+    	->where('hoehe <= ?', $hoehe);
+    }
+    
+    public function setBreiteMin($breite) {
+    	$this->select
+    	->where('breite >= ?', $hoehe);
+    }
+    
+    public function setBreiteMax($breite) {
+    	$this->select
+    	->where('breite <= ?', $hoehe);
+    }
+    
+    
+    
+    
+    public function getWaermetauscher() {
+    	$data = parent::fetchAll($this->select);
+    	
+    	//select zurücksetzen
+    	$this->init();
+    	
+    	return $data->toArray();
+    }
+    
 
 }
 
