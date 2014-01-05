@@ -1,9 +1,9 @@
 <?php
 
-class Application_Model_WaermetauscherGeloetetUnterkategorie extends Application_Model_TableAbstract
+class Application_Model_WaermetauscherUnterkategorie extends Application_Model_TableAbstract
 {
 	protected $_id;
-	protected $_waermetauscherGeloetet_id;
+	protected $_waermetauscher_id;
 	protected $_platten;
 	protected $_laenge;
 	protected $_leergewicht;
@@ -14,7 +14,7 @@ class Application_Model_WaermetauscherGeloetetUnterkategorie extends Application
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
-				"waermetauscherGeloetet_id" => $this->_waermetauscherGeloetet_id,
+				"waermetauscher_id" => $this->_waermetauscher_id,
 				"platten" => $this->_platten,
 				"laenge" => $this->_laenge,
 				"leergewicht" => $this->_leergewicht,
@@ -37,16 +37,16 @@ class Application_Model_WaermetauscherGeloetetUnterkategorie extends Application
 		return $this->_id;
 	}
 	
-	public function setWaermetauscherGeloetet_id($id) {
+	public function setWaermetauscher_id($id) {
 		if($id == "")
 			return false;
 
-		$this->_waermetauscherGeloetet_id = (int)$id;
+		$this->_waermetauscher_id = (int)$id;
 		return $this;
 	}
 	
-	public function getWaermetauscherGeloetet_id() {
-		return $this->waermetauscherGeloetet_id;
+	public function getWaermetauscher_id() {
+		return $this->waermetauscher_id;
 	}
 	
 	public function setPlatten($platten){

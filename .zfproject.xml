@@ -82,6 +82,10 @@
           <dbTableFile dbTableName="Stutzenmaterial"/>
           <dbTableFile dbTableName="WaermetauscherGeloetetUnterkategorie"/>
           <dbTableFile dbTableName="Link"/>
+          <dbTableFile dbTableName="WaermetauscherEinsatzgebiet"/>
+          <dbTableFile dbTableName="WaermetauscherAnschluss"/>
+          <dbTableFile dbTableName="WaermetauscherGeloetet2waermetauscherAnschluss"/>
+          <dbTableFile dbTableName="WaermetauscherGeloetet2waermetauscherEinsatzgebiet"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
         <modelFile modelName="BegriffMapper"/>
@@ -104,6 +108,8 @@
         <modelFile modelName="WaermetauscherGeloetetUnterkategorie"/>
         <modelFile modelName="Link"/>
         <modelFile modelName="LinkMapper"/>
+        <modelFile modelName="WaermetauscherAnschluss"/>
+        <modelFile modelName="WaermetauscherEinsatzgebiet"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

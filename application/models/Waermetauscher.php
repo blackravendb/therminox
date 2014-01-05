@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAbstract
+class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 {
 	protected $_id;
 	protected $_model;
@@ -9,7 +9,9 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 	protected $_hoehe;
 	protected $_breite;
 	protected $_stutzenmaterial;
-	protected $_waermetauscherGeloetetUnterkategorie;
+	protected $_waermetauscherUnterkategorie;
+	protected $_waermetauscherEinsatzgebiet;
+	protected $_waermetauscherAnschluss;
 	
 	public function toArray() {
 		return array(
@@ -20,7 +22,9 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 				"hoehe" => $this->_hoehe,
 				"breite" => $this->_breite,
 				"stuzenmaterial" => $this->_stutzenmaterial,
-				"waermetauscherGeloetetUnterkategorie" => $this->_waermetauscherGeloetetUnterkategorie
+				"waermetauscherUnterkategorie" => $this->_waermetauscherUnterkategorie,
+				"waermetauscherEinsatzgebiet" => $his->_waermetauscherEinsatzgebiet,
+				"waermetauscherAnschluss" => $this->_waermetauscherAnschluss
 		);
 	}
 	
@@ -103,15 +107,37 @@ class Application_Model_WaermetauscherGeloetet extends Application_Model_TableAb
 		return $this->_stutzenmaterial;
 	}
 	
-	public function setWaermetauscherGeloetetUnterkategorie($wtGeloetetUnterkategorie){
-		if(is_array($wtGeloetetUnterkategorie))
-			$this->_waermetauscherGeloetetUnterkategorie = $wtGeloetetUnterkategorie;
+	public function setWaermetauscherUnterkategorie($wtUnterkategorie){
+		if(is_array($wtUnterkategorie))
+			$this->_waermetauscherUnterkategorie = $wtUnterkategorie;
 		else
-			$this->_waermetauscherGeloetetUnterkategorie[] = $wtGeloetetUnterkategorie;
+			$this->_waermetauscherUnterkategorie[] = $wtUnterkategorie;
 	}
 	
-	public function getWaermetauscherGeloetetUnterkategorie(){
-		return $this->_waermetauscherGeloetetUnterkategorie;
+	public function getWaermetauscherUnterkategorie(){
+		return $this->_waermetauscherUnterkategorie;
+	}
+	
+	public function setWaermetauscherEinsatzgebiet($einsatzgebiet) {
+		if(is_array($einsatzgebiet))
+			$this->_waermetauscherEinsatzgebiet = $einsatzgebiet;
+		else
+			$this->_waermetauscherEinsatzgebiet[] = $einsatzgebiet;
+	}
+	
+	public function getWaermetauscherEinsatzgebiet() {
+		return $this->_waermetauscherEinsatzgebiet;
+	}
+	
+	public function setWaermetauscherAnschluss($anschluss) {
+		if(is_array($anschluss))
+			$this->_waermetauscherAnschluss = $anschluss;
+		else
+			$this->_waermetauscherAnschluss[] = $anschluss;
+	}
+	
+	public function getWaermetauscherAnschluss() {
+		return $this->_waermetauscherAnschluss;
 	}
 	
 	
