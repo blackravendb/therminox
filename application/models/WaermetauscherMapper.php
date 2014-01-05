@@ -77,11 +77,11 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	}
 	
 	public function setHoeheMin($hoehe) {
-		$this->getDbTable()->setHoeheMin($temp);
+		$this->getDbTable()->setHoeheMin($hoehe);
 	}
 	
 	public function setHoeheMax($hoehe) {
-		$this->getDbTable()->setHoeheMax($temp);
+		$this->getDbTable()->setHoeheMax($hoehe);
 	}
 	
 	public function setBreiteMin($breite) {
@@ -90,6 +90,14 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	public function setBreiteMax($breite) {
 		$this->getDbTable()->setBreiteMax($breite);
+	}
+	
+	public function setEinsatzgebiet($gebiet) {
+		$this->getDbTable()->setEinsatzGebiet($gebiet);
+	}
+	
+	public function setAnschluss($anschluss) {
+		$this->getDbTable()->setAnschluss($anschluss);
 	}
 	
 	

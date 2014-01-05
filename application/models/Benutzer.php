@@ -58,7 +58,12 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_vorname;
 	}
 	
-	public function setPasswort($pw) {
+	//Methode für Konstruktur, dass Gehashter Wert nicht nochmal gehast wird und sich so bei jedem neuen Objektaufruf ändert
+	protected function setPasswort($pw) {
+		return $this->_passwort = $pw;
+	}
+	
+	public function setKlartextPasswort($pw) {
 		$this->setSalt(App_Util::generateHexString());
 		$this->_passwort = sha1($pw.$this->getSalt());
 		$this->_changed['passwort'] = 1;
