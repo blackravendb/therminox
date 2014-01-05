@@ -86,18 +86,27 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     {	
     	parent::__construct($options);
 		
+    	/*
     	$tempVal = new Zend_Validate_Between(array('min' => $this->getMinTemp(), 'max' => $this->getMaxTemp())); //min 155 //max 195
     	$heightVal = new Zend_Validate_Between(array('min' => $this->getMinHeight(), 'max' => $this->getMaxHeight())); //min 170 max 1100
     	$widthVal = new Zend_Validate_Between(array('min' => $this->getMinWidth(), 'max' => $this->getMaxWidth())); //min 70 max 400
     	$lengthVal = new Zend_Validate_Between(array('min' => $this->getMinLength(), 'max' => $this->getMaxLength())); //min 20 max 500
+    	*/
     	
-    	$temp = new Zend_Form_Element_Text('Temperatur');
-    	$temp->setLabel('Temperatur:')
-    		->addValidator($tempVal)
+    	$minTemp = new Zend_Form_Element_Text('TemperaturMin');
+    	$minTemp->setLabel('Minimaltemperatur:')
+    		//->addValidator($tempVal)
     		->addFilter('StripTags')
-            ->addFilter('StringTrim')
-        	->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen ' . $tempVal->getMin() . '°C und ' . $tempVal->getMax() . '°C verfügbar');
+            ->addFilter('StringTrim'); 
+        	//$temp->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen ' . $tempVal->getMin() . '°C und ' . $tempVal->getMax() . '°C verfügbar');
         
+       	$maxTemp = new Zend_Form_Element_Text('TemperaturMax');
+    	$maxTemp->setLabel('Höchsttemperatur:')
+    		//->addValidator($tempVal)
+    		->addFilter('StripTags')
+            ->addFilter('StringTrim');
+        	//maxTemp->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen ' . $tempVal->getMin() . '°C und ' . $tempVal->getMax() . '°C verfügbar');
+        	
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')
         			//->addMultiOptions() warten auf Datenbank
@@ -107,6 +116,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
         			->addFilter('StripTags')
            			->addFilter('StringTrim');
     	
+           			/*
         $anschluss1 = new Zend_Form_Element_Checkbox('Anschluss1');
        	$anschluss1->setLabel('3/8" IG');
 
@@ -115,7 +125,8 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        	
        	$anschluss3 = new Zend_Form_Element_Checkbox('Anschluss3');
        	$anschluss3->setLabel('3/4" AG');
-       /*
+		*/
+           			
        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss', array(
         		'multiOptions' => array(
        				'3/8" IG' => '3/8" IG', 
@@ -123,8 +134,10 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        				'3/4" AG' => '3/4" AG'
        			)
        		));
-       	$anschluss->setLabel('Anschlüsse:');
-       	*/
+       	$anschluss->setLabel('Anschlüsse:')
+       			->setValue(array('3/8" IG', '1/2" AG', '3/4" AG'));
+       	
+       
        /*    			
         $anschluss = new Zend_Form_Element_Multiselect('Anschluss');
         $anschluss->setLabel('Anschlüsse:')
@@ -146,31 +159,52 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 		$maxLength->setLabel('Maximale Länge:')
 				->setJQueryParams(array('min' => 20, 'max' => 500, 'value' => 1)); */
        	
-       	$maxHeight = new Zend_Form_Element_Text('Hoehe');
+       	$minHeight = new Zend_Form_Element_Text('HoeheMin');
+		$minHeight->setLabel('Minimalhöhe:')
+			 	//->addValidator($heightVal)
+    			->addFilter('StripTags')
+           	 	->addFilter('StringTrim');
+        		//$minHeight->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Höhe zwischen ' . $heightVal->getMin() . '°C und ' . $heightVal->getMax() . '°C verfügbar');
+       			
+       	$maxHeight = new Zend_Form_Element_Text('HoeheMax');
 		$maxHeight->setLabel('Maximale Höhe:')
-			 	->addValidator($heightVal)
+			 	//->addValidator($heightVal)
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim')
-        		->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Höhe zwischen ' . $heightVal->getMin() . '°C und ' . $heightVal->getMax() . '°C verfügbar');
-				
-		$maxWidth = new Zend_Form_Element_Text('Breite');
-		$maxWidth->setLabel('Maximale Breite:')
-		    	->addValidator($widthVal)
+           	 	->addFilter('StringTrim');
+        		//$maxHeight->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Höhe zwischen ' . $heightVal->getMin() . '°C und ' . $heightVal->getMax() . '°C verfügbar');
+
+        $minWidth = new Zend_Form_Element_Text('BreiteMin');
+		$minWidth->setLabel('Minimalbreite:')
+		    	//->addValidator($widthVal)
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim')
-        		->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
+           	 	->addFilter('StringTrim');
+        		//$minWidth->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
+        		
+		$maxWidth = new Zend_Form_Element_Text('BreiteMax');
+		$maxWidth->setLabel('Maximalbreite:')
+		    	//->addValidator($widthVal)
+    			->addFilter('StripTags')
+           	 	->addFilter('StringTrim');
+        		//$maxWidth->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
 		
-		$maxLength = new Zend_Form_Element_Text('Laenge');
-		$maxLength->setLabel('Maximale Länge:')
-		    	->addValidator($lengthVal)
+        $minLength = new Zend_Form_Element_Text('LaengeMin');
+		$minLength->setLabel('Minimallänge:')
+		    	//->addValidator($lengthVal)
     			->addFilter('StripTags')
-            	->addFilter('StringTrim')
-        		->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen' . $lengthVal->getMin() . '°C und ' . $lengthVal->getMax() . '°C verfügbar');	
+            	->addFilter('StringTrim');
+        		//$minLength->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen' . $lengthVal->getMin() . '°C und ' . $lengthVal->getMax() . '°C verfügbar');	
+        		
+		$maxLength = new Zend_Form_Element_Text('LaengeMax');
+		$maxLength->setLabel('Maximallänge:')
+		    	//->addValidator($lengthVal)
+    			->addFilter('StripTags')
+            	->addFilter('StringTrim');
+        		//$maxLength->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen' . $lengthVal->getMin() . '°C und ' . $lengthVal->getMax() . '°C verfügbar');	
        	
 		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');
         	
-        $this->addElements(array($temp, $einsatzgbt, $anschluss1, $anschluss2, $anschluss3, $maxHeight, $maxWidth, $maxLength, $submit));
+        $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $anschluss, $minHeight, $maxHeight, $minWidth, $maxWidth, $minLength, $maxLength, $submit));
 	}
   }
