@@ -34,22 +34,17 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 		$data = $this->getDbTable()->getLinkByHexaString($string);
 		
 		if($data == "")
-			return false;
+			return;
 		
-		$ret = array();
-		
-		foreach ($data as $key => $value){
-			$ret[$key]= $this->setAttributs($value);
-		}
-		return $ret;
+		return $data[0];
 	}
 	
 	public function insertLink(Application_Model_Link $link) {
 		return $this->getDbTable()->insertLink($link);
 	}
 	
-	public function deleteLink($id){
-		return $this->getDbTable()->deleteLink($id);
+	public function deleteLink(Application_Model_link $link){
+		return $this->getDbTable()->deleteLink($link->getId());
 	}
 
 }

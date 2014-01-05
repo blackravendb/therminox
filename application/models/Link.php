@@ -16,6 +16,10 @@ class Application_Model_Link extends Application_Model_TableAbstract{
 	}
 	
 	//kein setId benötigt, da Feld AI ist
+	protected function setId($id){
+		$this->_id = $id;
+		return $this;
+	}
 	
 	public function getId(){
 		return $this->_id;

@@ -23,7 +23,7 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     	$this->init();
     	
     	if($data == "")
-    		return false;
+    		return;
     	
     	return $data->toArray();
     }
@@ -34,11 +34,10 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     	->where('hexaString =?', $string);
     	 
     	$data =$this->fetchAll($this->select);
-    	 
     	$this->init();
     	 
     	if($data == "")
-    		return false;
+    		return;
     	 
     	return $data->toArray();
     }
