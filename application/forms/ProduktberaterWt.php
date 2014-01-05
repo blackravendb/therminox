@@ -7,8 +7,6 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 	protected $_maxHeight = null;
 	protected $_minWidth = null;
 	protected $_maxWidth = null;
-	protected $_minLength = null;
-	protected $_maxLength = null;
 	
 	public function setMinTemp($var){
 		$this->_minTemp = $var;
@@ -62,24 +60,6 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 	
 	public function getMaxWidth(){
 		return $this->_maxWidth;
-	}
-	
-	public function setMinLength($var){
-		$this->_minLength = $var;
-		return $this;
-	}
-	
-	public function getMinLength(){
-		return $this->_minLength;
-	}
-	
-	public function setMaxLength($var){
-		$this->_maxLength = $var;
-		return $this;
-	}
-	
-	public function getMaxLength(){
-		return $this->_maxLength;
 	}
 	
 	 public function __construct($options = null)
@@ -187,24 +167,9 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
            	 	->addFilter('StringTrim');
         		//$maxWidth->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
 		
-        $minLength = new Zend_Form_Element_Text('LaengeMin');
-		$minLength->setLabel('Minimallänge:')
-		    	//->addValidator($lengthVal)
-    			->addFilter('StripTags')
-            	->addFilter('StringTrim');
-        		//$minLength->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen' . $lengthVal->getMin() . '°C und ' . $lengthVal->getMax() . '°C verfügbar');	
-        		
-		$maxLength = new Zend_Form_Element_Text('LaengeMax');
-		$maxLength->setLabel('Maximallänge:')
-		    	//->addValidator($lengthVal)
-    			->addFilter('StripTags')
-            	->addFilter('StringTrim');
-        		//$maxLength->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen' . $lengthVal->getMin() . '°C und ' . $lengthVal->getMax() . '°C verfügbar');	
-       	
-		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');
         	
-        $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $anschluss, $minHeight, $maxHeight, $minWidth, $maxWidth, $minLength, $maxLength, $submit));
+        $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $anschluss, $minHeight, $maxHeight, $minWidth, $maxWidth, $submit));
 	}
   }

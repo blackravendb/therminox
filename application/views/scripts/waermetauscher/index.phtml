@@ -2,9 +2,6 @@
 <h1>Produktberater</h1>
 <?php echo $this->produktberaterWt;?>
 
-<?php 
-if($this->showVor == true){
-?>
 <div id="TabelleWt">
 
 <h1>Vorschläge</h1>
@@ -19,19 +16,17 @@ if($this->showVor == true){
     <th>Länge</th>
   </tr>
   <tr>
-    <td>...</td>
-    <td>....</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
+  <?php foreach($produkte as $key => $value){?>
+    <td><?php $value->getID(); ?></td>
+    <td><?php $value->getModel(); ?></td>
+    <td><?php $value->getTemperatur(); ?></td>
+    <td><?php $value->getWaermetauscherEinsatzgebiet(); ?></td>
+    <td><?php $value->getgetHoehe(); ?></td>
+    <td><?php $value->getBreite(); ?></td>
+  <?php }?>
   </tr>
 </table>
 </div>
-<?php 
-}
-?>
 
 
      

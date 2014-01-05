@@ -11,8 +11,7 @@ class WaermetauscherController extends Zend_Controller_Action
     {
 
      $this->view->title = "ProduktberaterWärmetauscher";
-    	
-     /*
+    	/*
      	$minTemp = 155;
      	$maxTemp = 195;
      	$minHeight = 170;
@@ -36,16 +35,24 @@ class WaermetauscherController extends Zend_Controller_Action
         	
         	if($form->isValid($formData))
         	{
-        		$minTemp = $form->getElement('TemperaturMin');
-        		$maxTemp = $form->getElment('TemperaturMax');
-        		$einsatzgbt = $form->getElement('Einsatzgebiet');
-        		$anschluss = $form->getElement('Anschluss');
-        		$minHeight = $form->getElement('HoeheMin');
-        		$maxHeight = $form->getElement('HoeheMax');
-        		$minWidth = $form->getElement('BreiteMin');
-        		$maxWidth = $form->getElement('BreiteMax');
-        		$minLength = $form->getElement('LaengeMin');
-        		$maxLength = $form->getElement('LaengeMax');
+        		$minTemp = $form->getValue('TemperaturMin');
+        		$maxTemp = $form->getValue('TemperaturMax');
+        		$einsatzgbt = $form->getValue('Einsatzgebiet');
+        		$anschluss = $form->getValues('Anschluss');
+        		$minHeight = $form->getValue('HoeheMin');
+        		$maxHeight = $form->getValue('HoeheMax');
+        		$minWidth = $form->getValue('BreiteMin');
+        		$maxWidth = $form->getValue('BreiteMax');
+        		
+        		$wtmapper = new Application_Model_WaermetauscherMapper();
+        		$wtmapper->setTemperaturMin($minTemp);
+        		$wtmapper->setTemperaturMax($maxTemp);
+        		$wtmapper->setEinsatzgebiet($einsatzgbt); //Methode fehlt!!!! 
+        		$wtmapper->setAnschluss($anschluss);
+        		$wtmapper->setHoeheMin($minHeight);
+        		$wtmapper->setHoeheMax($maxHeight);
+        		
+        		$this->view->produkte = $wtmapper->getWaermetauscher(); 
         		
         		/*
         		$tempVal = $form->getElement('tempVal');
