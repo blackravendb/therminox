@@ -46,7 +46,7 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		if($model == "")
 			return false;
 		
-		$data = $this->getDbTable()->getWaermetauscher(array('model' => $model));
+		$data = $this->getDbTable()->getWaermetauscherByParams(array('model' => $model));
 		
  		if($data == "")
  			return false;
@@ -59,7 +59,7 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		if($id == "")
 			return false;
 	
-		$data = $this->getDbTable()->getWaermetauscher(array('id' => (int)$id));
+		$data = $this->getDbTable()->getWaermetauscherByParams(array('id' => (int)$id));
 		
 		if($data == "")
 			return ;
@@ -68,6 +68,39 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		return $this->setAttributs($data);
 	}
 	
+	public function setTemperaturMin($temp){
+		$this->getDbTable()->setTemperaturMin($temp);
+	}
+	
+	public function setTemperaturMax($temp){
+		$this->getDbTable()->setTemperaturMax($temp);
+	}
+	
+	public function setHoeheMin($hoehe) {
+		$this->getDbTable()->setHoeheMin($temp);
+	}
+	
+	public function setHoeheMax($hoehe) {
+		$this->getDbTable()->setHoeheMax($temp);
+	}
+	
+	public function setBreiteMin($breite) {
+		$this->getDbTable()->setBreiteMin($breite);	
+	}		
+	
+	public function setBreiteMax($breite) {
+		$this->getDbTable()->setBreiteMax($breite);
+	}
+	
+	
+	public function getWaermetauscher() {
+		$data = $this->getDbTable()->getWaermetauscher();
+		$ret = array();
+		foreach($data as $key => $value){
+			$ret[] = $this->setAttributs($value);
+		}
+		return $ret;
+	}
 
 }
 
