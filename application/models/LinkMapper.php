@@ -36,7 +36,7 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 		if($data == "")
 			return;
 		
-		return $data[0];
+		return $this->setAttributs($data[0]);
 	}
 	
 	public function insertLink(Application_Model_Link $link) {
