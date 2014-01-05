@@ -3,6 +3,7 @@
 <div id="register_wrapper">
 	<h3>Registrieren</h3>
 	<p>Bitte füllen Sie alle Pflichtfelder aus, um einen neuen Benutzer zu registrieren.</p>
+	<?php echo $this->Errors($this->errorMessage);?>
 	<div id="register_container">
 		<?php echo $this->form; ?>
 		<small>*Pflichtfelder</small>

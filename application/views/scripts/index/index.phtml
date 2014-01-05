@@ -1,6 +1,83 @@
 <br /><br />
 <div id="view-content">
 <?php
-echo $this->mustermann['anrede']."<br>".$this->mustermann['vorname']." ".$this->mustermann['nachname']."<br>".$this->mustermann['email'];
+echo "Einzelne Zeile per getBenutzer abrufen:<br>";
+echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
+?>
+<br><br><br>
+<?php 
+echo "Alle Benutzer per fetchAll abrufen:<br>";
+foreach($this->mustermaenner as $mustermann){
+echo $mustermann->getAnrede() ." ". $mustermann->getVorname() ." ". $mustermann->getNachname() ." ". "<br>".$mustermann->getEmail() . "<br><br>";
+}
+?>
+
+
+<?php 
+$benutzerMapper = new Application_Model_BenutzerMapper();
+
+$test = $benutzerMapper->getBenutzer("test@test.de");
+$test->setPasswort("geheim");
+$benutzerMapper->updateBenutzer($test);
+
+
+// $test->setPasswort("maeh");
+// $test->setAnrede("Herr");
+
+
+
+// $benutzerMapper->updateBenutzer($test);
+
+//Benutzer einfügen
+
+// $testbenutzer = new Application_Model_Benutzer();
+// $testbenutzer->setAnrede("Frau");
+// $testbenutzer->setBerechtigung("Benutzer");
+// $testbenutzer->setNachname("Maier");
+// $testbenutzer->setVorname("Bob");
+// $testbenutzer->setPasswort("blub123");
+
+// $benutzerMapper->insertBenutzer($testbenutzer, "bob.maier2@email.de");
+
+//$benutzerMapper->deleteBenutzer($testbenutzer);
+
+if($benutzerMapper->existEmail("test@test.de")){
+	echo "<br>email existiert<br>";
+}
+else{
+	echo "<br>email existiert nicht<br>";
+}
+
+//Wärmetauscher Tests:
+
+$waermetauscher = new Application_Model_WaermetauscherGeloetet();
+
+$waermetauscher->setModel("test");
+
+echo $waermetauscher->getModel();
+
+$waermetauschermapper = new Application_Model_WaermetauscherGeloetetMapper();
+$bhd21 = $waermetauschermapper->getWaermetauscherGeloetetByModel("BHD21");
+if(!($bhd21 = $waermetauschermapper->getWaermetauscherGeloetetByModel("BHD21")))
+	echo "bhd21 anfrage fehlgeschlagen";
+else
+echo '<br>'.$bhd21->getStutzenmaterial();
+
+//print_r($bhd21->getWaermetauscherGeloetetUnterkategorie()['0']);
+
+$blub = $bhd21->getWaermetauscherGeloetetUnterkategorie();
+foreach($blub as $key){
+echo "<br>blub<br>";
+}
+echo $blub[0]->getLaenge();
+
+
+//$linkMapper = new Application_Model_LinkMapper();
+
+// $fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
+
+// echo $fall['0']->getHexaString();
+
+// echo $fall['0']->getEmail();
 ?>
 </div>

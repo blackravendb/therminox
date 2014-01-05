@@ -16,11 +16,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headScript()->appendFile('/_files/js/global.js');
 	}
 	
+// 	protected function _initDbAdapter(){
+// 		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
+// 		$profiler->setEnabled(true);
+// 		$dbAdapter->setProfiler($profiler);
+// 	}
+	
 	protected function _initLocale()
 	{
 		$locale = new Zend_Locale();
 		Zend_Registry::set('Zend_Locale', $locale);
 		return $locale;
+	}
+	
+	protected function _initEmail()
+	{
+		$config = array(
+			'auth' => 'login',
+			'ssl' => 'tls',
+			'port' => 587,
+			'username' => 'test.therminox@gmail.com',
+			'password' => 'asdF123$'
+		);
+		$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+		Zend_Mail::setDefaultTransport($transport);
 	}
 
 	protected function _initViewHelpers()

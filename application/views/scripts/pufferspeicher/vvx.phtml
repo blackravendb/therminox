@@ -2,3 +2,36 @@
 <div id="view-content">
 	<p>View script for controller <b>Pufferspeicher</b> and script/action name <b>vvx</b></p>
 </div>
+<?php 
+	//Artikeldaten anordnen und anzeigen
+	$container = $this->art_display;
+	
+	var_dump($this->art_display);
+	$art_code = $container[0];
+	$art_name = $container[1];
+	$art_dim = $container[2];
+	$art_height = $container[3];
+	$art_width  = $container[4];
+	$art_conn_warm = $container[5];
+	$art_conn_cold = $container[6];
+	$art_conn_zirk = $container[7];
+	$art_conn_load = $container[8];
+	$art_conn_sens = $container[9];
+	
+	//echo $container['art'];
+	echo '<br>';
+	echo '<h1>'.$art_name.'</h1>('.$art_code.')';
+	echo '<br>';
+	echo '<h3>Fassungsvermögen:</h3>';
+	echo $art_dim.' Liter';
+	echo '<br>';
+	echo '<h3>Abmessungen:</h3>';
+	echo '<b>Maximale Höhe: </b>'.$art_height.' mm<br>';
+	echo '<b>Maximale Breite: </b>'.$art_width.' mm<br>';
+	echo '<h3>Anschlüsse:</h3>';
+	echo '<b>Warmwasser: </b>'.$art_conn_warm.' mm<br>';
+	echo '<b>Kaltwasser: </b>'.$art_conn_cold.' mm<br>';
+	echo '<b>Zirkulation: </b>'.$art_conn_zirk.' mm<br>';
+	echo '<b>Ladestutzen: </b>'.$art_conn_load.' mm<br>';
+	echo '<b>Thermometer: </b>'.$art_conn_sens.' mm<br>';
+	?>

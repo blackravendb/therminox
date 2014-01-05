@@ -1,4 +1,21 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Angebot</b> and script/action name <b>index</b></p>
-</div>
+<h2>Meine Angebote</h2>
+<table border="1">
+	<tr>
+		<th>Angebotsname</th>
+		<th>Beschreibung</th>
+		<th>Erstelldatum</th>
+		<th>Bearbeitungsstatus</th>
+		<th>&#160;</th>
+	</tr>
+	   <?php
+		print <<< eof
+			  <tr>
+			    <td>Test1</td>
+			    <td>Ein Angebot eben</td>
+			    <td>24.12.2013</td>
+			    <td>In Bearbeitung</td>
+			    <td><a href="/Angebot/anzeigen/id/hans">Anzeigen</a></td>
+			  </tr>
+			</table>
+eof;
+?>

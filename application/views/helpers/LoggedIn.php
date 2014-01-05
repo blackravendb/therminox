@@ -8,7 +8,8 @@ class Zend_View_Helper_LoggedIn extends Zend_View_Helper_Abstract
 		if ($auth->hasIdentity()) {
 			$vorname = $auth->getIdentity()->vorname;
 			$logoutUrl = $this->view->url(array('controller'=>'account', 'action'=>'logout'));
-			return 'Willkommen, ' . $vorname . '. <a href="' . $logoutUrl .'">Abmelden</a>';
+			return 'Willkommen, ' . $vorname . '. <a href="/Angebot">Meine Angebote</a> <a href="' . $logoutUrl .'">Abmelden</a>';
+			
 		}
 
 		$request = Zend_Controller_Front::getInstance()->getRequest();
