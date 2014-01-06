@@ -1,66 +1,44 @@
 <?php
 
 class Application_Form_Recover extends App_Form
-{
-    private $elementDecorators = array(
-    		'ViewHelper',
-    		array(
-    				array('data' => 'HtmlTag'),
-    				array('tag' => 'td')
-    		),
-    		array(
-    				array('openerror' => 'HtmlTag'),
-    				array('tag' => 'td', 'openOnly' => true, 'placement' => Zend_Form_Decorator_Abstract::APPEND)
-    		),
-    		'Errors',
-    		array(
-    				array('closeerror' => 'HtmlTag'),
-    				array('tag' => 'td', 'closeOnly' => true, 'placement' => Zend_Form_Decorator_Abstract::APPEND)
-    		),
-    		array('Label',
-    				array('tag' => 'td')
-    		),
-    		array(
-    				array('row' => 'HtmlTag'),
-    				array('tag' => 'tr')
-    		)
-    );
-    
-    private $buttonDecorators = array(
-    		'ViewHelper',
-    		array(array('data' => 'HtmlTag'), array('tag' => 'td', 'class' => 'element')),
-    		array(array('label' => 'HtmlTag'), array('tag' => 'td', 'placement' => 'prepend')),
-    		array(array('row' => 'HtmlTag'), array('tag' => 'tr')),
-    );
-    
+{   
+	private $_key;
+	
+	public function __construct($key, $options=null)
+	{
+		$this->_key = $key;
+		parent::__construct($options); 
+	}
+	
     public function init()
     {
     	$this->setMethod('post')
-    	->setAction('/account/recover')
+    	->setAction('/account/recover/key/' . $this->_key)
     	->setAttrib('id', 'recover');
-    	 
-    	$email = new Zend_Form_Element_Text('email');
-    	$email->setRequired(true)
-    	->setLabel('E-mail')
+    	
+    	$newPassword = new Zend_Form_Element_Password('password');
+    	$newPassword->setRequired(true)
+    	->setLabel('Neues Passwort')
     	->setDecorators($this->elementDecorators)
-    	->addFilter('StringTrim')
-    	->addValidator('EmailAddress')
-    	->addErrorMessage('Bitte geben Sie Ihre E-mail Adresse an.');
+    	->setValidators(array(
+    			array('NotEmpty', true),
+    			array('StringLength', true, array('min' => 6, 'max' => 50))
+    	));
+    	$newPassword->getValidator('NotEmpty')->setMessage('Das Password darf nicht leer sein.');
+    	$newPassword->getValidator('StringLength')->setMessage('Das Password muss mind. 6 Zeichen haben.');
+    	
+    	$confirmPassword = new Zend_Form_Element_Password('confirm_password');
+    	$confirmPassword->setRequired(true)
+    	->setLabel('Passwort bestätigen')
+    	->setDecorators($this->elementDecorators)
+    	->addErrorMessage('Die Passwörter stimmen nicht überein.')
+    	->addValidator('Identical', false, array('token' => 'password'));
     	 
     	$submit = new Zend_Form_Element_Submit('submit');
-    	$submit->setLabel('Passwort anfordern')
+    	$submit->setLabel('Speichern')
     	->setDecorators($this->buttonDecorators);
     	 
-    	$this->addElements(array($email, $submit));
-    }
-    
-    public function loadDefaultDecorators()
-    {
-    	$this->setDecorators(array(
-    			'FormElements',
-    			array('HtmlTag', array('tag' => 'table')),
-    			'Form',
-    	));
+    	$this->addElements(array($newPassword, $confirmPassword, $submit));
     }
 
 }

@@ -12,6 +12,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     public function init() {
     	$this->select = $this->select()
+    	->from($this->_name)
+    	->group ('model')
     	->setIntegrityCheck(false);
     }
     
@@ -20,7 +22,6 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	$this->init();
     	
     	$this->select
-    	->from($this->_name)
     	->join('stutzenmaterial', "$this->_name.stutzenmaterial_id = stutzenmaterial.id", array('name as stutzenmaterial'));
     	
     	foreach($params as $key => $value){
@@ -33,8 +34,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	//Select Befehl wieder zurücksetzen
     	$this->init();
     	
-    	if(count($data) == 0)
-    		return false;
+    	if(empty($data))
+    		return;
     	
     	
     	$ret = array();
@@ -82,24 +83,38 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     public function setBreiteMin($breite) {
     	$this->select
-    	->where('breite >= ?', $hoehe);
+    	->where('breite >= ?', $breite);
     }
     
     public function setBreiteMax($breite) {
     	$this->select
-    	->where('breite <= ?', $hoehe);
+    	->where('breite <= ?', $breite);
+    }
+    
+    public function setEinsatzgebiet($gebiet) {
+    	$this->select
+    	->join('waermetauscher2waermetauscherEinsatzgebiet', 'waermetauscher.id = waermetauscher2waermetauscherEinsatzgebiet.waermetauscher_id','')
+    	->join('waermetauscherEinsatzgebiet', 'waermetauscherEinsatzgebiet.id = waermetauscher2waermetauscherEinsatzgebiet.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
+    	->where('einsatzgebiet = ?', $gebiet);
+    }
+    
+    public function setAnschluss($anschluss) {
+    	$this->select
+    	->join('waermetauscher2waermetauscherAnschluss', 'waermetauscher.id=waermetauscher2waermetauscherAnschluss.waermetauscher_id','')
+    	->join('waermetauscherAnschluss', 'waermetauscherAnschluss.id = waermetauscher2waermetauscherAnschluss.waermetauscherAnschluss_id','') //anschluss
+		->where ('anschluss in (?)', $anschluss);
     }
     
     
     
     
     public function getWaermetauscher() {
-    	$data = parent::fetchAll($this->select);
-    	
+    	$models = parent::fetchAll($this->select);
+    	echo $this->select;
     	//select zurücksetzen
     	$this->init();
-    	
-    	return $data->toArray();
+    	$products = array();
+    	return $models->toArray();
     }
     
 

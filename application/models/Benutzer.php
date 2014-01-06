@@ -10,6 +10,8 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	protected $_berechtigung;
 	protected $_anrede;
 	protected $_bestaetigt;
+	protected $_lieferadresse;
+	protected $_rechnungsadresse;
 	
 	public function toArray() {
 		return array(
@@ -20,7 +22,9 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 				"salt" => $this->_salt,
 				"berechtigung" => $this->_berechtigung,
 				"anrede" => $this->_anrede,
-				"bestaetigt" => $this->_bestaetigt
+				"bestaetigt" => $this->_bestaetigt,
+				"lieferadresse" => $this->_lieferadresse,
+				"rechnungsadresse" => $this->_rechnungsadresse
 		);
 	}
 	
@@ -58,7 +62,12 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_vorname;
 	}
 	
-	public function setPasswort($pw) {
+	//Methode für Konstruktur, dass Gehashter Wert nicht nochmal gehast wird und sich so bei jedem neuen Objektaufruf ändert
+	protected function setPasswort($pw) {
+		return $this->_passwort = $pw;
+	}
+	
+	public function setKlartextPasswort($pw) {
 		$this->setSalt(App_Util::generateHexString());
 		$this->_passwort = sha1($pw.$this->getSalt());
 		$this->_changed['passwort'] = 1;
@@ -69,7 +78,7 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_passwort;
 	}
 	
-	private function setSalt($salt){
+	protected function setSalt($salt){
 			$this->_salt = $salt;
 			$this->_changed['salt'] = 1;
 	}
@@ -91,7 +100,7 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 
 	public function setAnrede($anrede) {
-		if($this->_anrede != $anrede) {
+		if($this->_anrede !== $anrede) {
 			$this->_changed['anrede'] = 1;
 			$this->_anrede = $anrede;
 		}
@@ -111,4 +120,37 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	public function getBestaetigt(){
 		return $this->_bestaetigt;
 	}
+	
+	public function setLieferadresse($lieferadresse) {
+		if($this->_lieferadresse !== $lieferadresse){
+			if(is_array($lieferadresse)) {
+				$this->_lieferadresse = $lieferadresse;
+			}
+			else {
+				$this->_lieferadresse[]=$lieferadresse;
+			}
+		}
+		return $this;
+	}
+	
+	public function getLieferadresse() {
+		return $this->_lieferadresse;
+	}
+	
+	public function setRechnungsadresse($rechnungsadresse) {
+		if($this->_rechnungsadresse !== $rechnungsadresse){
+			if(is_array($rechnungsadresse)) {
+				$this->_rechnungsadresse = $rechnungsadresse;
+			}
+			else {
+				$this->_rechnungsadresse[]=$rechnungsadresse;
+			}
+		}
+		return $this;
+	}
+	
+	public function getRechnungsadresse() {
+		return $this->_rechnungsadresse;
+	}
 }
+

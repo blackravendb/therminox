@@ -1,5 +1,6 @@
 <br /><br />
 <div id="view-content">
+RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?
 // <?php
 // echo "Einzelne Zeile per getBenutzer abrufen:<br>";
 // echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
@@ -14,9 +15,15 @@
 
 
 // <?php 
-// $benutzerMapper = new Application_Model_BenutzerMapper();
+ $benutzerMapper = new Application_Model_BenutzerMapper();
 
-// $test = $benutzerMapper->getBenutzer("test@test.de");
+ $test = $benutzerMapper->getBenutzer("test@test.de");
+ echo '<br>'.$test->getAnrede().'<br>';
+ 
+ $la = $test->getLieferadresse();
+ echo $la[0]->getFirma();
+ 
+		
 // $test->setPasswort("geheim");
 // $benutzerMapper->updateBenutzer($test);
 
@@ -82,22 +89,49 @@ echo '--------------------------------------------------------------------------
 // // echo $fall['0']->getHexaString();
 
 // // echo $fall['0']->getEmail();
-echo "<br>";
+
+ 
+ echo "<br>";
  $wtmapper = new Application_Model_WaermetauscherMapper();
  
  $wtmapper->setTemperaturMax(200);
  $wtmapper->setTemperaturMin(100);
- $produkt = $wtmapper->getWaermetauscher();
- if($produkt != ""){
- 	foreach($produkt as $key => $value){
-		echo $value->getModel().'<br>';
-		echo $value->getTemperatur().'<br>';
-	}
- }
+ $wtmapper->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
+ $wtmapper->setAnschluss(array('3/8" IG', '1/2" AG', '3/4" AG'));
+ $wtmapper->setHoeheMax(450);
+ $wtmapper->setHoeheMin(100);
+ $wtmapper->setBreiteMax(150);
+ $wtmapper->setBreiteMin(10);
+  $produkt = $wtmapper->getWaermetauscher();
+  
+  echo '<br><br><br>';
+  echo '-------------------------------------------------------------------------------------<br>';
+  foreach($produkt as $key => $value){
+	echo $value->getModel().'<br>';
+
+}	
+//  if($produkt != ""){
+//  	foreach($produkt as $key => $value){
+// 		echo $value->getModel().'<br>';
+// 		echo $value->getTemperatur().'<br>';
+// 	}
+//  }
  
 //
  echo '<br>-------------------------------------------------------------------------------------';
  echo '<br><br><br>';
+ 
+ echo 'Pufferspeicher<br>';
+ 
+ $psMapper = new Application_Model_PufferspeicherMapper();
+ 
+ $vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
+ 
+ $gebiet = $vvx200->getEinsatzgebiet();
+ 
+ echo $gebiet[0]->getEinsatzgebiet();
+ 
+ echo $vvx200->getModel();
  
  
  

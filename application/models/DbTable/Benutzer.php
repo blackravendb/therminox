@@ -6,47 +6,59 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     protected $_name = 'benutzer';
     protected $_primary = 'email';
     
-    protected $_dependentTables = array('Anrede');
+     protected $_dependentTables = array('Application_Model_DbTable_Lieferadresse', 'Application_Model_DbTable_Rechnungsadresse');
  
+//     protected $_referenceMap    = array(
+//     		'Benutzer_Lieferadresse' => array(
+//     				'columns'           => 'email',
+//     				'refTableClass'     => 'Application_Model_DbTable_Lieferadresse',
+//     				'refColumns'        => 'benutzer_email',
+//     				'onDelete'			=> 'self::RESTRICT',
+//     				'onUpdate'			=> 'self::RESTRICT'
+//     		),
+//     		'Benutzer_Rechnungsadresse' => array(
+//     				'columns'           => 'email',
+//     				'refTableClass'     => 'Application_Model_DbTable_Rechnungsadresse',
+//     				'refColumns'        => 'benutzer_email',
+//     				'onDelete'			=> 'self::RESTRICT',
+//     				'onUpdate'			=> 'self::RESTRICT'
+//     		)
+//     );
+
     protected $_referenceMap    = array(
-    		'Benutzer_Lieferadresse' => array(
-    				'columns'           => 'email',
-    				'refTableClass'     => 'Application_Model_DbTable_Lieferadresse',
-    				'refColumns'        => 'benutzer_email',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
-    		),
-    		'Benutzer_Rechnungsadresse' => array(
-    				'columns'           => 'email',
-    				'refTableClass'     => 'Application_Model_DbTable_Rechnungsadresse',
-    				'refColumns'        => 'benutzer_email',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
-    		)
-    );
+       		'anrede' => array(
+    	  			'columns'           => array('anrede_id'),
+    	    		'refTableClass'     => 'Application_Model_DbTable_Anrede',
+    	    		'refColumns'        => array('id'),
+    	    		'onDelete'			=> 'self::RESTRICT',
+    	    		'onUpdate'			=> 'self::RESTRICT'
+    	    ),
+    	);
 
     protected $select;
     
     public function init() {
     	$this->select = $this->select()
-    		->setIntegrityCheck(false);
+    		->from($this->_name)
+    		->setIntegrityCheck(false)
+    		->join('anrede', $this->_name.'.anrede_id = anrede.id');
     }
     
     public function getBenutzer($email){
     	$this->select
-       		->from('benutzer')
-    		->join('anrede', 'benutzer.anrede_id = anrede.id')
     		->where('email = ?', $email);
+    	
     	 $data = $this->fetchRow($this->select);
     	 
     	 //Select Befehl wieder zurücksetzen
     	 $this->init();
     	 
-    	 //überprüfen, ob abfrage leer ist
-    	 if($data == "")
-    	 	return false;
-    	 
-    	 return $data->toArray();
+    	 //Dazugehörige Liefer und Rechnungsadreses abfragen
+    	 $lieferadressen = $data->findDependentRowset('Application_Model_DbTable_Lieferadresse','benutzer');
+    	 $rechnungsadressen = $data->findDependentRowset('Application_Model_DbTable_Rechnungsadresse','benutzer');
+
+    	 //Alle Daten in Array zusammenfassen zum returnen
+    	 return array($data->toArray(), $lieferadressen->toArray(), $rechnungsadressen->toArray());
     }
     
     public function fetchAll(){
@@ -58,7 +70,18 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	
     	//Select Befehl wieder zurücksetzen
     	$this->init();
-    	return $data ->toArray();
+    	
+    	$ret = array();
+    	
+    	//Dazugehörige Liefer und Rechnungsadreses abfragen
+    	foreach($data as $key => $value){
+    		$lieferadressen = $value->findDependentRowset('Application_Model_DbTable_Lieferadresse','benutzer');
+    		$rechnungsadressen = $value->findDependentRowset('Application_Model_DbTable_Rechnungsadresse','benutzer');
+    		
+    		$ret[] = array($value->toArray(), $lieferadressen->toArray(), $rechnungsadressen->toArray());
+    	}
+    	
+    	return $ret;
     }
     
     public function updateBenutzer(Application_Model_Benutzer $benutzer) {
@@ -82,7 +105,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	//Überprüfen, ob sich Anrede verändert hat
     	if(key_exists("anrede", $benutzerData)){
     		
-    		$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede_id']);
+    		$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede']);
     		unset($benutzerData['anrede']);
     	}
     	
