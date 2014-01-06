@@ -15,6 +15,21 @@ class AccountController extends Zend_Controller_Action
     {
         // action body
     }
+    
+    public function deleteAction(){
+    	$form = new Application_Form_Delete();
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+    			$userMapper = new Application_Model_BenutzerMapper();
+    			$user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+    			Zend_Auth::getInstance()->clearIdentity();
+    			$userMapper->deleteBenutzer($user);
+    			$this->_helper->flashMessenger->addMessage('Account erfolgreich gelöscht');
+    			$this->_helper->redirector->gotoSimple('index', 'startseite');
+    		}
+    	}
+    	$this->view->form = $form;
+    }
 
     public function loginAction()
     {
@@ -69,6 +84,22 @@ class AccountController extends Zend_Controller_Action
         			$user->setKlartextPasswort($form->getValue('password'));
         			$user->setBestaetigt(0);
         			$userMapper->insertBenutzer($user, $form->getValue('email'));
+        			
+        			$shipping = new Application_Model_Lieferadresse();
+        			$shipping->setBenutzer_email($form->getValue('email'));
+        			$shipping->setFirma($form->getValue('company'));
+        			$shipping->setAnrede($form->getValue('title'));
+        			$shipping->setVorname($form->getValue('name'));
+        			$shipping->setNachname($form->getValue('lastname'));
+        			$shipping->setStrasse($form->getValue('street'));
+        			$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+        			$country = $locale->getTranslationList('Territory', 'de', 2)[$form->getValue('country')];
+        			$shipping->setLand($country);
+        			$shipping->setPlz($form->getValue('plz'));
+        			$shipping->setOrt($form->getValue('town'));
+        			$shippingMapper = new Application_Model_LieferadresseMapper();
+        			//$shippingMapper->insertLieferadresse($shipping);
+        			
         			
         			$key = App_Util::generateHexString();
         			
@@ -217,37 +248,69 @@ class AccountController extends Zend_Controller_Action
     	}
     	$this->view->form = $form;
     }
+    
+    public function shippingAction()
+    {
+    	
+    }
+    
+    public function billingAction()
+    {
+    	
+    }
+    
 
     public function profileAction()
     {
-        // action body
+        $form = new Application_Form_Profile();
+        $userMapper = new Application_Model_BenutzerMapper();
+        $user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+        $data = array( 
+        	'email' => $user->getEmail(),
+        	'title' => $user->getAnrede(),
+        	'name'  => $user->getVorname(),
+        	'lastname' => $user->getNachname()
+        );
+        $form->populate($data);
+        if ($this->_request->isPost()) {
+        	if ($form->isValid($this->_request->getPost())) {
+				$user->setAnrede($form->getValue('title'));
+				$user->setVorname($form->getValue('name'));
+				$user->setNachname($form->getValue('lastname'));
+				$userMapper->updateBenutzer($user);
+				
+				//update Zend Auth Identity
+				$auth = Zend_Auth::getInstance()->getIdentity();
+				$auth->title = $form->getValue('title');
+				$auth->vorname = $form->getValue('name');
+				$auth->nachname = $form->getValue('nachname');
+				
+				$this->view->success = 'Profil erfolgreich geändert.';
+        	}
+        }
+        $this->view->form = $form;
     }
 
     protected function _process($values)
     {
-    	$adapter = $this->_getAuthAdapter();
-    	$adapter->setIdentity($values['email']); // form values
-    	$adapter->setCredential($values['password']);
+    	$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+    	$authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
+    	
+    	$authAdapter->setTableName('benutzer') 
+    	->setIdentityColumn('email') 
+    	->setCredentialColumn('passwort') 
+    	->setCredentialTreatment('SHA1(CONCAT(?,salt)) AND bestaetigt = 1');
+
+    	$authAdapter->setIdentity($values['email']); // form values
+    	$authAdapter->setCredential($values['password']);
     	
     	$auth = Zend_Auth::getInstance();
-    	$result = $auth->authenticate($adapter);
+    	$result = $auth->authenticate($authAdapter);
     	if ($result->isValid()) {
-    		$user = $adapter->getResultRowObject(null, 'passwort');
+    		$user = $authAdapter->getResultRowObject(null, 'passwort');
     		$auth->getStorage()->write($user);
     		return true;
     	}
     	return false;
-    }
-    
-    protected function _getAuthAdapter() 
-    {
-    	$dbAdapter = Zend_Db_Table::getDefaultAdapter();
-    	$authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
-    
-    	$authAdapter->setTableName('benutzer') //Datenbanktabellenname
-    	->setIdentityColumn('email') //Spaltenname der email
-    	->setCredentialColumn('passwort') //Spaltenname des passwords
-    	->setCredentialTreatment('SHA1(CONCAT(?,salt)) AND bestaetigt = 1');
-    	return $authAdapter;
     }
 }

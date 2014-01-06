@@ -1,4 +1,14 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Account</b> and script/action name <b>profile</b></p>
+<?php $this->headTitle()->append('Profil'); ?>
+<?php $this->headLink()->appendStylesheet('/_files/css/login.css');?>
+<div id="profile_wrapper">
+<h3>Mein Profil</h3>
+	<?php echo $this->form; ?>
+	<?php echo '<p>' . $this->success . '</p>';?>
+	<a href="/account/password/">Passwort ändern</a>
+	<br>
+	<a href="/account/billing/">Rechnungsadresse verwalten</a>
+	<br>
+	<a href="/account/shipping/">Lieferadresse verwalten</a>
+		<br>
+	<a href="/account/delete/">Account löschen</a>
 </div>
