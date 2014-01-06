@@ -1,10 +1,12 @@
-<?php
+ <?php
 class WaermetauscherController extends Zend_Controller_Action
 {
 
     public function init()
     {	//session_start();
-    require_once 'Cart/ShoppingCart.php';
+    	require_once 'Cart/ShoppingCart.php';
+    	$this->view->showVor = false;
+    	$this->view->keineVorschläge = false;
     }
 
     public function indexAction()
@@ -44,7 +46,7 @@ class WaermetauscherController extends Zend_Controller_Action
         		$minTemp = $form->getValue('TemperaturMin');
         		$maxTemp = $form->getValue('TemperaturMax');
         		$einsatzgbt = $form->getValue('Einsatzgebiet');
-        		$anschluss = $form->getValues('Anschluss');
+        		$anschluss = $form->getValue('Anschluss'); //Nur angehackte Werte werden übergeben
         		$minHeight = $form->getValue('HoeheMin');
         		$maxHeight = $form->getValue('HoeheMax');
         		$minWidth = $form->getValue('BreiteMin');
@@ -62,18 +64,12 @@ class WaermetauscherController extends Zend_Controller_Action
         			$wtmapper->setTemperaturMax($maxTemp);
         			}
         		
-        		if(!(strcmp ($einsatzgbt, 'Bitte wählen') == 0)){
+        		if(!(strcmp ($einsatzgbt, 'Bitte wählen') == 0)){ //funktioniert
         			$wtmapper->setEinsatzgebiet($einsatzgbt); //wenn standartwert "bitte wählen" dasteht nicht set!
         		}
         		
-        		for($i = 0; $i <= count($anschluss); $i++){
-        			if(!empty($anschluss[i])){
-        				$anzahlAnschlüsse++;
-        			}
-        		}
-        		
-        		if(!($anzahlAnschlüsse == count($anschluss))){
-        			$wtmapper->setAnschluss($anschluss); //if Schleife (kein set, wenn alle angehackt)
+        		if(count($anschluss) != 3){ //TODO 
+        			$wtmapper->setAnschluss($anschluss); //if (kein set, wenn alle angehackt)
         		}
         		
         		if(!empty($minHeight)){
@@ -92,7 +88,16 @@ class WaermetauscherController extends Zend_Controller_Action
         			$wtmapper->setBreiteMax($maxWidth);
         		}
         		
-        		$this->view->produkte = $wtmapper->getWaermetauscher(); 
+        		
+        		$produkte = $wtmapper->getWaermetauscher(); //funktioniert, ist immer ein Array
+        		
+        		if(!empty($produkte)){ //Sobald nicht alle 3 Anschlüsse ausgewählt sind, ist das Array leer
+        			$this->view->vorschläge = $produkte;
+        		}else{
+        			$this->view->keineVorschläge = true;
+        		}
+        		
+        		$this->view->showVor = true; //Vorschläge werden angezeigt
         		
         		/*
         		$tempVal = $form->getElement('tempVal');
@@ -125,8 +130,6 @@ class WaermetauscherController extends Zend_Controller_Action
       				$maxLength = $form->getMaxLength();
       			}
       			*/
-        			
-      				$this->view->showVor = true; //Vorschläge werden angezeigt
         		}
         }
     }

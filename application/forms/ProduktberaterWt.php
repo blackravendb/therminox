@@ -75,18 +75,18 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     	$lengthVal = new Zend_Validate_Between(array('min' => $this->getMinLength(), 'max' => $this->getMaxLength())); //min 20 max 500
     	*/
     	
-    	$wtVal = new Zend_Validate_Digits();
+    	$wtVal = new Zend_Validate_Digits('1234567890');
     	
     	$minTemp = new Zend_Form_Element_Text('TemperaturMin');
     	$minTemp->setLabel('Minimaltemperatur:')
-    		->addValidator("1234567890")
+    		->addValidator($wtVal)
     		->addFilter('StripTags')
-            ->addFilter('StringTrim'); 
-        	$temp->addErrorMessage('Bitte nur Zahlen eingeben!');
+            ->addFilter('StringTrim') 
+        	->addErrorMessage('Bitte nur Zahlen eingeben!');
         
        	$maxTemp = new Zend_Form_Element_Text('TemperaturMax');
     	$maxTemp->setLabel('Höchsttemperatur:')
-    		->addValidator("1234567890")
+    		->addValidator($wtVal)
     		->addFilter('StripTags')
             ->addFilter('StringTrim')
         	->addErrorMessage('Bitte nur Zahlen eingeben!');
@@ -113,14 +113,10 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 		*/
            			
        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss', array(
-        		'multiOptions' => array(
-       				'3/8" IG' => '3/8" IG', 
-       				'1/2" AG' => '1/2" AG', 
-       				'3/4" AG' => '3/4" AG'
-       			)
+        		'multiOptions' => array('3/8" IG', '1/2" AG', '3/4" AG')
        		));
        	$anschluss->setLabel('Anschlüsse:')
-       			->setValue(array('3/8" IG', '1/2" AG', '3/4" AG'));
+       			->setValue(array(0,1,2));
        	
        
        /*    			
@@ -146,28 +142,28 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        	
        	$minHeight = new Zend_Form_Element_Text('HoeheMin');
 		$minHeight->setLabel('Minimalhöhe:')
-			 	->addValidator("1234567890")
+			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
        			
        	$maxHeight = new Zend_Form_Element_Text('HoeheMax');
 		$maxHeight->setLabel('Maximale Höhe:')
-			 	->addValidator("1234567890")
+			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
         $minWidth = new Zend_Form_Element_Text('BreiteMin');
 		$minWidth->setLabel('Minimalbreite:')
-		    	->addValidator("1234567890")
+		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxWidth = new Zend_Form_Element_Text('BreiteMax');
 		$maxWidth->setLabel('Maximalbreite:')
-		    	->addValidator("1234567890")
+		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');

@@ -2,6 +2,10 @@
 <h1>Produktberater</h1>
 <?php echo $this->produktberaterWt;?>
 
+<?php if($this->showVor){?>
+<?php if($this->keineVorschläge){
+	echo "Es gibt keine passenden Produkte!";
+}else{?>
 <div id="TabelleWt">
 
 <h1>Vorschläge</h1>
@@ -13,22 +17,25 @@
     <th>Anschlüsse</th>
     <th>Höhe</th>
     <th>Breite</th>
-    <th>Länge</th>
   </tr>
   <tr>
-  <?php foreach($produkte as $key => $value){?>
-    <td><?php $value->getID(); ?></td>
-    <td><?php $value->getModel(); ?></td>
-    <td><?php $value->getTemperatur(); ?></td>
-    <td><?php $value->getWaermetauscherEinsatzgebiet(); ?></td>
-    <td><?php $value->getgetHoehe(); ?></td>
-    <td><?php $value->getBreite(); ?></td>
+  <?php foreach($this->vorschläge as $value){?>
+	<td><?php echo $value->getModel(); ?></td>
+    <td><?php echo $value->getTemperatur(); ?></td>
+    <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
+    					echo $gbt->getEinsatzgebiet();
+    					} ?></td>
+    <td><?php foreach($value->getWaermetauscherAnschluss() as $ans){
+    					echo $ans->getAnschluss();
+  						}?></td>
+    <td><?php echo $value->getHoehe(); ?></td>
+    <td><?php echo $value->getBreite(); ?></td>
   <?php }?>
   </tr>
 </table>
 </div>
-
-
+<?php }?>
+<?php }?>
      
 
      
