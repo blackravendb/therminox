@@ -103,7 +103,8 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	public function getWaermetauscher() {
 		$data = $this->getDbTable()->getWaermetauscher();
 		$ret = array();
-		foreach($data as $key => $value){
+		foreach($data as $value){
+			$value=$this->createFullArray($value);
 			$ret[] = $this->setAttributs($value);
 		}
 		return $ret;

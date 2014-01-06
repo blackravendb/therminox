@@ -91,12 +91,13 @@ echo '--------------------------------------------------------------------------
 // // echo $fall['0']->getEmail();
 
  
- echo "<br>";
+ echo "<br>Eingegebene Argumente:<br>TemperaturMax: 200<br>TemperaturMin: 100<br>Einsatzgebiet: Umrüsten von PKW`s auf Rapsöl<br>
+ 		HöheMax: 450<br>HöheMin: 100<br>BreiteMax:150<br>BreiteMin: 401<br><br>";
  $wtmapper = new Application_Model_WaermetauscherMapper();
  
  $wtmapper->setTemperaturMax(200);
  $wtmapper->setTemperaturMin(100);
- $wtmapper->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
+// $wtmapper->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
  $wtmapper->setAnschluss(array('3/8" IG', '1/2" AG', '3/4" AG'));
  $wtmapper->setHoeheMax(450);
  $wtmapper->setHoeheMin(100);
@@ -106,8 +107,9 @@ echo '--------------------------------------------------------------------------
   
   echo '<br><br><br>';
   echo '-------------------------------------------------------------------------------------<br>';
-  foreach($produkt as $key => $value){
-	echo $value->getModel().'<br>';
+  foreach($produkt as $value){
+	echo '<br>'.$value->getModel().'<br>';
+	echo '<br>'.$value->getStutzenmaterial().'<br>';
 
 }	
 //  if($produkt != ""){
