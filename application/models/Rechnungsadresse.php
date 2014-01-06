@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Rechnungsadresse
+class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 {
 	protected $_id;
 	protected $_benutzer_email;

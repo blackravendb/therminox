@@ -143,6 +143,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     
     public function getWaermetauscher() {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
     	//Modelle filtern
     	$models = parent::fetchAll($this->select);
     	

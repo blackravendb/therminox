@@ -95,14 +95,14 @@ echo '--------------------------------------------------------------------------
  		HöheMax: 450<br>HöheMin: 100<br>BreiteMax:150<br>BreiteMin: 401<br><br>";
  $wtmapper = new Application_Model_WaermetauscherMapper();
  
- $wtmapper->setTemperaturMax(200);
- $wtmapper->setTemperaturMin(100);
-// $wtmapper->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
- $wtmapper->setAnschluss(array('3/8" IG', '1/2" AG', '3/4" AG'));
- $wtmapper->setHoeheMax(450);
- $wtmapper->setHoeheMin(100);
- $wtmapper->setBreiteMax(150);
- $wtmapper->setBreiteMin(10);
+//  $wtmapper->setTemperaturMax(200);
+//  $wtmapper->setTemperaturMin(100);
+//  $wtmapper->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
+//  $wtmapper->setAnschluss(array('3/8" IG', '1/2" AG', '3/4" AG'));
+//  $wtmapper->setHoeheMax(450);
+//  $wtmapper->setHoeheMin(100);
+//  $wtmapper->setBreiteMax(150);
+//  $wtmapper->setBreiteMin(10);
   $produkt = $wtmapper->getWaermetauscher();
   
   echo '<br><br><br>';
