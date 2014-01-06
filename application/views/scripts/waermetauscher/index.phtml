@@ -18,8 +18,8 @@
     <th>Höhe</th>
     <th>Breite</th>
   </tr>
-  <tr>
   <?php foreach($this->vorschläge as $value){?>
+   <tr>
 	<td><?php echo $value->getModel(); ?></td>
     <td><?php echo $value->getTemperatur(); ?></td>
     <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
@@ -30,8 +30,9 @@
   						}?></td>
     <td><?php echo $value->getHoehe(); ?></td>
     <td><?php echo $value->getBreite(); ?></td>
+    </tr>
   <?php }?>
-  </tr>
+  
 </table>
 </div>
 <?php }?>
