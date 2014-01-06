@@ -10,23 +10,34 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     protected $select;
     
+    protected $produktberater;
+    
+    protected function initProduktberater() {
+    	$this->select = $this->select();
+    	$this->select
+    		->from(array('wt' => $this->_name), 'wt.id')
+    		->group ('id')
+    		->setIntegrityCheck(false);    
+
+    	$this->produktberater = true;
+    }
+    
     public function init() {
     	$this->select = $this->select()
-    	->from($this->_name)
-    	->group ('model')
+    	->from(array('wt' => $this->_name))
+    	->join(array('sm' => 'stutzenmaterial'), "wt.stutzenmaterial_id = sm.id", array('name as stutzenmaterial'))
     	->setIntegrityCheck(false);
+    	
+    	$this->produktberater = false;
     }
     
     public function getWaermetauscherByParams($params) {
     	//fals zuvor ein Setter aufgerufen wurde ohne getWaermetauscher danach aufzurufen
     	$this->init();
     	
-    	$this->select
-    	->join('stutzenmaterial', "$this->_name.stutzenmaterial_id = stutzenmaterial.id", array('name as stutzenmaterial'));
-    	
     	foreach($params as $key => $value){
     		$this->select
-    		->where("$key = ?", $value);
+    		->where("wt.$key = ?", $value);
     	}
 		
     	$data = parent::fetchAll($this->select);
@@ -40,14 +51,13 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	
     	$ret = array();
     	//Dazugehörige Tabellen herausfiltern
-    	foreach($data as $row){
+    	foreach($data as $row) {
     		//Unterkategorien abfragen
     		$wtUnterkategorien = $row->findDependentRowset('Application_Model_DbTable_WaermetauscherUnterkategorie','waermetauscher_waermetauscherUnterkategorie');
     		
     		//Anschlussarten abfragen
     		$wtAnschluss = $row->findManyToManyRowset('Application_Model_DbTable_WaermetauscherAnschluss','Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss');
-    		
-    		
+    		    		
     		//Einsatzgebiete abfragen
     		$wtEinsatzgebiet = $row->findManyToManyRowset('Application_Model_DbTable_WaermetauscherEinsatzgebiet','Application_Model_DbTable_Waermetauscher2waermetauscherEinsatzgebiet');
     		
@@ -62,59 +72,92 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     //Setter für Produktberater
 
     public function setTemperaturMin($temp) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	 $this->select
-    	 ->where('temperatur >= ?', $temp);
+    	 ->where('wt.temperatur >= ?', $temp);
     }
     
     public function setTemperaturMax($temp) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->where('temperatur <= ?', $temp);
+    	->where('wt.temperatur <= ?', $temp);
     }
     
     public function setHoeheMin($hoehe) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->where('hoehe >= ?', $hoehe);
+    	->where('wt.hoehe >= ?', $hoehe);
     }
     
     public function setHoeheMax($hoehe) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->where('hoehe <= ?', $hoehe);
+    	->where('wt.hoehe <= ?', $hoehe);
     }
     
     public function setBreiteMin($breite) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->where('breite >= ?', $breite);
+    	->where('wt.breite >= ?', $breite);
     }
     
     public function setBreiteMax($breite) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->where('breite <= ?', $breite);
+    	->where("wt.breite <= ?", $breite);
     }
     
     public function setEinsatzgebiet($gebiet) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->join('waermetauscher2waermetauscherEinsatzgebiet', 'waermetauscher.id = waermetauscher2waermetauscherEinsatzgebiet.waermetauscher_id','')
-    	->join('waermetauscherEinsatzgebiet', 'waermetauscherEinsatzgebiet.id = waermetauscher2waermetauscherEinsatzgebiet.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
-    	->where('einsatzgebiet = ?', $gebiet);
+    	->join(array('wt2wtE' => 'waermetauscher2waermetauscherEinsatzgebiet'), 'wt.id = wt2wtE.waermetauscher_id', '')
+    	->join(array('wtE' => 'waermetauscherEinsatzgebiet'), 'wtE.id = wt2wtE.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
+    	->where('wtE.einsatzgebiet = ?', $gebiet);
     }
     
     public function setAnschluss($anschluss) {
+    	if(!$this->produktberater)
+    		$this->initProduktberater();
+    	
     	$this->select
-    	->join('waermetauscher2waermetauscherAnschluss', 'waermetauscher.id=waermetauscher2waermetauscherAnschluss.waermetauscher_id','')
-    	->join('waermetauscherAnschluss', 'waermetauscherAnschluss.id = waermetauscher2waermetauscherAnschluss.waermetauscherAnschluss_id','') //anschluss
-		->where ('anschluss in (?)', $anschluss);
+    	->join(array('wt2wtA' => 'waermetauscher2waermetauscherAnschluss'), 'wt.id = wt2wtA.waermetauscher_id', '')
+    	->join(array('wtA' => 'waermetauscherAnschluss'), 'wtA.id = wt2wtA.waermetauscherAnschluss_id', '') //anschluss
+		->where ('wtA.anschluss in (?)', $anschluss);
     }
     
     
     
     
     public function getWaermetauscher() {
+    	//Modelle filtern
     	$models = parent::fetchAll($this->select);
-    	echo $this->select;
+    	
     	//select zurücksetzen
     	$this->init();
+    	
     	$products = array();
-    	return $models->toArray();
+    	
+    	foreach($models->toArray() as $value){
+    		$productData = $this->getWaermetauscherByParams($value);
+    		if(!empty($productData))
+    			$products[] = $productData[0];
+    	}
+    	
+    	return $products;
     }
     
 
