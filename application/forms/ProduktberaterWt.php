@@ -1,6 +1,7 @@
 <?php
 class Application_Form_ProduktberaterWt extends Zend_Form {
 	
+	/*
 	protected $_minTemp = null;
 	protected $_maxTemp = null;
 	protected $_minHeight = null;
@@ -61,6 +62,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
 	public function getMaxWidth(){
 		return $this->_maxWidth;
 	}
+	*/
 	
 	 public function __construct($options = null)
     {	
@@ -73,23 +75,26 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     	$lengthVal = new Zend_Validate_Between(array('min' => $this->getMinLength(), 'max' => $this->getMaxLength())); //min 20 max 500
     	*/
     	
+    	$wtVal = new Zend_Validate_Digits();
+    	
     	$minTemp = new Zend_Form_Element_Text('TemperaturMin');
     	$minTemp->setLabel('Minimaltemperatur:')
-    		//->addValidator($tempVal)
+    		->addValidator("1234567890")
     		->addFilter('StripTags')
             ->addFilter('StringTrim'); 
-        	//$temp->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen ' . $tempVal->getMin() . '°C und ' . $tempVal->getMax() . '°C verfügbar');
+        	$temp->addErrorMessage('Bitte nur Zahlen eingeben!');
         
        	$maxTemp = new Zend_Form_Element_Text('TemperaturMax');
     	$maxTemp->setLabel('Höchsttemperatur:')
-    		//->addValidator($tempVal)
+    		->addValidator("1234567890")
     		->addFilter('StripTags')
-            ->addFilter('StringTrim');
-        	//maxTemp->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Temperatur zwischen ' . $tempVal->getMin() . '°C und ' . $tempVal->getMax() . '°C verfügbar');
+            ->addFilter('StringTrim')
+        	->addErrorMessage('Bitte nur Zahlen eingeben!');
         	
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')
         			//->addMultiOptions() warten auf Datenbank
+        			->addMultiOption('Bitte wählen', 'Bitte wählen')
          			->addMultiOption('Fernwärme', 'Fernwärme')
          			->addMultiOption('Solaranlage', 'Solaranlage')
          			->addMultiOption('Erdbohrung', 'Erdbohrung')
@@ -141,31 +146,31 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        	
        	$minHeight = new Zend_Form_Element_Text('HoeheMin');
 		$minHeight->setLabel('Minimalhöhe:')
-			 	//->addValidator($heightVal)
+			 	->addValidator("1234567890")
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim');
-        		//$minHeight->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Höhe zwischen ' . $heightVal->getMin() . '°C und ' . $heightVal->getMax() . '°C verfügbar');
+           	 	->addFilter('StringTrim')
+        		->addErrorMessage('Bitte nur Zahlen eingeben!');
        			
        	$maxHeight = new Zend_Form_Element_Text('HoeheMax');
 		$maxHeight->setLabel('Maximale Höhe:')
-			 	//->addValidator($heightVal)
+			 	->addValidator("1234567890")
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim');
-        		//$maxHeight->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Höhe zwischen ' . $heightVal->getMin() . '°C und ' . $heightVal->getMax() . '°C verfügbar');
-
+           	 	->addFilter('StringTrim')
+        		->addErrorMessage('Bitte nur Zahlen eingeben!');
+        		
         $minWidth = new Zend_Form_Element_Text('BreiteMin');
 		$minWidth->setLabel('Minimalbreite:')
-		    	//->addValidator($widthVal)
+		    	->addValidator("1234567890")
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim');
-        		//$minWidth->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
+           	 	->addFilter('StringTrim')
+        		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxWidth = new Zend_Form_Element_Text('BreiteMax');
 		$maxWidth->setLabel('Maximalbreite:')
-		    	//->addValidator($widthVal)
+		    	->addValidator("1234567890")
     			->addFilter('StripTags')
-           	 	->addFilter('StringTrim');
-        		//$maxWidth->addErrorMessage('Im Moment sind nur Wärmetauscher mit einer Breite zwischen ' . $widthVal->getMin() . '°C und ' . $widthVal->getMax() . '°C verfügbar');
+           	 	->addFilter('StringTrim')
+        		->addErrorMessage('Bitte nur Zahlen eingeben!');
 		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');
