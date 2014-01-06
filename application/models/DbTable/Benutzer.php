@@ -159,12 +159,13 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     }
     
     public function existEmail($email) {
-    	$this->select()
-    	->from(array('benutzer'),
+    	$select = $this->select();
+    	$select
+    		->from(array('benutzer'),
     			array('email'))
     	->where('email = ?', $email);
     	
-    	$data = $this->fetchRow($this->select);
+    	$data = $this->fetchRow($select);
     	$this->init();
     	
     	if($data != "") 
