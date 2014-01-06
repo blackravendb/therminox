@@ -86,6 +86,9 @@
           <dbTableFile dbTableName="WaermetauscherAnschluss"/>
           <dbTableFile dbTableName="WaermetauscherGeloetet2waermetauscherAnschluss"/>
           <dbTableFile dbTableName="WaermetauscherGeloetet2waermetauscherEinsatzgebiet"/>
+          <dbTableFile dbTableName="Pufferspeicher"/>
+          <dbTableFile dbTableName="Pufferspeicher2pufferspeicherEinsatzgebiet"/>
+          <dbTableFile dbTableName="PufferspeicherEinsatzgebiet"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
         <modelFile modelName="BegriffMapper"/>
@@ -110,6 +113,9 @@
         <modelFile modelName="LinkMapper"/>
         <modelFile modelName="WaermetauscherAnschluss"/>
         <modelFile modelName="WaermetauscherEinsatzgebiet"/>
+        <modelFile modelName="PufferspeicherMapper"/>
+        <modelFile modelName="Pufferspeicher"/>
+        <modelFile modelName="PufferspeicherEinsatzgebiet"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

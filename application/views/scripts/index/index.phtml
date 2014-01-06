@@ -1,5 +1,6 @@
 <br /><br />
 <div id="view-content">
+RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?
 // <?php
 // echo "Einzelne Zeile per getBenutzer abrufen:<br>";
 // echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
@@ -14,9 +15,15 @@
 
 
 // <?php 
-// $benutzerMapper = new Application_Model_BenutzerMapper();
+ $benutzerMapper = new Application_Model_BenutzerMapper();
 
-// $test = $benutzerMapper->getBenutzer("test@test.de");
+ $test = $benutzerMapper->getBenutzer("test@test.de");
+ echo '<br>'.$test->getAnrede().'<br>';
+ 
+ $la = $test->getLieferadresse();
+ echo $la[0]->getFirma();
+ 
+		
 // $test->setPasswort("geheim");
 // $benutzerMapper->updateBenutzer($test);
 
@@ -113,6 +120,18 @@ echo '--------------------------------------------------------------------------
 //
  echo '<br>-------------------------------------------------------------------------------------';
  echo '<br><br><br>';
+ 
+ echo 'Pufferspeicher<br>';
+ 
+ $psMapper = new Application_Model_PufferspeicherMapper();
+ 
+ $vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
+ 
+ $gebiet = $vvx200->getEinsatzgebiet();
+ 
+ echo $gebiet[0]->getEinsatzgebiet();
+ 
+ echo $vvx200->getModel();
  
  
  

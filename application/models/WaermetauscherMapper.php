@@ -11,7 +11,6 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	protected function setAttributs($row) {
 		
-		//Komplettes Array in Waermetauscher Objekt umwandeln und returnen
 		$entry = new Application_Model_Waermetauscher($row);
 		
 	

@@ -34,8 +34,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	//Select Befehl wieder zurücksetzen
     	$this->init();
     	
-    	if(count($data) == 0)
-    		return false;
+    	if(empty($data))
+    		return;
     	
     	
     	$ret = array();

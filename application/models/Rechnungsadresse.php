@@ -9,44 +9,23 @@ class Application_Model_Rechnungsadresse
 	protected $_vorname;
 	protected $_strasse;
 	protected $_plz;
+	protected $_ort;
 	protected $_land;
 	protected $_anrede;
 	
-	public function __construct(array $options = null)
-	{
-		if (is_array($options)) {
-			$this->setOptions($options);
-		}
-	}
-	
-	public function __set($name, $value)
-	{
-		$method = 'set' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Ungültige Benutzer Eigenschaft');
-		}
-		$this->$method($value);
-	}
-	
-	public function __get($name)
-	{
-		$method = 'get' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Ungültige Benutzer Eigenschaft');
-		}
-		return $this->$method();
-	}
-	
-	public function setOptions(array $options)
-	{
-		$methods = get_class_methods($this);
-		foreach ($options as $key => $value) {
-			$method = 'set' . ucfirst($key);
-			if (in_array($method, $methods)) {
-				$this->$method($value);
-			}
-		}
-		return $this;
+	public function toArray() {
+		return array(
+				"id" => $this->_id,
+				"benutzer_email" => $this->_benutzer_email,
+				"firma" => $this->_firma,
+				"nachname" => $this->_nachname,
+				"vorname" => $this->_vorname,
+				"strasse" => $this->_strasse,
+				"plz" => $this->_plz,
+				"ort" => $this->_ort,
+				"land" => $this->_land,
+				"anrede" => $this->_anrede
+		);
 	}
 	
 	public function setId($id)
@@ -120,7 +99,15 @@ class Application_Model_Rechnungsadresse
 		return $this->_plz;
 	}
 	
-	public function setLand($lanad){
+	public function setOrt($ort){
+		$this->_ort = $ort;
+	}
+	
+	public function getOrt(){
+		return $this->_ort;
+	}
+	
+	public function setLand($land){
 		$this->_land = $land;
 	}
 	

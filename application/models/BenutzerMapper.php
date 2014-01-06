@@ -9,18 +9,33 @@ class Application_Model_BenutzerMapper extends Application_Model_MapperAbstract 
 	}
 	
 	protected function setAttributs($row){
-		unset($row['id']);
-		$entry = new Application_Model_Benutzer($row);
+		unset($row[0]['id']);
 		
-		return $entry;
+		//Lieferadresse Arrray zu Objekten wandeln
+		if(!empty($row[1])){
+			$row[0]['lieferadresse'] = array();
+			foreach($row[1] as $key => $value) {
+				$row[0]['lieferadresse'][] = new Application_Model_Lieferadresse($value);
+			}
+		}
+		
+		//Rechnungsadresse Array zu Objekten wandeln
+		if(!empty($row[2])) {
+			$row[0]['rechnungsadresse'] = array();
+			foreach($row[2] as $key => $value) {
+				$row[0]['rechnungsadresse'][] = new Application_Model_Rechnungsadresse($value);
+			}
+		}
+		
+		return new Application_Model_Benutzer($row[0]);
 	}
 	
 	public function getBenutzer($email) {
 		
 		$data = $this->getDbTable()->getBenutzer($email);
 		
-		if($data == "")
-			return false;
+		if(empty($data))
+			return;
 		
 		return $this->setAttributs($data);
 	}
