@@ -22,6 +22,18 @@ class Application_Model_DbTable_Rechnungsadresse extends Zend_Db_Table_Abstract
     				'onUpdate'			=> 'self::RESTRICT'
     		)
     );
+    
+    public function changeRechnungsadresse ($rechnungsadressen) {
+    	if(empty($rechnungsadressen))
+    		return;
+    	
+    	foreach ($rechnungsadressen as $value) {
+    		if($value->getId === NULL  )
+    			$this->insertRechnungsadresse($value);
+    		else
+    			$this->changeRechnungsadresse($value);
+    	}
+    }
 
 }
 

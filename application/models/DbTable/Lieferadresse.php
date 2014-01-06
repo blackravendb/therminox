@@ -22,6 +22,10 @@ class Application_Model_DbTable_Lieferadresse extends Zend_Db_Table_Abstract
     				'onUpdate'			=> 'self::RESTRICT'
     		)
     );
+    
+    public function updateLiefersadresse ($lieferadressen) {
+    	
+    }
 
 }
 
