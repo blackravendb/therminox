@@ -9,12 +9,12 @@
 ?>
 
 <ul class="topnav">
-	<li><a href="#" >Artikel bearbeiten/löschen</a></li>
+	<li><a href="#" >Artikel bearbeiten/löschen</a>
 		<ul>
 			<li><a href="/Waermetauscher/hinzufuegen">gelötete Wärmetauscher</a></li>
 			<li><a href="/Pufferspeicher/hinzufuegen">Pufferspeicher</a></li>
 			<li><a href="/Wassererwärmer/hinzufuegen">Wassererwärmer</a></li>
-		</ul>
+		</ul></li>
 	<li><a href="#">Artikel hinzufügen</a>
 		<ul>
 			<li><a href="/Waermetauscher/hinzufuegen">gelötete Wärmetauscher</a></li>

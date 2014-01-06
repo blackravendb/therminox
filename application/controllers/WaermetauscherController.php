@@ -21,10 +21,16 @@ class WaermetauscherController extends Zend_Controller_Action
      	$minLength = 20;
      	$maxLength = 500;
      	*/
+     
+     	/*
         $form = new Application_Form_ProduktberaterWt(array('minTemp' => '155', 'maxTemp' => '195', 
         												'minHeight' => '170', 'maxHeight' => '1100', 
         												'minWidth' => '70', 'maxWidth' => '400', 
         												'minLength' => '20', 'maxLength' => '500'));
+       */
+     	
+     	$form = new Application_Form_ProduktberaterWt();
+     	
         $form->setMethod('post');
         
         $this->view->produktberaterWt = $form;
@@ -44,13 +50,47 @@ class WaermetauscherController extends Zend_Controller_Action
         		$minWidth = $form->getValue('BreiteMin');
         		$maxWidth = $form->getValue('BreiteMax');
         		
+        		$anzahlAnschlüsse = 0;
+        		
         		$wtmapper = new Application_Model_WaermetauscherMapper();
-        		$wtmapper->setTemperaturMin($minTemp);
-        		$wtmapper->setTemperaturMax($maxTemp);
-        		$wtmapper->setEinsatzgebiet($einsatzgbt); //Methode fehlt!!!! 
-        		$wtmapper->setAnschluss($anschluss);
-        		$wtmapper->setHoeheMin($minHeight);
-        		$wtmapper->setHoeheMax($maxHeight);
+        		
+        		if(!empty($minTemp)){ 
+        			$wtmapper->setTemperaturMin($minTemp);
+        			}
+        		
+        		if(!empty($maxTemp)){ 
+        			$wtmapper->setTemperaturMax($maxTemp);
+        			}
+        		
+        		if(!(strcmp ($einsatzgbt, 'Bitte wählen') == 0)){
+        			$wtmapper->setEinsatzgebiet($einsatzgbt); //wenn standartwert "bitte wählen" dasteht nicht set!
+        		}
+        		
+        		for($i = 0; $i <= count($anschluss); $i++){
+        			if(!empty($anschluss[i])){
+        				$anzahlAnschlüsse++;
+        			}
+        		}
+        		
+        		if(!($anzahlAnschlüsse == count($anschluss))){
+        			$wtmapper->setAnschluss($anschluss); //if Schleife (kein set, wenn alle angehackt)
+        		}
+        		
+        		if(!empty($minHeight)){
+        			$wtmapper->setHoeheMin($minHeight);
+        		}
+        		
+        		if(!empty($maxHeight)){
+        			$wtmapper->setHoeheMax($maxHeight);
+        		}
+        		
+        		if(!empty($minWidth)){
+        			$wtmapper->setBreiteMin($minWidth);
+        		}
+        		
+        		if(!empty($maxWidth)){
+        			$wtmapper->setBreiteMax($maxWidth);
+        		}
         		
         		$this->view->produkte = $wtmapper->getWaermetauscher(); 
         		
@@ -85,10 +125,6 @@ class WaermetauscherController extends Zend_Controller_Action
       				$maxLength = $form->getMaxLength();
       			}
       			*/
-      			
-        			//TODO
-        			//Datenbankabfragen
-        			//Suchergebnisse anzeigen lassen
         			
       				$this->view->showVor = true; //Vorschläge werden angezeigt
         		}
