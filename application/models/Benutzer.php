@@ -137,16 +137,32 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_lieferadresse;
 	}
 	
-	public function setRechnungsadresse($rechnungsadresse) {
-		if($this->_rechnungsadresse !== $rechnungsadresse){
-			if(is_array($rechnungsadresse)) {
-				$this->_rechnungsadresse = $rechnungsadresse;
-			}
-			else {
-				$this->_rechnungsadresse[]=$rechnungsadresse;
+	//Methode für Konstruktor
+	protected function setRechnungsadresse($rechnungsadresse) {
+		$this->_rechnungsadresse = $rechnungsadresse;
+			
+		return $this;
+	}
+	
+	public function insertRechnungsadresse(Application_Method_Rechnungsadresse $rechnungsadresse) {
+		$this->_changed['rechnungsadresse'] = 1;
+		$this->_rechnungsadresse[] = $rechnungsadresse;
+		
+		return $this;
+	}
+	
+	public function deleteRechnungsadresse(Application_Method_Rechnungsadresse $rechnungsadresse) {
+		if(empty($this->_rechnungsadresse)){
+			return false;
+		}
+		foreach($this->_rechnungsadresse as $key => $value) {
+			if($value->getId === $rechnungsadresse->getId){
+				unset($this->_rechnungsadresse[$key]);
+				$this->_changed['rechnungsadresse'] = 1;
+				return true;
 			}
 		}
-		return $this;
+		return false;
 	}
 	
 	public function getRechnungsadresse() {

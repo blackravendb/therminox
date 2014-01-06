@@ -37,11 +37,28 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 
     protected $select;
     
+    protected $rechnungsadresseDbTable;
+    protected $lieferadresseDbTable;
+    
     public function init() {
     	$this->select = $this->select()
     		->from($this->_name)
     		->setIntegrityCheck(false)
     		->join('anrede', $this->_name.'.anrede_id = anrede.id');
+    }
+    
+    protected function getRechnungsadresseDbTable(){
+    	if(empty($this->rechnungsadresseDbTable)){
+    		$this->rechnungsadresseDbTable = new Application_Model_DbTable_Rechnungsadresse();
+    	}
+    	return $this->rechnungsadresseDbTable;
+    }
+    
+    protected function getLieferadresseDbTable(){
+    	if(empty($this->lieferadresseDbTable)){
+    		$this->lieferadresseDbTable = new Application_Model_DbTable_Lieferadresse();
+    	}
+    	return $this->lieferadresseDbTable;
     }
     
     public function getBenutzer($email){
@@ -97,16 +114,29 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     		}
     	}
     	
-    	//überprüfen, ob sich überhaupt Felder verändert haben
-    	if(sizeof($benutzerData) == 0){
-    		return false;
-    	}
-    	
+    	//Fremde Tabellen überrüfen:
     	//Überprüfen, ob sich Anrede verändert hat
     	if(key_exists("anrede", $benutzerData)){
     		
     		$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede']);
     		unset($benutzerData['anrede']);
+    	}
+    	
+    	//Überprüfen, ob sich Rechnungsadresse verändert hat
+    	if(key_exists('rechnungsadresse', $benutzerData)){
+    		$this->getRechnungsadresseDbTable()->changeRechnungsadresse($benutzerData['rechnungsadresse']);
+    		unset($benutzerData['rechnungsadresse']);
+    	}
+    	
+    	//Überprüfen, ob sich Lieferadresse verändert hat
+    	if(key_exists('lieferadresse', $benutzerData)){
+    		$this->getLieferadresseDbTable()->updateLiefersadresse($benutzerData['lieferadresse']);
+    		unset($benutzerData['lieferadresse']);
+    	}
+    	
+    	//überprüfen, ob sich sonst noch Felder verändert haben
+    	if(sizeof($benutzerData) == 0){
+    		return;
     	}
     	
     	return $this->update($benutzerData, $where);
@@ -129,12 +159,13 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     }
     
     public function existEmail($email) {
-    	$this->select
-    	->from(array('benutzer'),
+    	$select = $this->select();
+    	$select
+    		->from(array('benutzer'),
     			array('email'))
     	->where('email = ?', $email);
     	
-    	$data = $this->fetchRow($this->select);
+    	$data = $this->fetchRow($select);
     	$this->init();
     	
     	if($data != "") 

@@ -40,7 +40,7 @@ class Application_Model_BenutzerMapper extends Application_Model_MapperAbstract 
 		return $this->setAttributs($data);
 	}
 	
-	public function updateBenutzer(Application_Model_Benutzer $benutzer){
+	public function updateBenutzer(Application_Model_Benutzer $benutzer) {
 		
 		return $this->getDbTable()->updateBenutzer($benutzer);
 	}

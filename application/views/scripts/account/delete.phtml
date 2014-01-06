@@ -1,0 +1,9 @@
+<?php $this->headTitle()->append('Registrieren'); ?>
+<?php $this->headLink()->appendStylesheet('/_files/css/login.css'); ?>
+<div id="delete_wrapper">
+	<h3>Account löschen</h3>
+	<p>Sind sie sicher, dass Sie diesen Account löschen möchten?</p>
+	<p>Es gibt kein zurück.</p>
+	<?php echo $this->Errors($this->errorMessage);?>
+	<?php echo $this->form; ?>
+</div>
