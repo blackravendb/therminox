@@ -46,7 +46,7 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	public function getWaermetauscher_id() {
-		return $this->waermetauscher_id;
+		return $this->_waermetauscher_id;
 	}
 	
 	public function setPlatten($platten){
