@@ -1,6 +1,6 @@
 <?php
 
-class WaermetauscherController extends Zend_Controller_Action
+class PufferspeicherController extends Zend_Controller_Action
 {
 
     public function init()
