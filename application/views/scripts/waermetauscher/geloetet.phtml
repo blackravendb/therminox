@@ -1,34 +1,72 @@
-<br /><br />
 <div id="view-content">
-	<p>View script for controller <b>Waermetauscher</b> and script/action name <b>geloetet</b></p>
+		
+	<?php
+	// TODO Ausnahmen abfangen! ->schlumpfhandling -.-
+	$data_object = $this->dbdata;
 	
-	<?php 
-	//Artikeldaten anordnen und anzeigen
-	$container = $this->art_display;
 	
-	var_dump($this->art_display);
-	$art_name = $container[0];
-	$art_loc  = $container[1];
-	$art_temp = $container[2];
-	// Anschlüsse fehlen noch
-	$art_height = $container[3];
-	$art_width  = $container[4];
-	$art_code = $container[5];
-	//echo $container['art'];
+	
+	// Artikeldaten anordnen und anzeigen
+	
+	$art_model = $data_object->getModel ();
+	$art_pressure = $data_object->getBetriebsDruck ();
+	$art_temp = $data_object->getTemperatur ();
+	$art_height = $data_object->getHoehe ();
+	$art_width = $data_object->getBreite ();
+	$art_material = $data_object->getStutzenmaterial ();
+	$art_loc = $data_object->getWaermetauscherEinsatzgebiet ();
+	$art_conn = $data_object->getWaermetauscherAnschluss ();
+	$art_types = $data_object->getWaermetauscherUnterkategorie ();
+	
 	echo '<br>';
-	echo '<h1>'.$art_name.'</h1>('.$art_code.')';
+	echo '<h1>Wärmetauscher ' . $art_model . '</h1>';
 	echo '<br>';
+	echo '<p<img src="/_files/images/waermetauscher/' . $art_model . '.jpg" alt="geloetet" id ="bilder"></p>';
+	echo '<h2>Grunddaten:</h2> ';
 	echo '<h3>Brenntemperatur:</h3>';
-	echo $art_temp.'°C';
-	echo '<br>';
-	echo '<h3>Einsatzgebiet:</h3>';
-	echo $art_loc;
+	echo $art_temp . '°C';
+	echo '<h3>Betriebsdruck:</h3>';
+	echo $art_pressure . ' bar';
 	echo '<br>';
 	echo '<h3>Abmessungen:</h3>';
-	echo '<b>Maximale Höhe: </b>'.$art_height.' mm<br>';
-	echo '<b>Maximale Breite: </b>'.$art_width.' mm<br>';
+	echo '<b>Maximale Höhe: </b>' . $art_height . ' mm<br>';
+	echo '<b>Maximale Breite: </b>' . $art_width . ' mm<br>';
 	echo '<br>';
-	echo '<h3>Anschlüsse:</h3>';
+	echo '<h3>Stutzenmaterial:</h3>';
+	echo $art_material;
+	echo '<br>';
+	if (is_array ( $art_loc )) {
+		echo '<h3>Einsatzgebiet:</h3>';
+		echo $art_loc;
+	} else {
+		echo '<h3>Einsatzgebiete:</h3>';
+		foreach ( $art_loc as $each )
+			echo $each;
+	}
+	echo '<br>';
+	if (is_array ( $art_conn )) {
+		echo '<h3>Anschluss:</h3>';
+		echo $art_conn;
+	} else {
+		echo '<h3>Anschlüsse:</h3>';
+		foreach ( $art_conn as $each )
+			echo $each;
+	}
+	echo '<br>';
+	echo '<h2>Auslegungsmöglichkeiten:</h2>';
+	foreach ( $art_types as $type ) {
+		//echo $type->getWaermetauscher_id ();
+		echo '<b>Modell '.$art_model.'-'.$type->getPlatten().':</b><br>';
+		echo 'Anzahl Platten: '.$type->getPlatten ();
+		echo '<br>Länge: '.$type->getLaenge ().'mm';
+		echo '<br>Leergewicht: '.$type->getLeergewicht ().'Kg';
+		echo '<br>Fläche: '.$type->getFlaeche().'m²';
+		if($type->getInhaltPrimaer() !== NULL){
+		echo '<br>Primärinhalt: '.$type->getInhaltPrimaer();
+		if($type->getInhaltSekundaer() !== NULL)
+			echo $type->getInhaltSekundaer();
+		}echo '<br><br>';
+	}
 	?>
 	
 </div>
