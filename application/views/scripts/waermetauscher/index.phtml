@@ -2,10 +2,10 @@
 <h1>Produktberater</h1>
 <?php echo $this->produktberaterWt;?>
 
-<?php if($this->showVor){?>
-<?php if($this->keineVorschläge){
-	echo "Es gibt keine passenden Produkte!";
-}else{?>
+<?php if($this->showVor){
+		if($this->keineVorschläge){
+			echo "Es gibt im Moment leider keine passenden Produkte!";
+			}else{?>
 <div id="TabelleWt">
 
 <h1>Vorschläge</h1>
@@ -35,8 +35,9 @@
   
 </table>
 </div>
-<?php }?>
-<?php }?>
+<?php 
+	}
+}?>
      
 
      

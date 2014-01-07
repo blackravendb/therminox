@@ -6,28 +6,15 @@ class PufferspeicherController extends Zend_Controller_Action
     public function init()
     {
        $this->view->showVor = false; //Vorschläge werden noch nicht angezeigt
+       $this->view->keineVorschläge = false;
     }
 
     public function indexAction()
     {
      $this->view->title = "ProduktberaterPufferspeicher";
         
-		$minMem = 150;
-		$maxMem = 3000;
-		$minWeight = 50;
-		$maxWeight = 400;
-		$minCold = 1070;
-		$maxCold = 2800;
-		$minWarm = 640;
-		$maxWarm = 1865;
-		$minLoad = 500;
-		$maxLoad = 2675;
-		$minThermo = 290;
-		$maxThermo = 1565;     
-     
-        $form = new Application_Form_ProduktberaterPs(array('minMem' => '150', 'maxMem' => '3000', 'minWeight' => '50', 'maxWeigth' => '400',
-        													 'minCold' => '1070', 'maxCold' => '2800', 'minWarm' => '640', 'maxWarm' => '1865', 
-        													 'minLoad' => '500', 'maxLoad' => '2675', 'minThermo' => '290', 'maxThermo' => '1565'));
+     $form = new Application_Form_ProduktberaterPs();
+		
         $form->setMethod('post');
         
         $this->view->produktberaterPs = $form;
@@ -38,38 +25,61 @@ class PufferspeicherController extends Zend_Controller_Action
         	
         	if($form->isValid($formData))
         	{
-        		$typ1 = $form->getElement('Typ1');
-        		$typ2 = $form->getElement('Typ2');
-        		$speicherinhalt = $form->getElement('Speicherinhalt');
-        		$leergewicht = $form->getElement('Leergewicht');
-        		$anschlussKw = $form->getElement('AnschlussKaltwasser');
-        		$anschlussWm = $form->getElement('AnschlussWarmwasser');
-        		$anschlussLs = $form->getElement('AnschlussLadestutzen');
-        		$anschlussZk1 = $form->getElement('AnschlussZk1');
-        		$anschlussZk2 = $form->getElement('AnschlussZk2');
-        		$anschlussZk3 = $form->getElement('AnschlussZk3');
-        		$anschlussZk4 = $form->getElement('AnschlussZk4');
-        		$anschlussZk5 = $form->getElement('AnschlussZk5');
-        		$anschlussZk6 = $form->getElement('AnschlussZk6');
-        		$anschlussTm = $form->getElement('AnschlussThermometer');
+        		$typ = $form->getValue('VVX/LAS');
+        		$einsatzgbt = $form->getValue('Einsatzgebiet');
+        		$speicherinhalt = $form->getValue('Speicherinhalt');
+        		$leergewicht = $form->getValue('Leergewicht');
+        		$betriebsdruck = $form->getValue('Betriebsdruck');
+        		$temperaturMax = $form->getValue('TemperaturMax');
         		
-        		if($typ == null){
-        			$typ->setValue(array('VVX', 'LAS'));
+        		
+        		/*
+        		$anschlussKw = $form->getValue('AnschlussKaltwasser');
+        		$anschlussWm = $form->getValue('AnschlussWarmwasser');
+        		$anschlussLs = $form->getValue('AnschlussLadestutzen');
+        		$anschlussZk = $form->getValue('AnschlussZk');
+        		$anschlussTm = $form->getValue('AnschlussThermometer');
+        		*/
+        		
+        		$psmapper = new Application_Model_PufferspeicherMapper();
+        		
+        		if(!(strcmp($typ, 'Bitte wählen') == 0)){
+        			$psmapper->setTyp($typ);
         		}
         		
-        		if($speicherinhalt == null){
-        			$speicherinhalt->setValue($form->getMaxMem());
-        			$speicherinhalt = $form->getMaxMem();
+        		if(! (strcmp($einsatzgbt, 'Bitte wählen') == 0)){
+        			$psmapper->setEinsatzgebiet($einsatzgbt);
         		}
         		
-        		if($leergewicht == null){
-        			$leergewicht->setValue($form->getMaxWeight());
-        			$leergewicht = $form->getMaxWeight();
+        		if(!empty($speicherinhalt)){
+        			$psmapper->setSpeicherinhalt($speicherinhalt);
         		}
         		
-        		if($anschlussKw == null){
-        			$anschlussKw->setValue($form->getMaxCold());
-        			$anschlussKw = $form->getMaxCold();
+        		if(!empty($leergewicht)){
+        			$psmapper->setLeergewicht($leergewicht);
+        		}
+        		
+        		if(!empty($betriebsdruck)){
+        			$psmapper->setBetriebsdruck($betriebsdruck);
+        		}
+        		
+        		if(!empty($temperaturMax)){
+        			$psmapper->setTemperaturMax($temperaturMax);
+        		}
+        		
+        		$produkte = $psmapper->getPufferspeicher();
+        		
+        		if(!empty($produkte)){
+        			$this->view->vorschläge = $produkte;
+        		}else{
+        			$this->view->keineVorschläge = true;
+        		}
+        		
+        		$this->view->showVor = true; //Vorschläge werden angezeigt
+        		
+        		/*
+        		if(!empty($anschlussKw)){
+        			$psmapper->setAnschluss
         		}
         		
         		if($anschlussWm == null){
@@ -95,12 +105,8 @@ class PufferspeicherController extends Zend_Controller_Action
         			$anschlussTm->setValue($form->getMaxThermo());
         			$anschlussTm = $form->getMaxThermo();
         		}
+        		*/
         		
-      			$this->view->showVor = true; //Vorschläge werden angezeigt
-        		
-        			//TODO
-        			//Datenbankabfragen
-        			//Suchergebnisse anzeigen lassen
         		}
         }
     }

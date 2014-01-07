@@ -2,9 +2,11 @@
 <h1>Produktberater</h1>
 <?php echo $this->produktberaterPs;?>
 
-<?php 
-if($this->showVor == true){
-?>
+<?php if($this->showVor){
+		if($this->keineVorschläge){
+			echo "Es gibt im Moment leider keine passenden Produkte!";
+			}else{?>
+			
 <div id="TabellePs">
 
 <h1>Vorschläge</h1>
@@ -12,26 +14,31 @@ if($this->showVor == true){
   <tr>
     <th>Produktname</th>
     <th>Typ</th>
+    <th>Einsatzgebiet</th>
     <th>Speicherinhalt</th>
     <th>Leergewicht</th>
-    <th>AnschlussKw</th>
-    <th>AnschlussWm</th>
-    <th>AnschlussZk</th>
-    <th>AnschlussTm</th>
+    <th>Betriebsdruck</th>
+    <th>TemperaturMax</th>
   </tr>
+  <?php foreach($this->vorschläge as $value){?>
   <tr>
-    <td>...</td>
-    <td>....</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
+    <td><?php echo $value->getModel(); ?></td>
+    <td><?php foreach($value->getPufferspeicherTyp() as $typ){
+    					echo $typ->getTyp();
+  						}?></td>
+    <td><?php foreach ($value->getPufferspeicherEinsatzgebiet() as $gbt){
+    					echo $gbt->getEinsatzgebiet();
+    					}?></td>
+    <td><?php echo $value->getSpeicherinhalt();?></td>
+    <td><?php echo $value->getLeergewicht();?></td>
+    <td><?php echo $value->getBetriebsdruck();?></td>
+    <td><?php echo $value->getTemperaturMax();?></td>
   </tr>
+  <?php }?>
 </table>
 </div>
 <?php 
+	}
 }
 ?>
 

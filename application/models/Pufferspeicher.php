@@ -55,7 +55,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 		return $this;
 	}
 	
-	public function getleergewicht() {
+	public function getLeergewicht() {
 		return $this->_leergewicht;
 	}
 	

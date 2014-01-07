@@ -98,6 +98,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
          			->addMultiOption('Fernwärme', 'Fernwärme')
          			->addMultiOption('Solaranlage', 'Solaranlage')
          			->addMultiOption('Erdbohrung', 'Erdbohrung')
+         			->addMultiOption('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
         			->addFilter('StripTags')
            			->addFilter('StringTrim');
     	

@@ -31,13 +31,11 @@
 					$minTemp = $form->getValue ( 'TemperaturMin' );
 					$maxTemp = $form->getValue ( 'TemperaturMax' );
 					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
-					$anschluss = $form->getValue ( 'Anschluss' ); // Nur angehackte Werte werden übergeben
+					$anschluss = $form->getValue ( 'Anschluss' ); // Nur angehackte Werte werden übergeben, funktioniert
 					$minHeight = $form->getValue ( 'HoeheMin' );
 					$maxHeight = $form->getValue ( 'HoeheMax' );
 					$minWidth = $form->getValue ( 'BreiteMin' );
 					$maxWidth = $form->getValue ( 'BreiteMax' );
-					
-					$anzahlAnschlüsse = 0;
 					
 					$wtmapper = new Application_Model_WaermetauscherMapper ();
 					
@@ -53,8 +51,8 @@
 						$wtmapper->setEinsatzgebiet ( $einsatzgbt ); // wenn standartwert "bitte wählen" dasteht nicht set!
 					}
 					
-					if (count ( $anschluss ) != 3) { // TODO
-						$wtmapper->setAnschluss ( $anschluss ); // if (kein set, wenn alle angehackt)
+					if (count($anschluss) != 3) { //TODO In $anschluss stehen die richtigen Anschlüsse
+						$wtmapper->setAnschluss($anschluss); // if (kein set, wenn alle angehackt), funktioniert (geht in die Abfrage)
 					}
 					
 					if (! empty ( $minHeight )) {
@@ -73,9 +71,9 @@
 						$wtmapper->setBreiteMax ( $maxWidth );
 					}
 					
-					$produkte = $wtmapper->getWaermetauscher (); // funktioniert, ist immer ein Array
+					$produkte = $wtmapper->getWaermetauscher(); // funktioniert nicht, für Anschlüsse
 					
-					if (! empty ( $produkte )) { // Sobald nicht alle 3 Anschlüsse ausgewählt sind, ist das Array leer
+					if (! empty ( $produkte )) { // Sobald nicht alle 3 Anschlüsse ausgewählt sind, ist das Array leer => Es gibt keine Produkte //TODO
 						$this->view->vorschläge = $produkte;
 					} else {
 						$this->view->keineVorschläge = true;
