@@ -9,8 +9,7 @@ class Application_Form_Profile extends App_Form
     	->setAttrib('id', 'profile');
    
     	$email = new Zend_Form_Element_Text('email');
-    	$email->setRequired(true)
-    	->setAttrib('readonly', 'true')
+    	$email->setAttrib('readonly', 'true')
     	->setLabel('Email-Adresse')
     	->setDecorators($this->elementDecorators);
     	 
