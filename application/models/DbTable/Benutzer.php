@@ -114,13 +114,17 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	
     	//Überprüfen, ob sich Rechnungsadressen verändert hat
     	if(key_exists('rechnungsadresse', $benutzerData)){
-    		$this->getAdresseDbTable()->changeAdresse($benutzerData['rechnungsadresse'], $benutzerData['email']);
+    		foreach($benutzerData['rechnungsadresse'] as $value){
+    			$this->getAdresseDbTable()->changeAdresse($value, $benutzer->getEmail());
+    		}
     		unset($benutzerData['rechnungsadresse']);
     	}
     	
     	//Überprüfen, ob sich Lieferadresse verändert hat
     	if(key_exists('lieferadresse', $benutzerData)){
-    		$this->getLieferadresseDbTable()->changeAdresse($benutzerData['lieferadresse'], $benutzerData['email']);
+    		foreach($benutzerData['lieferadresse'] as $value) {
+    			$this->getAdresseDbTable()->changeAdresse($value, $benutzer->getEmail());
+    		}
     		unset($benutzerData['lieferadresse']);
     	}
     	

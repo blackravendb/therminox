@@ -22,25 +22,22 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     		)
     );
     
-    public function changeAdresse ($adressen, $email) {
-    	if(empty($adressen) || empty($email))
+    public function changeAdresse ($adresse, $email) {
+    	if(empty($adresse) || empty($email))
     		return;
     	
-    	foreach ($adressen as $adresse) {
-    		//neue Adresse wurde angelegt(noch keine ID = Auto Increment angelegt)
-    		if($adresse->getId === NULL)
-    			$this->insertAdresse($adresse, $email);
-    		//überprüfen, ob sich überhaupt ein Feld geändert hat
-    		else {
-    			foreach($adresse->toArray() as $key => $value){
-    				if($adresse->isChanged($key)){
-    					//Mindestens ein Feld wurde aktualisiert
-    					$this->updateAdresse($adresse, $email);
-    				}
-    			}
-    		}
-    			$this->changeAdresse($value);
-    	}
+    	//neue Adresse wurde angelegt(noch keine ID = Auto Increment angelegt)
+   		if($adresse->getId() === NULL)
+   			$this->insertAdresse($adresse, $email);
+   		//überprüfen, ob sich überhaupt ein Feld geändert hat
+   		else {
+   			foreach($adresse->toArray() as $key => $value){
+   				if($adresse->isChanged($key)){
+   					//Mindestens ein Feld wurde aktualisiert
+   					$this->updateAdresse($adresse, $email);
+   				}
+   			}
+   		}
     }
     
     protected function insertAdresse($adresse, $email) {
@@ -61,7 +58,7 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     	$adressData = $adresse->toArray();
     	
     	foreach($adressData as $key => $value) {
-    		if($adresse->isChanged($key) !== 1) {
+    		if($adresse->isChanged($key) !== true) {
     			unset($adressData[$key]);
     		}
     	}
@@ -71,8 +68,11 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     		$adressData['benutzer_email'] = $email;
     		$adressData['lieferadresse'] = $adresse instanceof Application_Model_Lieferadresse ? true : false;
 			
-    		$adressData['anrede_id'] = $this->getAnrede_idByAnrede($adressData['anrede']);
-    		unset($adressData['anrede']);
+    		//Überprüfen ob Anrede sich verändert hat
+    		if(key_exists("anrede", $adressData)) {
+    			$adressData['anrede_id'] = $this->getAnrede_idByAnrede($adressData['anrede']);
+    			unset($adressData['anrede']);
+    		}
     		
     		$this->update($adressData, $where);
     	}

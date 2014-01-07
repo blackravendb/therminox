@@ -151,7 +151,7 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	
 	public function getLieferadresse() {
 		//möglicherweise schreibender Zugriff auf Rechnungsadresse, deshalb änderungen bei einem Update übermitteln
-		$this->_changed['rechnungsadresse'] = 1;
+		$this->_changed['lieferadresse'] = 1;
 		return $this->_lieferadresse;
 	}
 	

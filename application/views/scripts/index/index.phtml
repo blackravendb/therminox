@@ -1,6 +1,6 @@
 <br /><br />
 <div id="view-content">
-RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?
+RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?<br>
 <?php 
 $neuerBenutzer = new Application_Model_Benutzer();
 $neuerBenutzer->setNachname('Brandmüller');
@@ -23,19 +23,26 @@ $lieferadresse->setAnrede($neuerBenutzer->getAnrede());
 $neuerBenutzer->insertLieferadresse($lieferadresse);
 
 $benutzerMapper = new Application_Model_BenutzerMapper();
-//if(!$benutzerMapper->existEmail('2dennis.brandmueller@stud.fh-rosenheim.de'))
-	$benutzerMapper->insertBenutzer($neuerBenutzer, '3dennis.brandmueller@stud.fh-rosenheim.de');
+if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
+	$benutzerMapper->insertBenutzer($neuerBenutzer, 'dennis.brandmueller@stud.fh-rosenheim.de');
 
+
+$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+$la = $alterBenutzer->getLieferadresse();
+
+$la[0]->setStrasse('Sankt-Joseph-Spitalstr. 5');
+
+//$benutzerMapper->updateBenutzer($alterBenutzer);
 ?>
 
 
 
-// <?php
+ <?php
 // echo "Einzelne Zeile per getBenutzer abrufen:<br>";
 // echo $this->mustermann->getAnrede() ." ". $this->mustermann->getVorname() ." ". $this->mustermann->getNachname() ." ". "<br>".$this->mustermann->getEmail();
 // ?>
 <!-- <br><br><br> -->
-// <?php 
+ <?php 
 // echo "Alle Benutzer per fetchAll abrufen:<br>";
 // foreach($this->mustermaenner as $mustermann){
 // echo $mustermann->getAnrede() ." ". $mustermann->getVorname() ." ". $mustermann->getNachname() ." ". "<br>".$mustermann->getEmail() . "<br><br>";
@@ -43,7 +50,7 @@ $benutzerMapper = new Application_Model_BenutzerMapper();
 // ?>
 
 
-// <?php 
+ <?php 
  $benutzerMapper = new Application_Model_BenutzerMapper();
 
  $test = $benutzerMapper->getBenutzer("test@test.de");
