@@ -33,6 +33,5 @@ class Application_Model_WaermetauscherAnschluss extends Application_Model_TableA
 	public function getAnschluss (){
 		return $this->_anschluss;
 	}
-
 }
 

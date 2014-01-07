@@ -107,14 +107,14 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		return $this->_stutzenmaterial;
 	}
 	
-	public function setWaermetauscherUnterkategorie($wtUnterkategorie){
+	public function setWaermetauscherUnterkategorie($wtUnterkategorie) {
 		if(is_array($wtUnterkategorie))
 			$this->_waermetauscherUnterkategorie = $wtUnterkategorie;
 		else
 			$this->_waermetauscherUnterkategorie[] = $wtUnterkategorie;
 	}
 	
-	public function getWaermetauscherUnterkategorie(){
+	public function getWaermetauscherUnterkategorie() {
 		return $this->_waermetauscherUnterkategorie;
 	}
 	
@@ -139,9 +139,5 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	public function getWaermetauscherAnschluss() {
 		return $this->_waermetauscherAnschluss;
 	}
-	
-	
-	
-	
 }
 

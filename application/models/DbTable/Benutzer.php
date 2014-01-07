@@ -37,8 +37,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 
     protected $select;
     
-    protected $rechnungsadresseDbTable;
-    protected $lieferadresseDbTable;
+    protected $adresseDbTable;
     
     public function init() {
     	$this->select = $this->select()
@@ -47,18 +46,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     		->join('anrede', $this->_name.'.anrede_id = anrede.id');
     }
     
-    protected function getRechnungsadresseDbTable(){
-    	if(empty($this->rechnungsadresseDbTable)){
-    		$this->rechnungsadresseDbTable = new Application_Model_DbTable_Rechnungsadresse();
+    protected function getAdresseDbTable(){
+    	if(empty($this->AdresseDbTable)){
+    		$this->AdresseDbTable = new Application_Model_DbTable_Adresse();
     	}
-    	return $this->rechnungsadresseDbTable;
-    }
-    
-    protected function getLieferadresseDbTable(){
-    	if(empty($this->lieferadresseDbTable)){
-    		$this->lieferadresseDbTable = new Application_Model_DbTable_Lieferadresse();
-    	}
-    	return $this->lieferadresseDbTable;
+    	return $this->AdresseDbTable;
     }
     
     public function getBenutzer($email){
@@ -70,12 +62,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	 //Select Befehl wieder zurücksetzen
     	 $this->init();
     	 
-    	 //Dazugehörige Liefer und Rechnungsadreses abfragen
-    	 $lieferadressen = $data->findDependentRowset('Application_Model_DbTable_Lieferadresse','benutzer');
-    	 $rechnungsadressen = $data->findDependentRowset('Application_Model_DbTable_Rechnungsadresse','benutzer');
+    	 //Dazugehörige Adressen abfragen
+    	 $adressen = $data->findDependentRowset('Application_Model_DbTable_Adresse','benutzer');
 
     	 //Alle Daten in Array zusammenfassen zum returnen
-    	 return array($data->toArray(), $lieferadressen->toArray(), $rechnungsadressen->toArray());
+    	 return array($data->toArray(), $adressen->toArray());
     }
     
     public function fetchAll(){
@@ -90,12 +81,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	
     	$ret = array();
     	
-    	//Dazugehörige Liefer und Rechnungsadreses abfragen
+    	//Dazugehörige Adressen abfragen
     	foreach($data as $key => $value){
-    		$lieferadressen = $value->findDependentRowset('Application_Model_DbTable_Lieferadresse','benutzer');
-    		$rechnungsadressen = $value->findDependentRowset('Application_Model_DbTable_Rechnungsadresse','benutzer');
+    		$adressen = $value->findDependentRowset('Application_Model_DbTable_Adresse','benutzer');
     		
-    		$ret[] = array($value->toArray(), $lieferadressen->toArray(), $rechnungsadressen->toArray());
+    		$ret[] = array($value->toArray(), $adressen->toArray());
     	}
     	
     	return $ret;
@@ -116,21 +106,21 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	
     	//Fremde Tabellen überrüfen:
     	//Überprüfen, ob sich Anrede verändert hat
-    	if(key_exists("anrede", $benutzerData)){
+    	if(key_exists("anrede", $benutzerData)) {
     		
     		$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede']);
     		unset($benutzerData['anrede']);
     	}
     	
-    	//Überprüfen, ob sich Rechnungsadresse verändert hat
+    	//Überprüfen, ob sich Rechnungsadressen verändert hat
     	if(key_exists('rechnungsadresse', $benutzerData)){
-    		$this->getRechnungsadresseDbTable()->changeRechnungsadresse($benutzerData['rechnungsadresse']);
+    		$this->getAdresseDbTable()->changeAdresse($benutzerData['rechnungsadresse'], $benutzerData['email']);
     		unset($benutzerData['rechnungsadresse']);
     	}
     	
     	//Überprüfen, ob sich Lieferadresse verändert hat
     	if(key_exists('lieferadresse', $benutzerData)){
-    		$this->getLieferadresseDbTable()->updateLiefersadresse($benutzerData['lieferadresse']);
+    		$this->getLieferadresseDbTable()->changeAdresse($benutzerData['lieferadresse'], $benutzerData['email']);
     		unset($benutzerData['lieferadresse']);
     	}
     	
@@ -142,14 +132,35 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     	return $this->update($benutzerData, $where);
     }
 
-    public function insertBenutzer(Application_Model_Benutzer $benutzer, $email){
+    public function insertBenutzer(Application_Model_Benutzer $benutzer, $email) {
     	$benutzerData = $benutzer->toArray();
     	$benutzerData['email'] = $email;
     	
+    	
+    	//Anrede ID ermitteln
     	$benutzerData['anrede_id'] = $this->getAnrede_idByAnrede($benutzerData['anrede']);
     	unset($benutzerData['anrede']);
+
+    	//Liefer und Rechnungsadressen für späteres schreiben zwischenspeichern
+    	$lieferadressen = $benutzer->getLieferadresse();
+    	$rechnungsadresse = $benutzer->getRechnungsadresse();
     	
-    	return $this->insert($benutzerData);
+    	unset($benutzerData['lieferadresse']);
+    	unset($benutzerData['rechnungsadresse']);
+    	
+    	$this->insert($benutzerData);
+
+    	//Liefer und Rechnungsadressen schreiben
+    	if(!empty($lieferadressen)){
+    		foreach($lieferadressen as $value){
+    			$this->getAdresseDbTable()->changeAdresse($value, $email);
+    		}
+    	}
+    	if(!empty($rechnungsadresse)){
+    		foreach($rechnungsadresse as $value){
+    			$this->getAdresseDbTable()->changeAdresse($value, $email);
+    		}
+    	}
     }
     
     public function deleteBenutzer ($email){

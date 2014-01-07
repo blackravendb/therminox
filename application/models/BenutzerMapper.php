@@ -9,21 +9,21 @@ class Application_Model_BenutzerMapper extends Application_Model_MapperAbstract 
 	}
 	
 	protected function setAttributs($row){
-		unset($row[0]['id']);
+	//	unset($row[0]['id']);
 		
 		//Lieferadresse Arrray zu Objekten wandeln
 		if(!empty($row[1])){
 			$row[0]['lieferadresse'] = array();
-			foreach($row[1] as $key => $value) {
-				$row[0]['lieferadresse'][] = new Application_Model_Lieferadresse($value);
-			}
-		}
-		
-		//Rechnungsadresse Array zu Objekten wandeln
-		if(!empty($row[2])) {
 			$row[0]['rechnungsadresse'] = array();
-			foreach($row[2] as $key => $value) {
-				$row[0]['rechnungsadresse'][] = new Application_Model_Rechnungsadresse($value);
+			//Liefer bzw. Rechnungsadressen-objekte erstellen
+			foreach($row[1] as $key => $value) {
+				if($value['lieferadresse']){
+					$row[0]['lieferadresse'][] = new Application_Model_Lieferadresse($value);
+				}
+				else {
+					$row[0]['rechnungsadresse'][] = new Application_Model_Rechnungsadresse($value);
+				}
+				
 			}
 		}
 		

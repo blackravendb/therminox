@@ -28,7 +28,8 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 		);
 	}
 	
-	public function setId($id)
+	//primary key, Auto Increment
+	protected function setId($id)
 	{
 		$this->_id = (int) $id;
 		return $this;
@@ -39,9 +40,13 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 		return $this->_id;
 	}
 	
-	public function setBenutzer_email($email)
+	//Wird beim Datenupload gesetzt
+	protected function setBenutzer_email($email)
 	{
-		$this->_benutzer_email =  $email;
+		if($this->_benutzer_email !== $email) {
+			$this->_changed['benutzer_email'] = 1;
+			$this->_benutzer_email =  $email;
+		}		
 		return $this;
 	}
 	
@@ -52,7 +57,10 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 	
 	public function setFirma($firma)
 	{
-		$this->_firma =  $firma;
+		if($this->_firma !== $firma) {
+			$this->_changed['firma'] = 1;
+			$this->_firma =  $firma;
+		}		
 		return $this;
 	}
 	
@@ -63,7 +71,11 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 	
 	public function setNachname($name)
 	{
-		$this->_nachname =  $name;
+		if($this->_nachname !== $name) {
+			$this->_changed['nachname'] = 1;
+			$this->_nachname =  $name;
+		}
+		
 		return $this;
 	}
 	
@@ -74,7 +86,10 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 	
 	public function setVorname($name)
 	{
-		$this->_vorname =  $name;
+		if($this->_vorname !== $name) {
+			$this->_changed['vorname'] = 1;
+			$this->_vorname =  $name;
+		}		
 		return $this;
 	}
 	
@@ -83,43 +98,59 @@ class Application_Model_Rechnungsadresse extends Application_Model_TableAbstract
 		return $this->_vorname;
 	}
 
-	public function setStrasse($strasse){
-		$this->_strasse = $strasse;
+	public function setStrasse($strasse) {
+		if($this->_strasse !== $strasse) {
+			$this->_changed['strasse'] = 1;
+			$this->_strasse = $strasse;
+		}
 	}
 	
-	public function getStrasse(){
+	public function getStrasse() {
 		return $this->_strasse;
 	}
 	
-	public function setPlz($plz){
-		$this->_plz = $plz;
+	public function setPlz($plz) {
+		if($this->_plz !== $plz) {
+			$this->_changed['plz'] = 1;
+			$this->_plz = $plz;
+		}		
 	}
 	
 	public function getPlz(){
 		return $this->_plz;
 	}
 	
-	public function setOrt($ort){
-		$this->_ort = $ort;
+	public function setOrt($ort) {
+		if($this->_ort !== $ort) {
+			$this->_changed['ort'] = 1;
+			$this->_ort = $ort;
+		}
+		
 	}
 	
 	public function getOrt(){
 		return $this->_ort;
 	}
 	
-	public function setLand($land){
-		$this->_land = $land;
+	public function setLand($land) {
+		if($this->_land !== $land) {
+			$this->_changed['land'] = 1;
+			$this->_land = $land;
+		}
 	}
 	
 	public function getLand(){
 		return $this->_land;
 	}
 	
-	public function setAnrede($anrede){
-		$this->_anrede = $anrede;
+	public function setAnrede($anrede) {
+		if($this->_anrede !== $anrede) {
+			$this->_changed['anrede'] = 1;
+			$this->_anrede = $anrede;
+		}
 	}
 	
-	public function getAnrede(){
+	public function getAnrede() {
 		return $this->_Anrede;
 	}
 

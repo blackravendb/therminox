@@ -121,19 +121,37 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this->_bestaetigt;
 	}
 	
-	public function setLieferadresse($lieferadresse) {
-		if($this->_lieferadresse !== $lieferadresse){
-			if(is_array($lieferadresse)) {
-				$this->_lieferadresse = $lieferadresse;
-			}
-			else {
-				$this->_lieferadresse[]=$lieferadresse;
-			}
-		}
+	//Methode für Konstrutor
+	protected function setLieferadresse($lieferadresse) {
+		$this->_lieferadresse = $lieferadresse;
+		
 		return $this;
 	}
 	
+	public function insertlieferadresse(Application_Model_Lieferadresse $lieferadresse) {
+		$this->_changed['lieferadresse'] = 1;
+		$this->_lieferadresse[] = $lieferadresse;
+	
+		return $this;
+	}
+	
+	public function deletelieferadresse(Application_Model_Lieferadresse $lieferadresse) {
+		if(empty($this->_lieferadresse)){
+			return false;
+		}
+		foreach($this->_lieferadresse as $key => $value) {
+			if($value->getId === $lieferadresse->getId){
+				unset($this->_lieferadresse[$key]);
+				$this->_changed['lieferadresse'] = 1;
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public function getLieferadresse() {
+		//möglicherweise schreibender Zugriff auf Rechnungsadresse, deshalb änderungen bei einem Update übermitteln
+		$this->_changed['rechnungsadresse'] = 1;
 		return $this->_lieferadresse;
 	}
 	
@@ -144,14 +162,14 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this;
 	}
 	
-	public function insertRechnungsadresse(Application_Method_Rechnungsadresse $rechnungsadresse) {
+	public function insertRechnungsadresse(Application_Model_Rechnungsadresse $rechnungsadresse) {
 		$this->_changed['rechnungsadresse'] = 1;
 		$this->_rechnungsadresse[] = $rechnungsadresse;
 		
 		return $this;
 	}
 	
-	public function deleteRechnungsadresse(Application_Method_Rechnungsadresse $rechnungsadresse) {
+	public function deleteRechnungsadresse(Application_Model_Rechnungsadresse $rechnungsadresse) {
 		if(empty($this->_rechnungsadresse)){
 			return false;
 		}
@@ -166,6 +184,8 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function getRechnungsadresse() {
+		//möglicherweise schreibender Zugriff auf Rechnungsadresse, deshalb änderungen bei einem Update übermitteln
+		$this->_changed['rechnungsadresse'] = 1;
 		return $this->_rechnungsadresse;
 	}
 }

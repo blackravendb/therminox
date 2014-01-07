@@ -67,7 +67,7 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		return $this->setAttributs($data);
 	}
 	
-	public function setTemperaturMin($temp){
+	public function setTemperaturMin($temp) {
 		$this->getDbTable()->setTemperaturMin($temp);
 	}
 	
