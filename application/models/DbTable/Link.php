@@ -10,14 +10,14 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     
     public function init() {
     	$this->select = $this->select()
+    	->from($this->_name, array('id', 'benutzer_email as email', 'hexaString', 'typ'))
     	->setIntegrityCheck(false);
     }
     
     public function getLinkByEmail($email) {
     	$this->select
-    	->from($this->_name)
-    	->where('email =?', $email);
     	
+    	->where('email =?', $email);
     	$data =$this->fetchAll($this->select);
     	
     	$this->init();
@@ -30,7 +30,6 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     
     public function getLinkByHexaString($string) {
     	$this->select
-    	->from($this->_name)
     	->where('hexaString =?', $string);
     	 
     	$data =$this->fetchAll($this->select);
@@ -45,6 +44,8 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     public function insertLink (Application_Model_Link $link) {
     	$linkData = $link->toArray();
     	
+    	$linkData['benutzer_email'] = $linkData['email'];
+    	unset($linkData['email']);
     	return $this->insert($linkData);
     }
     
