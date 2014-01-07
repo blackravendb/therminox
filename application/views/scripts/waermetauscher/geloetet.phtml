@@ -35,27 +35,27 @@
 	echo '<h3>Stutzenmaterial:</h3>';
 	echo $art_material;
 	echo '<br>';
-	if (is_array ( $art_loc )) {
+	if (!is_array ( $art_loc )) {
 		echo '<h3>Einsatzgebiet:</h3>';
 		echo $art_loc;
 	} else {
 		echo '<h3>Einsatzgebiete:</h3>';
 		foreach ( $art_loc as $each )
-			echo $each;
+			echo $each->getEinsatzgebiet();
 	}
 	echo '<br>';
-	if (is_array ( $art_conn )) {
-		echo '<h3>Anschluss:</h3>';
+	if (!is_array ( $art_conn )) {
+		echo '<h3>Anschl&uuml;sse:</h3>';
 		echo $art_conn;
 	} else {
-		echo '<h3>Anschlüsse:</h3>';
+		echo '<h3>Anschluss:</h3>';
 		foreach ( $art_conn as $each )
-			echo $each;
+			echo $each->getAnschluss();
 	}
-	echo '<br>';
+	echo '<br><br>';
 	echo '<h2>Auslegungsmöglichkeiten:</h2>';
 	foreach ( $art_types as $type ) {
-		//echo $type->getWaermetauscher_id ();
+		
 		echo '<b>Modell '.$art_model.'-'.$type->getPlatten().':</b><br>';
 		echo 'Anzahl Platten: '.$type->getPlatten ();
 		echo '<br>Länge: '.$type->getLaenge ().'mm';
