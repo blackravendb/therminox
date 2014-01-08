@@ -1,0 +1,33 @@
+<div id="view-content">
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<h1>Wärmetauscher bearbeiten</h1>
+<table border="1">
+  <tr>
+    <th>Produktname</th>
+    <th>Temperatur</th>
+    <th>Einsatzgebiet</th>
+    <th>Anschlüsse</th>
+    <th>Höhe</th>
+    <th>Breite</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <?php 
+  	foreach($this->dbdata as $value){?>
+   <tr>
+	<td><?php echo $value->getModel(); ?></td>
+    <td><?php echo $value->getTemperatur(); ?></td>
+    <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
+    					echo $gbt->getEinsatzgebiet();
+    					} ?></td>
+    <td><?php foreach($value->getWaermetauscherAnschluss() as $ans){
+    					echo $ans->getAnschluss();
+  						}?></td>
+    <td><?php echo $value->getHoehe(); ?></td>
+    <td><?php echo $value->getBreite(); ?></td>
+    <td> <a href="/Admin/changewaermetauscher/artikel/" . <?php $value->getModel();?>>bearbeiten</a></td>
+    <td><a href="#">löschen</a></td>
+    </tr>
+  <?php }?>
+</table>
+</div>

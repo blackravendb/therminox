@@ -9,6 +9,18 @@
 			
 		}
 		
+		public function showwaermetauscherAction(){
+				$db_mapper = new Application_Model_WaermetauscherMapper ();
+				$data_object = $db_mapper->getWaermetauscher();
+				$this->view->dbdata = $data_object;
+		}
+		
+		public function showpufferspeicherAction(){
+				$db_mapper = new Application_Model_PufferspeicherMapper ();
+				$data_object = $db_mapper->getPufferspeicher();
+				$this->view->dbdata = $data_object;
+		}
+		
 		public function changewaermetauscherAction(){
 			$this->view->title = "WaermetauscherBearbeiten";
 			$request = $this->getRequest ();
