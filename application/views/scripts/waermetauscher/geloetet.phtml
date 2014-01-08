@@ -52,13 +52,14 @@
 			echo $each->getEinsatzgebiet();
 	}
 	echo '<br>';
-	if (!is_array ( $art_conn )) {
+	if ( count($art_conn) >1 ) {
 		echo '<h3>Anschl&uuml;sse:</h3>';
-		echo $art_conn;
+		foreach ( $art_conn as $each )
+			echo $each->getAnschluss().'<br>';
 	} else {
 		echo '<h3>Anschluss:</h3>';
-		foreach ( $art_conn as $each )
-			echo $each->getAnschluss();
+		echo $art_conn[0]->getAnschluss();
+		
 	}
 	echo '<br><br>';
 	echo '<h2>Auslegungsmöglichkeiten:</h2>';
