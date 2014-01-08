@@ -120,6 +120,9 @@
         <modelFile modelName="PufferspeicherMapper"/>
         <modelFile modelName="Pufferspeicher"/>
         <modelFile modelName="PufferspeicherEinsatzgebiet"/>
+        <modelFile modelName="AngebotskorbMapper"/>
+        <modelFile modelName="Angebot"/>
+        <modelFile modelName="Angebotskorb"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
