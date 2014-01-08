@@ -4,6 +4,7 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'angebotskorb';
+    protected $_primary = 'id';
 
     protected $select;
     protected $angebotDbTable;

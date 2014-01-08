@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. Jan 2014 um 11:46
+-- Erstellungszeit: 08. Jan 2014 um 16:27
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -69,6 +69,13 @@ CREATE TABLE IF NOT EXISTS `angebot` (
   KEY `angebotskorb_id` (`angebotskorb_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Daten für Tabelle `angebot`
+--
+
+INSERT INTO `angebot` (`artikelnummer_id`, `angebotskorb_id`, `angebotStatus_id`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -80,7 +87,14 @@ CREATE TABLE IF NOT EXISTS `angebotskorb` (
   `benutzer_email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `benutzer_email` (`benutzer_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `angebotskorb`
+--
+
+INSERT INTO `angebotskorb` (`id`, `benutzer_email`) VALUES
+(1, 'test@test.de');
 
 -- --------------------------------------------------------
 
@@ -92,7 +106,14 @@ CREATE TABLE IF NOT EXISTS `angebotStatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `angebotStatus`
+--
+
+INSERT INTO `angebotStatus` (`id`, `status`) VALUES
+(1, 'In Bearbeitung');
 
 -- --------------------------------------------------------
 
@@ -128,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `artikelnummer` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pufferspeicher_id` (`pufferspeicher_id`),
   UNIQUE KEY `waermetauscher_id` (`waermetauscher_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Daten für Tabelle `artikelnummer`
@@ -136,7 +157,9 @@ CREATE TABLE IF NOT EXISTS `artikelnummer` (
 
 INSERT INTO `artikelnummer` (`id`, `pufferspeicher_id`, `waermetauscher_id`) VALUES
 (1, NULL, 2),
-(2, 1, NULL);
+(2, 1, NULL),
+(3, NULL, 3),
+(4, NULL, 6);
 
 -- --------------------------------------------------------
 
