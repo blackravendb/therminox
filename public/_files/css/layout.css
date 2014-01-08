@@ -46,14 +46,6 @@ div#menu{
 	overflow: hidden;
 }
 
-div#adminmenu{
-	position: absolute;
-	width: 150px;
-	left: 1000px;
-	float: right;
-	overflow: hidden;
-}
-
 div#inhalt{
 /*	background-color: grey;		/*kann gel�scht werden, nur zur demo*/
 	margin-left: 155px;
