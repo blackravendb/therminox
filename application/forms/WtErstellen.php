@@ -11,24 +11,18 @@ class Application_Form_WtErstellen extends App_Form {
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
 
-		$name = new Zend_Form_Element_Text('Artikelname');
+		$name = new Zend_Form_Element_Text('Model');
 		$name->setLabel('Artikelname:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
-		 
-		$code = new Zend_Form_Element_Text('Artikelcode');
-		$code->setLabel('Artikelkürzel:')
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
-		 
-		$descr = new Zend_Form_Element_Textarea('Artikelbeschreibung');
-		$descr->setLabel('Beschreibung:')
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
-
-		 
+		 		 		 	
 		$temp = new Zend_Form_Element_Text('Temperatur');
-		$temp->setLabel('Temperatur:')
+		$temp->setLabel('Temperatur in °C:')
+		->addFilter('StripTags')
+		->addFilter('StringTrim');
+		
+		$pressure = new Zend_Form_Element_Text('Betriebsdruck');
+		$pressure->setLabel('Betriebsdruck in bar:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 
@@ -48,7 +42,19 @@ class Application_Form_WtErstellen extends App_Form {
 				)
 		));
 		$anschluss->setLabel('Anschlüsse:');
+		
+		$material = new Zend_Form_Element_Text('Stutzenmaterial');
+		$material->setLabel('Stutzenmaterial:')
+		->addFilter('StripTags')
+		->addFilter('StringTrim');
 
+		$pictures = new Zend_Form_Element_File('Bilder');
+		$pictures->setLabel('Artikelbilder hochladen')
+		->addValidator('Extension', false, 'png')
+		->setDestination('_files/images/waermetauscher')
+		->addValidator('Size', false, 102400) // Limitiert auf 100k
+		->setMaxFileSize(102400); // Limitiert dateigröße clientseitig
+		
 		/*
 		 $anschluss = new Zend_Form_Element_Multiselect('Anschluss');
 		$anschluss->setLabel('Anschlüsse:')
@@ -71,25 +77,18 @@ class Application_Form_WtErstellen extends App_Form {
 		->setJQueryParams(array('min' => 20, 'max' => 500, 'value' => 1)); */
 
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
-		$maxHeight->setLabel('Maximale Höhe:')
+		$maxHeight->setLabel('Maximale Höhe in mm:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 
 		$maxWidth = new Zend_Form_Element_Text('Breite');
-		$maxWidth->setLabel('Maximale Breite:')
+		$maxWidth->setLabel('Maximale Breite in mm:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
-
-
-		$maxLength = new Zend_Form_Element_Text('Laenge');
-		$maxLength->setLabel('Maximale Länge:')
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
-
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Artikel erzeugen');
 		 
-		$this->addElements(array($tempVal, $heightVal, $widthVal, $lengthVal, $name, $code, $descr, $temp, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $maxLength, $submit));
+		$this->addElements(array($name,$temp, $pressure, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $material,$pictures, $submit));
 	}
 }

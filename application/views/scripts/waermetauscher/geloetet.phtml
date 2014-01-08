@@ -3,7 +3,14 @@
 	<?php
 	// TODO Ausnahmen abfangen! ->schlumpfhandling -.-
 	$data_object = $this->dbdata;
-	
+	if($this->dbdata === null){
+		$this->view->message = 'Artikel konnte nicht gefunden werden';
+		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
+			$this->view->link = $_SERVER ['HTTP_REFERER'];
+		} else {
+			$this->view->link = '/wassererwaermer';
+		}
+	}
 	
 	
 	// Artikeldaten anordnen und anzeigen
@@ -67,6 +74,7 @@
 			echo $type->getInhaltSekundaer();
 		}echo '<br><br>';
 	}
+	
 	?>
 	
 </div>
