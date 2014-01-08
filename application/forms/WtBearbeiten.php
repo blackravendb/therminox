@@ -53,6 +53,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addMultiOption('Fernwärme', 'Fernwärme')
 		->addMultiOption('Solaranlage', 'Solaranlage')
 		->addMultiOption('Erdbohrung', 'Erdbohrung')
+		->addMultiOprion('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
