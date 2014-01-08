@@ -210,7 +210,6 @@
 		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
             <viewScriptFile forActionName="entfernen"/>
           </viewControllerScriptsDirectory>
-          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
