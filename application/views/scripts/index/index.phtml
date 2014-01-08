@@ -182,6 +182,17 @@ echo '--------------------------------------------------------------------------
  echo $vvx200->getModel();
  
  
+ echo '<br>-------------------------------------------------------------------------------------';
+ echo '<br><br><br>';
+ 
+ echo 'Angebote<br>';
+ 
+ $angebotMapper = new Application_Model_AngebotskorbMapper();
+ 
+ $angebotskorb = $angebotMapper->getAngebotskorbByEmail('"test@test.de');
+ 
+ $angebot = $angebotskorb[0]->getAngebot();
+ echo $angebot[0]->getStatus();
  
  ?>
 
