@@ -178,6 +178,15 @@
           <viewControllerScriptsDirectory forControllerName="Pufferspeicher">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Pufferspeicher">
+            <viewScriptFile forActionName="hinzufuegen"/>
+          </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Pufferspeicher">
+            <viewScriptFile forActionName="bearbeiten"/>
+          </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Pufferspeicher">
+            <viewScriptFile forActionName="entfernen"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -195,6 +204,14 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
             <viewScriptFile forActionName="vvi"/>
+          </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
+            <viewScriptFile forActionName="hinzufuegen"/>
+			<viewControllerScriptsDirectory forControllerName="Wassererwaermer">
+            <viewScriptFile forActionName="bearbeiten"/>
+          </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
+            <viewScriptFile forActionName="entfernen"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -3,7 +3,14 @@
 	<?php
 	// TODO Ausnahmen abfangen! ->schlumpfhandling -.-
 	$data_object = $this->dbdata;
-	
+	if($this->dbdata === null){
+		$this->view->message = 'Artikel konnte nicht gefunden werden';
+		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
+			$this->view->link = $_SERVER ['HTTP_REFERER'];
+		} else {
+			$this->view->link = '/wassererwaermer';
+		}
+	}
 	
 	
 	// Artikeldaten anordnen und anzeigen
@@ -21,7 +28,8 @@
 	echo '<br>';
 	echo '<h1>Wärmetauscher ' . $art_model . '</h1>';
 	echo '<br>';
-	echo '<p<img src="/_files/images/waermetauscher/' . $art_model . '.jpg" alt="geloetet" id ="bilder"></p>';
+	// TODO funzt noch ned
+	echo '<img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder">';
 	echo '<h2>Grunddaten:</h2> ';
 	echo '<h3>Brenntemperatur:</h3>';
 	echo $art_temp . '°C';
@@ -67,6 +75,7 @@
 			echo $type->getInhaltSekundaer();
 		}echo '<br><br>';
 	}
+	
 	?>
 	
 </div>

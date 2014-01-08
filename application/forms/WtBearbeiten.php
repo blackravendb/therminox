@@ -1,11 +1,17 @@
 <?php
-class Application_Form_WtErstellen extends Zend_Form {
+class Application_Form_WtBearbeiten extends Zend_Form {
+
+	private $dbdata;
 	
-	public function __construct($options = null)
-	{
-		parent::__construct($options);
-		
-		//TODO Variablen von Controller holen
+	public function init(){
+	
+	}
+	
+	public function setDbdata($data_object){
+		$this->dbdata = $data_object;
+	}
+	
+	public function startform(){
 		
 		$tempVal = new Zend_Validate_Between(array('min' => 155, 'max' => 195));
 		$heightVal = new Zend_Validate_Between(array('min' => 170, 'max' => 1100));
@@ -14,7 +20,7 @@ class Application_Form_WtErstellen extends Zend_Form {
 
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
-		->setValue($produkt->getModel())
+		->setValue($this->dbdata->getModel())
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		
@@ -36,11 +42,11 @@ class Application_Form_WtErstellen extends Zend_Form {
 		 
 		$temp = new Zend_Form_Element_Text('Temperatur');
 		$temp->setLabel('Temperatur:')
-		->setValue($produkt->getTemperatur())
+		->setValue($this->dbdata->getTemperatur())
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		
-		foreach($produkt->getWaermetauscherEinsatzgebiet() as $gbt){
+		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
 			$einsatzgebiet = $gbt->getEinsatzgebiet();
 		}
 		$einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
@@ -59,18 +65,17 @@ class Application_Form_WtErstellen extends Zend_Form {
 						'3/4" AG' => '3/4" AG'
 				)
 		));
-		$anschluss->setLabel('Anschlüsse:')
-				->setValue($produkt->getWaermetauscherAnschluss());
+		$anschluss->setLabel('Anschlüsse:');
 		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
-		->setValue($produkt->getHoehe())
+		->setValue($this->dbdata->getHoehe())
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 
 		$maxWidth = new Zend_Form_Element_Text('Breite');
 		$maxWidth->setLabel('Maximale Breite:')
-		->setValue($produkt->getBreite())
+		->setValue($this->dbdata->getBreite())
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 
