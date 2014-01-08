@@ -1,7 +1,7 @@
 <?php
 class Application_Form_WtBearbeiten extends Zend_Form {
 
-	private $dbdata;
+	private $dbdata = null;
 	
 	public function init(){
 	
@@ -18,6 +18,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
 
+		echo $dbdata->getModel();
+		
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
 		->setValue($this->dbdata->getModel())
@@ -46,17 +48,17 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		
-		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
-			$einsatzgebiet = $gbt->getEinsatzgebiet();
-		}
 		$einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
 		$einsatzgbt->setLabel('Einsatzgebiet:')
 		->addMultiOption('Fernwärme', 'Fernwärme')
 		->addMultiOption('Solaranlage', 'Solaranlage')
 		->addMultiOption('Erdbohrung', 'Erdbohrung')
-		->setValue($einsatzgebiet)
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
+		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
+			$einsatzgebiet = $gbt->getEinsatzgebiet();
+			$einsatzgbt->setValue($einsatzgebiet);
+		}
 		 
 		$anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss', array(
 				'multiOptions' => array(
@@ -66,6 +68,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 				)
 		));
 		$anschluss->setLabel('Anschlüsse:');
+		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
+    					$anschluss->setValue($ans->getAnschluss());
+  						}
+		
 		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
@@ -80,7 +86,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addFilter('StringTrim');
 
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setLabel('Artikel erzeugen');
+		$submit->setLabel('Artikel ändern');
 		 
 		$this->addElements(array($tempVal, $heightVal, $widthVal, $lengthVal, $name, $temp, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $submit));
 	}
