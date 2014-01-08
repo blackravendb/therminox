@@ -6,7 +6,9 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     protected $_name = 'waermetauscher';
     protected $_primary = 'id';
     
-    protected $_dependentTables = array('Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss');
+    protected $_dependentTables = array('Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss', 
+    									'Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss',
+    									'Application_Model_DbTable_Artikelnummer');
     
     protected $select;
     
@@ -14,6 +16,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     protected function initProduktberater() {
     	$this->select = $this->select();
+    	//!!Nur Wärmetauscher ID abfragen!!
     	$this->select
     		->from(array('wt' => $this->_name), 'wt.id')
     		->group ('id')
@@ -26,6 +29,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	$this->select = $this->select()
     	->from(array('wt' => $this->_name))
     	->join(array('sm' => 'stutzenmaterial'), "wt.stutzenmaterial_id = sm.id", array('name as stutzenmaterial'))
+    	->join(array('an' => 'artikelnummer'),'wt.id = an.waermetauscher_id', 'an.id as artikelnummer')
     	->setIntegrityCheck(false);
     	
     	$this->produktberater = false;

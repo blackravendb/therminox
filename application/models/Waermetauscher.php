@@ -3,6 +3,7 @@
 class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 {
 	protected $_id;
+	protected $_artikelnummer;
 	protected $_model;
 	protected $_betriebsdruck;
 	protected $_temperatur;
@@ -16,6 +17,7 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
+				"artikelnummer" => $this->_artikelnummer,
 				"model" => $this->_model,
 				"betriebsdruck" => $this->_betriebsdruck,
 				"temperatur" => $this->_temperatur,
@@ -39,6 +41,15 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	
 	public function getId (){
 		return $this->_id;
+	}
+	
+	protected function setArtikelnummer($id) {
+		$this->_artikelnummer = $id;
+		return $this;
+	}
+	
+	public function getArtikelnummer() {
+		return $this->_artikelnummer;
 	}
 	
 	public function setModel($model) {

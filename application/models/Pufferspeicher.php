@@ -3,6 +3,7 @@
 class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	protected $_id;
+	protected $_artikelnummer;
 	protected $_model;
 	protected $_speicherinhalt;
 	protected $_leergewicht;
@@ -13,6 +14,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
+				"artikelnummer" => $this->_artikelnummer,
 				"model" => $this->_model,
 				"speicherinhalt" => $this->_speicherinhalt,
 				"leergewicht" => $this->_leergewicht,
@@ -30,6 +32,15 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function getId(){
 		return $this->_id;
+	}
+	
+	protected function setArtikelnummer($id) {
+		$this->_artikelnummer = (int) $id;
+		return $this;
+	}
+	
+	public function getArtikelnummer() {
+		return $this->_artikelnummer;
 	}
 	
 	public function setModel($model) {

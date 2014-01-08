@@ -6,12 +6,15 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     protected $_name = 'pufferspeicher';
     protected $_primary = 'id';
     
-    protected $_dependentTables = array('Application_Model_DbTable_Pufferspeicher2pufferspeicherEinsatzgebiet');
+    protected $_dependentTables = array('Application_Model_DbTable_Pufferspeicher2pufferspeicherEinsatzgebiet',
+    									'Application_Model_DbTable_Artikelnummer');
 
     protected $select;
     
     public function init() {
     	$this->select = $this->select()
+    		->from($this->_name)
+    		->join('artikelnummer','pufferspeicher.id = artikelnummer.pufferspeicher_id', 'artikelnummer.id as artikelnummer')
     		->setIntegrityCheck(false);
     }
 
@@ -20,7 +23,7 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	
     	foreach($params as $key => $value) {
     		$this->select
-    		->where("$key = ?", $value);
+    		->where("pufferspeicher.$key = ?", $value);
     	}
     	
     	$data = parent::fetchAll($this->select);

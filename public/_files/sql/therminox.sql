@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 07. Jan 2014 um 21:06
+-- Erstellungszeit: 08. Jan 2014 um 11:46
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -126,9 +126,17 @@ CREATE TABLE IF NOT EXISTS `artikelnummer` (
   `pufferspeicher_id` int(11) DEFAULT NULL,
   `waermetauscher_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `pufferspeicher_id` (`pufferspeicher_id`),
-  KEY `waermetauscher_id` (`waermetauscher_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  UNIQUE KEY `pufferspeicher_id` (`pufferspeicher_id`),
+  UNIQUE KEY `waermetauscher_id` (`waermetauscher_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Daten für Tabelle `artikelnummer`
+--
+
+INSERT INTO `artikelnummer` (`id`, `pufferspeicher_id`, `waermetauscher_id`) VALUES
+(1, NULL, 2),
+(2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -461,9 +469,9 @@ ALTER TABLE `adresse`
 -- Constraints der Tabelle `angebot`
 --
 ALTER TABLE `angebot`
-  ADD CONSTRAINT `angebot_ibfk_3` FOREIGN KEY (`angebotStatus_id`) REFERENCES `angebotStatus` (`id`),
   ADD CONSTRAINT `angebot_ibfk_1` FOREIGN KEY (`artikelnummer_id`) REFERENCES `artikelnummer` (`id`),
-  ADD CONSTRAINT `angebot_ibfk_2` FOREIGN KEY (`angebotskorb_id`) REFERENCES `angebotskorb` (`id`);
+  ADD CONSTRAINT `angebot_ibfk_2` FOREIGN KEY (`angebotskorb_id`) REFERENCES `angebotskorb` (`id`),
+  ADD CONSTRAINT `angebot_ibfk_3` FOREIGN KEY (`angebotStatus_id`) REFERENCES `angebotStatus` (`id`);
 
 --
 -- Constraints der Tabelle `angebotskorb`

@@ -111,8 +111,10 @@ echo '--------------------------------------------------------------------------
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))
  	echo "bhd21 anfrage fehlgeschlagen";
- else
- echo '<br>'.$bhd21->getStutzenmaterial();
+ else {
+ 	echo '<br>'.$bhd21->getStutzenmaterial();
+ 	echo '<br>'.$bhd21->getArtikelnummer();
+ }
 
  $blub = $bhd21->getWaermetauscherUnterkategorie();
 // foreach($blub as $key){
@@ -175,7 +177,7 @@ echo '--------------------------------------------------------------------------
  
  $gebiet = $vvx200->getEinsatzgebiet();
  
- echo $gebiet[0]->getEinsatzgebiet();
+ echo $gebiet[0]->getEinsatzgebiet().'<br>';
  
  echo $vvx200->getModel();
  

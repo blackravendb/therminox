@@ -89,6 +89,10 @@
           <dbTableFile dbTableName="Pufferspeicher"/>
           <dbTableFile dbTableName="Pufferspeicher2pufferspeicherEinsatzgebiet"/>
           <dbTableFile dbTableName="PufferspeicherEinsatzgebiet"/>
+          <dbTableFile dbTableName="Angebot"/>
+          <dbTableFile dbTableName="Angebotskorb"/>
+          <dbTableFile dbTableName="AngebotStatus"/>
+          <dbTableFile dbTableName="Artikelnummer"/>
         </dbTableDirectory>
         <modelFile modelName="AnredeMapper"/>
         <modelFile modelName="BegriffMapper"/>
