@@ -22,7 +22,7 @@ height: 100%;
 /* Style ID's */
 div#banner{
 	height: 150px;
-/*	background-color: black;	/*kann gelöscht werden, nur zur demo*/
+/*	background-color: black;	/*kann gelï¿½scht werden, nur zur demo*/
 	overflow: hidden;
 }
 
@@ -33,21 +33,28 @@ div#account{
 	height: 40px;
 	top: 112px;
 	left: 335px;
-/*	background-color: orange;	/*kann gelöscht werden, nur zur demo*/
+/*	background-color: orange;	/*kann gelï¿½scht werden, nur zur demo*/
 	overflow: hidden;
 	padding-top: 6px;
 }
 
 div#menu{
 	width: 150px;
-/*	background-color: green;	/*kann gelöscht werden, nur zur demo*/
-/*	height: 500px;				/*kann gelöscht werden, nur zur demo*/
+/*	background-color: green;	/*kann gelï¿½scht werden, nur zur demo*/
+/*	height: 500px;				/*kann gelï¿½scht werden, nur zur demo*/
 	float: left;
 	overflow: hidden;
 }
 
+div#adminmenu{
+	width: 150px;
+	margin-left: 10px;
+	float: right;
+	overflow: hidden;
+}
+
 div#inhalt{
-/*	background-color: grey;		/*kann gelöscht werden, nur zur demo*/
+/*	background-color: grey;		/*kann gelï¿½scht werden, nur zur demo*/
 	margin-left: 155px;
 	margin-right: 155px;
 	margin-top: 5px;
@@ -58,13 +65,13 @@ div#inhalt{
 div#admin_letzteProdukte{
 	width: 150px;
 	float:right;
-/*	background-color: yellow;	/*kann gelöscht werden, nur zur demo*/
-/*	height: 500px;				/*kann gelöscht werden, nur zur demo*/
+/*	background-color: yellow;	/*kann gelï¿½scht werden, nur zur demo*/
+/*	height: 500px;				/*kann gelï¿½scht werden, nur zur demo*/
 	overflow: hidden;
 }
 
 div#content{
-	padding-bottom: 70px;		/* Höhe ist abhÃ¤nig von Höhe Fusszeile  (ca. 10px mehr) */
+	padding-bottom: 70px;		/* Hï¿½he ist abhÃ¤nig von Hï¿½he Fusszeile  (ca. 10px mehr) */
 }
 
 div#wrapper{
