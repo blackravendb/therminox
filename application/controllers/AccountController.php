@@ -83,10 +83,8 @@ class AccountController extends Zend_Controller_Action
         			$user->setNachname($form->getValue('lastname'));
         			$user->setKlartextPasswort($form->getValue('password'));
         			$user->setBestaetigt(0);
-        			$userMapper->insertBenutzer($user, $form->getValue('email'));
         			
-        			$shipping = new Application_Model_Lieferadresse();
-        			$shipping->setBenutzer_email($form->getValue('email'));
+        			$shipping = new Application_Model_Rechnungsadresse();
         			$shipping->setFirma($form->getValue('company'));
         			$shipping->setAnrede($form->getValue('title'));
         			$shipping->setVorname($form->getValue('name'));
@@ -97,9 +95,9 @@ class AccountController extends Zend_Controller_Action
         			$shipping->setLand($country);
         			$shipping->setPlz($form->getValue('plz'));
         			$shipping->setOrt($form->getValue('town'));
-        			$shippingMapper = new Application_Model_LieferadresseMapper();
-        			//$shippingMapper->insertLieferadresse($shipping);
         			
+        			$user->insertRechnungsadresse($shipping);
+        			$userMapper->insertBenutzer($user, $form->getValue('email'));
         			
         			$key = App_Util::generateHexString();
         			
@@ -249,16 +247,13 @@ class AccountController extends Zend_Controller_Action
     	$this->view->form = $form;
     }
     
-    public function shippingAction()
+    public function addressAction()
     {
-    	
-    }
-    
-    public function billingAction()
-    {
-    	
-    }
-    
+    	$userMapper = new Application_Model_BenutzerMapper();
+    	$user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+    	$this->view->shipping = $user->getLieferadresse();
+    	$this->view->billing = $user->getRechnungsadresse();
+    } 
 
     public function profileAction()
     {
