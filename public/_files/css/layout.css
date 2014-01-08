@@ -47,8 +47,9 @@ div#menu{
 }
 
 div#adminmenu{
+	position: absolute;
 	width: 150px;
-	margin-left: 10px;
+	left: 1000px;
 	float: right;
 	overflow: hidden;
 }

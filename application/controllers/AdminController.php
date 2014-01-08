@@ -10,6 +10,7 @@
 		}
 		
 		public function changewaermetauscherAction(){
+			$this->view->title = "WaermetauscherBearbeiten";
 			$request = $this->getRequest ();
 			$art = $request->getParam ( 'artikel' );
 			//TODO Ausnahmen abfangen! ->schlumpfhandling -.-
@@ -18,10 +19,12 @@
 				$data_object = $db_mapper->getWaermetauscherByModel ( $art );
 				$this->view->dbdata = $data_object;
 				
-				$artikel = array($data_object); //TODO Variablen an Form übergeben
-				
 				$form = new Application_Form_WtBearbeiten();
-				$form->produkt->addMultiOptions($artikel);
+				$form->setMethod ( 'post' );
+				$form->setDbdata($data_object);
+				$form->startform();
+				
+				$this->view->wtbearbeiten = $form; //stimmt, wird aber nicht angezeigt
 			} else {
 				$this->view->message = 'Artikel konnte nicht gefunden werden';
 				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
