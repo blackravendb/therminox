@@ -1,0 +1,29 @@
+.bild {
+    
+    float: left;
+    width: 45%;
+    display: inline;
+   
+}
+
+.daten {
+	
+    float: left;
+    width: 55%;
+    display: inline;
+
+}
+
+.grunddaten {
+	
+	float: left;
+	width: 200px;
+	display: inline;
+}
+
+.modelle  {
+	
+	float: left;
+	width: 160px;
+	display: inline;
+} 

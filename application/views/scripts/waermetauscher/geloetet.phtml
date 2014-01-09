@@ -29,54 +29,69 @@
 	echo '<h1>Wärmetauscher ' . $art_model . '</h1>';
 	echo '<br>';
 	// TODO funzt noch ned
-	echo '<img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder">';
-	echo '<h2>Grunddaten:</h2> ';
-	echo '<h3>Brenntemperatur:</h3>';
-	echo $art_temp . '°C';
-	echo '<h3>Betriebsdruck:</h3>';
-	echo $art_pressure . ' bar';
-	echo '<br>';
-	echo '<h3>Abmessungen:</h3>';
-	echo '<b>Maximale Höhe: </b>' . $art_height . ' mm<br>';
-	echo '<b>Maximale Breite: </b>' . $art_width . ' mm<br>';
-	echo '<br>';
-	echo '<h3>Stutzenmaterial:</h3>';
-	echo $art_material;
-	echo '<br>';
-	if (!is_array ( $art_loc )) {
-		echo '<h3>Einsatzgebiet:</h3>';
-		echo $art_loc;
-	} else {
-		echo '<h3>Einsatzgebiete:</h3>';
-		foreach ( $art_loc as $each )
-			echo $each->getEinsatzgebiet();
-	}
-	echo '<br>';
-	if ( count($art_conn) >1 ) {
-		echo '<h3>Anschl&uuml;sse:</h3>';
-		foreach ( $art_conn as $each )
-			echo $each->getAnschluss().'<br>';
-	} else {
-		echo '<h3>Anschluss:</h3>';
-		echo $art_conn[0]->getAnschluss();
-		
-	}
-	echo '<br><br>';
-	echo '<h2>Auslegungsmöglichkeiten:</h2>';
-	foreach ( $art_types as $type ) {
-		
-		echo '<b>Modell '.$art_model.'-'.$type->getPlatten().':</b><br>';
-		echo 'Anzahl Platten: '.$type->getPlatten ();
-		echo '<br>Länge: '.$type->getLaenge ().'mm';
-		echo '<br>Leergewicht: '.$type->getLeergewicht ().'Kg';
-		echo '<br>Fläche: '.$type->getFlaeche().'m²';
-		if($type->getInhaltPrimaer() !== NULL){
-		echo '<br>Primärinhalt: '.$type->getInhaltPrimaer();
-		if($type->getInhaltSekundaer() !== NULL)
-			echo $type->getInhaltSekundaer();
-		}echo '<br><br>';
-	}
+	echo '<div class="bild"><img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder"></div>';
 	
+	echo '<div class="daten">';
+		echo '<div class="grunddaten">';
+			echo '<h2>Grunddaten:</h2> ';
+			echo '<br>';
+			echo '<h3>Brenntemperatur:</h3>';
+			echo $art_temp . '°C';
+			echo '<h3>Betriebsdruck:</h3>';
+			echo $art_pressure . ' bar';
+			echo '<br>';
+			echo '<h3>Abmessungen:</h3>';
+			echo '<b>Maximale Höhe: </b>' . $art_height . ' mm<br>';
+			echo '<b>Maximale Breite: </b>' . $art_width . ' mm';
+		echo '</div>';
+		echo '<div class="grunddaten">';
+			echo '<br><br>';
+			echo '<h3>Stutzenmaterial:</h3>';
+			echo $art_material;
+			echo '<br>';
+			if (!is_array ( $art_loc )) {
+				echo '<h3>Einsatzgebiet:</h3>';
+				echo $art_loc;
+			} else {
+				echo '<h3>Einsatzgebiete:</h3>';
+				foreach ( $art_loc as $each )
+					echo $each->getEinsatzgebiet();
+			}
+			echo '<br>';
+			if ( count($art_conn) >1 ) {
+				echo '<h3>Anschl&uuml;sse:</h3>';
+				foreach ( $art_conn as $each )
+					echo $each->getAnschluss().' | ';
+			} else {
+				echo '<h3>Anschluss:</h3>';
+				echo $art_conn[0]->getAnschluss();
+				
+			}
+		echo '</div>';
+		echo '<br><br>';
+	echo '</div>';
+	echo '<div class="daten">';
+		echo '<br>';
+		echo '<h2>Auslegungsmöglichkeiten:</h2>';
+		
+		
+		foreach ( $art_types as $type ) {
+		echo '<div class="modelle">';
+			echo '<b>Modell '.$art_model.'-'.$type->getPlatten().':</b><br>';
+			echo 'Anzahl Platten: '.$type->getPlatten ();
+			echo '<br>Länge: '.$type->getLaenge ().'mm';
+			echo '<br>Leergewicht: '.$type->getLeergewicht ().'Kg';
+			echo '<br>Fläche: '.$type->getFlaeche().'m²';
+			if($type->getInhaltPrimaer() !== NULL){
+			echo '<br>Primärinhalt: '.$type->getInhaltPrimaer();
+			if($type->getInhaltSekundaer() !== NULL)
+				echo $type->getInhaltSekundaer();
+			}
+			echo '<br>';
+		echo '</div>';
+		}
+		
+	echo '</div>';
 	?>
 	
 </div>

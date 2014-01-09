@@ -5,6 +5,20 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
 
     protected $_name = 'angebotskorb';
     protected $_primary = 'id';
+    
+    protected $_dependentTables = array('Application_Model_DbTable_Angebot');
+    
+    
+    protected $_referenceMap    = array(
+    		'benutzer' => array(
+    				'columns'           => array('benutzer_email'),
+    				'refTableClass'     => 'Application_Model_DbTable_Benutzer',
+    				'refColumns'        => array('email'),
+    				'onDelete'			=> 'self::CASCADE',
+    				'onUpdate'			=> 'self::CASCADE'
+    
+    		)
+    );
 
     protected $select;
     protected $angebotDbTable;
