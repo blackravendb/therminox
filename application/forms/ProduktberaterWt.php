@@ -99,6 +99,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
          			->addMultiOption('Solaranlage', 'Solaranlage')
          			->addMultiOption('Erdbohrung', 'Erdbohrung')
          			->addMultiOption('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
+         			->addMultiOption('Umrüstung großerer Nutzfahrzeuge auf Rapsöl', 'Umrüstung großerer Nutzfahrzeuge auf Rapsöl')
         			->addFilter('StripTags')
            			->addFilter('StringTrim');
     	
@@ -117,7 +118,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
         		'multiOptions' => array('3/8" IG', '1/2" AG', '3/4" AG')
        		));
        	$anschluss->setLabel('Anschlüsse:')
-       			->setValue(array(0,1,2));
+       				->setValue(array(0, 1, 2));
        	
        
        /*    			

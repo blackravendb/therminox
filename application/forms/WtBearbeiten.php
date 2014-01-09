@@ -14,10 +14,12 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	
 	public function startform(){
 		
+		/*
 		$tempVal = new Zend_Validate_Between(array('min' => 155, 'max' => 195));
 		$heightVal = new Zend_Validate_Between(array('min' => 170, 'max' => 1100));
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
+		*/
 		
 		if(empty($this->dbdata)){
 			echo "Variable leer";
@@ -58,6 +60,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addMultiOption('Solaranlage', 'Solaranlage')
 		->addMultiOption('Erdbohrung', 'Erdbohrung')
 		->addMultiOption('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
+		->addMultiOption('Umrüstung großerer Nutzfahrzeuge auf Rapsöl', 'Umrüstung großerer Nutzfahrzeuge auf Rapsöl')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
@@ -99,6 +102,6 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Artikel ändern');
 		 
-		$this->addElements(array($tempVal, $heightVal, $widthVal, $lengthVal, $name, $temp, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $submit));
+		$this->addElements(array($name, $temp, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $submit));
 	}
 }

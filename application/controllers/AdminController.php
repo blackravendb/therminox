@@ -2,7 +2,7 @@
 	class AdminController extends Zend_Controller_Action { 
 		
 		public function init(){
-			
+			$this->view->showMessage = false;
 		}
 		
 		public function indexAction(){
@@ -39,6 +39,33 @@
 				$form->startform();
 				
 				$this->view->wtbearbeiten = $form; 
+				
+				if($this->_request->isPost()){
+					$formData = $this->_request->getPost();
+				
+					if($form->isValid($formData)){
+						$artikelname = $form->getValue('Artikelname');
+						$temp = $form->getValue('Temperatur');
+						$einsatzgbt = $form->getValue('Einsatzgebiet');
+						$anschluss = $form->getValue('Anschluss');
+						$maxHeight = $form->getValue('Hoehe');
+						$maxWidth = $form->getValue('Breite');
+						
+						$wt = new Application_Model_WaermetauscherMapper();
+						$wt_art = $wt->getWaermetauscherByModel($artikelname);
+						
+						$wt_art->setModel($artikelname);
+						$wt_art->setTemperatur($temp);
+						$wt_art->setWaermetauscherEinsatzgebiet($einsatzgbt);
+						$wt_art->setWaermetauscherAnschluss($anschluss);
+						$wt_art->setHoehe($maxHeight);
+						$wt_art->setBreite($maxWidth);
+						
+						//TODO updateWaermetauscher aufrufen!
+						
+						$this->view->showMessage = true;
+					}
+				}
 			} else {
 				$this->view->message = 'Artikel konnte nicht gefunden werden';
 				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
@@ -47,6 +74,7 @@
 					$this->view->link = '/Waermetauscher';
 				}
 			}
+			
 		}
 		
 		public function changepufferspeicherAction(){
@@ -67,6 +95,7 @@
 				}
 			}
 		}
+		
 		
 		
 		
