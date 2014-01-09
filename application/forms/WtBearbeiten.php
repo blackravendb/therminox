@@ -18,10 +18,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
 		
-		if(empty($dbdata)){
+		if(empty($this->dbdata)){
 			echo "Variable leer";
 		}
-		echo $dbdata->getModel();
+		echo $this->dbdata->getModel();
 		
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
