@@ -29,7 +29,7 @@
 				$data_object = $db_mapper->getWaermetauscherByModel($art);
 				
 				if(empty($data_object)){
-					echo "$data_object leer";
+					echo "leer";
 				}
 				//$this->view->dbdata = $data_object;
 				
