@@ -8,6 +8,14 @@ ul.errors {
 	padding: 0;
 }
 
+ul.address {
+	list-style-type: none;
+}
+
+ul.data {
+	list-style-type: none;
+}
+
 td {
 	//border: 1px solid black;
 }

@@ -1,6 +1,10 @@
 <?php 
 $artikel = $this->artID;
+$kategorie = $this->artCat;
 echo '<h2>Angebotsformular</h2>';
 echo '<br>Sehr geehrte Damen und Herren,<br>';
-echo 'Ich möchte ein Angebot für den Artikel '.$artikel.' einholen.<br>';
-echo $this->form;?>
+echo 'Ich habe Interesse an folgedem Artikel aus Ihrem Sortiment und möchte mir darüber ein Angebot einholen:<br>';
+echo '<br>';
+echo '<b>Artikelname: </b>'.$artikel.'<br>';
+echo '<b>Kategorie: </b>'.$kategorie.'<br>';
+echo '<br>'.$this->form;?>

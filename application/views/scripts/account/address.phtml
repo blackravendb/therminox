@@ -1,12 +1,12 @@
+<?php $this->headTitle()->append('Ihre Adressen'); ?>
+<?php $this->headLink()->appendStylesheet('/_files/css/login.css'); ?>
 <h3>Persönliche Adressen</h3>
 <p>Diese Seite dient dazu, ihre Rechnungs- und Lieferadressen zu verwalten.</p>
-<?php echo var_dump($this->billing);?>
-<div>
-1:
-<ul>
-	<li><?php echo $this->billing[0]->getVorname()?></li>
-	<li> </li>
-	<li> </li>
-	<li> </li>
-</ul>
-</div>
+<h3>Ihre Rechnungsadressen <a href="/account/update/billing/new/">Neue Rechnungsadresse</a></h3> 
+<br>
+<?php echo $this->address()->billing($this->billing);?>
+<h3>Ihre Lieferadressen (optional) <a href="/account/update/shipping/new/">Neue Lieferadresse</a></h3> 
+<p> Lieferadressen sind nur nötig, falls sie von der Rechnungsadresse abweichen.</p>
+<p> Ansonsten wird an die Rechnungsadresse geliefert.</p>
+<br>
+<?php $this->address()->shipping($this->shipping);?>

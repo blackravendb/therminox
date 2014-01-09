@@ -7,18 +7,13 @@ class Application_Form_Profile extends App_Form
     	$this->setMethod('post')
     	->setAction('/account/profile')
     	->setAttrib('id', 'profile');
-   
-    	$email = new Zend_Form_Element_Text('email');
-    	$email->setAttrib('readonly', 'true')
-    	->setLabel('Email-Adresse')
-    	->setDecorators($this->elementDecorators);
-    	 
+   	 
     	$title = new Zend_Form_Element_Select('title');
     	$title->setLabel('Anrede')
     	->setDecorators($this->elementDecorators)
     	->addMultiOptions(array(
-    			'herr' => 'Herr',
-    			'frau' => 'Frau'
+    			'Herr' => 'Herr',
+    			'Frau' => 'Frau'
     	));
     	
     	$name = new Zend_Form_Element_Text('name');
@@ -53,7 +48,7 @@ class Application_Form_Profile extends App_Form
     	$submit->setLabel('Ändern')
     	->setDecorators($this->buttonDecorators);
     	
-    	$this->addElements(array($email, $title, $name, $lastname, $submit));
+    	$this->addElements(array($title, $name, $lastname, $submit));
     }
 }
 

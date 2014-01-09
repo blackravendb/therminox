@@ -10,8 +10,12 @@ class App_Validate_MyPostCode extends Zend_Validate_Abstract {
 		$country = $context ['country'];
 		
 		$locale = Zend_Locale::getLocaleToTerritory ( $country );
-		$validator = new Zend_Validate_PostCode ( $locale );
+		try {
+			$validator = new Zend_Validate_PostCode ( $locale );
+		} catch (Exception $e) {
+			return true;
+		}
 		
-		return $validator->isValid ( $value );
+		return $validator->isValid($value);
 	}
 }
