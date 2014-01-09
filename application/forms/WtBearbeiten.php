@@ -1,10 +1,10 @@
 <?php
 class Application_Form_WtBearbeiten extends Zend_Form {
 	
-	//private $dbdata = null;
+	private $dbdata = null;
 	
 	public function init(){
-		$dbdata = null;
+		
 	}
 	
 	public function setDbdata($data_object){
