@@ -74,9 +74,9 @@
 		echo '<br>';
 		echo '<h2>Auslegungsmöglichkeiten:</h2>';
 		
-		echo '<div class="modelle">';
+		
 		foreach ( $art_types as $type ) {
-			
+		echo '<div class="modelle">';
 			echo '<b>Modell '.$art_model.'-'.$type->getPlatten().':</b><br>';
 			echo 'Anzahl Platten: '.$type->getPlatten ();
 			echo '<br>Länge: '.$type->getLaenge ().'mm';
@@ -88,8 +88,9 @@
 				echo $type->getInhaltSekundaer();
 			}
 			echo '<br>';
+		echo '</div>';
 		}
-		//echo '</div>';
+		
 	echo '</div>';
 	?>
 	
