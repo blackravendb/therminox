@@ -253,15 +253,141 @@ class AccountController extends Zend_Controller_Action
     	$user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
     	$this->view->shipping = $user->getLieferadresse();
     	$this->view->billing = $user->getRechnungsadresse();
-    } 
+    	$params = $this->_request->getParams();
+    	$actionid = (isset($params['actionid']) && $params['actionid'] === 'delete') ? 'delete' : null;
+    	$type = isset($params['billing']) ? 'billing' : (isset($params['shipping']) ? 'shipping' : null);
+    	$number = isset($params['billing']) ? $params['billing'] : (isset($params['shipping']) ? $params['shipping'] : null);
+ 		if($actionid === 'delete' && isset($type) && isset($number)) {
+ 			if(ctype_digit($number)) {
+ 				$number = (int) $number;
+ 				$addresses = null;
+ 				if('billing' === $type){
+ 					$addresses = $user->getRechnungsadresse();
+ 				} else if('shipping' === $type) {
+ 					$addresses = $user->getLieferadresse();
+ 				}
+ 				if(is_int($number) && $number >= 0 && $number < count($addresses)) {
+ 					$address = $addresses[$number];
+ 					if('billing' === $type){
+ 						$user->deleteRechnungsadresse($address);
+ 					} else if('shipping' === $type) {
+ 						$user->deleteLieferadresse($address);
+ 					}
+ 					$userMapper->updateBenutzer($user);
+ 					$this->_helper->flashMessenger->addMessage('Adresse gelöscht.');
+ 					$this->_helper->redirector->gotoSimple('address', 'account');
+ 				}
+ 			} 
+ 		}
+    }
+    
+//     <20:15:53> "Blackraven": $lieferadresse=$user->getLieferadresse();
+//     <20:16:25> "Blackraven": $liieferadresse[0]->setFirma("BlubWare");
+//     <20:16:49> "Blackraven": $benutzerMapper->updateBenutzer($user);
+
+//     <20:17:42> "Blackraven": $lieferadresse2 = new Lieferadresse();
+//     <20:18:02> "Blackraven": $user->insertLieferadresse($lieferadresse2);
+//     <20:18:12> "Blackraven": $benutzerMapper->updateBenutzer($user);
+    public function updateAction(){
+    	$form = new Application_Form_Address();
+    	
+    	$userMapper = new Application_Model_BenutzerMapper();
+    	$user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+    	
+    	$params = $this->_request->getParams();
+    	$type = isset($params['billing']) ? 'billing' : (isset($params['shipping']) ? 'shipping' : null);
+    	$number = isset($params['billing']) ? $params['billing'] : (isset($params['shipping']) ? $params['shipping'] : null);
+    	if(isset($type) && isset($number)){
+    		if(ctype_digit($number)) {
+    			$number = (int) $number;
+    		} else {
+    			$number = 'new';
+    		}
+    		
+    		$addresses = null;
+    		if('billing' === $type){
+    			$addresses = $user->getRechnungsadresse();
+    		} else if('shipping' === $type) {
+    			$addresses = $user->getLieferadresse();
+    		}
+    		
+    		if(is_int($number) && $number >= 0 && $number < count($addresses)) {
+    			$address = $addresses[$number];
+    			$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+    			$country = $locale->getTranslationList('Territory', 'de', 2);
+    			$key = array_search($address->getLand(), $country);
+    			$data = array(
+    					'type'		=> $type,
+    					'company'	=> $address->getFirma(),
+    					'title' 	=> 'Herr', //TODO getAnrede() not working
+    					'name'  	=> $address->getVorname(),
+    					'lastname' 	=> $address->getNachname(),
+    					'street' 	=> $address->getStrasse(),
+    					'country' 	=> $key,
+    					'plz' 		=> $address->getPlz(),
+    					'town'		=> $address->getOrt()
+    			);
+    			$form->populate($data);
+    		} else {
+    			$number = 'new';
+    		}
+    		
+    		$form->setAction("/account/update/{$type}/{$number}");
+    		$this->view->type = $type;
+    		
+    		if ($this->_request->isPost()) {
+    			if ($form->isValid($this->_request->getPost())) {
+    				
+    				$billing = null;
+    				if(is_int($number) && $number >= 0 && $number < count($addresses)) {
+    					$billing = $addresses[$number];
+    				} else {
+    					if($type === 'billing') {
+    						$billing = new Application_Model_Rechnungsadresse();
+    					} elseif($type === 'shipping') {
+    						$billing = new Application_Model_Lieferadresse();
+    					}
+    				}
+    				
+    				$billing->setFirma($form->getValue('company'));
+    				$billing->setAnrede($form->getValue('title'));
+    				$billing->setVorname($form->getValue('name'));
+    				$billing->setNachname($form->getValue('lastname'));
+    				$billing->setStrasse($form->getValue('street'));
+    				$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+    				$country = $locale->getTranslationList('Territory', 'de', 2)[$form->getValue('country')];
+    				$billing->setLand($country);
+    				$billing->setPlz($form->getValue('plz'));
+    				$billing->setOrt($form->getValue('town'));
+    				
+    				if($number === 'new') {
+    					if($billing instanceof Application_Model_Rechnungsadresse){
+    						$user->insertRechnungsadresse($billing);
+    					} elseif ($billing instanceof Application_Model_Lieferadresse) {
+    						$user->insertLieferadresse($billing);
+    					}
+    				}
+    							
+    				$userMapper->updateBenutzer($user);
+    				$this->_helper->flashMessenger->addMessage('Adresse gespeichert.');
+    				$this->_helper->redirector->gotoSimple('address', 'account');
+    			}
+    		}
+    	} else {
+    		$this->_helper->flashMessenger->addMessage('Vorgang abgebrochen.');
+    		$this->_helper->redirector->gotoSimple('address', 'account');
+    	}
+
+    	$this->view->form = $form;
+    }
 
     public function profileAction()
     {
         $form = new Application_Form_Profile();
         $userMapper = new Application_Model_BenutzerMapper();
         $user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
+        $this->view->email = $user->getEmail();
         $data = array( 
-        	'email' => $user->getEmail(),
         	'title' => $user->getAnrede(),
         	'name'  => $user->getVorname(),
         	'lastname' => $user->getNachname()
