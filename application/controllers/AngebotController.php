@@ -9,6 +9,11 @@ class AngebotController extends Zend_Controller_Action {
 	}
 	
 	public function erstellenAction(){
+		$request = $this->getRequest ();
+		$art = $request->getParam ( 'artikel' );
+		
+		$this->view->artID = $art;
+		
 		$form = new Application_Form_AngebotErstellen();
 		$this->view->form = $form;
 	}
