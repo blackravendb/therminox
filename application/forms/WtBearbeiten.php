@@ -78,6 +78,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
   						}
 		$anschluss->setValue($anschluesse);
 		
+		foreach($anschluesse as $value){
+			echo $value;	
+		}
+		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
 		->setValue($this->dbdata->getHoehe())
