@@ -20,7 +20,8 @@
   </tr>
   <?php foreach($this->vorschläge as $value){?>
    <tr>
-	<td><?php echo $value->getModel(); ?></td>
+	<?php $url = "/Waermetauscher/geloetet/artikel/" . $value->getModel();?>
+    <td> <a href="<?php echo $url;?>"><?php echo $value->getModel();?></a></td> 
     <td><?php echo $value->getTemperatur(); ?></td>
     <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
     					echo $gbt->getEinsatzgebiet();
@@ -39,6 +40,5 @@
 	}
 }?>
      
-
-     
+    
 

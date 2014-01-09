@@ -7,18 +7,8 @@
 		}
 		public function indexAction() {
 			$this->view->title = "ProduktberaterWärmetauscher";
-			/*
-			 * $minTemp = 155; $maxTemp = 195; $minHeight = 170; $maxHeight = 1100; $minWidth = 70; $maxWidth = 400; $minLength = 20; $maxLength = 500;
-			 */
-     
-     	/*
-        $form = new Application_Form_ProduktberaterWt(array('minTemp' => '155', 'maxTemp' => '195', 
-        												'minHeight' => '170', 'maxHeight' => '1100', 
-        												'minWidth' => '70', 'maxWidth' => '400', 
-        												'minLength' => '20', 'maxLength' => '500'));
-       */
      	
-     	$form = new Application_Form_ProduktberaterWt ();
+     		$form = new Application_Form_ProduktberaterWt ();
 			
 			$form->setMethod ( 'post' );
 			
@@ -30,15 +20,15 @@
 				if ($form->isValid ( $formData )) {
 					$minTemp = $form->getValue ( 'TemperaturMin' );
 					$maxTemp = $form->getValue ( 'TemperaturMax' );
-					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
-					$anschluss = $form->getValue('Anschluss'); // Nur angehackte Werte werden übergeben, funktioniert
+					$einsatzgbt = $form->getValue('Einsatzgebiet');
+					$anschluss = $form->getValue('Anschluss'); 
 					$minHeight = $form->getValue ( 'HoeheMin' );
 					$maxHeight = $form->getValue ( 'HoeheMax' );
 					$minWidth = $form->getValue ( 'BreiteMin' );
 					$maxWidth = $form->getValue ( 'BreiteMax' );
 					
 					$wtmapper = new Application_Model_WaermetauscherMapper ();
-					
+
 					if (! empty ( $minTemp )) {
 						$wtmapper->setTemperaturMin ( $minTemp );
 					}
@@ -47,21 +37,12 @@
 						$wtmapper->setTemperaturMax ( $maxTemp );
 					}
 					
-					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) { // funktioniert
-						$wtmapper->setEinsatzgebiet ($einsatzgbt); // wenn standartwert "bitte wählen" dasteht nicht set!
+					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) { 
+						$wtmapper->setEinsatzgebiet($einsatzgbt); 
 					}
 					
-					if (count($anschluss) != 3) { //TODO In $anschluss stehen die richtigen Anschlüsse
-						
-						$wtmapper->setAnschluss($anschluss); // if (kein set, wenn alle angehackt), funktioniert (geht in die Abfrage)
-						
-						foreach($anschluss as $an){
-							echo $an;
-						}
-						
-						foreach($wtmapper->getAnschlussListe() as $value){
-							echo $value;
-						}
+					if (count($anschluss) != 3) { 
+						$wtmapper->setAnschluss($anschluss); 
 					}
 					
 					if (! empty ( $minHeight )) {
@@ -80,44 +61,15 @@
 						$wtmapper->setBreiteMax ( $maxWidth );
 					}
 					
-					$produkte = $wtmapper->getWaermetauscher(); // funktioniert nicht, für Anschlüsse
+					$produkte = $wtmapper->getWaermetauscher();
 					
-					if (! empty ( $produkte )) { // Sobald nicht alle 3 Anschlüsse ausgewählt sind, ist das Array leer => Es gibt keine Produkte //TODO
+					if (! empty ( $produkte )) { 
 						$this->view->vorschläge = $produkte;
 					} else {
 						$this->view->keineVorschläge = true;
 					}
 					
 					$this->view->showVor = true; // Vorschläge werden angezeigt
-					
-					/*
-					 * $tempVal = $form->getElement('tempVal'); $heightVal = $form->getElement('heightVal'); $widthVal = $form->getElement('widthVal'); $lengthVal = $form->getElement('lengthVal');
-					 */
-      			
-        		/*
-      			if(!$anschluss1->isChecked() && !$anschluss2->isChecked() && !$anschluss3->isChecked()){
-      				//$anschluss->setChecked(array('3/8" IG', '1/2" AG', '3/4" AG'));
-      				 //$anschluss->addElement(array('checkedValue' => '3/8" IG'));
-      				 $anschluss1->setChecked(true);
-      				 $anschluss2->setChecked(true);
-      				 $anschluss3->setChecked(true);
-      			}
-      			
-      			if($maxHeight){
-   					$maxHeight->setValue($form->getMaxHeight());
-      				$maxHeight = $form->getMaxHeight();
-      			}
-      			
-      			if($maxWidth == null){ //TODO evtl ===
-      				$maxWidth->setValue($form->getMaxWidth());
-      				$maxWidth = $form->getMaxWidth();
-      			}
-      			
-      			if($maxLength == null){
-      				$maxLength->setValue($form->getMaxLength());
-      				$maxLength = $form->getMaxLength();
-      			}
-      			*/
         		}
 			}
 		}
