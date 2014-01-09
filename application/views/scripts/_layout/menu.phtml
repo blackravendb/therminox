@@ -16,8 +16,13 @@
 			<li><a href="/Waermetauscher/index">Gel&ouml;tet</a>
 				<ul>
 					<li><a href="/Waermetauscher/index">Produktberater</a></li>
-					<li><a href="/Waermetauscher/geloetet/artikel/bhd21">BHD 21</a></li>
-					<li><a href="/Waermetauscher/geloetet/artikel/bhd30">BHD 30</a></li>
+					<?php //Menü dynamisch anhand der DB füllen
+					$db_mapper = new Application_Model_WaermetauscherMapper ();
+					$data_list = $db_mapper->getModelListe();
+					foreach ( $data_list as $articlename )
+					echo '<li><a href="/Waermetauscher/geloetet/artikel/'.$articlename.'">'.$articlename.'</a></li>';	
+					?>
+					
 				</ul></li>
 			<li><a href="/Waermetauscher/geschraubt">Geschraubt</a></li>
 			<li><a href="/Waermetauscher/rohrbuendel">Rohrb&uuml;ndel</a></li>

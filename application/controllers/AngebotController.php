@@ -9,7 +9,8 @@ class AngebotController extends Zend_Controller_Action {
 	}
 	
 	public function erstellenAction(){
-		
+		$form = new Application_Form_AngebotErstellen();
+		$this->view->form = $form;
 	}
 	
 	public function anzeigenAction() {

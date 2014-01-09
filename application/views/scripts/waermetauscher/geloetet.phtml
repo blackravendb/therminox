@@ -27,13 +27,14 @@
 	
 	echo '<br>';
 	echo '<h1>Wärmetauscher ' . $art_model . '</h1>';
+	
 	echo '<br>';
 	// TODO funzt noch ned
 	echo '<div class="bild"><img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder"></div>';
 	
 	echo '<div class="daten">';
 		echo '<div class="grunddaten">';
-			echo '<h2>Grunddaten:</h2> ';
+			echo '<h2>Grunddaten:</h2>';
 			echo '<br>';
 			echo '<h3>Brenntemperatur:</h3>';
 			echo $art_temp . '°C';
@@ -92,6 +93,9 @@
 		}
 		
 	echo '</div>';
+	
+	echo '<a href="/Angebot/erstellen/artikel/'.$art_model.'">Angebot über diesen Artikel einholen</a>';
+	
 	?>
 	
 </div>

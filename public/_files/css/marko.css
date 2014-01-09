@@ -17,13 +17,13 @@
 .grunddaten {
 	
 	float: left;
-	width: 200px;
+	width: 35%;
 	display: inline;
 }
 
 .modelle  {
 	
 	float: left;
-	width: 160px;
+	width: 25%;
 	display: inline;
 } 
