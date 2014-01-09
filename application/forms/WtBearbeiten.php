@@ -73,7 +73,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		));
 		$anschluss->setLabel('Anschlüsse:');
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
-    					$anschluss->setValue($ans->getAnschluss());
+    					$an = $ans->getAnschluss();
+    					$anschluss->setValue($an);
   						}
 		
 		
