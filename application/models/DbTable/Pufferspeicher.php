@@ -46,6 +46,17 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	return $ret;
     	
     }
+    
+    public function getEinsatzgebietListe() {
+    	$this->select = $this->select();
+    	$this->select
+    	->from('pufferspeicherEinsatzgebiet','einsatzgebiet')
+    	->setIntegrityCheck(false);
+    	 
+    	$data = parent::fetchAll($this->select);
+    	$this->init();
+    	return $data->toArray();
+    }
 
 }
 

@@ -114,10 +114,21 @@ echo 'Wärmetauscher:<br>';
  foreach($waermetauschermapper->getModelListe() as $value){
  	echo $value.'<br>';
  }
+ echo '<br>';
+ 
+ 
  
  foreach($waermetauschermapper->getAnschlussListe() as $value){
  	echo $value.'<br>';
  }
+ echo '<br>';
+ 
+ foreach($waermetauschermapper->getEinsatzgebietListe() as $value){
+ 	echo $value.'<br>';
+ }
+ echo '<br>';
+ 
+ 
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD30");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))
  	echo "bhd21 anfrage fehlgeschlagen";
@@ -186,6 +197,10 @@ echo 'Wärmetauscher:<br>';
  echo 'Pufferspeicher<br>';
  
  $psMapper = new Application_Model_PufferspeicherMapper();
+ 
+ foreach($psMapper->getEinsatzgebietListe() as $value) {
+		echo $value.'<br>';
+}
  
  $vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
  

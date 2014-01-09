@@ -129,5 +129,18 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		}
 		return $ret;
 	}
+	
+	public function getEinsatzgebietListe() {
+		$data = $this->getDbTable()->getEinsatzgebietListe();
+		if(empty($data))
+			return;
+		
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['einsatzgebiet'];
+		}
+		return $ret;
+	}
 }
 

@@ -188,6 +188,17 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	return $data->toArray();
     }
     
+    public function getEinsatzgebietListe() {
+    	$this->select = $this->select();
+    	$this->select
+    	->from('waermetauscherEinsatzgebiet','einsatzgebiet')
+    	->setIntegrityCheck(false);
+    	
+    	$data = parent::fetchAll($this->select);
+    	$this->init();
+    	return $data->toArray();
+    }
+    
 
 }
 

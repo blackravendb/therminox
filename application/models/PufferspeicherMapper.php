@@ -36,6 +36,19 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 		
 		return $this->setAttributs($data[0]);
 	}
+	
+	public function getEinsatzgebietListe() {
+		$data = $this->getDbTable()->getEinsatzgebietListe();
+		if(empty($data))
+			return;
+		
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['einsatzgebiet'];
+		}
+		return $ret;
+	}
 
 }
 
