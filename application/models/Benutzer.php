@@ -13,6 +13,14 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	protected $_lieferadresse;
 	protected $_rechnungsadresse;
 	
+	protected $adressen2delete;
+	
+	public function __construct(array $options = null) {
+		parent::__construct($options);
+		
+		$this->adressen2delete = array();
+	}
+	
 	public function toArray() {
 		return array(
 				"email" => $this->_email,
@@ -128,19 +136,20 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		return $this;
 	}
 	
-	public function insertlieferadresse(Application_Model_Lieferadresse $lieferadresse) {
+	public function insertLieferadresse(Application_Model_Lieferadresse $lieferadresse) {
 		$this->_changed['lieferadresse'] = 1;
 		$this->_lieferadresse[] = $lieferadresse;
 	
 		return $this;
 	}
 	
-	public function deletelieferadresse(Application_Model_Lieferadresse $lieferadresse) {
-		if(empty($this->_lieferadresse)){
+	public function deleteLieferadresse(Application_Model_Lieferadresse $lieferadresse) {
+		if(empty($this->_lieferadresse) || empty ($lieferadresse)){
 			return false;
 		}
 		foreach($this->_lieferadresse as $key => $value) {
-			if($value->getId === $lieferadresse->getId){
+			if($value->getId() === $lieferadresse->getId()){
+				$this->adressen2delete[] = $value->getId();
 				unset($this->_lieferadresse[$key]);
 				$this->_changed['lieferadresse'] = 1;
 				return true;
@@ -170,11 +179,12 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 	}
 	
 	public function deleteRechnungsadresse(Application_Model_Rechnungsadresse $rechnungsadresse) {
-		if(empty($this->_rechnungsadresse)){
+		if(empty($this->_rechnungsadresse) || empty($rechnungsadresse)){
 			return false;
 		}
 		foreach($this->_rechnungsadresse as $key => $value) {
-			if($value->getId === $rechnungsadresse->getId){
+			if($value->getId() === $rechnungsadresse->getId()){
+				$this->adressen2delete[] = $value->getId();
 				unset($this->_rechnungsadresse[$key]);
 				$this->_changed['rechnungsadresse'] = 1;
 				return true;
@@ -187,6 +197,10 @@ class Application_Model_Benutzer extends Application_Model_TableAbstract
 		//möglicherweise schreibender Zugriff auf Rechnungsadresse, deshalb änderungen bei einem Update übermitteln
 		$this->_changed['rechnungsadresse'] = 1;
 		return $this->_rechnungsadresse;
+	}
+	
+	public function getAdressen2delete() {
+		return $this->adressen2delete;
 	}
 }
 

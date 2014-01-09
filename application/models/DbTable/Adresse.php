@@ -78,6 +78,16 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     	}
     }
     
+    public function deleteAdresse($ids) {
+    	if(empty($ids))
+    		return;
+    	
+    	foreach($ids as $value){
+    		$where = $this->getAdapter()->quoteInto('id = ?', $value);
+    		$this->delete($where);
+    	}
+    }
+    
     private function getAnrede_idByAnrede($anrede) {
     	$anredeDbt = new Application_Model_DbTable_Anrede();
     	$anredeData = $anredeDbt->getIdByAnrede($anrede);

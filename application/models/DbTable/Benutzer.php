@@ -128,6 +128,11 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     		unset($benutzerData['lieferadresse']);
     	}
     	
+    	//Überprüfen ob Liefer- Rechnungsadressen gelöscht werden müssen
+    	$adressen2delete = $benutzer->getAdressen2delete();
+    	if(!empty($adressen2delete))
+    		$this->getAdresseDbTable()->deleteAdresse($adressen2delete);
+    	
     	//überprüfen, ob sich sonst noch Felder verändert haben
     	if(sizeof($benutzerData) == 0){
     		return;

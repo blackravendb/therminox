@@ -28,9 +28,23 @@ if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
 
 
 $alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+
+
+
+$alterBenutzer->insertLieferadresse($lieferadresse);
+
+$benutzerMapper->updateBenutzer($alterBenutzer);
+
+$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+
 $la = $alterBenutzer->getLieferadresse();
 
-$la[0]->setStrasse('Sankt-Joseph-Spitalstr. 5');
+$alterBenutzer->deleteLieferadresse($la[0]);
+
+$benutzerMapper->updateBenutzer($alterBenutzer);
+
+
+// $la[0]->setStrasse('Sankt-Joseph-Spitalstr. 5');
 
 //$benutzerMapper->updateBenutzer($alterBenutzer);
 ?>
