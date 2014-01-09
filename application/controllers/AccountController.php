@@ -386,30 +386,38 @@ class AccountController extends Zend_Controller_Action
         $form = new Application_Form_Profile();
         $userMapper = new Application_Model_BenutzerMapper();
         $user = $userMapper->getBenutzer(Zend_Auth::getInstance()->getIdentity()->email);
-        $this->view->email = $user->getEmail();
-        $data = array( 
-        	'title' => $user->getAnrede(),
-        	'name'  => $user->getVorname(),
-        	'lastname' => $user->getNachname()
-        );
-        $form->populate($data);
-        if ($this->_request->isPost()) {
-        	if ($form->isValid($this->_request->getPost())) {
-				$user->setAnrede($form->getValue('title'));
-				$user->setVorname($form->getValue('name'));
-				$user->setNachname($form->getValue('lastname'));
-				$userMapper->updateBenutzer($user);
-				
-				//update Zend Auth Identity
-				$auth = Zend_Auth::getInstance()->getIdentity();
-				$auth->title = $form->getValue('title');
-				$auth->vorname = $form->getValue('name');
-				$auth->nachname = $form->getValue('nachname');
-				
-				$this->view->success = 'Profil erfolgreich geändert.';
-        	}
-        }
-        $this->view->form = $form;
+     	$edit = $this->getRequest()->getParam('edit');
+     	$edit = ($edit === 'true');
+     	$data = array(
+     			'email' => $user->getEmail(),
+     			'title' => $user->getAnrede(),
+     			'name'  => $user->getVorname(),
+     			'lastname' => $user->getNachname()
+     	);
+     	if($edit) {
+     		$form->populate($data);
+     		$form->setAction('/account/profile/edit/true/');
+     		if ($this->_request->isPost()) {
+     			if ($form->isValid($this->_request->getPost())) {
+     				$user->setAnrede($form->getValue('title'));
+     				$user->setVorname($form->getValue('name'));
+     				$user->setNachname($form->getValue('lastname'));
+     				$userMapper->updateBenutzer($user);
+     		
+     				//update Zend Auth Identity
+     				$auth = Zend_Auth::getInstance()->getIdentity();
+     				$auth->title = $form->getValue('title');
+     				$auth->vorname = $form->getValue('name');
+     				$auth->nachname = $form->getValue('nachname');
+     		
+     				$this->_helper->flashMessenger->addMessage('Profil erfolgreich geändert.');
+     				$this->_helper->redirector->gotoSimple('profile', 'account');
+     			}
+     		}
+     		$this->view->form = $form;
+     	} else {
+     		$this->view->data = $data;
+     	} 
     }
 
     protected function _process($values)

@@ -2,9 +2,8 @@
 <?php $this->headLink()->appendStylesheet('/_files/css/login.css');?>
 <div id="profile_wrapper">
 <h3>Mein Profil</h3>
-	<p>E-Mail: <?php echo $this->email?></p> 
+	<div><?php echo $this->profile($this->data)?></div> 
 	<?php echo $this->form; ?>
-	<?php echo '<p>' . $this->success . '</p>';?>
 	<a href="/account/password/">Passwort ändern</a>
 	<br>
 	<a href="/account/address/">Addressen verwalten</a>
