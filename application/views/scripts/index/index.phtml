@@ -10,7 +10,7 @@ $neuerBenutzer->setBerechtigung('Administrator');
 $neuerBenutzer->setAnrede('Herr');
 $neuerBenutzer->setBestaetigt(1);
 
-$lieferadresse = new Application_Model_Lieferadresse();
+$lieferadresse = new Application_Model_Rechnungsadresse();
 $lieferadresse->setFirma('Blubware');
 $lieferadresse->setNachname($neuerBenutzer->getNachname());
 $lieferadresse->setVorname($neuerBenutzer->getVorname());
@@ -20,7 +20,7 @@ $lieferadresse->setOrt('Oberaudorf');
 $lieferadresse->setLand('Deutschland');
 $lieferadresse->setAnrede($neuerBenutzer->getAnrede());
 
-$neuerBenutzer->insertLieferadresse($lieferadresse);
+//$neuerBenutzer->insertLieferadresse($lieferadresse);
 
 $benutzerMapper = new Application_Model_BenutzerMapper();
 if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
@@ -29,17 +29,25 @@ if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
 
 $alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
 
+//$alterBenutzer->setVorname("Blub");
+
+//$benutzerMapper->updateBenutzer($alterBenutzer);
 
 
-$alterBenutzer->insertLieferadresse($lieferadresse);
 
-$benutzerMapper->updateBenutzer($alterBenutzer);
 
-$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+//$alterBenutzer->insertRechnungsadresse($lieferadresse);
 
-$la = $alterBenutzer->getLieferadresse();
+//$benutzerMapper->updateBenutzer($alterBenutzer);
 
-$alterBenutzer->deleteLieferadresse($la[0]);
+//$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+
+$la = $alterBenutzer->getRechnungsadresse();
+
+
+$la[0]->setVorname('Blub2');
+
+//$alterBenutzer->deleteRechnungsadresse($la[0]);
 
 $benutzerMapper->updateBenutzer($alterBenutzer);
 
@@ -71,7 +79,7 @@ $benutzerMapper->updateBenutzer($alterBenutzer);
  echo '<br>'.$test->getAnrede().'<br>';
  
  $la = $test->getRechnungsadresse();
- echo $la[0]->getFirma();
+ //echo $la[0]->getFirma();
  
  $truefalse = $la[0] instanceof Application_Model_Lieferadresse ? true : false;
  
@@ -120,7 +128,7 @@ $benutzerMapper->updateBenutzer($alterBenutzer);
 
 // echo $waermetauscher->getModel();
 echo '<br><br><br>';
-echo '-------------------------------------------------------------------------------------';
+echo '-------------------------------------------------------------------------------------<br>';
 echo 'Wärmetauscher:<br>';
  $waermetauschermapper = new Application_Model_WaermetauscherMapper();
  echo 'Modelliste:<br>';

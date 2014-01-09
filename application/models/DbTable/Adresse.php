@@ -31,12 +31,7 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
    			$this->insertAdresse($adresse, $email);
    		//überprüfen, ob sich überhaupt ein Feld geändert hat
    		else {
-   			foreach($adresse->toArray() as $key => $value){
-   				if($adresse->isChanged($key)){
-   					//Mindestens ein Feld wurde aktualisiert
-   					$this->updateAdresse($adresse, $email);
-   				}
-   			}
+   			$this->updateAdresse($adresse, $email);
    		}
     }
     
