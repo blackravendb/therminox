@@ -127,14 +127,18 @@ echo '--------------------------------------------------------------------------
  
  echo "<br>".$bla[0]->getEinsatzgebiet();
 
+ echo '<br>-------------------------------------------------------------------------------------';
+ echo '<br><br><br>';
+ 
+ echo 'LinkMapper<br>';
+ 
+ $linkMapper = new Application_Model_LinkMapper();
 
-// //$linkMapper = new Application_Model_LinkMapper();
+  $fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
 
-// // $fall = $linkMapper->getLinkByHexaString("asdfasdfsd54f4sdaf564sd6f");
+  echo $fall->getHexaString().'<br>';
 
-// // echo $fall['0']->getHexaString();
-
-// // echo $fall['0']->getEmail();
+  echo $fall->getEmail().'<br>';
 
  
  echo "<br>Eingegebene Argumente:<br>TemperaturMax: 200<br>TemperaturMin: 100<br>Einsatzgebiet: Umrüsten von PKW`s auf Rapsöl<br>
