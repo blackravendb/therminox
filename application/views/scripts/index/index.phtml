@@ -194,6 +194,19 @@ echo '--------------------------------------------------------------------------
  $angebot = $angebotskorb[0]->getAngebot();
  echo $angebot[0]->getStatus();
  
+ 
+ echo '<br>-------------------------------------------------------------------------------------';
+ echo '<br><br><br>';
+ 
+ echo 'Artikel<br>';
+ $artikelMapper = new Application_Model_ArtikelMapper();
+ 
+ $artikel = $artikelMapper->getArtikelByArtikelnummer(2);
+ 
+ //print_r($artikel);
+ echo $artikel->getModel();
+ 
+ echo $artikel instanceof Application_Model_Waermetauscher ? "ist wärmetauscher" : "ist pufferspeicher";
  ?>
 
 

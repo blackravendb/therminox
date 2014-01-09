@@ -50,8 +50,10 @@ abstract class Application_Model_TableAbstract
 	
 	public function isChanged($name) {
 		if(isset($this->_changed[$name])){
-			if($this->_changed[$name] == 1)
+			if($this->_changed[$name] == 1){
+				$this->_changed[$name] = 0;
 				return true;
+			}
 		}
 		return false;
 	}

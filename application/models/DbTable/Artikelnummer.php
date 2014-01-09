@@ -18,5 +18,14 @@ class Application_Model_DbTable_Artikelnummer extends Zend_Db_Table_Abstract
 					'refColumns'        => array('id')
 			),
 	);
+	
+	public function getArtikelByArtikelnummer($id) {
+		$data = $this->find((int)$id);
+		if(empty($data)) {
+			return;
+		}
+		
+		return $data->toArray();
+	}
 }
 
