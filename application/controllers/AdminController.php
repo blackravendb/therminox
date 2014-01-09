@@ -24,7 +24,7 @@
 		public function changewaermetauscherAction(){
 			$request = $this->getRequest();
 			$art = $request->getParam('artikel');
-			if ($art != null) {
+			if (true){
 				$db_mapper = new Application_Model_WaermetauscherMapper ();
 				$data_object = $db_mapper->getWaermetauscherByModel($art);
 				//$this->view->dbdata = $data_object;
