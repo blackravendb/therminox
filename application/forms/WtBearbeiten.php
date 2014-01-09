@@ -1,10 +1,10 @@
 <?php
 class Application_Form_WtBearbeiten extends Zend_Form {
-
+	
 	private $dbdata = null;
 	
 	public function init(){
-	
+		
 	}
 	
 	public function setDbdata($data_object){
@@ -17,7 +17,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$heightVal = new Zend_Validate_Between(array('min' => 170, 'max' => 1100));
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
-
+		
+		if(empty($dbdata)){
+			echo "Variable leer";
+		}
 		echo $dbdata->getModel();
 		
 		$name = new Zend_Form_Element_Text('Artikelname');
