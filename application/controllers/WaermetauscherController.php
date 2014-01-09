@@ -31,7 +31,7 @@
 					$minTemp = $form->getValue ( 'TemperaturMin' );
 					$maxTemp = $form->getValue ( 'TemperaturMax' );
 					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
-					$anschluss = $form->getValue ( 'Anschluss' ); // Nur angehackte Werte werden übergeben, funktioniert
+					$anschluss = $form->getValue('Anschluss'); // Nur angehackte Werte werden übergeben, funktioniert
 					$minHeight = $form->getValue ( 'HoeheMin' );
 					$maxHeight = $form->getValue ( 'HoeheMax' );
 					$minWidth = $form->getValue ( 'BreiteMin' );
@@ -48,11 +48,20 @@
 					}
 					
 					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) { // funktioniert
-						$wtmapper->setEinsatzgebiet ( $einsatzgbt ); // wenn standartwert "bitte wählen" dasteht nicht set!
+						$wtmapper->setEinsatzgebiet ($einsatzgbt); // wenn standartwert "bitte wählen" dasteht nicht set!
 					}
 					
 					if (count($anschluss) != 3) { //TODO In $anschluss stehen die richtigen Anschlüsse
+						
 						$wtmapper->setAnschluss($anschluss); // if (kein set, wenn alle angehackt), funktioniert (geht in die Abfrage)
+						
+						foreach($anschluss as $an){
+							echo $an;
+						}
+						
+						foreach($wtmapper->getAnschlussListe() as $value){
+							echo $value;
+						}
 					}
 					
 					if (! empty ( $minHeight )) {

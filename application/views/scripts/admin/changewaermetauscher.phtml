@@ -1,3 +1,11 @@
 <div>
-<?php echo $this->wtbearbeiten; ?>
+<?php 
+echo $this->wtbearbeiten; 
+
+if($this->showMessage == true){
+?>
+
+<p>Wärmetauscher wurde erfolgreich geändert</p>
+
+<?php }?>
 </div>
