@@ -13,7 +13,15 @@ class AngebotController extends Zend_Controller_Action {
 		$art = $request->getParam ( 'artikel' );
 		
 		$this->view->artID = $art;
-		
+		if(substr_compare ( $art , 'BH' , 0 , 2 , false  )=== 0){
+			$this->view->artCat = "Wärmetauscher";
+		}
+		if(substr_compare ( $art , 'VV' , 0 , 2 , false  )=== 0){
+			$this->view->artCat = "Pufferspeicher";
+		}
+		if(substr_compare ( $art , 'LA' , 0 , 2 , false  )=== 0){
+			$this->view->artCat = "Pufferspeicher";
+		}
 		$form = new Application_Form_AngebotErstellen();
 		$this->view->form = $form;
 	}
