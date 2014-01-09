@@ -27,9 +27,6 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     public function init() {
     	$this->select = $this->select()
-    	->from(array('wt' => $this->_name))
-    	->join(array('sm' => 'stutzenmaterial'), "wt.stutzenmaterial_id = sm.id", array('name as stutzenmaterial'))
-    	->join(array('an' => 'artikelnummer'),'wt.id = an.waermetauscher_id', 'an.id as artikelnummer')
     	->setIntegrityCheck(false);
     	
     	$this->produktberater = false;
@@ -38,6 +35,10 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     public function getWaermetauscherByParams($params) {
     	//fals zuvor ein Setter aufgerufen wurde ohne getWaermetauscher danach aufzurufen
     	$this->init();
+    	$this->select
+    	->from(array('wt' => $this->_name))
+    	->join(array('sm' => 'stutzenmaterial'), "wt.stutzenmaterial_id = sm.id", array('name as stutzenmaterial'))
+    	->join(array('an' => 'artikelnummer'),'wt.id = an.waermetauscher_id', 'an.id as artikelnummer');
     	
     	foreach($params as $key => $value){
     		$this->select
@@ -164,6 +165,27 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	}
     	
     	return $products;
+    }
+    
+    public function getModelList() {
+    	$this->init();
+    	$this->select
+    	->from($this->_name,'model');
+    	
+    	$data = parent::fetchAll($this->select);
+    	$this->init();
+    	return $data->toArray();
+    }
+    
+    public function getAnschlussListe() {
+    	$this->select = $this->select();
+    	$this->select
+    	->from('waermetauscherAnschluss','anschluss')
+    	->setIntegrityCheck(false);
+    	 
+    	$data = parent::fetchAll($this->select);
+    	$this->init();
+    	return $data->toArray();
     }
     
 

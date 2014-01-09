@@ -107,7 +107,17 @@ $la[0]->setStrasse('Sankt-Joseph-Spitalstr. 5');
 // echo $waermetauscher->getModel();
 echo '<br><br><br>';
 echo '-------------------------------------------------------------------------------------';
+echo 'Wärmetauscher:<br>';
  $waermetauschermapper = new Application_Model_WaermetauscherMapper();
+ echo 'Modelliste:<br>';
+//  print_r($waermetauschermapper->getModelList());
+ foreach($waermetauschermapper->getModelListe() as $value){
+ 	echo $value.'<br>';
+ }
+ 
+ foreach($waermetauschermapper->getAnschlussListe() as $value){
+ 	echo $value.'<br>';
+ }
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD30");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))
  	echo "bhd21 anfrage fehlgeschlagen";

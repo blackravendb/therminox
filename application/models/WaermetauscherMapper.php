@@ -109,6 +109,25 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		}
 		return $ret;
 	}
-
+	
+	public function getModelListe() {
+		$data = $this->getDbTable()->getModelList();
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['model'];
+		}
+		return $ret;
+	}
+	
+	public function getAnschlussListe() {
+		$data = $this->getDbTable()->getAnschlussListe();
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['anschluss'];
+		}
+		return $ret;
+	}
 }
 
