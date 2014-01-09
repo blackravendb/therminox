@@ -23,16 +23,15 @@
 		
 		public function changewaermetauscherAction(){
 			$this->view->title = "WaermetauscherBearbeiten";
-			$request = $this->getRequest ();
-			$art = $request->getParam ( 'artikel' );
-			//TODO Ausnahmen abfangen! ->schlumpfhandling -.-
-			if (true) {
+			$request = $this->getRequest();
+			$art = $request->getParam('artikel');
+			if (null != $art) {
 				$db_mapper = new Application_Model_WaermetauscherMapper ();
-				$data_object = $db_mapper->getWaermetauscherByModel ( $art );
+				$data_object = $db_mapper->getWaermetauscherByModel($art);
 				//$this->view->dbdata = $data_object;
 				
 				$form = new Application_Form_WtBearbeiten();
-				$form->setMethod ( 'post' );
+				$form->setMethod ('post');
 				$form->setDbdata($data_object);
 				$form->startform();
 				
