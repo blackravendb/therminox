@@ -8,12 +8,12 @@ class Application_Model_DbTable_WaermetauscherUnterkategorie extends Zend_Db_Tab
     protected $_dependentTable = array('waermetauscher');
     
     protected $_referenceMap    = array(
-    		'waermetauscher_waermetauscherUnterkategorie' => array(
-    				'columns'           => 'waermetauscher_id',
+    		'waermetauscher' => array(
+    				'columns'           => array('waermetauscher_id'),
     				'refTableClass'     => 'Application_Model_DbTable_Waermetauscher',
-    				'refColumns'        => 'id',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::CASCADE',
+    				'onUpdate'			=> 'self::CASCADE'
     		)
     );
 

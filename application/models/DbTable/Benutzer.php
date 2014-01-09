@@ -160,13 +160,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     public function deleteBenutzer ($email){
     	$where = $this->getAdapter()->quoteInto('email = ?', $email);
     	
-    	$select = $this->select()
-    	->from($this->_name)
-    	->where($where);
-    	
-    	$data = $this->fetchRow($select);
-    	
-    	return $data->delete($where);
+    	return $this->delete($where);
     }
     
     public function existEmail($email) {

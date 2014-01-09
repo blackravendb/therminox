@@ -10,12 +10,16 @@ class Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss extends Z
     		'waermetauscher' => array(
     				'columns'           => array('waermetauscher_id'),
     				'refTableClass'     => 'Application_Model_DbTable_Waermetauscher',
-    				'refColumns'        => array('id')
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::CASCADE',
+    				'onUpdate'			=> 'self::CASCADE'
     		),
     		'waermetauscherGelotetAnschluss' => array(
     				'columns'           => array('waermetauscherAnschluss_id'),
     				'refTableClass'     => 'Application_Model_DbTable_WaermetauscherAnschluss',
-    				'refColumns'        => array('id')
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::RESTRICT',
+    				'onUpdate'			=> 'self::RESTRICT'
     		)
     );
 
