@@ -56,9 +56,9 @@ $la[0]->setVorname('Dennis');
 
 //$benutzerMapper->updateBenutzer($alterBenutzer);
 
-$alterBenutzer = $benutzerMapper->getBenutzer('testbenutzer@test.de');
+//$alterBenutzer = $benutzerMapper->getBenutzer('testbenutzer@test.de');
 
-$benutzerMapper->deleteBenutzer($alterBenutzer);
+//$benutzerMapper->deleteBenutzer($alterBenutzer);
 ?>
 
 
@@ -173,6 +173,9 @@ echo 'Wärmetauscher:<br>';
  $bla = $bhd21->getWaermetauscherEinsatzgebiet();
  
  echo "<br>".$bla[0]->getEinsatzgebiet();
+ 
+ //$blub2 = $waermetauschermapper->getWaermetauscherByModel('blub');
+//$waermetauschermapper->deleteWaermetauscher($blub2);
 
  echo '<br>-------------------------------------------------------------------------------------';
  echo '<br><br><br>';
@@ -235,6 +238,10 @@ echo 'Wärmetauscher:<br>';
  echo $gebiet[0]->getEinsatzgebiet().'<br>';
  
  echo $vvx200->getModel();
+ 
+ $blub = $psMapper->getPufferspeicherById(2);
+
+//$psMapper->deletePufferspeicher($blub);
  
  
  echo '<br>-------------------------------------------------------------------------------------';

@@ -57,6 +57,12 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	$this->init();
     	return $data->toArray();
     }
+    
+    public function deletePufferspeicher($id) {
+    	$where = $this->getAdapter()->quoteInto('id = ?', $id);
+    	
+    	$this->delete($where);
+    }
 
 }
 

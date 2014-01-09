@@ -147,7 +147,7 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		$id = $waermetauscher->getId();
 		if(empty($id))
 			return false;
-		$this->getDbTable()->deleteWaermetauscher($waermetauscher->getId());
+		$this->getDbTable()->deleteWaermetauscher($id);
 	}
 }
 

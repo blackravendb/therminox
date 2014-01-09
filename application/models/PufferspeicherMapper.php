@@ -49,6 +49,13 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 		}
 		return $ret;
 	}
+	
+	public function deletePufferspeicher(Application_Model_Pufferspeicher $pufferspeicher) {
+		$id = $pufferspeicher->getId();
+		if(empty($id))
+			return false;
+		$this->getDbTable()->deletePufferspeicher($id);
+	}
 
 }
 

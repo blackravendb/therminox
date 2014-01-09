@@ -55,7 +55,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		$this->select
     		->where("wt.$key = ?", $value);
     	}
-		
+    	
     	$data = parent::fetchAll($this->select);
     	
     	//Select Befehl wieder zurücksetzen
@@ -140,8 +140,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		$this->initProduktberater();
     	
     	$this->select
-    	->join(array('wt2wtE' => 'waermetauscher2waermetauscherEinsatzgebiet'), 'wt.id = wt2wtE.waermetauscher_id', '')
-    	->join(array('wtE' => 'waermetauscherEinsatzgebiet'), 'wtE.id = wt2wtE.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
+    	->joinleft(array('wt2wtE' => 'waermetauscher2waermetauscherEinsatzgebiet'), 'wt.id = wt2wtE.waermetauscher_id', '')
+    	->joinleft(array('wtE' => 'waermetauscherEinsatzgebiet'), 'wtE.id = wt2wtE.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
     	->where('wtE.einsatzgebiet = ?', $gebiet);
     }
     
