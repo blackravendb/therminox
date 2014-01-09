@@ -76,10 +76,12 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
     					$anschluesse[] = $ans->getAnschluss();
   						}
+  		$anschluss->setValue($anschluesse[1]);
 		$anschluss->setValue($anschluesse);
 		
-		foreach($anschluesse as $value){
+		foreach($anschluesse as $value){ //TODO löschen
 			echo $value;	
+			echo count($anschluesse);
 		}
 		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
