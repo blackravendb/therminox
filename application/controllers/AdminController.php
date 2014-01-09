@@ -27,6 +27,10 @@
 			if (true){
 				$db_mapper = new Application_Model_WaermetauscherMapper ();
 				$data_object = $db_mapper->getWaermetauscherByModel($art);
+				
+				if(empty($data_object)){
+					echo "$data_object leer";
+				}
 				//$this->view->dbdata = $data_object;
 				
 				$form = new Application_Form_WtBearbeiten();
