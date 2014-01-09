@@ -4,7 +4,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	private $dbdata = null;
 	
 	public function init(){
-		
+		$anschluesse = array();
+		$i = 0;
 	}
 	
 	public function setDbdata($data_object){
@@ -73,10 +74,9 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		));
 		$anschluss->setLabel('Anschlüsse:');
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
-    					$an = $ans->getAnschluss();
-    					$anschluss->setValue($an);
+    					$anschluesse[] = $ans->getAnschluss();
   						}
-		
+		$anschluss->setValue($anschluesse);
 		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
