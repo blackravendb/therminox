@@ -77,6 +77,10 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     	
     	$wtVal = new Zend_Validate_Digits('1234567890');
     	
+    	$wtmapper = new Application_Model_WaermetauscherMapper();
+        $einsatzgebiete = $wtmapper->getEinsatzgebietListe();
+        $anschluesse = $wtmapper->getAnschlussListe();
+        
     	$minTemp = new Zend_Form_Element_Text('TemperaturMin');
     	$minTemp->setLabel('Minimaltemperatur:')
     		->addValidator($wtVal)
@@ -90,17 +94,21 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     		->addFilter('StripTags')
             ->addFilter('StringTrim')
         	->addErrorMessage('Bitte nur Zahlen eingeben!');
-        	
+        
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')
-        			//->addMultiOptions() warten auf Datenbank
+        			->addMultiOption('Bitte wählen', 'Bitte wählen')
+        			->addMultiOptions($einsatzgebiete);
+        
+        			/*
         			->addMultiOption('Bitte wählen', 'Bitte wählen')
          			->addMultiOption('Fernwärme', 'Fernwärme')
          			->addMultiOption('Solaranlage', 'Solaranlage')
          			->addMultiOption('Erdbohrung', 'Erdbohrung')
          			->addMultiOption('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
          			->addMultiOption('Umrüstung großerer Nutzfahrzeuge auf Rapsöl', 'Umrüstung großerer Nutzfahrzeuge auf Rapsöl')
-        			->addFilter('StripTags')
+         			*/
+        $einsatzgbt->addFilter('StripTags')
            			->addFilter('StringTrim');
     	
            			/*
@@ -113,22 +121,27 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        	$anschluss3 = new Zend_Form_Element_Checkbox('Anschluss3');
        	$anschluss3->setLabel('3/4" AG');
 		*/
-           			
+       /*  			
        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss', array(
         		'multiOptions' => array('3/8" IG', '1/2" AG', '3/4" AG')
        		));
        	$anschluss->setLabel('Anschlüsse:')
        				->setValue(array(0, 1, 2));
-       	
-       
-       /*    			
-        $anschluss = new Zend_Form_Element_Multiselect('Anschluss');
+       */
+        			
+        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
         $anschluss->setLabel('Anschlüsse:')
-        		//->addMultiOptions($anschlüsse); warten auf Datenbank
+       			->addMultiOptions($anschluesse);
+       	for($i=0; $i<count($anschluesse); $i++){
+       		$array[] = $i;
+       	}
+       	$anschluss->setValue($array);
+        
+        		/*
         		->addMultiOption('3/8" IG','3/8" IG')
         		->addMultiOption('1/2" AG', '1/2" AG')
         		->addMultiOption('3/4" AG', '3/4" AG');
-        	*/	
+       			*/
         		
 	/*	$maxHeight = new ZendX_JQuery_Form_Element_Slider('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
