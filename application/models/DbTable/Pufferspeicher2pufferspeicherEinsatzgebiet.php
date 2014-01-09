@@ -10,12 +10,16 @@ class Application_Model_DbTable_Pufferspeicher2pufferspeicherEinsatzgebiet exten
     		'pufferspeicher' => array(
     				'columns'           => array('pufferspeicher_id'),
     				'refTableClass'     => 'Application_Model_DbTable_Pufferspeicher',
-    				'refColumns'        => array('id')
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::CASCADE',
+    				'onUpdate'			=> 'self::CASCADE'
     		),
     		'pufferspeicherEinsatzgebiet' => array(
     				'columns'           => array('pufferspeicherEinsatzgebiet_id'),
     				'refTableClass'     => 'Application_Model_DbTable_PufferspeicherEinsatzgebiet',
-    				'refColumns'        => array('id')
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::RESTRICT',
+    				'onUpdate'			=> 'self::RESTRICT'
     		)
     );
 

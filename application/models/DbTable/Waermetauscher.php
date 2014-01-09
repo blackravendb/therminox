@@ -6,9 +6,20 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     protected $_name = 'waermetauscher';
     protected $_primary = 'id';
     
-    protected $_dependentTables = array('Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss', 
+    protected $_dependentTables = array('Application_Model_DbTable_Waermetauscher2waermetauscherEinsatzgebiet', 
     									'Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss',
-    									'Application_Model_DbTable_Artikelnummer');
+    									'Application_Model_DbTable_Artikelnummer',
+    									'Application_Model_DbTable_WaermetauscherUnterkategorie');
+    
+    protected $_referenceMap    = array(
+    		'stutzenmaterial' => array(
+    				'columns'           => array('stutzenmaterial_id'),
+    				'refTableClass'     => 'Application_Model_DbTable_Stutzenmaterial',
+    				'refColumns'        => array('id'),
+    				'onDelete'			=> 'self::RESTRICT',
+    				'onUpdate'			=> 'self::RESTRICT'
+    		),
+    );
     
     protected $select;
     
@@ -58,7 +69,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	//Dazugehörige Tabellen herausfiltern
     	foreach($data as $row) {
     		//Unterkategorien abfragen
-    		$wtUnterkategorien = $row->findDependentRowset('Application_Model_DbTable_WaermetauscherUnterkategorie','waermetauscher_waermetauscherUnterkategorie');
+    		$wtUnterkategorien = $row->findDependentRowset('Application_Model_DbTable_WaermetauscherUnterkategorie','waermetauscher');
     		
     		//Anschlussarten abfragen
     		$wtAnschluss = $row->findManyToManyRowset('Application_Model_DbTable_WaermetauscherAnschluss','Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss');
@@ -197,6 +208,11 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	$data = parent::fetchAll($this->select);
     	$this->init();
     	return $data->toArray();
+    }
+    
+    public function deleteWaermetauscher($id) {
+    	$where = $this->getAdapter()->quoteInto('id = ?', $id);
+    	return $this->delete($where);
     }
     
 
