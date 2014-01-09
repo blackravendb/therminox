@@ -4,7 +4,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	private $dbdata = null;
 	
 	public function init(){
-		
+		$anschluesse = array();
+		$i = 0;
 	}
 	
 	public function setDbdata($data_object){
@@ -18,10 +19,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$widthVal = new Zend_Validate_Between(array('min' => 70, 'max' => 400));
 		$lengthVal = new Zend_Validate_Between(array('min' => 20, 'max' => 500));
 		
-		if(empty($dbdata)){
+		if(empty($this->dbdata)){
 			echo "Variable leer";
 		}
-		echo $dbdata->getModel();
+		echo $this->dbdata->getModel();
 		
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
@@ -56,7 +57,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addMultiOption('Fernwärme', 'Fernwärme')
 		->addMultiOption('Solaranlage', 'Solaranlage')
 		->addMultiOption('Erdbohrung', 'Erdbohrung')
-		->addMultiOprion('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
+		->addMultiOption('Umrüstung von PKW`s auf Rapsöl', 'Umrüstung von PKW`s auf Rapsöl')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
@@ -73,9 +74,15 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		));
 		$anschluss->setLabel('Anschlüsse:');
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
-    					$anschluss->setValue($ans->getAnschluss());
+    					$anschluesse[] = $ans->getAnschluss();
   						}
+  		$anschluss->setValue($anschluesse[1]);
+		$anschluss->setValue($anschluesse);
 		
+		foreach($anschluesse as $value){ //TODO löschen
+			echo $value;	
+			echo count($anschluesse);
+		}
 		
 		$maxHeight = new Zend_Form_Element_Text('Hoehe');
 		$maxHeight->setLabel('Maximale Höhe:')
