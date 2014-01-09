@@ -7,9 +7,9 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     
     protected $_referenceMap    = array(
        		'anrede' => array(
-    	  			'columns'           => array('id'),
+    	  			'columns'           => array('anrede_id'),
     	    		'refTableClass'     => 'Application_Model_DbTable_Anrede',
-    	    		'refColumns'        => array('anrede_id'),
+    	    		'refColumns'        => array('id'),
     	    		'onDelete'			=> 'self::RESTRICT',
     	    		'onUpdate'			=> 'self::RESTRICT'
     		),
@@ -17,8 +17,8 @@ class Application_Model_DbTable_adresse extends Zend_Db_Table_Abstract {
     				'columns'           => array('benutzer_email'),
     				'refTableClass'     => 'Application_Model_DbTable_Benutzer',
     				'refColumns'        => array('email'),
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
+    				'onDelete'			=> 'self::CASCADE',
+    				'onUpdate'			=> 'self::CASCADE'
     		)
     );
     

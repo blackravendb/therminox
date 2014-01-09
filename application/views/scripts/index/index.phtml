@@ -45,16 +45,20 @@ $alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosen
 $la = $alterBenutzer->getRechnungsadresse();
 
 
-$la[0]->setVorname('Blub2');
+$la[0]->setVorname('Dennis');
 
 //$alterBenutzer->deleteRechnungsadresse($la[0]);
 
-$benutzerMapper->updateBenutzer($alterBenutzer);
+// $benutzerMapper->updateBenutzer($alterBenutzer);
 
 
 // $la[0]->setStrasse('Sankt-Joseph-Spitalstr. 5');
 
 //$benutzerMapper->updateBenutzer($alterBenutzer);
+
+//$alterBenutzer = $benutzerMapper->getBenutzer('testbenutzer@test.de');
+
+//$benutzerMapper->deleteBenutzer($alterBenutzer);
 ?>
 
 

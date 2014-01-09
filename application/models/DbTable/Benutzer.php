@@ -6,25 +6,10 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     protected $_name = 'benutzer';
     protected $_primary = 'email';
     
-     protected $_dependentTables = array('Application_Model_DbTable_Lieferadresse', 'Application_Model_DbTable_Rechnungsadresse');
+    protected $_dependentTables = array('Application_Model_DbTable_Adresse',
+   										 'Application_Model_DbTable_Link',
+    									'Application_Model_DbTable_Angebotskorb');
  
-//     protected $_referenceMap    = array(
-//     		'Benutzer_Lieferadresse' => array(
-//     				'columns'           => 'email',
-//     				'refTableClass'     => 'Application_Model_DbTable_Lieferadresse',
-//     				'refColumns'        => 'benutzer_email',
-//     				'onDelete'			=> 'self::RESTRICT',
-//     				'onUpdate'			=> 'self::RESTRICT'
-//     		),
-//     		'Benutzer_Rechnungsadresse' => array(
-//     				'columns'           => 'email',
-//     				'refTableClass'     => 'Application_Model_DbTable_Rechnungsadresse',
-//     				'refColumns'        => 'benutzer_email',
-//     				'onDelete'			=> 'self::RESTRICT',
-//     				'onUpdate'			=> 'self::RESTRICT'
-//     		)
-//     );
-
     protected $_referenceMap    = array(
        		'anrede' => array(
     	  			'columns'           => array('anrede_id'),
@@ -175,7 +160,13 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     public function deleteBenutzer ($email){
     	$where = $this->getAdapter()->quoteInto('email = ?', $email);
     	
-    	return $this->delete($where);
+    	$select = $this->select()
+    	->from($this->_name)
+    	->where($where);
+    	
+    	$data = $this->fetchRow($select);
+    	
+    	return $data->delete($where);
     }
     
     public function existEmail($email) {

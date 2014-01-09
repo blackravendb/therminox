@@ -6,29 +6,7 @@ class Application_Model_DbTable_Anrede extends Zend_Db_Table_Abstract
     protected $_name = 'anrede';
     protected $_primary = 'id';
     
-    protected $_referenceMap    = array(
-    		'Anrede_Benutzer' => array(
-    				'columns'           => 'id',
-    				'refTableClass'     => 'Application_Model_DbTable_Benutzer',
-    				'refColumns'        => 'anrede_id',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
-    		),
-    		'Anrede_Lieferadresse' => array(
-    				'columns'           => 'id',
-    				'refTableClass'     => 'Application_Model_DbTable_Lieferadresse',
-    				'refColumns'        => 'anrede_id',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
-    		),
-    		'Anrede_Rechnungsadresse' => array(
-    				'columns'           => 'id',
-    				'refTableClass'     => 'Application_Model_DbTable_Rechnungsadresse',
-    				'refColumns'        => 'anrede_id',
-    				'onDelete'			=> 'self::RESTRICT',
-    				'onUpdate'			=> 'self::RESTRICT'
-    		)
-    );  
+    protected $_dependentTables = array('Application_Model_DbTable_Adresse', 'Application_Model_DbTable_Benutzer');  
     
     protected $select;
     

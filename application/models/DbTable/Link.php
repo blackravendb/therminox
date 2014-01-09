@@ -6,6 +6,17 @@ class Application_Model_DbTable_Link extends Zend_Db_Table_Abstract
     protected $_name = 'link';
     protected $_primary = 'id';
     
+    protected $_referenceMap    = array(
+        	'benutzer' => array(
+    	    				'columns'           => array('benutzer_email'),
+    	    				'refTableClass'     => 'Application_Model_DbTable_Benutzer',
+    	    				'refColumns'        => array('email'),
+    	    				'onDelete'			=> 'self::CASCADE',
+    	    				'onUpdate'			=> 'self::CASCADE'
+    
+        			)
+    		);
+    
     protected $select;
     
     public function init() {
