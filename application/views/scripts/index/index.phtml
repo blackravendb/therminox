@@ -227,6 +227,21 @@ echo 'Wärmetauscher:<br>';
  
  $psMapper = new Application_Model_PufferspeicherMapper();
  
+ $pufferspeicher = new Application_Model_Pufferspeicher();
+ $pufferspeicher->setModel('blub');
+ $pufferspeicher->setSpeicherinhalt(100);
+ $pufferspeicher->setLeergewicht(50);
+ $pufferspeicher->setBetriebsdruck(15);
+ $pufferspeicher->setTemperaturMax(100);
+ 
+ $einsatzgebiet = new Application_Model_PufferspeicherEinsatzgebiet();
+ 
+ $einsatzgebiet->setEinsatzgebiet('Einfacher Boiler');
+ 
+ $pufferspeicher->insertEinsatzgebiet($einsatzgebiet);
+ 
+ $psMapper->insertPufferspeicher($pufferspeicher);
+ 
  foreach($psMapper->getEinsatzgebietListe() as $value) {
 		echo $value.'<br>';
 }
