@@ -7,10 +7,7 @@ class Application_Form_AngebotErstellen extends App_Form {
 		
 		$userdata = $this->_userinfo;
 		$articledata = $this->_articleinfo;
-		$articlename = 'Testartikel';
-		
-		
-		
+				
 		$extraInfo = new Zend_Form_Element_Textarea('extraInfo');
 		$extraInfo->setLabel('Weiter würden mich folgende Informationen interessieren:')
 		->addFilter('StripTags')

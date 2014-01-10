@@ -4,12 +4,11 @@ class AngebotController extends Zend_Controller_Action {
 		require_once 'Cart/ShoppingCart.php';
 	}
 	public function indexAction() {
-		$_mapper = new Application_Model_AngebotskorbMapper();
+		$_mapper = new Application_Model_AngebotskorbMapper ();
 		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
-		$_offers = $_mapper->getAngebotskorbByEmail($email);
+		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
 		$this->view->_offers = $_offers;
 	}
-	
 	public function erstellenAction() {
 		$request = $this->getRequest ();
 		$_art_nr = $request->getParam ( 'artikelnummer' );
@@ -37,13 +36,16 @@ class AngebotController extends Zend_Controller_Action {
 		$form = new Application_Form_AngebotErstellen ();
 		
 		$form->setMethod ( 'post' );
+		$_action = '/Angebot/erstellen/artikelnummer/' . $_art_nr;
+		$form->setAction ( $_action );
 		$this->view->form = $form;
 		
 		if ($this->_request->isPost ()) {
-			$formData = $this->getRequest ()->getPost ();
-			if ($form->isValid ( $formData )) {
-				
-				if ($formData ['submit'] == 'addMore') {
+			$formData = $this->getRequest()->getPost();
+			
+			if ($form->isValid ( $formData)) {
+				$form->populate ( $_POST );
+				if ($form->addMore->isChecked ()) {
 					if (! isset ( $_SESSION ['angebotskorb'] )) {
 						$_SESSION ['angebotskorb'] = new Application_Model_Angebotskorb ();
 						$email = Zend_Auth::getInstance ()->getIdentity ()->email;
@@ -52,20 +54,18 @@ class AngebotController extends Zend_Controller_Action {
 					
 					$_offer = new Application_Model_Angebot ();
 					$_offer->setArtikelnummer ( $_art_nr );
-					$_SESSION ['angebotskorb']->setAngebot ( $_offer );
+					$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
+					echo 'addmore';
 				}
-				if ($formData ['submit'] == 'submit') {
-					// DB Anbindung kommt noch zum persistenten speichern!
+				if ($form->submit->isChecked ()) {
+					echo 'submit warten auf db';
+					$this->_redirect ( 'angebot/anzeigen' );
 				}
-				
-				$form_message = $form->getValue ( 'extraInfo' );
+				// $form_message = $form->getValue ( 'extraInfo' );
 			}
 			
-			
-			$this->_redirect ( 'angebot/anzeigen' );
+			// 
 		}
-		
-		
 	}
 	public function anzeigenAction() {
 		if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
