@@ -40,10 +40,10 @@
 					if($form->isValid($formData)){
 						$artikelname = $form->getValue('Artikelname');
 						$temp = $form->getValue('Temperatur');
-						$einsatzgbt = $form->getValue('Einsatzgebiet');
+						$einsatzgbt = $form->getValue('EinsatzgebietePs');
 						$anschluss = $form->getValue('Anschluss');
-						$maxHeight = $form->getValue('Hoehe');
-						$maxWidth = $form->getValue('Breite');
+						$height = $form->getValue('Hoehe');
+						$width = $form->getValue('Breite');
 						
 						$wt = new Application_Model_WaermetauscherMapper();
 						$wt_art = $wt->getWaermetauscherByModel($artikelname);
@@ -60,10 +60,10 @@
 						if(!empty($anschluss)){ //TODO Dennis fragen, wann setter aufgerufen werden soll
 							$wt_art->setWaermetauscherAnschluss($anschluss);
 						}
-						if(!empty($maxHeight)){
+						if(!empty($height)){
 							$wt_art->setHoehe($maxHeight);
 						}
-						if(!empty($maxWidth)){
+						if(!empty($width)){
 							$wt_art->setBreite($maxWidth);
 						}
 						
@@ -84,14 +84,48 @@
 		}
 		
 		public function changepufferspeicherAction(){
-			$request = $this->getRequest ();
-			$art = $request->getParam ( 'artikel' );
-			if (null != $art) {
-				$db_mapper = new Application_Model_PufferspeicherMapper();
+		$request = $this->getRequest();
+			$art = $request->getParam('artikel');
+			if (true){
+				$db_mapper = new Application_Model_PufferspeicherMapper ();
 				$data_object = $db_mapper->getPufferspeicherByModel($art);
 				
+				$form = new Application_Form_PsBearbeiten();
+				$form->setDbdata($data_object);
+				$form->startform();
 				
-				$this->view->dbdata = $data_object;
+				$this->view->psbearbeiten = $form; 
+				
+				if($this->_request->isPost()){
+					$formData = $this->_request->getPost();
+				
+					if($form->isValid($formData)){
+						$artikelname = $form->getValue('Artikelname');
+						$einsatzgbt = $form->getValue('Einsatzgebiet');
+						$speicherinhalt = $form->getValue('Speicherinhalt');
+						$betriebsdruck = $form->getValue('Speicherinhalt');
+						
+						$ps = new Application_Model_PufferspeicherMapper();
+						$ps_art = $ps->getPufferspeicherByModel($artikelname);
+						
+						if (!empty($artikelname)) {
+							$ps->setModel($artikelname);
+						}
+						
+						$ps->setPufferspeicherEinsatzgebiet($einsatzgbt);
+						
+						if(!empty($speicherinhalt)){
+							$ps->setSpeicherinhalt($speicherinhalt);
+						}
+						if(!empty($betriebsdruck)){
+							$ps->setBetriebsdruck($betriebsdruck);
+						}
+						
+						//TODO updateWaermetauscher aufrufen!
+						
+						$this->view->showMessage = true;
+					}
+				}
 			} else {
 				$this->view->message = 'Artikel konnte nicht gefunden werden';
 				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
@@ -100,6 +134,7 @@
 					$this->view->link = '/Waermetauscher';
 				}
 			}
+			
 		}
 		
 		

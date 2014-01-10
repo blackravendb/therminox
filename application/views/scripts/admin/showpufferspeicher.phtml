@@ -1,1 +1,28 @@
-<?php
+<div id="view-content">
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<h1>Pufferspeicher bearbeiten</h1>
+<table border="1">
+  <tr>
+    <th>Produktname</th>
+    <th>Einsatzgebiet</th>
+    <th>Speicherinhalt</th>
+    <th>Betriebsdruck</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <?php 
+  	foreach($this->dbdata as $value){?>
+   <tr>
+	<td><?php echo $value->getModel(); ?></td>
+    <td><?php foreach($value->getEinsatzgebiet() as $gbt){
+    					echo $gbt->getEinsatzgebiet();
+    					} ?></td>
+    <td><?php echo $value->getSpeicherinhalt(); ?></td>
+    <td><?php echo $value->getBetriebsdruck(); ?></td>
+    <?php $url = "/Admin/changepufferspeicher/artikel/" . $value->getModel();?>
+    <td> <a href="<?php echo $url;?>">bearbeiten</a></td> <?php //TODO?>
+    <td><a href="#">löschen</a></td>
+    </tr>
+  <?php }?>
+</table>
+</div>

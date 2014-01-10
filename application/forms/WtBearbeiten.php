@@ -4,7 +4,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	private $dbdata = null;
 	
 	public function init(){
-		$anschluesse = array();
+		$checkedAnschluesse = array();
+		$checkedEinsatzgebiete = array();
 		$i = 0;
 	}
 	
@@ -34,28 +35,16 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 		
-		$einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
-		$einsatzgbt->setLabel('Einsatzgebiet:');
-		foreach($einsatzgebiete as $value){
-        	$einsatzgbt->addMultiOption((string)$value, (string)$value); //funktioniert!
-        }
-		$einsatzgbt->addFilter('StripTags')
-					->addFilter('StringTrim');
-		foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $gbt){
-			$einsatzgebiet = $gbt->getEinsatzgebiet();
-			$einsatzgbt->setValue($einsatzgebiet);
-		}
-		
-		$maxHeight = new Zend_Form_Element_Text('Hoehe');
-		$maxHeight->setLabel('Maximale Höhe:')
+		$height = new Zend_Form_Element_Text('Hoehe');
+		$height->setLabel('Höhe:')
 		->addValidator($val)
 		->setValue($this->dbdata->getHoehe())
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 
-		$maxWidth = new Zend_Form_Element_Text('Breite');
-		$maxWidth->setLabel('Maximale Breite:')
+		$width = new Zend_Form_Element_Text('Breite');
+		$width->setLabel('Breite:')
 		->addValidator($val)
 		->setValue($this->dbdata->getBreite())
 		->addFilter('StripTags')
@@ -68,13 +57,23 @@ class Application_Form_WtBearbeiten extends Zend_Form {
        		$anschluss->addMultiOption((string)$value, (string)$value);
        	}
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
-    					$anschluesse[] = $ans->getAnschluss();
+    					$checkedAnschluesse[] = $ans->getAnschluss();
   						}
-		$anschluss->setValue($anschluesse);
+		$anschluss->setValue($checkedAnschluesse);
 		
+		$einsatzgbt = new Zend_Form_Element_MultiCheckbox('Einsatzgebiete');
+		$einsatzgbt->setLabel('Einsatzgebiete:');
+		foreach($einsatzgebiete as $value){
+        	$einsatzgbt->addMultiOption((string)$value, (string)$value);
+        }
+        foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $value){
+        	$checkedEinsatzgebiete[] = $value->getEinsatzgebiet();
+        }
+		$einsatzgbt->setValue($checkedEinsatzgebiete);
+					
 		$submit = new Zend_Form_Element_Submit('artikelÄndern');
 		$submit->setLabel('Artikel ändern');
 		 
-		$this->addElements(array($name, $temp, $einsatzgbt, $maxHeight, $maxWidth, $anschluss, $submit));
+		$this->addElements(array($name, $temp, $height, $width, $anschluss, $einsatzgbt, $submit));
 	}
 }

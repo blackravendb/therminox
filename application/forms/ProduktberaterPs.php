@@ -11,7 +11,6 @@ class Application_Form_ProduktberaterPs extends Zend_Form {
     	
     	$wtmapper = new Application_Model_PufferspeicherMapper();
         $einsatzgebiete = $wtmapper->getEinsatzgebietListe();
-        $anschluesse = $wtmapper->getAnschlussListe();
         
         $einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
         $einsatzgbt->setLabel('Einsatzgebiet:')

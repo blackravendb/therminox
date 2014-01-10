@@ -21,7 +21,7 @@
    <tr>
 	<?php $url = "/Pufferspeicher/artikel/" . $value->getModel(); //TODO Link anpassen?> 
     <td> <a href="<?php echo $url;?>"><?php echo $value->getModel();?></a></td> 
-    <td><?php foreach($value->getPufferspeicherEinsatzgebiet() as $gbt){
+    <td><?php foreach($value->getEinsatzgebiet() as $gbt){
     					echo $gbt->getEinsatzgebiet();
     					} ?></td>
     <td><?php echo $value->getSpeicherinhalt(); ?></td>

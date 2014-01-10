@@ -1,18 +1,18 @@
-h1#startseite, h1#produktberaterWt {
+h1 {
 	color: #a60002;
 	text-decoration: underline;
 	font-size: 2.0em;
 }
 
-h2.startseite{
+h2{
 	font-size: 1.5em;	
 }
 
-h3#startseite {
+h3{
 	font-size: 1.2em;	
 }
 
-ul.errors{ 
+errors{ 
 	position:absolute;
 	color: #BF0A0A;
 	list-style-type: none;
@@ -23,19 +23,35 @@ dt{
 	float:left;	
 }
 
-label, dd#Anschluss-element{
+label, dd#Anschluss-element, dd#Einsatzgebiete-element{
     width: 10em;
     display: block;
     float: left;
 }
 
-dd#artikelVorschlagen-element, dd#artikelÄndern-element{
+dd#artikelVorschlagen-element{
 	position:absolute;
 	float:left;
 	height:30px;
 	width: 150px;
 	margin-top: 80px;
 	left: 170px;
+}
+
+dd#artikelÄndern-element, dd#artikelPsÄndern-element{
+	position:absolute;
+	float:left;
+	height:30px;
+	width: 150px;
+	left: 170px;
+}
+
+dd#artikelÄndern-element{
+	margin-top: 80px;	
+}
+
+dd#artikelPsÄndern-element{
+	margin-top: 30px;
 }
 
 input#submit{
