@@ -231,15 +231,27 @@ echo 'Wärmetauscher:<br>';
 		echo $value.'<br>';
 }
  
- $vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
+ //$vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
  
- $gebiet = $vvx200->getEinsatzgebiet();
+ //$gebiet = $vvx200->getEinsatzgebiet();
  
- echo $gebiet[0]->getEinsatzgebiet().'<br>';
+ //echo $gebiet[0]->getEinsatzgebiet().'<br>';
  
- echo $vvx200->getModel();
+ //echo $vvx200->getModel();
  
- $blub = $psMapper->getPufferspeicherById(2);
+ //$blub = $psMapper->getPufferspeicherById(2);
+ 
+ $psMapper->setSpeicherinhaltMin(100);
+ $psMapper->setSpeicherinhaltMax(500);
+ $psMapper->setBetriebsdruckMin(8);
+ $psMapper->setEinsatzgebiet('Einfacher Boiler');
+ 
+ $data = $psMapper->getPufferspeicher();
+ 
+ if(empty($data))
+ 	echo "leer";
+ 
+ echo $data[0]->getModel();
 
 //$psMapper->deletePufferspeicher($blub);
  

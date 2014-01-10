@@ -140,8 +140,8 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		$this->initProduktberater();
     	
     	$this->select
-    	->joinleft(array('wt2wtE' => 'waermetauscher2waermetauscherEinsatzgebiet'), 'wt.id = wt2wtE.waermetauscher_id', '')
-    	->joinleft(array('wtE' => 'waermetauscherEinsatzgebiet'), 'wtE.id = wt2wtE.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
+    	->join(array('wt2wtE' => 'waermetauscher2waermetauscherEinsatzgebiet'), 'wt.id = wt2wtE.waermetauscher_id', '')
+    	->join(array('wtE' => 'waermetauscherEinsatzgebiet'), 'wtE.id = wt2wtE.waermetauscherEinsatzgebiet_id', '') //einsatzgebiet
     	->where('wtE.einsatzgebiet = ?', $gebiet);
     }
     
@@ -151,7 +151,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	
     	$this->select
     	->join(array('wt2wtA' => 'waermetauscher2waermetauscherAnschluss'), 'wt.id = wt2wtA.waermetauscher_id', '')
-    	->join(array('wtA' => 'waermetauscherAnschluss'), 'wtA.id = wt2wtA.waermetauscherAnschluss_id', '') //anschluss
+    	->join(array('wtA' => 'waermetauscherAnschluss'), 'wtA.id = wt2wtA.waermetauscherAnschluss_id', '')
 		->where ('wtA.anschluss in (?)', $anschluss);
     }
     

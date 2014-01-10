@@ -50,6 +50,43 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 		return $ret;
 	}
 	
+	public function setEinsatzgebiet($einsatzgebiet) {
+		$this->getDbTable()->setEinsatzgebiet($einsatzgebiet);
+		
+	}
+	
+	public function setSpeicherinhaltMin($speicherinhalt) {
+		$this->getDbTable()->setSpeicherinhaltMin($speicherinhalt);
+	}
+	
+	public function setSpeicherinhaltMax($speicherinhalt) {
+		$this->getDbTable()->setSpeicherinhaltMax($speicherinhalt);
+	}
+	
+	public function setBetriebsdruckMin($betriebsdruck) {
+		$this->getDbTable()->setBetriebsdruckMin($betriebsdruck);
+	}
+	
+	public function setBetriebsdruckMax($betriebsdruck) {
+		$this->getDbTable()->setBetriebsdruckMax($betriebsdruck);
+	}
+	
+	public function getPufferspeicher() {
+		$data = $this->getDbTable()->getPufferspeicher();
+		if(empty($data))
+			return;
+		
+		$ret = array();
+		
+		foreach($data as $value) {
+			$ret[] = $this->setAttributs($value);
+		}
+		
+		return $ret;
+	}
+	
+	
+	
 	public function deletePufferspeicher(Application_Model_Pufferspeicher $pufferspeicher) {
 		$id = $pufferspeicher->getId();
 		if(empty($id))
