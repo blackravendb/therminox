@@ -7,6 +7,7 @@ class App_Acl extends Zend_Acl
 		$this->addRole(new Zend_Acl_Role('Benutzer'), 'Gast'); // erbt von Gast
 		$this->addRole(new Zend_Acl_Role('Administrator'), 'Benutzer');
 		
+		$this->add(new Zend_Acl_Resource('admin'));
 		$this->add(new Zend_Acl_Resource('account'));
 		$this->add(new Zend_Acl_Resource('angebot'));
 		$this->add(new Zend_Acl_Resource('artikel'));
@@ -24,6 +25,8 @@ class App_Acl extends Zend_Acl
 		$this->allow('Gast', 'account', array('login', 'register', 'confirm', 'recover', 'lost'));
 		
  		$this->allow('Benutzer', 'account');
+ 		
+ 		$this->allow('Administrator', 'admin');
 		
 	}
 }
