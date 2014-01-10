@@ -1,7 +1,8 @@
 <?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
 <h1>Produktberater</h1>
+<div id="produktberaterWt">
 <?php echo $this->produktberaterWt;?>
-
+</div>
 <?php if($this->showVor){
 		if($this->keineVorschläge){
 			echo "Es gibt im Moment leider keine passenden Produkte!";
@@ -45,6 +46,5 @@
 <?php 
 	}
 }?>
-     
-    
+
 

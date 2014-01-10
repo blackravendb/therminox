@@ -1,13 +1,13 @@
-<div id="startseite">
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<div class="startseite">
 	<?php foreach ($this->entries as $entry): ?>
     <dt><?php echo $this->escape($entry->Begriff) ?></dt>
     <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
-    <?php endforeach ?>
-	<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>	
+    <?php endforeach ?>	
 	<div align="center">
 	<h3>Willkommen bei</h3>
 	<h1>ThermInox Wärmetechnik</h1>
-		<h2>Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
+		<h2 class="startseite">Eines der größten Wärmetauscher und Edelstahlbehälter Sortimente Deutschlands.</h2>
 			<br/><br/>
 			</div>
 			<p>Therminox ist Ihr Lieferant für Komponenten und Systeme zur Trinkwassererwärmung, für

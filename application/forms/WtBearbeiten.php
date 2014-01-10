@@ -72,7 +72,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
   						}
 		$anschluss->setValue($anschluesse);
 		
-		$submit = new Zend_Form_Element_Submit('submit');
+		$submit = new Zend_Form_Element_Submit('artikelÄndern');
 		$submit->setLabel('Artikel ändern');
 		 
 		$this->addElements(array($name, $temp, $einsatzgbt, $maxHeight, $maxWidth, $anschluss, $submit));
