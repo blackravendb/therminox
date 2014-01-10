@@ -1,0 +1,38 @@
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<h1>Produktberater</h1>
+<div id="produktberaterPs">
+<?php echo $this->produktberaterPs;?>
+</div>
+<?php if($this->showVor){
+		if($this->keineVorschläge){
+			echo "Es gibt im Moment leider keine passenden Produkte!";
+			}else{?>
+<div id="TabellePs">
+
+<h1>Vorschläge</h1>
+<table border="1">
+  <tr>
+    <th>Produktname</th>
+    <th>Einsatzgebiet</th>
+    <th>Speicherinhalt</th>
+    <th>Betriebsdruck</th>
+  </tr>
+  <?php foreach($this->vorschläge as $value){?>
+   <tr>
+	<?php $url = "/Pufferspeicher/artikel/" . $value->getModel(); //TODO Link anpassen?> 
+    <td> <a href="<?php echo $url;?>"><?php echo $value->getModel();?></a></td> 
+    <td><?php foreach($value->getPufferspeicherEinsatzgebiet() as $gbt){
+    					echo $gbt->getEinsatzgebiet();
+    					} ?></td>
+    <td><?php echo $value->getSpeicherinhalt(); ?></td>
+    <td><?php echo $value->getBetriebsdruck(); ?></td>
+    </tr>
+  <?php }?>
+  
+</table>
+</div>
+<?php 
+	}
+}?>
+
+

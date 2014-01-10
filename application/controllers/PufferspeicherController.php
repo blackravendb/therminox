@@ -9,10 +9,59 @@ class PufferspeicherController extends Zend_Controller_Action
        $this->view->keineVorschläge = false;
     }
 
-    public function indexAction()
-    {
-     
-    }
+    public function indexAction(){
+			$this->view->title = "ProduktberaterPufferspeicher";
+     	
+     		$form = new Application_Form_ProduktberaterPs();
+			
+			$form->setMethod ( 'post' );
+			
+			$this->view->produktberaterPs = $form;
+			
+			if ($this->_request->isPost ()) {
+				$formData = $this->_request->getPost ();
+				
+				if ($form->isValid ( $formData )) {
+					$einsatzgbt = $form->getValue('Einsatzgebiet');
+					$minSpeicherinhalt = $form->getValue ( 'minSpeicherinhalt' );
+					$maxSpeicherinhalt = $form->getValue ( 'maxSpeicherinhalt' );
+					$minDruck = $form->getValue ( 'minDruck' );
+					$maxDruck = $form->getValue ( 'maxDruck' );
+					
+					$wtmapper = new Application_Model_PufferspeicherMapper ();
+
+					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) { 
+						$wtmapper->setEinsatzgebiet($einsatzgbt); 
+					}
+					
+					if (! empty ( $minSpeicherinahlt )) {
+						$wtmapper->setSpeicherinhaltMin ( $minSpeicherinahlt );
+					}
+					
+					if (! empty ( $maxSpeicherinahlt )) {
+						$wtmapper->setSpeicherinhaltMax( $maxSpeicherinahltt );
+					}
+					
+					if (! empty ( $minDruck )) {
+						$wtmapper->setBetriebsdruckMin ( $minDruck );
+					}
+					
+					if (! empty ( $maxDruck )) {
+						$wtmapper->setBetriebsdruckMax ( $maxDruck );
+					}
+					
+					$produkte = $wtmapper->getPufferspeicher();
+					
+					if (! empty ( $produkte )) { 
+						$this->view->vorschläge = $produkte;
+					} else {
+						$this->view->keineVorschläge = true;
+					}
+					
+					$this->view->showVor = true; // Vorschläge werden angezeigt
+        		}
+			}
+		}
 
 	public function vvxAction() {
 		$request = $this->getRequest ();
