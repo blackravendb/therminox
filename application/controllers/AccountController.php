@@ -281,13 +281,7 @@ class AccountController extends Zend_Controller_Action
  		}
     }
     
-//     <20:15:53> "Blackraven": $lieferadresse=$user->getLieferadresse();
-//     <20:16:25> "Blackraven": $liieferadresse[0]->setFirma("BlubWare");
-//     <20:16:49> "Blackraven": $benutzerMapper->updateBenutzer($user);
 
-//     <20:17:42> "Blackraven": $lieferadresse2 = new Lieferadresse();
-//     <20:18:02> "Blackraven": $user->insertLieferadresse($lieferadresse2);
-//     <20:18:12> "Blackraven": $benutzerMapper->updateBenutzer($user);
     public function updateAction(){
     	$form = new Application_Form_Address();
     	
