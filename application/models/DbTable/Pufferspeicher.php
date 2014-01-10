@@ -11,6 +11,8 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
 
     protected $select;
     protected $produktberaterSelect;
+    protected $pufferspeicher2pufferspeicherEinsatzgebietDbTable;
+    protected $artikelnummerDbTable;
     
     
     public function init() {
@@ -22,6 +24,27 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	$this->produktberaterSelect = $this->select()
     		->from("$this->_name as ps",'ps.id')
     		->setIntegrityCheck(false);
+    }
+    
+    protected function getPufferspeicher2pufferspeicherEinsatzgebietDbTable() {
+    	if(empty($this->pufferspeicher2pufferspeicherEinsatzgebietDbTable))
+    		$this->pufferspeicher2pufferspeicherEinsatzgebietDbTable = new Application_Model_DbTable_Pufferspeicher2pufferspeicherEinsatzgebiet();
+    	
+    	return $this->pufferspeicher2pufferspeicherEinsatzgebietDbTable;
+    }
+    
+    protected function getPufferspeicherEinsatzgebietDbTable(){
+    	if(empty($this->pufferspeicherEinsatzgebietDbTable))
+    		$this->pufferspeicherEinsatzgebietDbTable = new Application_Model_DbTable_PufferspeicherEinsatzgebiet();
+    	 
+    	return $this->pufferspeicherEinsatzgebietDbTable;
+    }
+    
+    protected function getArtikelnummerDbTable() {
+    	if(empty($this->artikelnummerDbTable))
+    		$this->artikelnummerDbTable = new Application_Model_DbTable_Artikelnummer();
+    	
+    	return $this->artikelnummerDbTable;
     }
 
     public function getPufferspeicherByParams($params) {
@@ -111,6 +134,27 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	$where = $this->getAdapter()->quoteInto('id = ?', $id);
     	
     	$this->delete($where);
+    }
+    
+    public function insertPufferspeicher(Application_Model_Pufferspeicher $pufferspeicher) {
+    	$pufferspeicherData = $pufferspeicher->toArray();
+    	
+    	$einsatzgebiet = $pufferspeicherData['einsatzgebiet'];
+    	
+    	unset($pufferspeicherData['einsatzgebiet']);
+    	unset($pufferspeicherData['artikelnummer']);
+    	
+    	//pufferspeicher einfügen und ID ermitteln
+    	$pufferspeicherId = $this->insert($pufferspeicherData);
+    	
+    	//Artikelnummer generieren
+    	$this->getArtikelnummerDbTable()->insert(array('pufferspeicher_id' => $pufferspeicherId));
+    	
+    	//Einsatzgebiete einfügen
+    	foreach($einsatzgebiet as $value) {
+    		$einsatzgebietId = $this->getPufferspeicherEinsatzgebietDbTable()->getIdByEinsatzgebiet($value->getEinsatzgebiet());
+    		$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->insert(array('pufferspeicher_id' => $pufferspeicherId, 'pufferspeicherEinsatzgebiet_id' => $einsatzgebietId));
+    	}
     }
 
 }
