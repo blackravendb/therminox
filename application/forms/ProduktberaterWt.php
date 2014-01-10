@@ -5,6 +5,8 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     {	
     	parent::__construct($options);
     	
+    	$this->setAttrib('id', 'produktberaterWt');
+    	
     	$wtVal = new Zend_Validate_Digits('1234567890');
     	
     	$wtmapper = new Application_Model_WaermetauscherMapper();
@@ -69,7 +71,7 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
        	}
 		$anschluss->setValue($anschluesse);
 		
-		$submit = new Zend_Form_Element_Submit('submit');
+		$submit = new Zend_Form_Element_Submit('artikelVorschlagen');
         $submit->setLabel('Artikel vorschlagen');
         	
         $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $minHeight, $maxHeight, $minWidth, $maxWidth, $anschluss, $submit));
