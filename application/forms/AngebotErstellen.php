@@ -22,7 +22,7 @@ class Application_Form_AngebotErstellen extends App_Form {
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Angebot absenden');
 		
-		$this->addElements(array($extraInfo, $addMore,$submit));
+		$this->addElements(array($extraInfo, $addMore, $submit));
 		
 	}
 	

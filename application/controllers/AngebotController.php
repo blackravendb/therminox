@@ -2,33 +2,61 @@
 class AngebotController extends Zend_Controller_Action {
 	public function init() {
 		require_once 'Cart/ShoppingCart.php';
-		session_start ();
+		
 	}
 	public function indexAction() {
-	
 	}
-	
-	public function erstellenAction(){
+	public function erstellenAction() {
 		$request = $this->getRequest ();
-		$art = $request->getParam ( 'artikel' );
+		$_art = $request->getParam ( 'artikel' );
+		$_cat;
 		
-		$this->view->artID = $art;
-		if(substr_compare ( $art , 'BH' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Wärmetauscher";
+		$this->view->artID = $_art;
+		if (substr_compare ( $_art, 'BH', 0, 2, false ) === 0) {
+			$_cat = "Wärmetauscher";
+			$this->view->artCat = $_cat;
 		}
-		if(substr_compare ( $art , 'VV' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Pufferspeicher";
+		if (substr_compare ( $_art, 'VV', 0, 2, false ) === 0) {
+			$_cat = "Pufferspeicher";
+			$this->view->artCat = $_cat;
 		}
-		if(substr_compare ( $art , 'LA' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Pufferspeicher";
+		if (substr_compare ( $_art, 'LA', 0, 2, false ) === 0) {
+			$_cat = "Pufferspeicher";
+			$this->view->artCat = $_cat;
 		}
-		$form = new Application_Form_AngebotErstellen();
+		
+		$form = new Application_Form_AngebotErstellen ();
+		
+		$form->setMethod ( 'post' );
+		
+		if ($this->_request->isPost ()) {
+			$formData = $this->getRequest ()->getPost ();
+			
+			if ($formData ['submit'] == 'addMore') {
+				// in session zwischenspeichern
+				$_SESSION ['button'] = "weitere artikel adden";
+			}
+			if ($formData ['submit'] == 'submit') {
+				// in db abspeichern
+				$_SESSION ['button'] = "in db speichern";
+			}
+				if ($form->isValid ( $formData )) {
+					$form_message = $form->getValue ( 'extraInfo' );
+				}
+				$cart = new ShoppingCartIf ();
+				$cart->addItem ( $_art, $_cat, $form_message );
+				
+				$_SESSION ['angebotskorb'] = $cart;
+				
+				$this->_redirect ( 'angebot/anzeigen' );
+				
+		}
+		
 		$this->view->form = $form;
 	}
-	
 	public function anzeigenAction() {
-		if (isset ( $_SESSION ['__cart'] ) && $_SESSION ['__cart'] instanceof ShoppingCartIf) {
-			$cart = $_SESSION ['__cart'];
+		if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
+			$cart = $_SESSION ['angebotskorb'];
 			$this->view->cartContents = $cart->getCartContents ();
 		} else {
 			$this->view->cartContents = array ();
@@ -39,13 +67,13 @@ class AngebotController extends Zend_Controller_Action {
 		$artnr = $request->getParam ( 'artID' );
 		if (null != $artnr) {
 			$cart = null;
-			if (isset ( $_SESSION ['__cart'] ) && $_SESSION ['__cart'] instanceof ShoppingCartIf) {
-				$cart = $_SESSION ['__cart'];
+			if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
+				$cart = $_SESSION ['angebotskorb'];
 			} else {
 				$cart = new ShoppingCart ();
 			}
 			$cart->addItem ( $artnr );
-			$_SESSION ['__cart'] = $cart;
+			$_SESSION ['angebotskorb'] = $cart;
 			
 			$this->_redirect ( '/artikel' );
 		} else {

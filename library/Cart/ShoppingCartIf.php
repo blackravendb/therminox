@@ -9,7 +9,7 @@ interface ShoppingCartIf {
      *      Artikel n-fach in den Warenkorb gelegt
      * @return void
      */
-    public function addItem($key, $amount = 1);
+    public function addItem($key,$kat,$msg);
     
     /**
      * Artikel aus dem Warenkorb entfernen.
@@ -22,7 +22,7 @@ interface ShoppingCartIf {
      *      Artikel n-fach aus dem Warenkorb entfernt
      * @return void
      */
-    public function removeItem($key, $amount = 1);
+    public function removeItem($key);
     
     /**
      * Warenkorb komplett leeren
