@@ -2,14 +2,23 @@
 class AngebotController extends Zend_Controller_Action {
 	public function init() {
 		require_once 'Cart/ShoppingCart.php';
-		
 	}
 	public function indexAction() {
+		$_mapper = new Application_Model_AngebotskorbMapper();
+		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+		$_offers = $_mapper->getAngebotskorbByEmail($email);
+		$this->view->_offers = $_offers;
 	}
+	
 	public function erstellenAction() {
 		$request = $this->getRequest ();
-		$_art = $request->getParam ( 'artikel' );
-		$_cat;
+		$_art_nr = $request->getParam ( 'artikelnummer' );
+		$_cat = null;
+		$_art = null;
+		
+		$artmapper = new Application_Model_ArtikelMapper ();
+		$_art = $artmapper->getArtikelByArtikelnummer ( $_art_nr );
+		$_art = $_art->getModel ();
 		
 		$this->view->artID = $_art;
 		if (substr_compare ( $_art, 'BH', 0, 2, false ) === 0) {
@@ -28,31 +37,35 @@ class AngebotController extends Zend_Controller_Action {
 		$form = new Application_Form_AngebotErstellen ();
 		
 		$form->setMethod ( 'post' );
+		$this->view->form = $form;
 		
 		if ($this->_request->isPost ()) {
 			$formData = $this->getRequest ()->getPost ();
-			
-			if ($formData ['submit'] == 'addMore') {
-				// in session zwischenspeichern
-				$_SESSION ['button'] = "weitere artikel adden";
-			}
-			if ($formData ['submit'] == 'submit') {
-				// in db abspeichern
-				$_SESSION ['button'] = "in db speichern";
-			}
-				if ($form->isValid ( $formData )) {
-					$form_message = $form->getValue ( 'extraInfo' );
+			if ($form->isValid ( $formData )) {
+				
+				if ($formData ['submit'] == 'addMore') {
+					if (! isset ( $_SESSION ['angebotskorb'] )) {
+						$_SESSION ['angebotskorb'] = new Application_Model_Angebotskorb ();
+						$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+						$_SESSION ['angebotskorb']->setBenutzer_email ( $email );
+					}
+					
+					$_offer = new Application_Model_Angebot ();
+					$_offer->setArtikelnummer ( $_art_nr );
+					$_SESSION ['angebotskorb']->setAngebot ( $_offer );
 				}
-				$cart = new ShoppingCartIf ();
-				$cart->addItem ( $_art, $_cat, $form_message );
+				if ($formData ['submit'] == 'submit') {
+					// DB Anbindung kommt noch zum persistenten speichern!
+				}
 				
-				$_SESSION ['angebotskorb'] = $cart;
-				
-				$this->_redirect ( 'angebot/anzeigen' );
-				
+				$form_message = $form->getValue ( 'extraInfo' );
+			}
+			
+			
+			$this->_redirect ( 'angebot/anzeigen' );
 		}
 		
-		$this->view->form = $form;
+		
 	}
 	public function anzeigenAction() {
 		if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {

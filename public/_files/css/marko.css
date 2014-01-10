@@ -1,50 +1,40 @@
-
 .bild {
-    
-    float: left;
-    width: 45%;
-    display: inline;
-   
+	float: left;
+	width: 45%;
+	display: inline;
 }
 
 .daten {
-	
-    float: left;
-    width: 55%;
-    display: inline;
+	float: left;
+	width: 55%;
+	display: inline;
 	color: #696969;
 }
 
 .grunddaten {
-	
 	float: left;
 	width: 35%;
 	display: inline;
 }
 
-.modelle  {
-	
+.modelle {
 	float: left;
 	width: 25%;
 	display: inline;
 }
 
 .static_bild {
-    
-    float: left;
-    width: 38%;
-    display: inline-block;
-    color: #696969;
-    
+	float: left;
+	width: 38%;
+	display: inline-block;
+	color: #696969;
 }
 
 .static_text {
-	
-    float: left;
-    width: 32%;
-    display: inline-block;
-    color: #696969;
-
+	float: left;
+	width: 32%;
+	display: inline-block;
+	color: #696969;
 }
 
 .static_text2 {
@@ -52,15 +42,13 @@
 }
 
 .static_grunddaten {
-	
 	float: left;
-    display: inline-block;
-    color: #696969;
+	display: inline-block;
+	color: #696969;
 }
 
-.static_modelle  {
-	
+.static_modelle {
 	float: left;
 	width: 25%;
 	display: inline;
-} 
+}
