@@ -37,11 +37,15 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     	}
 
     public function getAngebotskorbByEmail($email) {
+    	$this->select
+    	->where("benutzer_email = ?", $email);
     	$angebotskoerbe = parent::fetchAll($this->select);
     	
     	if(empty($angebotskoerbe)){
     		return;
     	}
+    	
+    	$this->init();
     	
     	$ret = array();
     	
@@ -53,6 +57,25 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     	}
     	
     	return $ret;
+    }
+    
+    public function insertAngebotskorb(Application_Model_Angebotskorb $angebotskorb) {
+    	$angebotskorbData = $angebotskorb->toArray();
+    	
+    	//angebote für späteres schreiben zwischenspeichern
+    	$angebote = $angebotskorbData['angebot'];
+    	unset($angebotskorbData['angebot']);
+    	
+    	//id löschen, da durch DB generiert
+    	unset($angebotskorbData['id']);
+    	
+    	$angebotskorbId = $this->insert($angebotskorbData);
+    	
+    	//Angebote schreiben
+    	foreach($angebote as $value){
+    		$this->getAngebotDbTable()->insertAngebot($value, $angebotskorbId);
+    	}
+    	
     }
 }
 
