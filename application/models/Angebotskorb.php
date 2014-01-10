@@ -23,7 +23,7 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 		return $this->_id;
 	}
 	
-	protected function setBenutzer_email($email) {
+	public function setBenutzer_email($email) {
 		$this->_benutzer_email = $email;
 		return $this;
 	}
