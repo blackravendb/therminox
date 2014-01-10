@@ -52,3 +52,7 @@
 	width: 25%;
 	display: inline;
 }
+
+#extraInfo {
+    resize: none;
+}
