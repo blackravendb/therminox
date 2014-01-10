@@ -23,7 +23,7 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 		return $this->_angebtskorb_id;
 	}
 	
-	protected function setArtikelnummer($id) {
+	public function setArtikelnummer($id) {
 		$this->_artikelnummer = (int)$id;
 		return $this;
 	}

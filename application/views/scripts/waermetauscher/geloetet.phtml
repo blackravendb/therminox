@@ -44,9 +44,10 @@
 	$art_loc = $data_object->getWaermetauscherEinsatzgebiet ();
 	$art_conn = $data_object->getWaermetauscherAnschluss ();
 	$art_types = $data_object->getWaermetauscherUnterkategorie ();
+	$art_nr = $data_object->getArtikelnummer();
 	
 	echo '<br>';
-	echo '<h1>Wärmetauscher ' . $art_model . '</h1>';
+	echo '<div class="static_text2"><h1>Wärmetauscher ' . $art_model . '</h1></div>';
 	
 	echo '<br>';
 	// TODO funzt noch ned
@@ -114,7 +115,7 @@
 		
 	echo '</div>';
 	
-	echo  '<a href="/Angebot/erstellen/artikel/'.$art_model.'">Angebot über diesen Artikel einholen</a><div>';
+	echo  '<a href="/Angebot/erstellen/artikelnummer/'.$art_nr.'">Angebot über diesen Artikel einholen</a><div>';
 	
 	?>
 	

@@ -12,6 +12,8 @@ class ShoppingCart implements ShoppingCartIf
 	 * @var array
 	 */
 	private $articles;
+	
+	
 
 
 	/**
@@ -31,16 +33,12 @@ class ShoppingCart implements ShoppingCartIf
 	 *      Artikel n-fach in den Warenkorb gelegt
 	 * @return void
 	 */
-	public function addItem($key, $amount = 1) {
-		if ($amount < 1 || ! ShoppingCart::isValidKey($key)) {
-			return;
-		}
+	public function addItem($key, $kat,$msg) {
 
 		if (! array_key_exists($key, $this->articles)) {
-			$this->articles[$key] = 0;
+			$this->articles[$key] = array($kat,$msg);
 		}
 
-		$this->articles[$key] += $amount;
 	}
 
 	/**
@@ -54,20 +52,14 @@ class ShoppingCart implements ShoppingCartIf
 	 *      Artikel n-fach aus dem Warenkorb entfernt
 	 * @return void
 	 */
-	public function removeItem($key, $amount = 1) {
-		if ($amount < 1 || ! ShoppingCart::isValidKey($key)) {
-			return;
-		}
+	public function removeItem($key) {
 
 		if (! array_key_exists($key, $this->articles)) {
 			return;
 		}
 
-		if (0 >= $this->articles[$key] - $amount) {
-			unset($this->articles[$key]);
-		} else {
-			$this->articles[$key] -= $amount;
-		}
+		unset($this->articles[$key]);
+		
 	}
 
 	/**
@@ -114,6 +106,7 @@ class ShoppingCart implements ShoppingCartIf
 	 */
 	public function getCartContents() {
 		return $this->articles;
+		
 	}
 
 	private function isValidKey($key) {

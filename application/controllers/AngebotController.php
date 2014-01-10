@@ -2,33 +2,74 @@
 class AngebotController extends Zend_Controller_Action {
 	public function init() {
 		require_once 'Cart/ShoppingCart.php';
-		session_start ();
 	}
 	public function indexAction() {
-	
+		$_mapper = new Application_Model_AngebotskorbMapper ();
+		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
+		$this->view->_offers = $_offers;
 	}
-	
-	public function erstellenAction(){
+	public function erstellenAction() {
 		$request = $this->getRequest ();
-		$art = $request->getParam ( 'artikel' );
+		$_art_nr = $request->getParam ( 'artikelnummer' );
+		$_cat = null;
+		$_art = null;
 		
-		$this->view->artID = $art;
-		if(substr_compare ( $art , 'BH' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Wärmetauscher";
+		$artmapper = new Application_Model_ArtikelMapper ();
+		$_art = $artmapper->getArtikelByArtikelnummer ( $_art_nr );
+		$_art = $_art->getModel ();
+		
+		$this->view->artID = $_art;
+		if (substr_compare ( $_art, 'BH', 0, 2, false ) === 0) {
+			$_cat = "Wärmetauscher";
+			$this->view->artCat = $_cat;
 		}
-		if(substr_compare ( $art , 'VV' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Pufferspeicher";
+		if (substr_compare ( $_art, 'VV', 0, 2, false ) === 0) {
+			$_cat = "Pufferspeicher";
+			$this->view->artCat = $_cat;
 		}
-		if(substr_compare ( $art , 'LA' , 0 , 2 , false  )=== 0){
-			$this->view->artCat = "Pufferspeicher";
+		if (substr_compare ( $_art, 'LA', 0, 2, false ) === 0) {
+			$_cat = "Pufferspeicher";
+			$this->view->artCat = $_cat;
 		}
-		$form = new Application_Form_AngebotErstellen();
+		
+		$form = new Application_Form_AngebotErstellen ();
+		
+		$form->setMethod ( 'post' );
+		$_action = '/Angebot/erstellen/artikelnummer/' . $_art_nr;
+		$form->setAction ( $_action );
 		$this->view->form = $form;
+		
+		if ($this->_request->isPost ()) {
+			$formData = $this->getRequest()->getPost();
+			
+			if ($form->isValid ( $formData)) {
+				$form->populate ( $_POST );
+				if ($form->addMore->isChecked ()) {
+					if (! isset ( $_SESSION ['angebotskorb'] )) {
+						$_SESSION ['angebotskorb'] = new Application_Model_Angebotskorb ();
+						$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+						$_SESSION ['angebotskorb']->setBenutzer_email ( $email );
+					}
+					
+					$_offer = new Application_Model_Angebot ();
+					$_offer->setArtikelnummer ( $_art_nr );
+					$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
+					echo 'addmore';
+				}
+				if ($form->submit->isChecked ()) {
+					echo 'submit warten auf db';
+					$this->_redirect ( 'angebot/anzeigen' );
+				}
+				// $form_message = $form->getValue ( 'extraInfo' );
+			}
+			
+			// 
+		}
 	}
-	
 	public function anzeigenAction() {
-		if (isset ( $_SESSION ['__cart'] ) && $_SESSION ['__cart'] instanceof ShoppingCartIf) {
-			$cart = $_SESSION ['__cart'];
+		if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
+			$cart = $_SESSION ['angebotskorb'];
 			$this->view->cartContents = $cart->getCartContents ();
 		} else {
 			$this->view->cartContents = array ();
@@ -39,13 +80,13 @@ class AngebotController extends Zend_Controller_Action {
 		$artnr = $request->getParam ( 'artID' );
 		if (null != $artnr) {
 			$cart = null;
-			if (isset ( $_SESSION ['__cart'] ) && $_SESSION ['__cart'] instanceof ShoppingCartIf) {
-				$cart = $_SESSION ['__cart'];
+			if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
+				$cart = $_SESSION ['angebotskorb'];
 			} else {
 				$cart = new ShoppingCart ();
 			}
 			$cart->addItem ( $artnr );
-			$_SESSION ['__cart'] = $cart;
+			$_SESSION ['angebotskorb'] = $cart;
 			
 			$this->_redirect ( '/artikel' );
 		} else {
