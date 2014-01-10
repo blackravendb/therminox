@@ -3,8 +3,11 @@
 <div id="register_wrapper">
 	<h3>Registrieren</h3>
 	<p>Bitte füllen Sie alle Pflichtfelder aus, um einen neuen Benutzer zu registrieren.</p>
+	<br>
 	<?php echo $this->Errors($this->errorMessage);?>
 	<div id="register_container">
 		<?php echo $this->form; ?>
 	</div>
+	<p>Bevor Sie sich einloggen können, müssen Sie Ihre E-mail Adresse bestätigt haben.</p>
+	<p>Überprüfen sie auch Ihren Spam-Ordner. </p>
 </div>

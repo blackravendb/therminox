@@ -20,13 +20,14 @@ class App_Acl extends Zend_Acl
 		$this->add(new Zend_Acl_Resource('wasserwaermer'));
 		
 		
-		$this->allow('Gast');
-		$this->deny('Gast', 'account');
+		$this->allow('Gast'); 
+		$this->deny('Gast', 'account'); //TODO deny moar stuff
 		$this->allow('Gast', 'account', array('login', 'register', 'confirm', 'recover', 'lost'));
 		
  		$this->allow('Benutzer', 'account');
  		
  		$this->allow('Administrator', 'admin');
-		
+ 		$this->deny('Administrator', 'account', array('profile', 'update', 'delete', 'address'));
+ 		$this->deny('Administrator', 'angebot');
 	}
 }

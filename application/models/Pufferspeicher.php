@@ -88,18 +88,33 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 		return $this->_temperaturMax;
 	}
 	
-	public function setEinsatzgebiet($gebiet) {
-		if(is_array($gebiet)){
-			$this->_einsatzgebiet = $gebiet;
-		}
-		else {
-			$this->_einsatzgebiet[] = $gebiet;
-		}
+	protected function setEinsatzgebiet($gebiet) {
+		$this->_einsatzgebiet = $gebiet;
 		return $this;
+	}
+	
+	public function insertEinsatzgebiet($gebiet) {
+		$enthalten = false;
+		
+		//Noch kein Wert gesetzt, Array anlegen und Wert zuweisen
+		if(empty($this->_einsatzgebiet)){
+			$this->_einsatzgebiet = array($gebiet);
+			return true;
+		}
+		foreach($this->_einsatzgebiet as $value){
+			if($value === $gebiet)
+				$enthalten = true;
+		}
+		if(!enthalten){
+			$this->_einsatzgebiet[] = $gebiet;
+			return true;
+		}
+		return false;
 	}
 	
 	public function getEinsatzgebiet() {
 		return $this->_einsatzgebiet;
 	}
+	
 }
 
