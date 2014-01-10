@@ -1,14 +1,17 @@
 <?php
 class AngebotController extends Zend_Controller_Action {
+	
 	public function init() {
 		require_once 'Cart/ShoppingCart.php';
 	}
+	
 	public function indexAction() {
 		$_mapper = new Application_Model_AngebotskorbMapper ();
 		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
 		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
 		$this->view->_offers = $_offers;
 	}
+	
 	public function erstellenAction() {
 		$request = $this->getRequest ();
 		$_art_nr = $request->getParam ( 'artikelnummer' );
@@ -41,9 +44,9 @@ class AngebotController extends Zend_Controller_Action {
 		$this->view->form = $form;
 		
 		if ($this->_request->isPost ()) {
-			$formData = $this->getRequest()->getPost();
+			$formData = $this->getRequest ()->getPost ();
 			
-			if ($form->isValid ( $formData)) {
+			if ($form->isValid ( $formData )) {
 				$form->populate ( $_POST );
 				if ($form->addMore->isChecked ()) {
 					if (! isset ( $_SESSION ['angebotskorb'] )) {
@@ -64,17 +67,36 @@ class AngebotController extends Zend_Controller_Action {
 				// $form_message = $form->getValue ( 'extraInfo' );
 			}
 			
-			// 
+			//
 		}
 	}
+	
 	public function anzeigenAction() {
-		if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
-			$cart = $_SESSION ['angebotskorb'];
-			$this->view->cartContents = $cart->getCartContents ();
-		} else {
-			$this->view->cartContents = array ();
+		$request = $this->getRequest ();
+		$_offerID = $request->getParam ( 'id' );
+		$this->view->offerID = $_offerID;
+		
+		$_mapper = new Application_Model_AngebotskorbMapper ();
+		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
+		$_articleIDs = array ();
+		
+		foreach ( $_offers as $_offer ) {
+			if ($_offerID === $_offer->getId ()) {
+				$_articleIDs = $_offer->getAngebot ();
+			}
 		}
+		
+		$_articles = array ();
+		$_mapper = new Application_Model_ArtikelMapper ();
+		
+		foreach ( $_articleIDs as $_articleID ) {
+			$_articles = $_mapper->getArtikelByArtikelnummer ( $_articleID );
+		}
+		
+		$this->view->articles = $_articles;
 	}
+	
 	public function addAction() {
 		$request = $this->getRequest ();
 		$artnr = $request->getParam ( 'artID' );
@@ -98,10 +120,12 @@ class AngebotController extends Zend_Controller_Action {
 			}
 		}
 	}
+	
 	public function abschickenAction() {
 		// action body
 		// in db schreiben + email schicken
 	}
+	
 	public function removeAction() {
 		$this->_redirect ( Angebot );
 		// $this->_redirect ( $_SERVER ['HTTP_REFERER'] );

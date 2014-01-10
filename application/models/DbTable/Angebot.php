@@ -50,6 +50,28 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
    		
    		return $data->toArray();
    }
+   
+   public function insertAngebot (Application_Model_Angebot $angebot, $angebotskorbId){
+   	if(empty($angebot) || empty($angebotskorbId))
+   		return false;
+   	
+   	$angebotData = $angebot->toArray();
+   	$angebotData['angebotskorb_id'] = (int)$angebotskorbId;
+   	$angebotData['angebotStatus_id'] = $this->getStatus_idByStatus($angebotData['status']);
+   	unset($angebotData['status']);
+   	
+   	$ret = $this->insert($angebotData);
+   	
+   }
+   
+   private function getStatus_idByStatus($status) {
+   	$statusDbT = new Application_Model_DbTable_AngebotStatus();
+   	$statusData = $statusDbT->getIdByStatus($status);
+   	if(empty($statusData))
+   		return;
+   
+   	return $statusData;
+   }
     
     
 

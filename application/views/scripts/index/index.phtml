@@ -251,10 +251,36 @@ echo 'Wärmetauscher:<br>';
  
  $angebotMapper = new Application_Model_AngebotskorbMapper();
  
- $angebotskorb = $angebotMapper->getAngebotskorbByEmail('"test@test.de');
+ $angebotskorb = $angebotMapper->getAngebotskorbByEmail('test@test.de');
  
  $angebot = $angebotskorb[0]->getAngebot();
- echo $angebot[0]->getStatus();
+ //echo $angebot[0]->getStatus();
+ 
+ echo'<br>neuerVersuch<br>';
+ $angebotskorb2 = new Application_Model_Angebotskorb();
+ 
+ $angebot2 = new Application_Model_Angebot();
+ $angebot2->setArtikelnummer(1);
+ $angebot2->setStatus('In Bearbeitung');
+ $angebot2->setBemerkung('Blub123');
+ 
+ $angebot3 = new Application_Model_Angebot();
+ $angebot3->setArtikelnummer(3);
+ $angebot3->setStatus('In Bearbeitung');
+ $angebot3->setBemerkung('blau');
+ 
+ $angebotskorb2->setBenutzer_email('dennis.brandmueller@stud.fh-rosenheim.de');
+ $angebotskorb2->insertAngebot($angebot2);
+ $angebotskorb2->insertAngebot($angebot3);
+
+ 
+ //$angebotMapper->insertAngebotskorb($angebotskorb2);
+ 
+ $angebote = $angebotMapper->getAngebotskorbByEmail('dennis.brandmueller@stud.fh-rosenheim.de');
+ 
+ foreach($angebote as $value){
+	echo $value->getId().$value->getBenutzer_email().'<br>';
+}
  
  
  echo '<br>-------------------------------------------------------------------------------------';

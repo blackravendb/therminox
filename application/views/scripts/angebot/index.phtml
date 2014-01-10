@@ -8,7 +8,6 @@
 <table border="1">
 	<tr>
 		<th>Angebotsnummer</th>
-		<th>Artikel</th>
 		<th>Erstelldatum</th>
 		<th>Bearbeitungsstatus</th>
 		<th>&#160;</th>
@@ -16,10 +15,10 @@
 tablehead;
 		foreach ($_offers as $offer){
 			$_art = $offer->getAngebot();
-			echo '<tr><td>'.$_offer->getAngebotskorb_id().'<td>';
-			echo '';
+			echo '<tr><td>'.$_offer->getAngebotskorb_id().'</td>';
+			echo '<td>'.$_offer->getErstelldatum().'</td>';
 			echo '<td>'.$_art->getStatus().'</td>';
-			echo '<td><a href="/Angebot/anzeigen/id/'.$_art->getArtikelnummer().'">Anzeigen</a></td>';
+			echo '<td><a href="/Angebot/anzeigen/id/'.$_offer->getAngebotskorb_id().'">Anzeigen</a></td>';
 			echo '</tr></table>';
 		}
 ?>

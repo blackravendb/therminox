@@ -3,14 +3,18 @@
 class Application_Model_Angebot extends Application_Model_TableAbstract {
 
 	protected $_angebotskorb_id;
-	protected $_artikelnummer;
-	protected $_status;	
+	protected $_artikelnummer_id;
+	protected $_status;
+	protected $_bemerkung;
+	protected $_erstelldatum;
 	
 	public function toArray() {
 		return array(
 				"angebotskorb_id" => $this->_angebotskorb_id,
-				"artikelnummer" => $this->_artikelnummer,
-				"status" => $this->_status
+				"artikelnummer_id" => $this->_artikelnummer_id,
+				"status" => $this->_status,
+				"bemerkung" => $this->_bemerkung,
+				"erstelldatum" => $this->_erstelldatum
 		);
 	}
 	
@@ -23,8 +27,14 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 		return $this->_angebtskorb_id;
 	}
 	
+	protected function setArtikelnummer_id($id) {
+		$this->_artikelnummer_id =(int)$id;
+	}
+	
 	public function setArtikelnummer($id) {
-		$this->_artikelnummer = (int)$id;
+		if($this->_artikelnummer_id !== $id){
+			$this->_artikelnummer_id = (int)$id;
+		}
 		return $this;
 	}
 	
@@ -36,10 +46,31 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 		if($this->_status !== $status){
 			$this->_status = $status;
 		}
+		return $this;
 	}
 	
 	public function getStatus() {
 		return $this->_status;
+	}
+	
+	public function setBemerkung($text) {
+		if($this->_bemerkung !== $text){
+			$this->_bemerkung = $text;
+		}
+		return $this;
+	}
+	
+	public function getBemerkung() {
+		return $this->_bemerkung;
+	}
+	
+	protected function setErstelldatum($datum) {
+		$this->_einstelldatum = $datum;
+		return $this;
+	}
+	
+	public function getErstelldatum() {
+		return $this->_einstelldatum;
 	}
 
 }

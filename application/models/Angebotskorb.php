@@ -37,6 +37,11 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 		return $this;
 	}
 	
+	public function insertAngebot(Application_Model_Angebot $angebot) {
+		$this->_angebot[] = $angebot;
+		return $this;
+	}
+	
 	public function getAngebot() {
 		return $this->_angebot;
 	}
