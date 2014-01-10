@@ -33,13 +33,6 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
         }
         $einsatzgbt->addFilter('StripTags')
            			->addFilter('StringTrim');
-        			
-        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
-        $anschluss->setLabel('Anschlüsse:');
-       	foreach($anschluesse as $value){
-       		$anschluss->addMultiOption((string)$value, (string)$value);
-       	}
-		$anschluss->setValue($anschluesse);
        	
        	$minHeight = new Zend_Form_Element_Text('HoeheMin');
 		$minHeight->setLabel('Minimalhöhe:')
@@ -68,10 +61,17 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
+        
+        $anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
+        $anschluss->setLabel('Anschlüsse:');
+       	foreach($anschluesse as $value){
+       		$anschluss->addMultiOption((string)$value, (string)$value);
+       	}
+		$anschluss->setValue($anschluesse);
 		
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');
         	
-        $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $anschluss, $minHeight, $maxHeight, $minWidth, $maxWidth, $submit));
+        $this->addElements(array($minTemp, $maxTemp, $einsatzgbt, $minHeight, $maxHeight, $minWidth, $maxWidth, $anschluss, $submit));
 	}
   }

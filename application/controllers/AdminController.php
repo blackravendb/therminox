@@ -48,12 +48,24 @@
 						$wt = new Application_Model_WaermetauscherMapper();
 						$wt_art = $wt->getWaermetauscherByModel($artikelname);
 						
-						$wt_art->setModel($artikelname);
-						$wt_art->setTemperatur($temp);
+						if (!empty($artikelname)) {
+							$wt_art->setModel($artikelname);
+						}
+						if(!empty($temp)){
+							$wt_art->setTemperatur($temp);
+						}
+						
 						$wt_art->setWaermetauscherEinsatzgebiet($einsatzgbt);
-						$wt_art->setWaermetauscherAnschluss($anschluss);
-						$wt_art->setHoehe($maxHeight);
-						$wt_art->setBreite($maxWidth);
+						
+						if(!empty($anschluss)){ //TODO Dennis fragen, wann setter aufgerufen werden soll
+							$wt_art->setWaermetauscherAnschluss($anschluss);
+						}
+						if(!empty($maxHeight)){
+							$wt_art->setHoehe($maxHeight);
+						}
+						if(!empty($maxWidth)){
+							$wt_art->setBreite($maxWidth);
+						}
 						
 						//TODO updateWaermetauscher aufrufen!
 						

@@ -1,11 +1,12 @@
 <div>
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
 <?php 
 echo $this->wtbearbeiten; 
 
 if($this->showMessage == true){
 ?>
-
+<div id="geändert">
 <p>Wärmetauscher wurde erfolgreich geändert</p>
-
+</div>
 <?php }?>
 </div>

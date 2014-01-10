@@ -14,6 +14,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	
 	public function startform(){
 		
+		$val = new Zend_Validate_Digits('1234567890');
+		
 		$wtmapper = new Application_Model_WaermetauscherMapper();
         $einsatzgebiete = $wtmapper->getEinsatzgebietListe();
         $anschluesse = $wtmapper->getAnschlussListe();
@@ -26,9 +28,11 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		 
 		$temp = new Zend_Form_Element_Text('Temperatur');
 		$temp->setLabel('Temperatur:')
+		->addValidator($val)
 		->setValue($this->dbdata->getTemperatur())
 		->addFilter('StripTags')
-		->addFilter('StringTrim');
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 		
 		$einsatzgbt = new Zend_Form_Element_Select('Einsatzgebiet');
 		$einsatzgbt->setLabel('Einsatzgebiet:');
@@ -41,7 +45,23 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 			$einsatzgebiet = $gbt->getEinsatzgebiet();
 			$einsatzgbt->setValue($einsatzgebiet);
 		}
-		 
+		
+		$maxHeight = new Zend_Form_Element_Text('Hoehe');
+		$maxHeight->setLabel('Maximale Höhe:')
+		->addValidator($val)
+		->setValue($this->dbdata->getHoehe())
+		->addFilter('StripTags')
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
+
+		$maxWidth = new Zend_Form_Element_Text('Breite');
+		$maxWidth->setLabel('Maximale Breite:')
+		->addValidator($val)
+		->setValue($this->dbdata->getBreite())
+		->addFilter('StripTags')
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
+
 		$anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
 		$anschluss->setLabel('Anschlüsse:');
 		foreach($anschluesse as $value){
@@ -52,21 +72,9 @@ class Application_Form_WtBearbeiten extends Zend_Form {
   						}
 		$anschluss->setValue($anschluesse);
 		
-		$maxHeight = new Zend_Form_Element_Text('Hoehe');
-		$maxHeight->setLabel('Maximale Höhe:')
-		->setValue($this->dbdata->getHoehe())
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
-
-		$maxWidth = new Zend_Form_Element_Text('Breite');
-		$maxWidth->setLabel('Maximale Breite:')
-		->setValue($this->dbdata->getBreite())
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
-
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Artikel ändern');
 		 
-		$this->addElements(array($name, $temp, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $submit));
+		$this->addElements(array($name, $temp, $einsatzgbt, $maxHeight, $maxWidth, $anschluss, $submit));
 	}
 }

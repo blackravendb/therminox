@@ -1,9 +1,8 @@
-<div id="view-content">
+<div id="startseite">
 	<?php foreach ($this->entries as $entry): ?>
     <dt><?php echo $this->escape($entry->Begriff) ?></dt>
     <dd><?php echo $this->escape($entry->ErklaerungID) ?></dd>
     <?php endforeach ?>
-</div>
 	<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>	
 	<div align="center">
 	<h3>Willkommen bei</h3>
@@ -60,3 +59,4 @@
 			<h3>Durchlauferhitzer</h3>
 				<img src="/_files/images/Durchlauferhitzer.png" alt="Durchlauferhitzer" id="bilder">
 				<p>Die Durchlaufwassererwärmer dienen der bedarfsgerechten Warmwasserbereitung aus Nah- bzw. Fernwärme. Sie zeichnen sich durch geringe Wärmeverluste und einen hohen Wirkungsgrad aus.</p>
+</div>
