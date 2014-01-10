@@ -208,7 +208,7 @@ class AccountController extends Zend_Controller_Action
     				if ($form->isValid($this->_request->getPost())) {
     					$userMapper = new Application_Model_BenutzerMapper();
     					$user = $userMapper->getBenutzer($link->getEmail());
-    					$user->setPasswort($form->getValue('password'));
+    					$user->setKlartextPasswort($form->getValue('password'));
     					$userMapper->updateBenutzer($user);
     			
     					$linkMapper->deleteLink($link);

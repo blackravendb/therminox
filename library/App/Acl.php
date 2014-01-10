@@ -22,6 +22,7 @@ class App_Acl extends Zend_Acl
 		
 		$this->allow('Gast'); 
 		$this->deny('Gast', 'account'); //TODO deny moar stuff
+		$this->deny('Gast', 'admin');
 		$this->allow('Gast', 'account', array('login', 'register', 'confirm', 'recover', 'lost'));
 		
  		$this->allow('Benutzer', 'account');
