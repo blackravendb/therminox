@@ -1,10 +1,16 @@
-<?php 
-$artikel = $this->artID;
-$kategorie = $this->artCat;
-echo '<h2>Angebotsformular</h2>';
-echo '<br>Sehr geehrte Damen und Herren,<br>';
-echo 'Ich habe Interesse an folgendem Artikel aus Ihrem Sortiment und möchte mir darüber ein Angebot einholen<br>';
-echo '<br>';
-echo '<b>Artikelname: </b>'.$artikel.'<br>';
-echo '<b>Kategorie: </b>'.$kategorie.'<br>';
-echo '<br>'.$this->form;?>
+<?php
+if (count ( $_SESSION ) < 1) {
+	echo '<b>Dieser Bereich steht nur registrierten Nutzern zu Verfügung!</b>';
+}
+if (count ( $_SESSION ) > 0) {
+	$artikel = $this->artID;
+	$kategorie = $this->artCat;
+	echo '<h2>Angebotsformular</h2>';
+	echo '<br>Sehr geehrte Damen und Herren,<br>';
+	echo 'Ich habe Interesse an folgendem Artikel aus Ihrem Sortiment und möchte mir darüber ein Angebot einholen<br>';
+	echo '<br>';
+	echo '<b>Artikelname: </b>' . $artikel . '<br>';
+	echo '<b>Kategorie: </b>' . $kategorie . '<br>';
+	echo '<br>' . $this->form;
+}
+?>

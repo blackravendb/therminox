@@ -1,17 +1,16 @@
-<title>Ihr Warenkorb</title>
-<body>
-	<fieldset id="inhalte">
-		<legend>Angebot /ANGEBOTSID/</legend>
-		<p>
-            <?php
-				echo empty ( $this->cartContents )
+<?php if(count($_SESSION) < 1){
+			echo "<b>Dieser Bereich steht nur registrierten Nutzern zu Verfügung!</b>";
+		}
+		if(count($_SESSION) > 0) {
+echo'<title>Ihr Warenkorb</title><body>	<fieldset id="inhalte">';
+echo'	<legend>Angebot '.$this->offerID.'</legend><p>';
+           
+				echo empty ( $this->articles )
 					? 'Angebot enthält noch keine Artikel'
-					: $this->makelist ( "mytab", $this->cartContents, null, array ( 'id' => 'testing' ) );
-			?>
-		</p>
-	</fieldset>
-
-	<a href="/angebot">Zur&uuml;ck</a> |
-	<a href="/angebot/remove">Angebot verwerfen</a>
-
-</body>
+					: $this->makelist ( "mytab", $this->articles, null, array ( 'id' => 'testing' ) );
+			
+echo'</p></fieldset><a href="/angebot">Zur&uuml;ck</a> |	<a href="/angebot/remove">Angebot verwerfen</a></body>';
+		}
+//$cart = unserialize($_SESSION[‘angebotskorb’]);
+var_dump($_SESSION);
+?>

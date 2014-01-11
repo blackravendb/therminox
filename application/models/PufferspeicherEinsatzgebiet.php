@@ -17,7 +17,7 @@ class Application_Model_PufferspeicherEinsatzgebiet  extends Application_Model_T
 	}
 	
 	public function getId() {
-		return $this_id;
+		return $this->_id;
 	}
 	
 	public function setEinsatzgebiet($gebiet) {

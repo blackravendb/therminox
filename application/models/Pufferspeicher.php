@@ -11,6 +11,8 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	protected $_temperaturMax;
 	protected $_einsatzgebiet;
 	
+	protected $_einsatzgebiet2delete;
+	
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
@@ -45,6 +47,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function setModel($model) {
 		$this->_model = $model;
+		$this->_changed['model'] = 1;
 		return $this;
 	}
 	
@@ -54,6 +57,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function setSpeicherinhalt($inhalt) {
 		$this->_speicherinhalt = $inhalt;
+		$this->_changed['speicherinhalt'] = 1;
 		return $this;
 	}
 	
@@ -63,6 +67,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function setLeergewicht($gewicht) {
 		$this->_leergewicht = $gewicht;
+		$this->_changed['leergewicht'] = 1;
 		return $this;
 	}
 	
@@ -72,6 +77,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function setBetriebsdruck($druck) {
 		$this->_betriebsdruck = $druck;
+		$this->_changed['betriebsdruck'] = 1;
 		return $this;
 	}
 	
@@ -81,6 +87,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	
 	public function setTemperaturMax($temp) {
 		$this->_temperaturMax = $temp;
+		$this->_changed['temperatur'] = 1;
 		return $this;
 	}
 	
@@ -93,27 +100,49 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 		return $this;
 	}
 	
-	public function insertEinsatzgebiet($gebiet) {
+	public function insertEinsatzgebiet(Application_Model_PufferspeicherEinsatzgebiet $gebiet) {
 		$enthalten = false;
 		
 		//Noch kein Wert gesetzt, Array anlegen und Wert zuweisen
 		if(empty($this->_einsatzgebiet)){
 			$this->_einsatzgebiet = array($gebiet);
+			$this->_changed['einsatzgebiet'] = 1;
 			return true;
 		}
 		foreach($this->_einsatzgebiet as $value){
-			if($value === $gebiet)
+			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
 				$enthalten = true;
+				break;	
+			}
 		}
-		if(!enthalten){
+		if(!$enthalten) {
 			$this->_einsatzgebiet[] = $gebiet;
+			$this->_changed['einsatzgebiet'] = 1;
 			return true;
 		}
 		return false;
 	}
 	
+	public function deleteEinsatzgebiet(Application_Model_PufferspeicherEinsatzgebiet $gebiet) {
+		if(empty($this->_einsatzgebiet) || empty($gebiet)){
+			return false;
+		}
+		
+		foreach($this->_einsatzgebiet as $key => $value) {
+			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
+// 				$this->_einsatzgebiet2delete[] = $this->_einsatzgebiet[$key];
+				unset($this->_einsatzgebiet[$key]);
+				$this->_changed['einsatzgebiet'] = 1;
+			}
+		}
+	}
+	
 	public function getEinsatzgebiet() {
 		return $this->_einsatzgebiet;
+	}
+	
+	public function getEinsatzgebiet2delete() {
+		return $this->_einsatzgebiet2delete;
 	}
 	
 }

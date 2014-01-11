@@ -1,9 +1,13 @@
 <?php
-		$_offers = $this->_offers;
-		if (empty($_offers)){
-			echo 'Sie haben noch keine Angebote angefordert!';
-		}
-		print <<<tablehead
+if (count($_SESSION) < 1) {
+	echo '<b>Dieser Bereich steht nur registrierten Nutzern zu Verfügung!</b>';
+} 
+if(count($_SESSION) > 0) {
+	$_offers = $this->_offers;
+	if (empty ( $_offers )) {
+		echo 'Sie haben noch keine Angebote angefordert!';
+	}
+	print <<<tablehead
 		<h2>Meine Angebote</h2>
 <table border="1">
 	<tr>
@@ -13,12 +17,13 @@
 		<th>&#160;</th>
 	</tr>
 tablehead;
-		foreach ($_offers as $offer){
-			$_art = $offer->getAngebot();
-			echo '<tr><td>'.$_offer->getAngebotskorb_id().'</td>';
-			echo '<td>'.$_offer->getErstelldatum().'</td>';
-			echo '<td>'.$_art->getStatus().'</td>';
-			echo '<td><a href="/Angebot/anzeigen/id/'.$_offer->getAngebotskorb_id().'">Anzeigen</a></td>';
-			echo '</tr></table>';
-		}
+	foreach ( $_offers as $offer ) {
+		$_art = $offer->getAngebot ();
+		echo '<tr><td>' . $_offer->getAngebotskorb_id () . '</td>';
+		echo '<td>' . $_offer->getErstelldatum () . '</td>';
+		echo '<td>' . $_art->getStatus () . '</td>';
+		echo '<td><a href="/Angebot/anzeigen/id/' . $_offer->getAngebotskorb_id () . '">Anzeigen</a></td>';
+		echo '</tr></table>';
+	}
+}
 ?>
