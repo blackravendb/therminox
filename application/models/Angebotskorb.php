@@ -38,8 +38,26 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 	}
 	
 	public function insertAngebot(Application_Model_Angebot $angebot) {
-		$this->_angebot[] = $angebot;
-		return $this;
+		$enthalten = false;
+		
+		//Noch kein Wert gesetzt, Array anlegen und Wert zuweisen
+		if(empty($this->_angebot)){
+			$this->_angebot = array($angebot);
+			$this->_changed['angebot'] = 1;
+			return true;
+		}
+		foreach($this->_angebot as $value){
+			if($value->getArtikelnummer() === $angebot->getArtikelnummer()) {
+				$enthalten = true;
+				break;
+			}
+		}
+		if(!$enthalten) {
+			$this->_angebot[] = $angebot;
+			$this->_changed['angebot'] = 1;
+			return true;
+		}
+		return false;
 	}
 	
 	public function getAngebot() {
