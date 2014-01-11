@@ -37,9 +37,6 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	
 	//Primary Key protected function, benötig außerdem kein Zugriff auf _changed
 	protected function setId ($id){
-		if($id == "")
-			return false;
-	
 		$this->_id = (int)$id;
 		return $this;
 	}
@@ -49,9 +46,6 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	protected function setWaermetauscher_id($id) {
-		if($id == "")
-			return false;
-
 		$this->_waermetauscher_id = (int)$id;
 		return $this;
 	}
@@ -60,12 +54,9 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 		return $this->_waermetauscher_id;
 	}
 	
-	public function setPlatten($platten){
-		if($platten == ""){
-			return false;
-		}
-		
+	public function setPlatten($platten) {
 		$this->_platten = $platten;
+		$this->_changed['platten'] = 1;
 		return $this;
 	}
 	
@@ -75,6 +66,7 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	
 	public function setLaenge($laenge) {
 		$this->_laenge = $laenge;
+		$this->_changed['laenge'] = 1;
 	}
 	
 	public function getLaenge() {
@@ -82,11 +74,8 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	public function setLeergewicht($gewicht){
-		if($gewicht == ""){
-			return false;
-		}
-	
 		$this->_leergewicht = $gewicht;
+		$this->_changed['leergewicht'] = 1;
 		return $this;
 	}
 	
@@ -95,11 +84,8 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	public function setFlaeche($flaeche){
-		if($flaeche == ""){
-			return false;
-		}
-	
 		$this->_flaeche = $flaeche;
+		$this->_changed['flaeche'] = 1;
 		return $this;
 	}
 	
@@ -109,8 +95,8 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	
 	public function setInhaltPrimaer($inhalt){
 		//Wert darf NULL sein
-		
 		$this->_inhaltPrimaer = $inhalt;
+		$this->_changed['inhaltPrimaer'] = 1;
 		return $this;
 	}
 	
@@ -120,8 +106,8 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	
 	public function setInhaltSekundaer($inhalt){
 		//Wert darf NULL sein
-	
 		$this->_inhaltSekundaer = $inhalt;
+		$this->_changed['inhaltSekundaer'] = 1;
 		return $this;
 	}
 	

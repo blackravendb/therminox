@@ -25,6 +25,63 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     protected $produktberater;
     
+    protected $waermetauscherUnterkategorieDbTable;
+    protected $artikelnummerDbTable;
+    protected $waermetauscherEinsatzgebietDbTable;
+    protected $stutzenmaterialDbTable;
+    protected $waermetauscher2waermetauscherEinsatzgebietDbTable;
+    protected $waermetauscherAnschlussDbTable;
+    protected $waermetauscher2waermetauscherAnschlussDbTable;
+    
+    protected function getStutzenmaterialDbTable() {
+    	if(empty($this->stutzenmaterialDbTable))
+    		$this->stutzenmaterialDbTable = new Application_Model_DbTable_Stutzenmaterial();
+    	
+    	return $this->stutzenmaterialDbTable;
+    }
+    
+    protected function getArtikelnummerDbTable() {
+    	if(empty($this->artikelnummerDbTable))
+    		$this->artikelnummerDbTable = new Application_Model_DbTable_Artikelnummer();
+    	 
+    	return $this->artikelnummerDbTable;
+    }
+    
+    protected function getWaermetauscherUnterkategorieDbTable() {
+    	if(empty($this->waermetauscherUnterkategorieDbTable))
+    		$this->waermetauscherUnterkategorieDbTable = new Application_Model_DbTable_WaermetauscherUnterkategorie();
+    	
+    	return $this->waermetauscherUnterkategorieDbTable;
+    }
+    
+    protected function getWaermetauscherEinsatzgebietDbTable() {
+    	if(emtpy($this->waermetauscherEinsatzgebietDbTable))
+    		$this->waermetauscherEinsatzgebietDbTable = new Application_Model_DbTable_WaermetauscherEinsatzgebiet();
+    	
+    	return $this->waermetauscherEinsatzgebietDbTable;
+    }
+    
+    protected function getWaermetauscher2waermetauscherEinsatzgebietDbTable() {
+    	if(empty($this->waermetauscher2waermetauscherEinsatzgebietDbTable))
+    		$this->waermetauscher2waermetauscherEinsatzgebietDbTable = new Application_Model_DbTable_Waermetauscher2waermetauscherEinsatzgebiet();
+    	
+    	return $this->waermetauscher2waermetauscherEinsatzgebietDbTable;
+    }
+    
+    protected function getWaermetauscherAnschlussDbTable() {
+    	if(empty($this->waermetauscherAnschlussDbTable))
+    		$this->waermetauscherAnschlussDbTable = new Application_Model_DbTable_WaermetauscherAnschluss();
+    	
+    	return $this->waermetauscherAnschlussDbTable;
+    }
+    
+    protected function getWaermetauscher2waermetauscherAnschlussDbTable() {
+    	if(empty($this->waermetauscher2waermetauscherAnschlussDbTable))
+    		$this->waermetauscher2waermetauscherAnschlussDbTable = new Application_Model_DbTable_Waermetauscher2waermetauscherAnschluss();
+    	
+    	return $this->waermetauscher2waermetauscherAnschlussDbTable;
+    }
+    
     protected function initProduktberater() {
     	$this->select = $this->select();
     	//!!Nur Wärmetauscher ID abfragen!!
@@ -215,6 +272,67 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	return $this->delete($where);
     }
     
+    public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {	//TODO
+    	$waermetauscherData = $waermetauscher->toArray();
+    	
+    	//Daten zwischenspeichern
+    	$wtUnterkategorie = $waermetauscherData['waermetauscherUnterkategorie'];
+    	$wtEinsatzgebiet = $waermetauscherData['waermetauscherEinsatzgebiet'];
+    	$wtAnschluss = $waermetauscherData['waermetauscherAnschluss'];
+    	$wtStutzenmaterial = $waermetauscherData['stutzenmaterial'];
+    	
+    	//nicht benötigte Daten löschen
+    	unset($waermetauscherData['id']);
+    	unset($waermetauscherData['artikelnummer']);
+    	unset($waermetauscherData['waermetauscherAnschluss']);
+    	unset($waermetauscherData['waermetauscherEinsatzgebiet']);
+    	unset($waermetauscherData['waermetauscherUnterkategorie']);
+    	unset($waermetauscherData['stutzenmaterial']);
+    	
+    	//Stutzenmaterial ID ermitteln
+    	$waermetauscherData['stutzenmaterial_id'] = $this->getStutzenmaterialDbTable()->getIdByStutzenmaterial($wtStutzenmaterial);
+    	
+    	//Wärmetauscher einfügen
+    	$waermetauscherId = $this->insert($waermetauscherData);
+    	
+    	//Kein Primary Key, SQL statement fehlgeschlagen
+    	if(empty($waermetauscherId))
+    		return false;
+    	
+    	//Artikelnummer generieren
+    	$this->getArtikelnummerDbTable()->insert(array('waermetauscher_id' => $waermetauscherId));
+    	
+    	//Unterkategorien einpflegen
+    	if(!empty($wtUnterkategorie)) {
+    		foreach($wtUnterkategorie as $value) {
+    			$this->getWaermetauscherUnterkategorieDbTable()->insertWaermetauscherUnterkategorie($wtUnterkategorie, $waermetauscherId);
+    		}
+    	}
+    	
+    	//Einsatzgebiete Einpflegen
+    	if(!empty($wtEinsatzgebiet)) {
+    		foreach($wtEinsatzgebiet as $value) {
+    			$einsatzgebietId = is_int($value->getId() ? $value->getId() : $this->getWaermetauscherEinsatzgebietDbTable()->getIdByEinsatzgebiet());
+    			
+    			$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->insert(array('waermetauscher_id' => $waermetauscherId, 'waermetauscherEinsatzgebiet_id' => $einsatzgebietId));
+    		}
+    	}
+    	
+    	//Anschlüsse einpflegen
+    	if(!empty($wtAnschluss)) {
+    		foreach($wtAnschluss as $value) {
+    			$anschlussId = is_int($value->getId() ? $value->getId() : $this->getWaermetauscherAnschlussDbTable()->getIdByAnschluss());
+    			
+    			$this->getWaermetauscher2waermetauscherAnschlussDbTable()->insert(array('waermetauscher_id' => $waermetauscherId, 'anschluss_id' => $anschlussId));
+    		}
+    	}
+
+    	
+    }
+    
+    public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {	//TODO
+    	
+    }
 
 }
 

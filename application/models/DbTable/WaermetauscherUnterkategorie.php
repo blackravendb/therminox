@@ -24,6 +24,22 @@ class Application_Model_DbTable_WaermetauscherUnterkategorie extends Zend_Db_Tab
     	->setIntegrityCheck(false);
     }
     
+    public function insertWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie, $waermetauscherId) {
+    	$wtUnterkategorieData = $wtUnterkategorie->toArray();
+    	
+    	unset($wtUnterkategorieData['id']);
+    	
+    	$wtUnterkategorieData['waermetauscher_id'] = $waermetauscherId;
+    	
+    	$wtUnterkategorieId =$this->insert($wtUnterkategorieData);
+    	
+    	if(is_int($wtUnterkategorieId))
+    		return true;
+    	
+    	return false;
+    	
+    }
+    
     
 }
 

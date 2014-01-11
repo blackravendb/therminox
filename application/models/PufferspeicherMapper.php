@@ -106,7 +106,7 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 	}
 	
 	public function getModelListe() {
-		//TODO
+				 //TODO
 	}
 
 }

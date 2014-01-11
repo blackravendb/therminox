@@ -136,7 +136,6 @@ echo '--------------------------------------------------------------------------
 echo 'Wärmetauscher:<br>';
  $waermetauschermapper = new Application_Model_WaermetauscherMapper();
  echo 'Modelliste:<br>';
-//  print_r($waermetauschermapper->getModelList());
  foreach($waermetauschermapper->getModelListe() as $value){
  	echo $value.'<br>';
  }
@@ -154,6 +153,32 @@ echo 'Wärmetauscher:<br>';
  }
  echo '<br>';
  
+ $wt = new Application_Model_Waermetauscher();
+ $wt->setBetriebsdruck(5);
+ $wt->setBreite(5);
+ $wt->setHoehe(5);
+ $wt->setModel('blubWT');
+ $wt->setStutzenmaterial('Edelstahl AISI 304 Mat. 1.4301');
+ $wt->setTemperatur(5);
+ 
+ $anschluss = new Application_Model_WaermetauscherAnschluss();
+ $anschluss->setAnschluss('1/2" AG');
+ 
+ $wteinsatzgebiet = new Application_Model_WaermetauscherEinsatzgebiet();
+ $wteinsatzgebiet->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
+ 
+ $unterkategorie = new Application_Model_WaermetauscherUnterkategorie();
+ $unterkategorie->setFlaeche(5);
+ $unterkategorie->setInhaltPrimaer(5);
+ $unterkategorie->setInhaltSekundaer(5);
+ $unterkategorie->setLaenge(5);
+ $unterkategorie->setLeergewicht(5);
+ 
+ $wt->insertWaermetauscherAnschluss($anschluss);
+ $wt->insertWaermetauscherEinsatzgebiet($wteinsatzgebiet);
+ $wt->insertWaermetauscherUnterkategorie($unterkategorie);
+ 
+ $waermetauschermapper->insertWaermetauscher($wt);
  
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD30");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))

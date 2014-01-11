@@ -28,6 +28,18 @@ class StartseiteController extends Zend_Controller_Action
     	
     }
     
+    public function kontaktAction(){
+    	$form = new Application_Form_Kontakt();
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+
+    			$this->_helper->flashMessenger->addMessage('Email erfolgreich verschickt.');
+    			$this->_helper->redirector->gotoSimple('index', 'startseite');
+    		}
+    	}
+    	$this->view->form = $form;
+    }
+    
 //     public function __call($methodName, $args)
 //     {
 //     	echo "ArticleController::__call()<br />";

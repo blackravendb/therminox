@@ -149,5 +149,13 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 			return false;
 		$this->getDbTable()->deleteWaermetauscher($id);
 	}
+	
+	public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
+		return $this->getDbTable()->insertWaermetauscher($waermetauscher);
+	}
+	
+	public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
+		return $this->getDbTable()->updateWaermetauscher($waermetauscher);
+	}
 }
 
