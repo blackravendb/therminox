@@ -227,26 +227,34 @@ echo 'Wärmetauscher:<br>';
  
  $psMapper = new Application_Model_PufferspeicherMapper();
  
- $pufferspeicher = new Application_Model_Pufferspeicher();
- $pufferspeicher->setModel('blub');
- $pufferspeicher->setSpeicherinhalt(100);
- $pufferspeicher->setLeergewicht(50);
- $pufferspeicher->setBetriebsdruck(15);
- $pufferspeicher->setTemperaturMax(100);
+//  $pufferspeicher = new Application_Model_Pufferspeicher();
+//  $pufferspeicher->setModel('blub3');
+//  $pufferspeicher->setSpeicherinhalt(100);
+//  $pufferspeicher->setLeergewicht(50);
+//  $pufferspeicher->setBetriebsdruck(15);
+//  $pufferspeicher->setTemperaturMax(100);
+ 
+//  $einsatzgebiet = new Application_Model_PufferspeicherEinsatzgebiet();
+//  $einsatzgebiet->setEinsatzgebiet('Einfacher Boiler');
+//  $pufferspeicher->insertEinsatzgebiet($einsatzgebiet);
+ 
+//   $psMapper->insertPufferspeicher($pufferspeicher);
+ 
+//  foreach($psMapper->getEinsatzgebietListe() as $value) {
+// 		echo $value.'<br>';
+// }
+ 
+ $vvx200 = $psMapper->getPufferspeicherById(13);
+ $vvx200->setBetriebsdruck(5000);
+ $vvx200->setLeergewicht(100);
+ $vvx200->setModel("blub3");
+ $vvx200->setSpeicherinhalt(2000);
+ $vvx200->setTemperaturMax(100000);
  
  $einsatzgebiet = new Application_Model_PufferspeicherEinsatzgebiet();
- 
  $einsatzgebiet->setEinsatzgebiet('Einfacher Boiler');
- 
- $pufferspeicher->insertEinsatzgebiet($einsatzgebiet);
- 
- $psMapper->insertPufferspeicher($pufferspeicher);
- 
- foreach($psMapper->getEinsatzgebietListe() as $value) {
-		echo $value.'<br>';
-}
- 
- //$vvx200 = $psMapper->getPufferspeicherById(1);		//ByModel('VVX200')
+ $vvx200->insertEinsatzgebiet($einsatzgebiet);
+//  $psMapper->updatePufferspeicher($vvx200);
  
  //$gebiet = $vvx200->getEinsatzgebiet();
  

@@ -156,6 +156,37 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     		$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->insert(array('pufferspeicher_id' => $pufferspeicherId, 'pufferspeicherEinsatzgebiet_id' => $einsatzgebietId));
     	}
     }
+    
+    public function updatePufferspeicher(Application_Model_Pufferspeicher $pufferspeicher) {
+    	$pufferspeicherData = $pufferspeicher->toArray();
+    	unset($pufferspeicherData['artikelnummer']);
+    	
+    	//Alle Felder, die nicht verändert wurden löschen
+    	foreach($pufferspeicherData as $key => $value) {
+    		if(!$pufferspeicher->isChanged($key))
+    			unset($pufferspeicherData[$key]);
+    	}
+    	
+
+
+     	//Einsatzgebiete überprüfen ob was verändert wurde
+    	if(key_exists('einsatzgebiet', $pufferspeicherData)) {
+    		//alte Gebiete löschen
+    		$where = $this->getAdapter()->quoteInto('pufferspeicher_id = ?', $pufferspeicher->getId());
+    		$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->delete($where);
+    	
+    		//neue Gebiete einfügen
+    		foreach($pufferspeicherData['einsatzgebiet'] as $value) {
+    			$einsatzgebietId = is_int($value->getId()) ? $value->getId() : $this->getPufferspeicherEinsatzgebietDbTable()->getIdByEinsatzgebiet($value->getEinsatzgebiet());
+    			$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->insert(array('pufferspeicher_id' => $pufferspeicher->getId(),
+    																						'pufferspeicherEinsatzgebiet_id' => $einsatzgebietId));
+    		}
+    	unset($pufferspeicherData['einsatzgebiet']);
+    	}
+    	
+    	$where = $this->getAdapter()->quoteInto('id = ?', $pufferspeicher->getId());
+    	$this->update($pufferspeicherData, $where);
+    }
 
 }
 
