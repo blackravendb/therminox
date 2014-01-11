@@ -13,33 +13,37 @@
     <th></th>
   </tr>
   <?php 
-  if(!empty($this->dbdata)){
-  	foreach($this->dbdata as $value){?>
-   <tr>
-	<td><?php echo $value->getModel(); ?></td>
-    <td><?php echo $value->getTemperatur(); ?></td>
-    <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
-    					echo $gbt->getEinsatzgebiet();
-    					} ?></td>
-     <td><?php 	$i=0;
-    			foreach($value->getWaermetauscherAnschluss() as $ans){
-    					if($i==count($value->getWaermetauscherAnschluss())-1){
-    						echo $ans->getAnschluss();
-    					}else{
-    						echo $ans->getAnschluss() . ", ";
-    						$i++;
-    					}
-  					}?></td>
-    <td><?php echo $value->getHoehe(); ?></td>
-    <td><?php echo $value->getBreite(); ?></td>
-    <?php $urlBearbeiten = "/Admin/changewaermetauscher/artikel/" . $value->getModel();?>
-    <td> <a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td> 
-    <?php $urlLoeschen = "/Admin/deletewaermetauscher/artikel/" . $value->getModel();?>
-    <td><a href="<?php echo $urlLoeschen;?>">löschen</a></td>
-    </tr>
-  <?php }
-  	}else{
-  	echo "Keine Produkte in der Datenbank!";
-  	}?>
-</table>
-</div>
+	  if(!empty($this->dbdata)){
+	  	if(isset($_SESSION['wtnotdelete'])){
+  			echo "Artikel darf nicht gelöscht werden, da noch ein Angebot dafür existiert!";
+  			unset($_SESSION['wtnotdelete']);
+  			}
+	  	foreach($this->dbdata as $value){?>
+	   <tr>
+		<td><?php echo $value->getModel(); ?></td>
+	    <td><?php echo $value->getTemperatur(); ?></td>
+	    <td><?php foreach($value->getWaermetauscherEinsatzgebiet() as $gbt){
+	    					echo $gbt->getEinsatzgebiet();
+	    					} ?></td>
+	     <td><?php 	$i=0;
+	    			foreach($value->getWaermetauscherAnschluss() as $ans){
+	    					if($i==count($value->getWaermetauscherAnschluss())-1){
+	    						echo $ans->getAnschluss();
+	    					}else{
+	    						echo $ans->getAnschluss() . ", ";
+	    						$i++;
+	    					}
+	  					}?></td>
+	    <td><?php echo $value->getHoehe(); ?></td>
+	    <td><?php echo $value->getBreite(); ?></td>
+	    <?php $urlBearbeiten = "/Admin/changewaermetauscher/artikel/" . $value->getModel();?>
+	    <td> <a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td> 
+	    <?php $urlLoeschen = "/Admin/deletewaermetauscher/artikel/" . $value->getModel();?>
+	    <td><a href="<?php echo $urlLoeschen;?>">löschen</a></td>
+	    </tr>
+	  <?php }
+	  	}else{
+	  	echo "Keine Produkte in der Datenbank!";
+	  	}?>
+	</table>
+	</div>

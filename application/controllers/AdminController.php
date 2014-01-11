@@ -24,7 +24,6 @@
 		public function changewaermetauscherAction(){
 			$request = $this->getRequest();
 			$art = $request->getParam('artikel');
-			if (true){
 				$db_mapper = new Application_Model_WaermetauscherMapper ();
 				$data_object = $db_mapper->getWaermetauscherByModel($art);
 				
@@ -55,42 +54,49 @@
 							$wt_art->setTemperatur($temp);
 						}
 						
-						$wt_art->setWaermetauscherEinsatzgebiet($einsatzgbt);
-						
-						if(!empty($anschluss)){ //TODO Dennis fragen, wann setter aufgerufen werden soll
-							$wt_art->setWaermetauscherAnschluss($anschluss);
+						if(!empty($einsatzgbt)){
+							foreach($einsatzgbt as $value){
+								$einWT = new Application_Model_WaermetauscherEinsatzgebiet();
+								$einWT->setAnschluss($value);
+								
+								$wt_art->insertWaermetauscherEinsatzgebiet($einWT);
+							}
 						}
+						
+						if(!empty($anschluss)){
+							foreach($anschluss as $value){
+								$ansWT = new Application_Model_WaermetauscherAnschluss(); //jedes mal neu erstellen? //TODO
+								$ansWT->setAnschluss($value);
+							
+								$wt_art->insertWaermetauscherAnschluss($ansWT); //kann die öfter angesprochen werden? /TODO
+						}
+						
 						if(!empty($height)){
-							$wt_art->setHoehe($maxHeight);
+							$wt_art->setHoehe($height);
 						}
 						if(!empty($width)){
-							$wt_art->setBreite($maxWidth);
+							$wt_art->setBreite($width);
 						}
 						
-						//TODO updateWaermetauscher aufrufen!
+						$wt->updateWaermetauscher($wt_art);
 						
 						$this->view->showMessage = true;
 					}
 				}
-			} else {
-				$this->view->message = 'Artikel konnte nicht gefunden werden';
-				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
-					$this->view->link = $_SERVER ['HTTP_REFERER'];
-				} else {
-					$this->view->link = '/Waermetauscher';
-				}
 			}
-			
-		}
+		} 
 		
-		public function deletewaermetauscherAction(){//TODO
+		public function deletewaermetauscherAction(){
 			$request = $this->getRequest();
 			$art = $request->getParam('artikel');
 			$db_mapper = new Application_Model_WaermetauscherMapper();
 			$data_object = $db_mapper->getWaermetauscherByModel($art);
 			
+			try{
 			$db_mapper->deleteWaermetauscher($data_object);
-			
+			}catch (Exception $e){
+				$_SESSION['wtnotdelete'] = 1;
+			}
 			$this->_redirect('/Admin/showwaermetauscher');
 		}
 		
@@ -105,8 +111,7 @@
 				$form->startform();
 				
 				$this->view->psbearbeiten = $form; 
-				
-				if($this->_request->isPost()){
+
 					$formData = $this->_request->getPost();
 				
 					if($form->isValid($formData)){
@@ -131,21 +136,23 @@
 							$ps->setBetriebsdruck($betriebsdruck);
 						}
 						
-						//TODO updateWaermetauscher aufrufen!
+						$ps->updatePufferspeicher($ps);
 						
 						$this->view->showMessage = true;
 				}
 			}
-		}
 		
-		public function deletepufferspeicherAction(){ //TODO
+		public function deletepufferspeicherAction(){ 
 			$request = $this->getRequest();
 			$art = $request->getParam('artikel');
 			$db_mapper = new Application_Model_PufferspeicherMapper();
 			$data_object = $db_mapper->getPufferspeicherByModel($art);
 			
+			try{
 			$db_mapper->deletePufferspeicher($data_object);
-			
+			}catch(Exception $e){
+				$_SESSION['psnotdelete'] = 1;
+			}
 			$this->_redirect('/Admin/showpufferspeicher');
 		}
 		
@@ -154,7 +161,6 @@
 			
 		}
 		
-		//TODO Controller zusammenfassen?
 		public function anschluessebearbeitenAction(){
 				$wtmapper = new Application_Model_WaermetauscherMapper();
 				$anschluesse = $wtmapper->getAnschlussListe();

@@ -12,6 +12,10 @@
   </tr>
   <?php 
   if(!empty($this->dbdata)){
+  	if(isset($_SESSION['psnotdelete'])){
+  			echo "Artikel darf nicht gelöscht werden, da noch ein Angebot dafür existiert!";
+  			unset($_SESSION['psnotdelete']);
+  			}
   	foreach($this->dbdata as $value){?>
    <tr>
 	<td><?php echo $value->getModel(); ?></td>
