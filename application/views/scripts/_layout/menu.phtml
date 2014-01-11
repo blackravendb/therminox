@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*****************************************************************************
  * 											 								**
  * Allgemeine Infos:														**
@@ -9,38 +9,50 @@
 ?>
 <ul class="topnav">
 	<li><a href="#">W&auml;rmetauscher</a>
-		 <ul>
+		<ul>
 			<li><a href="/Waermetauscher/index">Gel&ouml;tet</a>
 				<ul>
 					<li><a href="/Waermetauscher/index">Produktberater</a></li>
-					<?php //Menü dynamisch anhand der DB füllen
-					$db_mapper = new Application_Model_WaermetauscherMapper ();
-					$data_list = $db_mapper->getModelListe();
-					foreach ( $data_list as $articlename )
-					echo '<li><a href="/Waermetauscher/geloetet/artikel/'.$articlename.'">'.$articlename.'</a></li>';	
+					<?php 
+// Menü dynamisch anhand der DB füllen
+					$wt_mapper = new Application_Model_WaermetauscherMapper ();
+					$wt_list = $wt_mapper->getModelListe ();
+					if (is_null ( $wt_list )) {
+						echo '<li>:( Error in Reading Database</li>';
+					}
+					if (! is_null ( $wt_list )) {
+						foreach ( $wt_list as $articlename )
+							echo '<li><a href="/Waermetauscher/geloetet/artikel/' . $articlename . '">' . $articlename . '</a></li>';
+					}
 					?>			
-				</ul>
-			</li>
+				</ul></li>
 			<li><a href="/Waermetauscher/geschraubt">Geschraubt</a></li>
 			<li><a href="/Waermetauscher/rohrbuendel">Rohrb&uuml;ndel</a></li>
-		 </ul>
-	</li>
+		</ul></li>
 	<li><a href="#">Pufferspeicher</a>
 		<ul>
 			<li><a href="/Pufferspeicher/index">Produktberater</a></li>
-			<?php //Menü dynamisch anhand der DB füllen
-					//$db_mapper = new Application_Model_PufferspeicherMapper();
-					//$object_list = $db_mapper->getModelListe();
-					//foreach ( $data_list as $articlename )
-					//echo '<li><a href="/Pufferspeicher/anzeigen/artikel/'.$articlename.'">'.$articlename.'</a></li>';	
-					?>			
+			<?php 
+// Menü dynamisch anhand der DB füllen
+			$ps_mapper = new Application_Model_PufferspeicherMapper ();
+			$ps_list = $ps_mapper->getModelListe ();
+			if (is_null ( $ps_list )) {
+				echo '<li><a>:( Error </a></li>';
+				echo '<li><a>in Reading Database</a></li>';
+			}
+			if (! is_null ( $ps_list )) {
+				foreach ( $ps_list as $articlename )
+					echo '<li><a href="/Pufferspeicher/anzeigen/artikel/' . $articlename . '">' . $articlename . '</a></li>';
+			}
+			?>
+			<!-- 			
 			<li><a href="#">VVX 200</a></li>
 			<li><a href="#">VVX 300</a></li>
 			<li><a href="#">VVX 400</a></li>
 			<li><a href="#">LAS 500</a></li>
-			<li><a href="#">LAS 1000</a></li>
-		</ul>
-	</li>
+			<li><a href="#">LAS 1000</a></li> 
+			-->
+		</ul></li>
 	<li><a href="#">Ladesysteme</a></li>
 	<li><a href="#">Durchlauferhitzer</a></li>
 </ul>

@@ -58,6 +58,7 @@ class AngebotController extends Zend_Controller_Action {
 					$_offer = new Application_Model_Angebot ();
 					$_offer->setArtikelnummer ( $_art_nr );
 					$_offer->setBemerkung ( $form_message );
+					$_offer->setStatus('Offen');
 					$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
 					$this->_redirect($this->_request->getPost('return'));
 					
@@ -74,6 +75,7 @@ class AngebotController extends Zend_Controller_Action {
 					$_offer = new Application_Model_Angebot ();
 					$_offer->setArtikelnummer ( $_art_nr );
 					$_offer->setBemerkung ( $form_message );
+					$_offer->setStatus('Offen');
 					$angebotskorb->insertAngebot ( $_offer );
 					
 					$_mapper = new Application_Model_AngebotskorbMapper ();

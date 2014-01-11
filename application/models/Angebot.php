@@ -39,7 +39,7 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 	}
 	
 	public function getArtikelnummer() {
-		return $this->_artikelnummer;
+		return $this->_artikelnummer_id;
 	}
 	
 	public function setStatus($status) {

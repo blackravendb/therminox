@@ -39,8 +39,7 @@
         </controllerFile>
         <controllerFile controllerName="Pufferspeicher">
           <actionMethod actionName="index"/>
-          <actionMethod actionName="vvx"/>
-          <actionMethod actionName="las"/>
+          <actionMethod actionName="anzeigen"/>
           <actionMethod actionName="entfernen"/>
           <actionMethod actionName="hinzufuegen"/>
           <actionMethod actionName="bearbeiten"/>

@@ -153,6 +153,10 @@ echo 'Wärmetauscher:<br>';
  }
  echo '<br>';
  
+ foreach($waermetauschermapper->getStutzenmaterialListe() as $value){
+ 	echo $value.'<br>';
+ }
+ 
  $wt = new Application_Model_Waermetauscher();
  $wt->setBetriebsdruck(5);
  $wt->setBreite(5);
@@ -168,6 +172,7 @@ echo 'Wärmetauscher:<br>';
  $wteinsatzgebiet->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
  
  $unterkategorie = new Application_Model_WaermetauscherUnterkategorie();
+ $unterkategorie->setPlatten(5);
  $unterkategorie->setFlaeche(5);
  $unterkategorie->setInhaltPrimaer(5);
  $unterkategorie->setInhaltSekundaer(5);
@@ -178,7 +183,7 @@ echo 'Wärmetauscher:<br>';
  $wt->insertWaermetauscherEinsatzgebiet($wteinsatzgebiet);
  $wt->insertWaermetauscherUnterkategorie($unterkategorie);
  
- $waermetauschermapper->insertWaermetauscher($wt);
+ //$waermetauschermapper->insertWaermetauscher($wt);
  
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD30");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))

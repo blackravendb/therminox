@@ -14,11 +14,17 @@ class Application_Model_DbTable_WaermetauscherAnschluss extends Zend_Db_Table_Ab
     public function getIdByAnschluss(Application_Model_WaermetauscherAnschluss $anschluss) {
     	$where = $this->getAdapter()->quoteInto('anschluss = ?', $anschluss->getAnschluss());
     	
-    	$this->select = $this->select()
+    	$this->select = $this->select();
+    	$this->select
     		->from($this->_name, 'id')
     		->where($where);
     	
-    	$data = $this->fetRow($this->select);
+    	$data = $this->fetchRow($this->select);
+    	
+    	echo $this->select;
+    	
+    	if(empty($data))
+    		return false;
     	
     	$ret = $data->toArray();
     	
