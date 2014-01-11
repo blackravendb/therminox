@@ -112,7 +112,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 		foreach($this->_einsatzgebiet as $value){
 			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
 				$enthalten = true;
-				break;	
+				break;
 			}
 		}
 		if(!$enthalten) {

@@ -53,10 +53,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setModel($model) {
-		if($model == "")
-			return false;
-		
 		$this->_model = $model;
+		$this->_changed['model'] = 1;
 	}
 	
 	public function getModel () {
@@ -64,10 +62,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setBetriebsdruck($druck) {
-		if($druck == "")
-			return false;
-	
 		$this->_betriebsdruck = $druck;
+		$this->_changed['betriebsdruck'] = 1;
 	}
 	
 	public function getBetriebsdruck () {
@@ -75,10 +71,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setTemperatur($temperatur) {
-		if($temperatur == "")
-			return false;
-	
 		$this->_temperatur = $temperatur;
+		$this->_changed['temperatur'] = 1;
 	}
 	
 	public function getTemperatur () {
@@ -86,10 +80,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setHoehe($hoehe) {
-		if($hoehe == "")
-			return false;
-	
 		$this->_hoehe = $hoehe;
+		$this->_changed['hoehe'] = 1;
 	}
 	
 	public function getHoehe () {
@@ -97,10 +89,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setBreite($breite) {
-		if($breite == "")
-			return false;
-	
 		$this->_breite = $breite;
+		$this->_changed['breite'] = 1;
 	}
 	
 	public function getBreite () {
@@ -108,32 +98,60 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setStutzenmaterial($material) {
-		if($material == "")
-			return false;
-	
 		$this->_stutzenmaterial = $material;
+		$this->_changed['stutzenmaterial'] = 1;
 	}
 	
 	public function getStutzenmaterial () {
 		return $this->_stutzenmaterial;
 	}
 	
-	public function setWaermetauscherUnterkategorie($wtUnterkategorie) {
-		if(is_array($wtUnterkategorie))
-			$this->_waermetauscherUnterkategorie = $wtUnterkategorie;
-		else
+	protected function setWaermetauscherUnterkategorie($wtUnterkategorie) {
+		$this->_waermetauscherUnterkategorie = $wtUnterkategorie;
+	}
+	
+	public function insertWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) {
+		$enthalten = false;
+		
+		//Noch kein Wert gesetzt, Array anlegen und Wert zuweisen
+		if(empty($this->_waermetauscherUnterkategorie)){
+			$this->_waermetauscherUnterkategorie = array($wtUnterkategorie);
+			$this->_changed['waermetauscherUnterkategorie'] = 1;
+			return true;
+		}
+		foreach($this->_waermetauscherUnterkategorie as $value){
+			if($value->isEqual($wtUnterkategorie)) {
+				$enthalten = true;
+				break;
+			}
+		}
+		if(!$enthalten) {
 			$this->_waermetauscherUnterkategorie[] = $wtUnterkategorie;
+			$this->_changed['waermetauscherUnterkategorie'] = 1;
+			return true;
+		}
+		return false;
+	}
+	
+	public function deleteWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) { //TODO
+		if(empty($this->_waermetauscherEinsatzgebiet) || empty($gebiet)) {
+			return false;
+		}
+		
+		foreach($this->_waermetauscherEinsatzgebiet as $key => $value) {
+			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
+				unset($this->_waermetauscherEinsatzgebiet[$key]);
+				$this->_changed['waermetauscherEinsatzgebiet'] = 1;
+			}
+		}
 	}
 	
 	public function getWaermetauscherUnterkategorie() {
 		return $this->_waermetauscherUnterkategorie;
 	}
 	
-	public function setWaermetauscherEinsatzgebiet($einsatzgebiet) {
-		if(is_array($einsatzgebiet))
-			$this->_waermetauscherEinsatzgebiet = $einsatzgebiet;
-		else
-			$this->_waermetauscherEinsatzgebiet[] = $einsatzgebiet;
+	protected function setWaermetauscherEinsatzgebiet($einsatzgebiet) {
+		$this->_waermetauscherEinsatzgebiet = $einsatzgebiet;
 	}
 	
 	public function insertWaermetauscherEinsatzgebiet(Application_Model_WaermetauscherEinsatzgebiet $einsatzgebiet) {
@@ -166,8 +184,7 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	
 		foreach($this->_waermetauscherEinsatzgebiet as $key => $value) {
 			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
-// 				$this->_einsatzgebiet2delete[] = $this->_einsatzgebiet[$key];
-				unset($this->_einsatzgebiet[$key]);
+				unset($this->_waermetauscherEinsatzgebiet[$key]);
 				$this->_changed['waermetauscherEinsatzgebiet'] = 1;
 			}
 		}
@@ -177,11 +194,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		return $this->_waermetauscherEinsatzgebiet;
 	}
 	
-	public function setWaermetauscherAnschluss($anschluss) {
-		if(is_array($anschluss))
+	protected function setWaermetauscherAnschluss($anschluss) {
 			$this->_waermetauscherAnschluss = $anschluss;
-		else
-			$this->_waermetauscherAnschluss[] = $anschluss;
 	}
 	
 	public function insertWaermetauscherAnschluss(Application_Model_WaermetauscherAnschluss $anschluss) {
