@@ -55,7 +55,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     }
     
     protected function getWaermetauscherEinsatzgebietDbTable() {
-    	if(emtpy($this->waermetauscherEinsatzgebietDbTable))
+    	if(empty($this->waermetauscherEinsatzgebietDbTable))
     		$this->waermetauscherEinsatzgebietDbTable = new Application_Model_DbTable_WaermetauscherEinsatzgebiet();
     	
     	return $this->waermetauscherEinsatzgebietDbTable;
@@ -305,14 +305,14 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	//Unterkategorien einpflegen
     	if(!empty($wtUnterkategorie)) {
     		foreach($wtUnterkategorie as $value) {
-    			$this->getWaermetauscherUnterkategorieDbTable()->insertWaermetauscherUnterkategorie($wtUnterkategorie, $waermetauscherId);
+    			$this->getWaermetauscherUnterkategorieDbTable()->insertWaermetauscherUnterkategorie($value, $waermetauscherId);
     		}
     	}
     	
     	//Einsatzgebiete Einpflegen
     	if(!empty($wtEinsatzgebiet)) {
     		foreach($wtEinsatzgebiet as $value) {
-    			$einsatzgebietId = is_int($value->getId() ? $value->getId() : $this->getWaermetauscherEinsatzgebietDbTable()->getIdByEinsatzgebiet());
+    			$einsatzgebietId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherEinsatzgebietDbTable()->getIdByEinsatzgebiet($value);
     			
     			$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->insert(array('waermetauscher_id' => $waermetauscherId, 'waermetauscherEinsatzgebiet_id' => $einsatzgebietId));
     		}
@@ -321,9 +321,9 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	//Anschlüsse einpflegen
     	if(!empty($wtAnschluss)) {
     		foreach($wtAnschluss as $value) {
-    			$anschlussId = is_int($value->getId() ? $value->getId() : $this->getWaermetauscherAnschlussDbTable()->getIdByAnschluss());
+    			$anschlussId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherAnschlussDbTable()->getIdByAnschluss($value);
     			
-    			$this->getWaermetauscher2waermetauscherAnschlussDbTable()->insert(array('waermetauscher_id' => $waermetauscherId, 'anschluss_id' => $anschlussId));
+    			$this->getWaermetauscher2waermetauscherAnschlussDbTable()->insert(array('waermetauscher_id' => $waermetauscherId, 'waermetauscherAnschluss_id' => $anschlussId));
     		}
     	}
 

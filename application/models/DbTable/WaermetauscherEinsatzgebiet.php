@@ -15,8 +15,8 @@ class Application_Model_DbTable_WaermetauscherEinsatzgebiet extends Zend_Db_Tabl
     	$where = $this->getAdapter()->quoteInto('einsatzgebiet = ?', $einsatzgebiet->getEinsatzgebiet());
     	
     	$this->select = $this->select()
-    	->from ($_name, 'id')
-    	->where('$where');
+    	->from ($this->_name, 'id')
+    	->where($where);
     	
     	$data = $this->fetchRow($this->select);
     	$ret = $data->toArray();
