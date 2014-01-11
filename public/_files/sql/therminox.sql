@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 09. Jan 2014 um 17:23
+-- Erstellungszeit: 11. Jan 2014 um 20:22
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -42,14 +42,15 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   KEY `anrede_id` (`anrede_id`),
   KEY `benutzer_e-mail` (`benutzer_email`),
   KEY `plz` (`plz`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=78 ;
 
 --
 -- Daten für Tabelle `adresse`
 --
 
 INSERT INTO `adresse` (`id`, `benutzer_email`, `firma`, `nachname`, `vorname`, `strasse`, `plz`, `ort`, `land`, `anrede_id`, `lieferadresse`) VALUES
-(76, 'dennis.brandmueller@stud.fh-rosenheim.de', 'Blubware', 'Brandmüller', 'Dennis', 'Martin-Greif-Str. 24', '83080', 'Oberaudorf', 'Deutschland', 1, 0);
+(76, 'dennis.brandmueller@stud.fh-rosenheim.de', 'Blubware', 'Brandmüller', 'Dennis', 'Martin-Greif-Str. 24', '83080', 'Oberaudorf', 'Deutschland', 1, 0),
+(77, 'dennis.brandmueller@gmx.de', 'BlubWare', 'Brandmüller', 'Dennis', 'Blubstraße 1', '83080', 'Oberaudorf', 'Deutschland', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -61,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `angebot` (
   `artikelnummer_id` int(11) NOT NULL,
   `angebotskorb_id` int(11) NOT NULL,
   `angebotStatus_id` int(11) NOT NULL,
+  `bemerkung` text COLLATE utf8_unicode_ci,
+  `erstelldatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`angebotskorb_id`,`artikelnummer_id`),
   KEY `angebotStatus_id` (`angebotStatus_id`),
   KEY `artikelnummer_id` (`artikelnummer_id`),
@@ -71,8 +74,14 @@ CREATE TABLE IF NOT EXISTS `angebot` (
 -- Daten für Tabelle `angebot`
 --
 
-INSERT INTO `angebot` (`artikelnummer_id`, `angebotskorb_id`, `angebotStatus_id`) VALUES
-(1, 1, 1);
+INSERT INTO `angebot` (`artikelnummer_id`, `angebotskorb_id`, `angebotStatus_id`, `bemerkung`, `erstelldatum`) VALUES
+(1, 1, 1, NULL, '0000-00-00 00:00:00'),
+(1, 16, 1, NULL, '0000-00-00 00:00:00'),
+(1, 18, 1, 'Blub123', '0000-00-00 00:00:00'),
+(1, 19, 1, 'Blub123', '2014-01-10 16:55:29'),
+(1, 20, 1, 'Blub123', '2014-01-10 16:57:22'),
+(1, 21, 1, 'Blub123', '2014-01-10 16:58:39'),
+(3, 21, 1, 'blau', '2014-01-10 16:58:39');
 
 -- --------------------------------------------------------
 
@@ -85,13 +94,34 @@ CREATE TABLE IF NOT EXISTS `angebotskorb` (
   `benutzer_email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `benutzer_email` (`benutzer_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Daten für Tabelle `angebotskorb`
 --
 
 INSERT INTO `angebotskorb` (`id`, `benutzer_email`) VALUES
+(22, 'dennis.brandmueller@gmx.de'),
+(2, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(3, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(4, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(5, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(6, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(7, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(8, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(9, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(10, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(11, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(12, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(13, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(14, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(15, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(16, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(17, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(18, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(19, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(20, 'dennis.brandmueller@stud.fh-rosenheim.de'),
+(21, 'dennis.brandmueller@stud.fh-rosenheim.de'),
 (1, 'test@test.de');
 
 -- --------------------------------------------------------
@@ -104,14 +134,16 @@ CREATE TABLE IF NOT EXISTS `angebotStatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Daten für Tabelle `angebotStatus`
 --
 
 INSERT INTO `angebotStatus` (`id`, `status`) VALUES
-(1, 'In Bearbeitung');
+(1, 'In Bearbeitung'),
+(2, 'Offen'),
+(3, 'Abgeschlossen');
 
 -- --------------------------------------------------------
 
@@ -147,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `artikelnummer` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pufferspeicher_id` (`pufferspeicher_id`),
   UNIQUE KEY `waermetauscher_id` (`waermetauscher_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Daten für Tabelle `artikelnummer`
@@ -157,7 +189,13 @@ INSERT INTO `artikelnummer` (`id`, `pufferspeicher_id`, `waermetauscher_id`) VAL
 (1, NULL, 2),
 (2, 1, NULL),
 (3, NULL, 3),
-(4, NULL, 6);
+(4, NULL, 6),
+(13, 13, NULL),
+(14, NULL, 8),
+(15, NULL, 10),
+(16, NULL, 11),
+(17, NULL, 12),
+(18, NULL, 13);
 
 -- --------------------------------------------------------
 
@@ -208,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `benutzer` (
 --
 
 INSERT INTO `benutzer` (`email`, `nachname`, `vorname`, `passwort`, `salt`, `berechtigung`, `anrede_id`, `bestaetigt`) VALUES
+('dennis.brandmueller@gmx.de', 'Brandmüller', 'Dennis', '25ee9f5cd40b1b84cd492c3af106d7ed2477c7c8', 'd072d3a7e267d42c25dca6ad281c668a6ed84ae0', 'Benutzer', 1, 1),
 ('dennis.brandmueller@stud.fh-rosenheim.de', 'Brandmüller', 'Blub', '61d8f332dbfe53708316081957abf5bd4108c72a', '914fe439224eeb9c7149d8361346f8d76adf221c', 'Administrator', 1, 1),
 ('max.mustermann@test.de', 'Mustermann', 'Max', '2', '', 'Benutzer', 1, 0),
 ('test@test.de', 'test', 'test', 'b0014d0e690fa1080574f2f6096b532eb4880cc6', '6f00afc6550ad5c19d20288ab7545771b4a66c10', 'Benutzer', 2, 0);
@@ -248,14 +287,15 @@ CREATE TABLE IF NOT EXISTS `pufferspeicher` (
   `betriebsdruck` int(11) NOT NULL,
   `temperaturMax` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Daten für Tabelle `pufferspeicher`
 --
 
 INSERT INTO `pufferspeicher` (`id`, `model`, `speicherinhalt`, `leergewicht`, `betriebsdruck`, `temperaturMax`) VALUES
-(1, 'VVX200', 200, 50, 10, 95);
+(1, 'VVX200', 200, 50, 500, 95),
+(13, 'blub3', 2000, 100, 5000, 100);
 
 -- --------------------------------------------------------
 
@@ -275,7 +315,8 @@ CREATE TABLE IF NOT EXISTS `pufferspeicher2pufferspeicherEinsatzgebiet` (
 --
 
 INSERT INTO `pufferspeicher2pufferspeicherEinsatzgebiet` (`pufferspeicher_id`, `pufferspeicherEinsatzgebiet_id`) VALUES
-(1, 1);
+(1, 1),
+(13, 1);
 
 -- --------------------------------------------------------
 
@@ -331,9 +372,8 @@ CREATE TABLE IF NOT EXISTS `waermetauscher` (
   `hoehe` int(11) NOT NULL,
   `breite` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `model` (`model`),
   KEY `stutzenmaterial_id` (`stutzenmaterial_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Daten für Tabelle `waermetauscher`
@@ -342,7 +382,12 @@ CREATE TABLE IF NOT EXISTS `waermetauscher` (
 INSERT INTO `waermetauscher` (`id`, `model`, `betriebsdruck`, `temperatur`, `stutzenmaterial_id`, `hoehe`, `breite`) VALUES
 (2, 'BHD21', 30, 195, 1, 191, 73),
 (3, 'BHD30', 30, 195, 2, 315, 73),
-(6, 'BHM21', 30, 195, 1, 203, 73);
+(6, 'BHM21', 30, 195, 1, 203, 73),
+(8, 'blubWT', 5, 5, 1, 5, 5),
+(10, 'blubWT', 5, 5, 1, 5, 5),
+(11, 'blubWT', 5, 5, 1, 5, 5),
+(12, 'blubWT', 5, 5, 1, 5, 5),
+(13, 'blubWT', 5, 5, 1, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -468,16 +513,16 @@ INSERT INTO `waermetauscherUnterkategorie` (`id`, `waermetauscher_id`, `platten`
 -- Constraints der Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  ADD CONSTRAINT `adresse_ibfk_4` FOREIGN KEY (`benutzer_email`) REFERENCES `benutzer` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `adresse_ibfk_1` FOREIGN KEY (`anrede_id`) REFERENCES `anrede` (`id`);
+  ADD CONSTRAINT `adresse_ibfk_1` FOREIGN KEY (`anrede_id`) REFERENCES `anrede` (`id`),
+  ADD CONSTRAINT `adresse_ibfk_4` FOREIGN KEY (`benutzer_email`) REFERENCES `benutzer` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `angebot`
 --
 ALTER TABLE `angebot`
-  ADD CONSTRAINT `angebot_ibfk_4` FOREIGN KEY (`angebotskorb_id`) REFERENCES `angebotskorb` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `angebot_ibfk_1` FOREIGN KEY (`artikelnummer_id`) REFERENCES `artikelnummer` (`id`),
-  ADD CONSTRAINT `angebot_ibfk_3` FOREIGN KEY (`angebotStatus_id`) REFERENCES `angebotStatus` (`id`);
+  ADD CONSTRAINT `angebot_ibfk_3` FOREIGN KEY (`angebotStatus_id`) REFERENCES `angebotStatus` (`id`),
+  ADD CONSTRAINT `angebot_ibfk_4` FOREIGN KEY (`angebotskorb_id`) REFERENCES `angebotskorb` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `angebotskorb`
@@ -489,8 +534,8 @@ ALTER TABLE `angebotskorb`
 -- Constraints der Tabelle `artikelnummer`
 --
 ALTER TABLE `artikelnummer`
-  ADD CONSTRAINT `artikelnummer_ibfk_4` FOREIGN KEY (`pufferspeicher_id`) REFERENCES `pufferspeicher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `artikelnummer_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `artikelnummer_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `artikelnummer_ibfk_4` FOREIGN KEY (`pufferspeicher_id`) REFERENCES `pufferspeicher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `begriff`
@@ -514,8 +559,8 @@ ALTER TABLE `link`
 -- Constraints der Tabelle `pufferspeicher2pufferspeicherEinsatzgebiet`
 --
 ALTER TABLE `pufferspeicher2pufferspeicherEinsatzgebiet`
-  ADD CONSTRAINT `pufferspeicher2pufferspeicherEinsatzgebiet_ibfk_3` FOREIGN KEY (`pufferspeicher_id`) REFERENCES `pufferspeicher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pufferspeicher2pufferspeicherEinsatzgebiet_ibfk_2` FOREIGN KEY (`pufferspeicherEinsatzgebiet_id`) REFERENCES `pufferspeicherEinsatzgebiet` (`id`);
+  ADD CONSTRAINT `pufferspeicher2pufferspeicherEinsatzgebiet_ibfk_2` FOREIGN KEY (`pufferspeicherEinsatzgebiet_id`) REFERENCES `pufferspeicherEinsatzgebiet` (`id`),
+  ADD CONSTRAINT `pufferspeicher2pufferspeicherEinsatzgebiet_ibfk_3` FOREIGN KEY (`pufferspeicher_id`) REFERENCES `pufferspeicher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `waermetauscher`
@@ -527,15 +572,15 @@ ALTER TABLE `waermetauscher`
 -- Constraints der Tabelle `waermetauscher2waermetauscherAnschluss`
 --
 ALTER TABLE `waermetauscher2waermetauscherAnschluss`
-  ADD CONSTRAINT `waermetauscher2waermetauscherAnschluss_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `waermetauscher2waermetauscherAnschluss_ibfk_2` FOREIGN KEY (`waermetauscherAnschluss_id`) REFERENCES `waermetauscherAnschluss` (`id`);
+  ADD CONSTRAINT `waermetauscher2waermetauscherAnschluss_ibfk_2` FOREIGN KEY (`waermetauscherAnschluss_id`) REFERENCES `waermetauscherAnschluss` (`id`),
+  ADD CONSTRAINT `waermetauscher2waermetauscherAnschluss_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `waermetauscher2waermetauscherEinsatzgebiet`
 --
 ALTER TABLE `waermetauscher2waermetauscherEinsatzgebiet`
-  ADD CONSTRAINT `waermetauscher2waermetauscherEinsatzgebiet_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `waermetauscher2waermetauscherEinsatzgebiet_ibfk_2` FOREIGN KEY (`waermetauscherEinsatzgebiet_id`) REFERENCES `waermetauscherEinsatzgebiet` (`id`);
+  ADD CONSTRAINT `waermetauscher2waermetauscherEinsatzgebiet_ibfk_2` FOREIGN KEY (`waermetauscherEinsatzgebiet_id`) REFERENCES `waermetauscherEinsatzgebiet` (`id`),
+  ADD CONSTRAINT `waermetauscher2waermetauscherEinsatzgebiet_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `waermetauscherUnterkategorie`

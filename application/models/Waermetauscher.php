@@ -23,9 +23,9 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 				"temperatur" => $this->_temperatur,
 				"hoehe" => $this->_hoehe,
 				"breite" => $this->_breite,
-				"stuzenmaterial" => $this->_stutzenmaterial,
+				"stutzenmaterial" => $this->_stutzenmaterial,
 				"waermetauscherUnterkategorie" => $this->_waermetauscherUnterkategorie,
-				"waermetauscherEinsatzgebiet" => $his->_waermetauscherEinsatzgebiet,
+				"waermetauscherEinsatzgebiet" => $this->_waermetauscherEinsatzgebiet,
 				"waermetauscherAnschluss" => $this->_waermetauscherAnschluss
 		);
 	}
@@ -133,15 +133,15 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		return false;
 	}
 	
-	public function deleteWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) { //TODO
-		if(empty($this->_waermetauscherEinsatzgebiet) || empty($gebiet)) {
+	public function deleteWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) {
+		if(empty($this->_waermetauscherUnterkategorie) || empty($wtUnterkategorie)) {
 			return false;
 		}
 		
-		foreach($this->_waermetauscherEinsatzgebiet as $key => $value) {
-			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
-				unset($this->_waermetauscherEinsatzgebiet[$key]);
-				$this->_changed['waermetauscherEinsatzgebiet'] = 1;
+		foreach($this->_waermetauscherUnterkategorie as $key => $value) {
+			if($wtUnterkategorie->isEqual($value)) {
+				unset($this->_waermetauscherUntergebiet[$key]);
+				$this->_changed['waermetauscherUnterkategorie'] = 1;
 			}
 		}
 	}
