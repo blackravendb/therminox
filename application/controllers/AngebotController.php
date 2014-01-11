@@ -48,6 +48,10 @@ class AngebotController extends Zend_Controller_Action {
 				
 				if ($form->isValid ( $formData )) {
 					$form->populate ( $_POST );
+					
+					$form_message = htmlspecialchars($form->getValue ( 'extraInfo' ));
+					
+					
 					if ($form->addMore->isChecked ()) {
 						if (! isset ( $_SESSION ['angebotskorb'] )) {
 							$_SESSION ['angebotskorb'] = new Application_Model_Angebotskorb ();
@@ -57,14 +61,27 @@ class AngebotController extends Zend_Controller_Action {
 						
 						$_offer = new Application_Model_Angebot ();
 						$_offer->setArtikelnummer ( $_art_nr );
+						$_offer->setBemerkung($form_message);
+						//TODO zeitstempel erstellen!
 						$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
 						echo 'addmore';
 					}
 					if ($form->submit->isChecked ()) {
-						echo 'submit warten auf db';
-						$this->_redirect ( 'angebot/anzeigen' );
+						if (isset ( $_SESSION ['angebotskorb'] )) {
+							$angebotskorb = $_SESSION ['angebotskorb'];
+						}
+						
+						$_offer = new Application_Model_Angebot ();
+						$_offer->setArtikelnummer ( $_art_nr );
+						$_offer->setBemerkung($form_message);
+						$angebotskorb->insertAngebot($_offer);
+						
+						$_mapper = new Application_Model_AngebotskorbMapper();
+						$_mapper->insertAngebotskorb($angebotskorb);
+						
+						$this->_redirect ( 'angebot/' );
 					}
-					// $form_message = $form->getValue ( 'extraInfo' );
+					
 				}
 			}
 		}
@@ -128,12 +145,3 @@ class AngebotController extends Zend_Controller_Action {
 		// $this->_redirect ( $_SERVER ['HTTP_REFERER'] );
 	}
 }
-
-
-
-
-
-
-
-
-
