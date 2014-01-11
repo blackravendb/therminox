@@ -24,6 +24,17 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 		);
 	}
 	
+	public function isEqual(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) {
+		$wtUnterkategorieData = $wtUnterkategorie->toArray();
+		
+		if($this->_platten === $wtUnterkategorieData['platten'] && $this->_laenge === $wtUnterkategorieData['laenge'] &&
+		$this->_leergewicht === $wtUnterkategorieData['leergewicht'] && $this->_flaeche === $wtUnterkategorieData['flaeche'] &&
+		$this->_inhaltPrimaer === $wtUnterkategorieData['inhaltPrimaer'] && $this->_inhaltSekundaer === $wtUnterkategorieData['inhaltSekundaer'])
+			return true;
+		
+		return false;
+	}
+	
 	//Primary Key protected function, benötig außerdem kein Zugriff auf _changed
 	protected function setId ($id){
 		if($id == "")
@@ -37,7 +48,7 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 		return $this->_id;
 	}
 	
-	public function setWaermetauscher_id($id) {
+	protected function setWaermetauscher_id($id) {
 		if($id == "")
 			return false;
 

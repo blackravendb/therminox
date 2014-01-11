@@ -63,8 +63,7 @@ class AccountController extends Zend_Controller_Action
     	if($auth->hasIdentity()) {
     		$auth->clearIdentity();
     		$this->_helper->flashMessenger->addMessage('Erfolgreich abgemeldet');
-    		// Warenkorb löschen
-    		session_destroy();
+    		Zend_Session::destroy(true);
     	}
 		$this->_helper->redirector->gotoSimple('index', 'startseite');
     }

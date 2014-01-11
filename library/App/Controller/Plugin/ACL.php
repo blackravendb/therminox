@@ -1,5 +1,6 @@
 <?php
 class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
+	
 	protected $_auth = null;
 	protected $_acl = null;
 	
@@ -10,14 +11,13 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 	
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 		
-		$mysession = new Zend_Session_Namespace('mysession');
-		
-		$controller = $request->getControllerName ();
-		$action = $request->getActionName ();
+		$session = new Zend_Session_Namespace('mysession');
+		$controller = $request->getControllerName();
+		$action = $request->getActionName();
 		$role = null;
 		
-		if ($this->_auth->hasIdentity ()) {
-			if(isset($this->_auth->getIdentity()->berechtigung)){
+		if ($this->_auth->hasIdentity()) {
+			if (isset($this->_auth->getIdentity()->berechtigung)){
 				$role = $this->_auth->getIdentity()->berechtigung;
 			} else {
 				$role = 'Gast';
@@ -26,20 +26,18 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 			$role = 'Gast';
 		}
 		
-		//$role = 'Gast'; // Zeile löschen, wenn in der Datenbank Berechtigung funktioniert
-		
-		if (! $this->_acl->has ( $controller )) {
+		if (!$this->_acl->has($controller)) {
 			$controller = null;
 		}
 		
-		if (! $this->_acl->isAllowed ( $role, $controller, $action )) {
+		if (!$this->_acl->isAllowed($role, $controller, $action)) {
 			if ('Gast' == $role) {
-				$mysession->destination_url = $request->getPathInfo();
-				$request->setControllerName ( 'account' );
-				$request->setActionName ( 'login' );
+				$session->destination_url = $request->getPathInfo();
+				$request->setControllerName('account');
+				$request->setActionName('login');
 			} else {
-				$request->setControllerName ( 'error' );
-				$request->setActionName ( 'index' );
+				$request->setControllerName('error');
+				$request->setActionName('index');
 			}
 		}
 	}

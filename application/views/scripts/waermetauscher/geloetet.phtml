@@ -114,7 +114,7 @@
 		}
 		
 	echo '</div>';
-	if(count($_SESSION)==1){
+	if (Zend_Auth::getInstance()->hasIdentity()){
 	echo  '<br><a href="/Angebot/erstellen/artikelnummer/'.$art_nr.'">Angebot über diesen Artikel einholen</a><div>';
 	}
 	var_dump($_SESSION);

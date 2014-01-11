@@ -207,7 +207,8 @@
           </viewControllerScriptsDirectory>
 		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
             <viewScriptFile forActionName="hinzufuegen"/>
-			<viewControllerScriptsDirectory forControllerName="Wassererwaermer">
+			</viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
             <viewScriptFile forActionName="bearbeiten"/>
           </viewControllerScriptsDirectory>
 		  <viewControllerScriptsDirectory forControllerName="Wassererwaermer">
@@ -243,14 +244,15 @@
     <projectProvidersDirectory enabled="false"/>
     <temporaryDirectory enabled="false"/>
     <testsDirectory>
-      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
-      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
-      <testApplicationDirectory>
-        <testApplicationControllerDirectory>
-          <testApplicationControllerFile forControllerName="Index"/>
-        </testApplicationControllerDirectory>
-      </testApplicationDirectory>
-      <testLibraryDirectory/>
+		<testsLibraryDirectory>
+		  <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+		  <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+		  <testApplicationDirectory>
+			<testApplicationControllerDirectory>
+			  <testApplicationControllerFile forControllerName="Index"/>
+			</testApplicationControllerDirectory>
+		  </testApplicationDirectory>
+		</testsLibraryDirectory>
     </testsDirectory>
   </projectDirectory>
 </projectProfile>

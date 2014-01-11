@@ -104,6 +104,10 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 	public function updatePufferspeicher(Application_Model_Pufferspeicher $pufferspeicher) {
 		return $this->getDbTable()->updatePufferspeicher($pufferspeicher);
 	}
+	
+	public function getModelListe() {
+		//TODO
+	}
 
 }
 
