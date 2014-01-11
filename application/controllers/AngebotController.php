@@ -59,13 +59,18 @@ class AngebotController extends Zend_Controller_Action {
 					$_offer->setArtikelnummer ( $_art_nr );
 					$_offer->setBemerkung ( $form_message );
 					$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
-					echo 'addmore';
+					$this->_redirect($this->_request->getPost('return'));
+					
 				}
 				if ($form->submit->isChecked ()) {
 					if (isset ( $_SESSION ['angebotskorb'] )) {
 						$angebotskorb = $_SESSION ['angebotskorb'];
 					}
-					
+					if(!isset($_SESSION['angebotskorb'])){
+						$angebotskorb = new Application_Model_Angebotskorb();
+						$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+						$angebotskorb->setBenutzer_email ( $email );
+					}
 					$_offer = new Application_Model_Angebot ();
 					$_offer->setArtikelnummer ( $_art_nr );
 					$_offer->setBemerkung ( $form_message );

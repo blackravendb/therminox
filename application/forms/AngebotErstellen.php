@@ -20,7 +20,9 @@ class Application_Form_AngebotErstellen extends App_Form {
 		$submit->setLabel('Angebot absenden');
 		
 		$this->addElements(array($extraInfo, $addMore, $submit));
-		
+		$this->addElement('hidden', 'return', array(
+				'value' => Zend_Controller_Front::getInstance()->getRequest()->getRequestUri(),
+		));
 	}
 	
 }
