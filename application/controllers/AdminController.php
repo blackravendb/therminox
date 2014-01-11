@@ -83,10 +83,8 @@
 			
 		}
 		
-		public function changepufferspeicherAction(){
-		$request = $this->getRequest();
-			$art = $request->getParam('artikel');
-			if (true){
+		public function changepufferspeicherAction(){ //TODO
+			$request = $this->getRequest();
 				$db_mapper = new Application_Model_PufferspeicherMapper ();
 				$data_object = $db_mapper->getPufferspeicherByModel($art);
 				
@@ -124,19 +122,98 @@
 						//TODO updateWaermetauscher aufrufen!
 						
 						$this->view->showMessage = true;
-					}
-				}
-			} else {
-				$this->view->message = 'Artikel konnte nicht gefunden werden';
-				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
-					$this->view->link = $_SERVER ['HTTP_REFERER'];
-				} else {
-					$this->view->link = '/Waermetauscher';
 				}
 			}
+		}
+		
+		//TODO Controller zusammenfassen?
+		public function anschluessebearbeitenAction(){
+				$wtmapper = new Application_Model_WaermetauscherMapper();
+				$anschluesse = $wtmapper->getAnschlussListe();
+				
+				$form = new Application_Form_AttributeBearbeiten();
+				$form->setDbdata($anschluesse);
+				$form->startform();
+				
+				$this->view->attributeBearbeiten = $form; 
+				
+				if($this->_request->isPost()){
+					$formData = $this->_request->getPost();
+				
+					if($form->isValid($formData)){ 
+						
+						if($form->attributLoeschen->isChecked()){
+							$anschLöschen = $form->getValue('AttributLoeschen');
+							//TODO Datenbankfunktion Anschluesse löschen
+						}
+						
+						if($form->hinzufuegen->isChecked()){
+							$anschHinzufuegen = $form->getValue('attributHinzufuegen');
+							//TODO Datenbankfunktion Anschluss hinzufuegen
+						}
+					}
+				}
+		}
+		
+		public function einsatzgebietebearbeitenAction(){ //TODO Auf Methode warten
+			$wtmapper = new Application_Model_WaermetauscherMapper();
+			$einsatzgebiete = $wtmapper->getEinsatzgebietListe();
+			
+			$form = new Application_Form_AttributeBearbeiten();
+			$form->setDbdata($einsatzgebiete);
+			$form->startform();
+			
+			$this->view->attributeBearbeiten = $form;
+			
+			if($this->_request->isPost()){
+				$formData = $this->_request->getPost();
+				
+				if($form->isValid($formData)){
+					
+					if($form->attributLoeschen->isChecked()){
+						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
+						//TODO Datenbankfunktion Einsatzgebiete löschen
+					}
+					
+					if($form->hinzufuegen->isChecked()){
+						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
+					}
+				}
+			}
+		}
+		
+		public function stutzenmaterialbearbeitenAction(){ //TODO Auf Methode warten
+			$wtmapper = new Application_Model_WaermetauscherMapper();
+			$stutzenmaterial = $wtmapper->getStutzenmaterialListe();
 			
 		}
 		
+		public function einsatzgebietepsbearbeitenAction(){
+			$psmapper= new Application_Model_PufferspeicherMapper();
+			$einsatzgebiete = $psmapper->getEinsatzgebietListe();
+			
+		$form = new Application_Form_AttributeBearbeiten();
+			$form->setDbdata($einsatzgebiete);
+			$form->startform();
+			
+			$this->view->attributeBearbeiten = $form;
+			
+			if($this->_request->isPost()){
+				$formData = $this->_request->getPost();
+				
+				if($form->isValid($formData)){
+					
+					if($form->attributLoeschen->isChecked()){
+						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
+						//TODO Datenbankfunktion Einsatzgebiete löschen
+					}
+					
+					if($form->hinzufuegen->isChecked()){
+						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
+					}
+				}
+			}
+		}
 		
 		
 		

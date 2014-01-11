@@ -36,14 +36,14 @@ class Application_Form_ProduktberaterPs extends Zend_Form {
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
         $minDruck = new Zend_Form_Element_Text('minDruck');
-		$minDruck->setLabel('Min Betriebsdruck')
+		$minDruck->setLabel('Min Betriebsdruck:')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxDruck = new Zend_Form_Element_Text('maxDruck');
-		$maxDruck->setLabel('Max Betriebsdruck')
+		$maxDruck->setLabel('Max Betriebsdruck:')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
