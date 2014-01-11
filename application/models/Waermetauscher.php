@@ -164,7 +164,7 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 			return true;
 		}
 		foreach($this->_waermetauscherEinsatzgebiet as $value){
-			if($value->getEinsatzgebiet() === $anschluss->getEinsatzgebiet()) {
+			if($value->getEinsatzgebiet() === $einsatzgebiet->getEinsatzgebiet()) {
 				$enthalten = true;
 				break;
 			}
