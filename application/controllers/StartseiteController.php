@@ -32,7 +32,12 @@ class StartseiteController extends Zend_Controller_Action
     	$form = new Application_Form_Kontakt();
     	if ($this->_request->isPost()) {
     		if ($form->isValid($this->_request->getPost())) {
-
+			    $mail = new Zend_Mail('utf-8');
+			    $mail->setBodyHtml(htmlspecialchars($form->getValue('kontakt_text')));
+			    $mail->setReplyTo($form->getValue('kontakt_email'), $form->getValue('kontakt_email'));
+			    $mail->addTo('test.therminox@gmail.com', 'Therminox');
+			    $mail->setSubject('Kontaktformularanfrage von ' . $form->getValue('kontakt_email'));
+			    $mail->send();			    
     			$this->_helper->flashMessenger->addMessage('Email erfolgreich verschickt.');
     			$this->_helper->redirector->gotoSimple('index', 'startseite');
     		}

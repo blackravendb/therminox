@@ -21,10 +21,8 @@ class Application_Form_Kontakt extends App_Form
 		$text->setRequired(true)
 		->setLabel('Ihr Text')
 		->setDecorators($this->elementDecorators)
-		->addFilter('StringTrim')
-		->addFilter('StripTags')
-		->setAttrib('cols', '40')
-		->setAttrib('rows', '4')
+		->setAttrib('cols', '50')
+		->setAttrib('rows', '10')
 		->setAttrib('maxlength', '1000')
 		->setValidators(array(
     		array('NotEmpty', true),
