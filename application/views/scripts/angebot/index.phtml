@@ -1,26 +1,26 @@
 <?php
-
-	$_offers = $this->_offers;
-	if (empty ( $_offers )) {
-		echo 'Sie haben noch keine Angebote angefordert!';
-	}
+$offers = $this->offers;
+if (empty ( $offers )) {
+	echo 'Sie haben noch keine Angebote angefordert!';
+}
+if (! empty ( $offers )) {
 	print <<<tablehead
 		<h2>Meine Angebote</h2>
 <table border="1">
 	<tr>
 		<th>Angebotsnummer</th>
 		<th>Erstelldatum</th>
-		<th>Bearbeitungsstatus</th>
 		<th>&#160;</th>
 	</tr>
 tablehead;
-	foreach ( $_offers as $offer ) {
-		$_art = $offer->getAngebot ();
-		echo '<tr><td>' . $_offer->getAngebotskorb_id () . '</td>';
-		echo '<td>' . $_offer->getErstelldatum () . '</td>';
-		echo '<td>' . $_art->getStatus () . '</td>';
-		echo '<td><a href="/Angebot/anzeigen/id/' . $_offer->getAngebotskorb_id () . '">Anzeigen</a></td>';
-		echo '</tr></table>';
+	foreach ( $offers as $offer ) {
+		// $art = $offer->getAngebot ();
+		echo '<tr><td>' . $offer->getId () . '</td>';
+		// echo '<td>' . $offer->getErstelldatum () . '</td>';
+		echo '<td>erstelldatum</td>';
+		echo '<td><a href="/Angebot/anzeigen/id/' . $offer->getId () . '">Anzeigen</a></td></tr>';
 	}
-
+	echo '</table>';
+}
+var_dump ( $offers );
 ?>

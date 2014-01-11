@@ -1,13 +1,24 @@
 <?php 
 echo'<title>Ihr Warenkorb</title><body>	<fieldset id="inhalte">';
+
+
 echo'	<legend>Angebot '.$this->offerID.'</legend><p>';
-           
-				echo empty ( $this->articles )
-					? 'Angebot enthält noch keine Artikel'
-					: $this->makelist ( "mytab", $this->articles, null, array ( 'id' => 'testing' ) );
-			
+           if(		empty ( $this->articles )) {
+					echo 'Angebot enthält noch keine Artikel';
+           }
+           if (!empty($this->articles)){
+           	$articles = $this->articles;
+           	$db_mapper = new Application_Model_ArtikelMapper();
+           	foreach ($articles as $article){
+           				echo 'Artikelname: <br>';
+						//echo 'Artikelname: '.$db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
+						echo 'Erstelldatum: '.$article->getErstelldatum().'<br>';
+						echo 'Status: '.$article->getStatus().'<br>';
+								echo 'Bemerkung: '.$article->getBemerkung().'<br>';
+           	}
+           }
 echo'</p></fieldset><a href="/angebot">Zur&uuml;ck</a> |	<a href="/angebot/remove">Angebot verwerfen</a></body>';
 		
 //$cart = unserialize($_SESSION[‘angebotskorb’]);
-var_dump($_SESSION);
+var_dump($this->articles);
 ?>

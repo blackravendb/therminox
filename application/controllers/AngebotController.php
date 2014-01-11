@@ -4,40 +4,40 @@ class AngebotController extends Zend_Controller_Action {
 		require_once 'Cart/ShoppingCart.php';
 	}
 	public function indexAction() {
-		$_mapper = new Application_Model_AngebotskorbMapper ();
+		$db_mapper = new Application_Model_AngebotskorbMapper ();
 		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
-		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
-		$this->view->_offers = $_offers;
+		$offers = $db_mapper->getAngebotskorbByEmail ( $email );
+		$this->view->offers = $offers;
 	}
 	public function erstellenAction() {
 		$request = $this->getRequest ();
-		$_art_nr = $request->getParam ( 'artikelnummer' );
-		$_cat = null;
-		$_art = null;
+		$art_nr = $request->getParam ( 'artikelnummer' );
+		$cat = null;
+		$art = null;
 		
 		$artmapper = new Application_Model_ArtikelMapper ();
-		$_art = $artmapper->getArtikelByArtikelnummer ( $_art_nr );
-		$_art = $_art->getModel ();
+		$art = $artmapper->getArtikelByArtikelnummer ( $art_nr );
+		$art = $art->getModel ();
 		
-		$this->view->artID = $_art;
-		if (substr_compare ( $_art, 'BH', 0, 2, false ) === 0) {
-			$_cat = "Wärmetauscher";
-			$this->view->artCat = $_cat;
+		$this->view->artID = $art;
+		if (substr_compare ( $art, 'BH', 0, 2, false ) === 0) {
+			$cat = "Wärmetauscher";
+			$this->view->artCat = $cat;
 		}
-		if (substr_compare ( $_art, 'VV', 0, 2, false ) === 0) {
-			$_cat = "Pufferspeicher";
-			$this->view->artCat = $_cat;
+		if (substr_compare ( $art, 'VV', 0, 2, false ) === 0) {
+			$cat = "Pufferspeicher";
+			$this->view->artCat = $cat;
 		}
-		if (substr_compare ( $_art, 'LA', 0, 2, false ) === 0) {
-			$_cat = "Pufferspeicher";
-			$this->view->artCat = $_cat;
+		if (substr_compare ( $art, 'LA', 0, 2, false ) === 0) {
+			$cat = "Pufferspeicher";
+			$this->view->artCat = $cat;
 		}
 		
 		$form = new Application_Form_AngebotErstellen ();
 		
 		$form->setMethod ( 'post' );
-		$_action = '/Angebot/erstellen/artikelnummer/' . $_art_nr;
-		$form->setAction ( $_action );
+		$action = '/Angebot/erstellen/artikelnummer/' . $art_nr;
+		$form->setAction ( $action );
 		$this->view->form = $form;
 		
 		if ($this->_request->isPost ()) {
@@ -55,31 +55,32 @@ class AngebotController extends Zend_Controller_Action {
 						$_SESSION ['angebotskorb']->setBenutzer_email ( $email );
 					}
 					
-					$_offer = new Application_Model_Angebot ();
-					$_offer->setArtikelnummer ( $_art_nr );
-					$_offer->setBemerkung ( $form_message );
-					$_offer->setStatus('Offen');
-					$_SESSION ['angebotskorb']->insertAngebot ( $_offer );
-					$this->_redirect($this->_request->getPost('return'));
-					
+					$offer = new Application_Model_Angebot ();
+					$offer->setArtikelnummer ( $art_nr );
+					$offer->setBemerkung ( $form_message );
+					$offer->setStatus ( 'Offen' );
+					$_SESSION ['angebotskorb']->insertAngebot ( $offer );
+					$this->_redirect ( $this->_request->getPost ( 'return' ) );
 				}
 				if ($form->submit->isChecked ()) {
 					if (isset ( $_SESSION ['angebotskorb'] )) {
 						$angebotskorb = $_SESSION ['angebotskorb'];
 					}
-					if(!isset($_SESSION['angebotskorb'])){
-						$angebotskorb = new Application_Model_Angebotskorb();
+					if (! isset ( $_SESSION ['angebotskorb'] )) {
+						$angebotskorb = new Application_Model_Angebotskorb ();
 						$email = Zend_Auth::getInstance ()->getIdentity ()->email;
 						$angebotskorb->setBenutzer_email ( $email );
 					}
-					$_offer = new Application_Model_Angebot ();
-					$_offer->setArtikelnummer ( $_art_nr );
-					$_offer->setBemerkung ( $form_message );
-					$_offer->setStatus('Offen');
-					$angebotskorb->insertAngebot ( $_offer );
-					
-					$_mapper = new Application_Model_AngebotskorbMapper ();
-					$_mapper->insertAngebotskorb ( $angebotskorb );
+					$offer = new Application_Model_Angebot ();
+					$offer->setArtikelnummer ( $art_nr );
+					$offer->setBemerkung ( $form_message );
+					$offer->setStatus ( 'Offen' );
+					if (! is_null ( $offer )) {
+						$angebotskorb->insertAngebot ( $offer );
+					}
+					$mapper = new Application_Model_AngebotskorbMapper ();
+					$mapper->insertAngebotskorb ( $angebotskorb );
+					unset($_SESSION['angebotskorb']);
 					
 					$this->_redirect ( 'angebot/' );
 				}
@@ -88,28 +89,21 @@ class AngebotController extends Zend_Controller_Action {
 	}
 	public function anzeigenAction() {
 		$request = $this->getRequest ();
-		$_offerID = $request->getParam ( 'id' );
-		$this->view->offerID = $_offerID;
+		$offerID = $request->getParam ( 'id' );
+		$this->view->offerID = $offerID;
 		
-		$_mapper = new Application_Model_AngebotskorbMapper ();
+		$db_mapper = new Application_Model_AngebotskorbMapper ();
 		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
-		$_offers = $_mapper->getAngebotskorbByEmail ( $email );
-		$_articleIDs = array ();
+		$offers = $db_mapper->getAngebotskorbByEmail ( $email );
+		$articles = array ();
 		
-		foreach ( $_offers as $_offer ) {
-			if ($_offerID === $_offer->getId ()) {
-				$_articleIDs = $_offer->getAngebot ();
+		foreach ( $offers as $offer ) {
+			if ($offerID == $offer->getId ()) {
+				$articles = $offer->getAngebot ();
 			}
 		}
-		
-		$_articles = array ();
-		$_mapper = new Application_Model_ArtikelMapper ();
-		
-		foreach ( $_articleIDs as $_articleID ) {
-			$_articles = $_mapper->getArtikelByArtikelnummer ( $_articleID );
-		}
-		
-		$this->view->articles = $_articles;
+				
+		$this->view->articles = $articles;
 	}
 	public function addAction() {
 		$request = $this->getRequest ();
