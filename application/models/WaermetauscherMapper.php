@@ -143,6 +143,18 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		return $ret;
 	}
 	
+	public function getStutzenmaterialListe() {
+		$data = $this->getDbTable()->getStutzenmaterialListe();
+		
+		if(empty($data))
+			$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['name'];
+		}
+		return $ret;
+	}
+	
 	public function deleteWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
 		$id = $waermetauscher->getId();
 		if(empty($id))

@@ -153,6 +153,10 @@ echo 'Wärmetauscher:<br>';
  }
  echo '<br>';
  
+ foreach($waermetauschermapper->getStutzenmaterialListe() as $value){
+ 	echo $value.'<br>';
+ }
+ 
  $wt = new Application_Model_Waermetauscher();
  $wt->setBetriebsdruck(5);
  $wt->setBreite(5);

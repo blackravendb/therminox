@@ -267,6 +267,17 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	return $data->toArray();
     }
     
+    public function getStutzenmaterialListe() {
+    	$select = $this->select();
+   		$select
+   		->from('stutzenmaterial','name')
+   		->setIntegrityCheck(false);
+   		
+   		$data = parent::fetchAll($select);
+   		
+   		return $data->toArray();
+    }
+    
     public function deleteWaermetauscher($id) {
     	$where = $this->getAdapter()->quoteInto('id = ?', $id);
     	return $this->delete($where);
