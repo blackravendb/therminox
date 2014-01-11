@@ -22,34 +22,34 @@ class Application_Form_ProduktberaterPs extends Zend_Form {
            			->addFilter('StringTrim');
        	
        	$minSpeicherinhalt = new Zend_Form_Element_Text('minSpeicherinhalt');
-		$minSpeicherinhalt->setLabel('minimaler Speicherinhalt:')
+		$minSpeicherinhalt->setLabel('Min Speicherinhalt:')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
        			
        	$maxSpeicherinhalt = new Zend_Form_Element_Text('maxSpeicherinhalt');
-		$maxSpeicherinhalt->setLabel('maximaler Speicherinhalt:')
+		$maxSpeicherinhalt->setLabel('Max Speicherinhalt:')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
         $minDruck = new Zend_Form_Element_Text('minDruck');
-		$minDruck->setLabel('minimaler Betriebsdruck')
+		$minDruck->setLabel('Min Betriebsdruck')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxDruck = new Zend_Form_Element_Text('maxDruck');
-		$maxDruck->setLabel('maximaler Betriebsdruck')
+		$maxDruck->setLabel('Max Betriebsdruck')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
 		
-		$submit = new Zend_Form_Element_Submit('artikelVorschlagen');
+		$submit = new Zend_Form_Element_Submit('artikelPsVorschlagen');
         $submit->setLabel('Artikel vorschlagen');
         	
         $this->addElements(array($einsatzgbt, $minSpeicherinhalt, $maxSpeicherinhalt, $minDruck, $maxDruck, $submit));

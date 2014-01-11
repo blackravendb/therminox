@@ -34,12 +34,12 @@ class PufferspeicherController extends Zend_Controller_Action
 						$wtmapper->setEinsatzgebiet($einsatzgbt); 
 					}
 					
-					if (! empty ( $minSpeicherinahlt )) {
-						$wtmapper->setSpeicherinhaltMin ( $minSpeicherinahlt );
+					if (! empty ( $minSpeicherinhalt )) {
+						$wtmapper->setSpeicherinhaltMin ( $minSpeicherinhalt );
 					}
 					
-					if (! empty ( $maxSpeicherinahlt )) {
-						$wtmapper->setSpeicherinhaltMax( $maxSpeicherinahltt );
+					if (! empty ( $maxSpeicherinhalt )) {
+						$wtmapper->setSpeicherinhaltMax( $maxSpeicherinhalt );
 					}
 					
 					if (! empty ( $minDruck )) {

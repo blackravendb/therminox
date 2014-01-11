@@ -1,7 +1,7 @@
-h1 {
+h1{
 	color: #a60002;
 	text-decoration: underline;
-	font-size: 2.0em;
+	font-size: 1.8em;
 }
 
 h2{
@@ -12,11 +12,11 @@ h3{
 	font-size: 1.2em;	
 }
 
-errors{ 
+ul.errors{ 
 	position:absolute;
 	color: #BF0A0A;
 	list-style-type: none;
-	top:420px;
+	top:210px;
 }
 
 dt{
@@ -29,21 +29,20 @@ label, dd#Anschluss-element, dd#Einsatzgebiete-element{
     float: left;
 }
 
-dd#artikelVorschlagen-element{
+dd#artikelÄndern-element, dd#artikelPsÄndern-element, dd#artikelPsVorschlagen-element, dd#artikelVorschlagen-element{
 	position:absolute;
 	float:left;
 	height:30px;
 	width: 150px;
-	margin-top: 80px;
 	left: 170px;
 }
 
-dd#artikelÄndern-element, dd#artikelPsÄndern-element{
-	position:absolute;
-	float:left;
-	height:30px;
-	width: 150px;
-	left: 170px;
+dd#artikelVorschlagen-element{
+	margin-top: 80px;	
+}
+
+dd#artikelPsVorschlagen-element{
+	margin-top: 20px;	
 }
 
 dd#artikelÄndern-element{
@@ -68,6 +67,9 @@ div#TabelleWt{
 	margin-top: 120px;
 }
 
+div#TabellePs{
+	margin-top: 60px;	
+}
 /*Wtbearbeiten Formular*/
 
 div#geändert{
