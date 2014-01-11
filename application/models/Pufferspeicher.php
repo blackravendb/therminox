@@ -130,7 +130,7 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 		
 		foreach($this->_einsatzgebiet as $key => $value) {
 			if($value->getEinsatzgebiet() === $gebiet->getEinsatzgebiet()) {
-				$this->_einsatzgebiet2delete[] = $this->_einsatzgebiet[$key];
+// 				$this->_einsatzgebiet2delete[] = $this->_einsatzgebiet[$key];
 				unset($this->_einsatzgebiet[$key]);
 				$this->_changed['einsatzgebiet'] = 1;
 			}
