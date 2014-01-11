@@ -11,16 +11,21 @@ if (! empty ( $offers )) {
 		<th>Angebotsnummer</th>
 		<th>Erstelldatum</th>
 		<th>&#160;</th>
+			<th>&#160;</th>
 	</tr>
 tablehead;
+	
 	foreach ( $offers as $offer ) {
-		// $art = $offer->getAngebot ();
+		
 		echo '<tr><td>' . $offer->getId () . '</td>';
+		$art = $offer->getAngebot ();
+		$dat = $art[0]->getErstelldatum();
 		// echo '<td>' . $offer->getErstelldatum () . '</td>';
-		echo '<td>erstelldatum</td>';
-		echo '<td><a href="/Angebot/anzeigen/id/' . $offer->getId () . '">Anzeigen</a></td></tr>';
+		echo '<td>'.$dat.'</td>';
+		echo '<td><a href="/Angebot/anzeigen/id/' . $offer->getId () . '">Anzeigen</a></td>';
+		echo '<td><a href="/Angebot/remove/id/' . $offer->getId () . '">Verwerfern</a></td></tr>';
 	}
 	echo '</table>';
 }
-var_dump ( $offers );
+
 ?>

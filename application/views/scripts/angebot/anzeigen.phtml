@@ -1,24 +1,25 @@
-<?php 
-echo'<title>Ihr Warenkorb</title><body>	<fieldset id="inhalte">';
+<?php
+echo '<title>Ihr Warenkorb</title><body>	<fieldset id="inhalte">';
+
+echo '	<legend><h2>Warenkorb für Angebot Nummer ' . $this->offerID . '</h2></legend><p>';
+if (empty ( $this->articles )) {
+	echo 'Angebot enthält noch keine Artikel';
+}
+if (! empty ( $this->articles )) {
+	$articles = $this->articles;
+	$db_mapper = new Application_Model_ArtikelMapper ();
+	foreach ( $articles as $article ) {
+	$model = $db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
+	echo '<br>';
+	 echo 'Artikelname: '.$model->getModel().'<br>';
+		echo 'Erstelldatum: ' . $article->getErstelldatum () . '<br>';
+		echo 'Status: ' . $article->getStatus () . '<br>';
+		echo 'Bemerkung: ' . $article->getBemerkung () . '<br><br>';
+		echo '--------------------------------------------------------------<br><br>';
+	}
+}
+echo '</p></fieldset><a href="/angebot">Zur&uuml;ck</a> |	<a href="/angebot/remove">Angebot verwerfen</a></body>';
 
 
-echo'	<legend>Angebot '.$this->offerID.'</legend><p>';
-           if(		empty ( $this->articles )) {
-					echo 'Angebot enthält noch keine Artikel';
-           }
-           if (!empty($this->articles)){
-           	$articles = $this->articles;
-           	$db_mapper = new Application_Model_ArtikelMapper();
-           	foreach ($articles as $article){
-           				echo 'Artikelname: <br>';
-						//echo 'Artikelname: '.$db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
-						echo 'Erstelldatum: '.$article->getErstelldatum().'<br>';
-						echo 'Status: '.$article->getStatus().'<br>';
-								echo 'Bemerkung: '.$article->getBemerkung().'<br>';
-           	}
-           }
-echo'</p></fieldset><a href="/angebot">Zur&uuml;ck</a> |	<a href="/angebot/remove">Angebot verwerfen</a></body>';
-		
-//$cart = unserialize($_SESSION[‘angebotskorb’]);
-var_dump($this->articles);
+
 ?>
