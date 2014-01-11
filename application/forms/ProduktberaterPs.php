@@ -22,28 +22,28 @@ class Application_Form_ProduktberaterPs extends Zend_Form {
            			->addFilter('StringTrim');
        	
        	$minSpeicherinhalt = new Zend_Form_Element_Text('minSpeicherinhalt');
-		$minSpeicherinhalt->setLabel('Min Speicherinhalt:')
+		$minSpeicherinhalt->setLabel('Min Speicherinhalt (Liter):')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
        			
        	$maxSpeicherinhalt = new Zend_Form_Element_Text('maxSpeicherinhalt');
-		$maxSpeicherinhalt->setLabel('Max Speicherinhalt:')
+		$maxSpeicherinhalt->setLabel('Max Speicherinhalt (Liter):')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
         $minDruck = new Zend_Form_Element_Text('minDruck');
-		$minDruck->setLabel('Min Betriebsdruck:')
+		$minDruck->setLabel('Min Betriebsdruck (Bar):')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxDruck = new Zend_Form_Element_Text('maxDruck');
-		$maxDruck->setLabel('Max Betriebsdruck:')
+		$maxDruck->setLabel('Max Betriebsdruck (Bar):')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')

@@ -47,14 +47,14 @@ class Application_Form_WtErstellen extends App_Form {
 		$material->setLabel('Stutzenmaterial:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
-
+	/*
 		$pictures = new Zend_Form_Element_File('Bilder');
 		$pictures->setLabel('Artikelbilder hochladen')
 		->addValidator('Extension', false, 'png')
 		->setDestination('_files/images/waermetauscher')
 		->addValidator('Size', false, 102400) // Limitiert auf 100k
 		->setMaxFileSize(102400); // Limitiert dateigröße clientseitig
-		
+		*/
 		/*
 		 $anschluss = new Zend_Form_Element_Multiselect('Anschluss');
 		$anschluss->setLabel('Anschlüsse:')

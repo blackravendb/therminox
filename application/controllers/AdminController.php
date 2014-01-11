@@ -83,8 +83,20 @@
 			
 		}
 		
-		public function changepufferspeicherAction(){ //TODO
+		public function deletewaermetauscherAction(){//TODO
 			$request = $this->getRequest();
+			$art = $request->getParam('artikel');
+			$db_mapper = new Application_Model_WaermetauscherMapper();
+			$data_object = $db_mapper->getWaermetauscherByModel($art);
+			
+			$db_mapper->deleteWaermetauscher($data_object);
+			
+			$this->_redirect('/Admin/showwaermetauscher');
+		}
+		
+		public function changepufferspeicherAction(){
+				$request = $this->getRequest();
+				$art = $request->getParam('artikel');
 				$db_mapper = new Application_Model_PufferspeicherMapper ();
 				$data_object = $db_mapper->getPufferspeicherByModel($art);
 				
@@ -124,6 +136,22 @@
 						$this->view->showMessage = true;
 				}
 			}
+		}
+		
+		public function deletepufferspeicherAction(){ //TODO
+			$request = $this->getRequest();
+			$art = $request->getParam('artikel');
+			$db_mapper = new Application_Model_PufferspeicherMapper();
+			$data_object = $db_mapper->getPufferspeicherByModel($art);
+			
+			$db_mapper->deletePufferspeicher($data_object);
+			
+			$this->_redirect('/Admin/showpufferspeicher');
+		}
+		
+		public function bearbeiten($attrib){//TODO evtl löschen
+			
+			
 		}
 		
 		//TODO Controller zusammenfassen?
@@ -177,6 +205,7 @@
 					
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
+						//TODO Datenbankfunktion Einsatzgebiete einfügen
 					}
 				}
 			}
@@ -186,13 +215,35 @@
 			$wtmapper = new Application_Model_WaermetauscherMapper();
 			$stutzenmaterial = $wtmapper->getStutzenmaterialListe();
 			
+			$form = new Application_Form_AttributeBearbeiten();
+			$form->setDbdata($stutzenmaterial);
+			$form->startform();
+			
+			$this->view->attributeBearbeiten = $form;
+			
+			if($this->_request->isPost()){
+				$formData = $this->_request->getPost();
+				
+				if($form->isValid($formData)){
+					
+					if($form->attributLoeschen->isChecked()){
+						$stutzenmaterialLöschen = $form->getValue('AttributLoeschen');
+						//TODO Datenbankfunktion Stutzenmaterial löschen
+					}
+					
+					if($form->hinzufuegen->isChecked()){
+						$stutzenmaterialHinzufuegen = $form->getValue('attributHinzufuegen');
+						//TODO Datenbankfunktion Stutzenmaterial hinzufügen
+					}
+				}
+			}
 		}
 		
 		public function einsatzgebietepsbearbeitenAction(){
 			$psmapper= new Application_Model_PufferspeicherMapper();
 			$einsatzgebiete = $psmapper->getEinsatzgebietListe();
 			
-		$form = new Application_Form_AttributeBearbeiten();
+			$form = new Application_Form_AttributeBearbeiten();
 			$form->setDbdata($einsatzgebiete);
 			$form->startform();
 			
@@ -210,6 +261,7 @@
 					
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
+						//TODO Datenbankfunktion Einsatzgebiete hinzufügen
 					}
 				}
 			}

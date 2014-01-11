@@ -14,14 +14,14 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
         $anschluesse = $wtmapper->getAnschlussListe();
         
     	$minTemp = new Zend_Form_Element_Text('TemperaturMin');
-    	$minTemp->setLabel('Minimaltemperatur:')
+    	$minTemp->setLabel('Minimaltemperatur (°C):')
     		->addValidator($wtVal)
     		->addFilter('StripTags')
             ->addFilter('StringTrim') 
         	->addErrorMessage('Bitte nur Zahlen eingeben!');
         
        	$maxTemp = new Zend_Form_Element_Text('TemperaturMax');
-    	$maxTemp->setLabel('Höchsttemperatur:')
+    	$maxTemp->setLabel('Höchsttemperatur (°C):')
     		->addValidator($wtVal)
     		->addFilter('StripTags')
             ->addFilter('StringTrim')
@@ -37,28 +37,28 @@ class Application_Form_ProduktberaterWt extends Zend_Form {
            			->addFilter('StringTrim');
        	
        	$minHeight = new Zend_Form_Element_Text('HoeheMin');
-		$minHeight->setLabel('Minimalhöhe:')
+		$minHeight->setLabel('Minimalhöhe (mm):')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
        			
        	$maxHeight = new Zend_Form_Element_Text('HoeheMax');
-		$maxHeight->setLabel('Maximale Höhe:')
+		$maxHeight->setLabel('Maximale Höhe (mm):')
 			 	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
         $minWidth = new Zend_Form_Element_Text('BreiteMin');
-		$minWidth->setLabel('Minimalbreite:')
+		$minWidth->setLabel('Minimalbreite (mm):')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')
         		->addErrorMessage('Bitte nur Zahlen eingeben!');
         		
 		$maxWidth = new Zend_Form_Element_Text('BreiteMax');
-		$maxWidth->setLabel('Maximalbreite:')
+		$maxWidth->setLabel('Maximalbreite (mm):')
 		    	->addValidator($wtVal)
     			->addFilter('StripTags')
            	 	->addFilter('StringTrim')

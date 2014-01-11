@@ -13,6 +13,7 @@
     <th></th>
   </tr>
   <?php 
+  if(!empty($this->dbdata)){
   	foreach($this->dbdata as $value){?>
    <tr>
 	<td><?php echo $value->getModel(); ?></td>
@@ -31,10 +32,14 @@
   					}?></td>
     <td><?php echo $value->getHoehe(); ?></td>
     <td><?php echo $value->getBreite(); ?></td>
-    <?php $url = "/Admin/changewaermetauscher/artikel/" . $value->getModel();?>
-    <td> <a href="<?php echo $url;?>">bearbeiten</a></td> <?php //TODO?>
-    <td><a href="#">löschen</a></td>
+    <?php $urlBearbeiten = "/Admin/changewaermetauscher/artikel/" . $value->getModel();?>
+    <td> <a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td> 
+    <?php $urlLoeschen = "/Admin/deletewaermetauscher/artikel/" . $value->getModel();?>
+    <td><a href="<?php echo $urlLoeschen;?>">löschen</a></td>
     </tr>
-  <?php }?>
+  <?php }
+  	}else{
+  	echo "Keine Produkte in der Datenbank!";
+  	}?>
 </table>
 </div>

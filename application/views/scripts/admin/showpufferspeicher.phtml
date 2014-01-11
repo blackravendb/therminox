@@ -11,6 +11,7 @@
     <th></th>
   </tr>
   <?php 
+  if(!empty($this->dbdata)){
   	foreach($this->dbdata as $value){?>
    <tr>
 	<td><?php echo $value->getModel(); ?></td>
@@ -19,10 +20,14 @@
     					} ?></td>
     <td><?php echo $value->getSpeicherinhalt(); ?></td>
     <td><?php echo $value->getBetriebsdruck(); ?></td>
-    <?php $url = "/Admin/changepufferspeicher/artikel/" . $value->getModel();?>
-    <td> <a href="<?php echo $url;?>">bearbeiten</a></td> <?php //TODO?>
-    <td><a href="#">löschen</a></td>
+    <?php $urlBearbeiten = "/Admin/changepufferspeicher/artikel/" . $value->getModel();?>
+    <td> <a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td>
+    <?php $urlLoeschen = "/Admin/deletepufferspeicher/artikel/" . $value->getModel();?>
+    <td> <a href="<?php echo $urlLoeschen;?>">löschen</a></td>
     </tr>
-  <?php }?>
+  <?php }
+  	}else{
+  	echo "Keine Produkte in der Datenbank!";
+  	}?>
 </table>
 </div>

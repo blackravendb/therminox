@@ -34,7 +34,7 @@ public function startform(){
 		->addErrorMessage('Bitte für Speicherinhalt und Druck nur Zahlen eingeben!');
 
 		$betriebsdruck = new Zend_Form_Element_Text('Betriebsdruck');
-		$betriebsdruck->setLabel('Betriebsdruck:')
+		$betriebsdruck->setLabel('Betriebsdruck (bar):')
 		->addValidator($val)
 		->setValue($this->dbdata->getBetriebsdruck())
 		->addFilter('StripTags')

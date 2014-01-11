@@ -28,7 +28,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addFilter('StringTrim');
 		 
 		$temp = new Zend_Form_Element_Text('Temperatur');
-		$temp->setLabel('Temperatur:')
+		$temp->setLabel('Temperatur (°C):')
 		->addValidator($val)
 		->setValue($this->dbdata->getTemperatur())
 		->addFilter('StripTags')
@@ -36,7 +36,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 		
 		$height = new Zend_Form_Element_Text('Hoehe');
-		$height->setLabel('Höhe:')
+		$height->setLabel('Höhe (mm):')
 		->addValidator($val)
 		->setValue($this->dbdata->getHoehe())
 		->addFilter('StripTags')
@@ -44,7 +44,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 
 		$width = new Zend_Form_Element_Text('Breite');
-		$width->setLabel('Breite:')
+		$width->setLabel('Breite (mm):')
 		->addValidator($val)
 		->setValue($this->dbdata->getBreite())
 		->addFilter('StripTags')
