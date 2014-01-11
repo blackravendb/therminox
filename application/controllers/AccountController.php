@@ -92,7 +92,8 @@ class AccountController extends Zend_Controller_Action
         			$shipping->setNachname($form->getValue('lastname'));
         			$shipping->setStrasse($form->getValue('street'));
         			$locale = Zend_Registry::getInstance()->get("Zend_Locale");
-        			$country = $locale->getTranslationList('Territory', 'de', 2)[$form->getValue('country')];
+        			$value = $form->getValue('country');
+        			$country = $locale->getTranslationList('Territory', 'de', 2)[$value];
         			$shipping->setLand($country);
         			$shipping->setPlz($form->getValue('plz'));
         			$shipping->setOrt($form->getValue('town'));
@@ -350,7 +351,8 @@ class AccountController extends Zend_Controller_Action
     				$billing->setNachname($form->getValue('lastname'));
     				$billing->setStrasse($form->getValue('street'));
     				$locale = Zend_Registry::getInstance()->get("Zend_Locale");
-    				$country = $locale->getTranslationList('Territory', 'de', 2)[$form->getValue('country')];
+    				$value = $form->getValue('country');
+    				$country = $locale->getTranslationList('Territory', 'de', 2)[$value];
     				$billing->setLand($country);
     				$billing->setPlz($form->getValue('plz'));
     				$billing->setOrt($form->getValue('town'));
