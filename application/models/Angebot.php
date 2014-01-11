@@ -65,12 +65,12 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 	}
 	
 	protected function setErstelldatum($datum) {
-		$this->_einstelldatum = $datum;
+		$this->_erstelldatum = $datum;
 		return $this;
 	}
 	
 	public function getErstelldatum() {
-		return $this->_einstelldatum;
+		return $this->_erstelldatum;
 	}
 
 }

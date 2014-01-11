@@ -32,7 +32,7 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
     
     public function init() {
     	$this->select = $this->select()
-    		->from($this->_name, array('angebotskorb_id', 'artikelnummer_id as artikelnummer'))
+    		->from($this->_name, array('angebotskorb_id', 'artikelnummer_id as artikelnummer', 'bemerkung', 'erstelldatum'))
     		->join('angebotStatus', "$this->_name.angebotStatus_id = angebotStatus.id", 'status')
     		->setIntegrityCheck(false);
     }
