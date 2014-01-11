@@ -63,7 +63,7 @@ class PufferspeicherController extends Zend_Controller_Action
 			}
 		}
 
-	public function vvxAction() {
+	public function anzeigenAction() {
 		$request = $this->getRequest ();
 		$art = $request->getParam ( 'artikel' );
 		if (null != $art) {
