@@ -51,7 +51,7 @@ class Application_Form_WtErstellen extends App_Form {
 		$pictures = new Zend_Form_Element_File('Bilder');
 		$pictures->setLabel('Artikelbilder hochladen')
 		->addValidator('Extension', false, 'png')
-		->setDestination('_files/images/waermetauscher')
+		//->setDestination('_files/images/waermetauscher')
 		->addValidator('Size', false, 102400) // Limitiert auf 100k
 		->setMaxFileSize(102400); // Limitiert dateigröße clientseitig
 		
