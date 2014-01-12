@@ -44,26 +44,30 @@
 			echo '<li><a href="#">Artikel bearbeiten, klicken zum Löschen</a><ul>';
 			$angebotskorb = $_SESSION ['angebotskorb'];
 			$articles = $angebotskorb->getAngebot ();
-			$posindex = 0;
-			foreach ( $articles as $position ) {
+			//$posindex = 0;
+			foreach ($angebotskorb as $posindex => $artikel){
 				$mapper = new Application_Model_ArtikelMapper ();
-				$artikel = $mapper->getArtikelByArtikelnummer ( $position->getArtikelnummer () );
+				$artikel = $mapper->getArtikelByArtikelnummer ( $posindex->getArtikelnummer () );
 				if ($artikel instanceof Application_Model_Waermetauscher) {
 					// Link auf wärmetauscher
-					echo '<li><a href="/Angebot/remove/postition/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
-					$posindex = $posindex + 1;
+					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
+					//$posindex = $posindex + 1;
 				}
 				if ($artikel instanceof Application_Model_Pufferspeicher) {
 					// Link auf pufferspeicher
 					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
-					$posindex = $posindex + 1;
+					//$posindex = $posindex + 1;
 				}
 			}
 				
 			echo '</ul></li>';
 			echo '</ul></li>';
 		}
-		
+		if (isset ( $_SESSION ['angebotskorb'] )) {
+			echo '<hr>';
+			echo '<li><a href="#">Angebot absenden</a><ul>';
+			echo '</ul></li>';
+			}
 		
 		
 		

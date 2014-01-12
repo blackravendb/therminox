@@ -134,17 +134,15 @@ class AngebotController extends Zend_Controller_Action {
 	public function removeAction() {
 		$request = $this->getRequest ();
 		$pos = $request->getParam ( 'position' );
-		if (null != $pos) {
+		if (null !== $pos) {
 			$angebotskorb = $_SESSION['angebotskorb'];
-			$angebot = new Application_Model_Angebot();
 			$angebot = $angebotskorb->getAngebot();
 			$angebot = $angebot[$pos];
 			$angebotskorb->deleteAngebot($angebot);
 			
 			$_SESSION['angebotskorb'] = $angebotskorb;
 			
-			//$_SESSION['angebotskorb']->deleteAngebot($angebot);
-		}
+			}
 		
 		
 	}
