@@ -1,14 +1,13 @@
  <?php
 	class WaermetauscherController extends Zend_Controller_Action {
-		public function init() { 
-			
+		public function init() {
 			$this->view->showVor = false;
 			$this->view->keineVorschläge = false;
 		}
 		public function indexAction() {
 			$this->view->title = "ProduktberaterWärmetauscher";
-     	
-     		$form = new Application_Form_ProduktberaterWt ();
+			
+			$form = new Application_Form_ProduktberaterWt ();
 			
 			$form->setMethod ( 'post' );
 			
@@ -20,15 +19,15 @@
 				if ($form->isValid ( $formData )) {
 					$minTemp = $form->getValue ( 'TemperaturMin' );
 					$maxTemp = $form->getValue ( 'TemperaturMax' );
-					$einsatzgbt = $form->getValue('Einsatzgebiet');
-					$anschluss = $form->getValue('Anschluss'); 
+					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
+					$anschluss = $form->getValue ( 'Anschluss' );
 					$minHeight = $form->getValue ( 'HoeheMin' );
 					$maxHeight = $form->getValue ( 'HoeheMax' );
 					$minWidth = $form->getValue ( 'BreiteMin' );
 					$maxWidth = $form->getValue ( 'BreiteMax' );
 					
 					$wtmapper = new Application_Model_WaermetauscherMapper ();
-
+					
 					if (! empty ( $minTemp )) {
 						$wtmapper->setTemperaturMin ( $minTemp );
 					}
@@ -37,12 +36,12 @@
 						$wtmapper->setTemperaturMax ( $maxTemp );
 					}
 					
-					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) { 
-						$wtmapper->setEinsatzgebiet($einsatzgbt); 
+					if (! (strcmp ( $einsatzgbt, 'Bitte wählen' ) == 0)) {
+						$wtmapper->setEinsatzgebiet ( $einsatzgbt );
 					}
 					
-					if (count($anschluss) != 3) { 
-						$wtmapper->setAnschluss($anschluss); 
+					if (count ( $anschluss ) != 3) {
+						$wtmapper->setAnschluss ( $anschluss );
 					}
 					
 					if (! empty ( $minHeight )) {
@@ -61,22 +60,22 @@
 						$wtmapper->setBreiteMax ( $maxWidth );
 					}
 					
-					$produkte = $wtmapper->getWaermetauscher();
+					$produkte = $wtmapper->getWaermetauscher ();
 					
-					if (! empty ( $produkte )) { 
+					if (! empty ( $produkte )) {
 						$this->view->vorschläge = $produkte;
 					} else {
 						$this->view->keineVorschläge = true;
 					}
 					
 					$this->view->showVor = true; // Vorschläge werden angezeigt
-        		}
+				}
 			}
 		}
 		public function geloetetAction() {
 			$request = $this->getRequest ();
 			$art = $request->getParam ( 'artikel' );
-			//TODO Ausnahmen abfangen! ->schlumpfhandling -.-
+			// TODO Ausnahmen abfangen! ->schlumpfhandling -.-
 			if (true) {
 				$db_mapper = new Application_Model_WaermetauscherMapper ();
 				$data_object = $db_mapper->getWaermetauscherByModel ( $art );
@@ -104,9 +103,10 @@
 			
 			if ($this->_request->isPost ()) {
 				$formData = $this->_request->getPost ();
-					
+				
 				if ($form->isValid ( $formData )) {
-			
+					$form->populate ( $_POST );
+					
 					$modell = $form->getValue ( 'Model' );
 					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
 					$conn = $form->getValue ( 'Anschluss' );
@@ -116,33 +116,45 @@
 					$height = $form->getValue ( 'Hoehe' );
 					$width = $form->getValue ( 'Breite' );
 					
-			
-					$newWT = new Application_Model_Waermetauscher();
-					$newWT->setModel($modell);
-					$newWT->setTemperatur($temp);
-					$newWT->setBetriebsdruck($druck);
-					$newWT->setStutzenmaterial($material);
-					$newWT->setHoehe($height);
-					$newWT->setBreite($width);
-			
+					$newWT = new Application_Model_Waermetauscher ();
+					$newWT->setModel ( $modell );
+					$newWT->setTemperatur ( $temp );
+					$newWT->setBetriebsdruck ( $druck );
+					$newWT->setStutzenmaterial ( $material );
+					$newWT->setHoehe ( $height );
+					$newWT->setBreite ( $width );
+					
 					foreach ( $einsatzgbt as $gebiet ) {
-						$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet();
+						$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet ();
 						$eingebiet->setEinsatzgebiet ( $gebiet );
-						$newWT->insertWaermetauscherEinsatzgebiet($eingebiet);
+						$newWT->insertWaermetauscherEinsatzgebiet ( $eingebiet );
 					}
 					foreach ( $conn as $anschluss ) {
-						$einanschl = new Application_Model_WaermetauscherAnschluss();
-						$einanschl->setAnschluss($anschluss);
-						$newWT->insertWaermetauscherAnschluss($einanschl);
+						$einanschl = new Application_Model_WaermetauscherAnschluss ();
+						$einanschl->setAnschluss ( $anschluss );
+						$newWT->insertWaermetauscherAnschluss ( $einanschl );
 					}
-			
-					$db_mapper = new Application_Model_WaermetauscherMapper();
-					$db_mapper->insertWaermetauscher($newWT);
+					
+					$plates = $form->getValue ( 'plates' );
+					$length = $form->getValue ( 'length' );
+					$weight = $form->getValue ( 'weight' );
+					$area = $form->getValue ( 'area' );
+					
+					$cat = new Application_Model_WaermetauscherUnterkategorie();
+					$cat->setLaenge($length);
+					$cat->setPlatten($plates);
+					$cat->setFlaeche($area);
+					$cat->setLeergewicht($weight);
+					
+					$newWT->insertWaermetauscherUnterkategorie($cat);
+					
+					$db_mapper = new Application_Model_WaermetauscherMapper ();
+					$db_mapper->insertWaermetauscher ( $newWT );
 				}
 			}
+			
 			$this->view->form = $form;
 		}
-		
 	}
 
 
