@@ -23,18 +23,24 @@ if($this->showMessage == true){
    	 	<th></th>
     	<th></th>
   	</tr>
-	<?php foreach($this->kategorien as $value){?>
+	<?php $i = 0;
+		  foreach($this->kategorien as $value){?>
 		<tr>
-			<?php echo '<td>Modell ' . '-' . $value->getPlatten().'</td>'; ?>
+			<td> Modell-<?php echo $value->getPlatten();?></td>
 			<td><?php echo $value->getPlatten();?></td>
 			<td><?php echo $value->getLaenge();?></td>
 			<td><?php echo $value->getLeergewicht();?></td>
 			<td><?php echo $value->getFlaeche();?></td>
-			<?php //$urlBearbeiten = "/Admin/changewtunterkategorie/kategorie/" . $value->get //TODO?>
+			<?php
+					$_SESSION['unterkategorieIn' . $i] = $i; 
+					$i++; 
+					echo $i;
+					echo $_SESSION['unterkategorieIn' . ($i-1)];?>
+			<?php $urlBearbeiten = "/Admin/changewtunterkategorie/artikel/" . $this->artikel->getModel();?>
 			<td><a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td>
-			<?php //$urlLoeschen = "/Admin/deletewtunterkategorie/kategorie" . $value->get //TODO?>
-			<td><a href="<?php echo $urlLoewchen;?>">bearbeiten</a></td>
+			<?php $urlLoeschen = "/Admin/deletewtunterkategorie/artikel" . $this->artikel->getModel();?>
+			<td><a href="<?php echo $urlLoeschen;?>">löschen</a></td>
 			</tr>
-			</table>
-<?php }
-	}?>
+<?php } ?>
+</table>
+<?php }?>	

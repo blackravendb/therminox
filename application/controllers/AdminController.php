@@ -4,6 +4,7 @@
 		public function init(){
 			$this->view->showMessage = false;
 			$this->view->showUnterkategorien = false;
+			$this->view->showMessageUn = false;
 		}
 		
 		public function indexAction(){
@@ -33,54 +34,57 @@
 				$form->startform();
 				
 				$this->view->wtbearbeiten = $form; 
-				
-				if($form->artikelAendern->isChecked()){
-				if($this->_request->isPost()){
-					$formData = $this->_request->getPost();
-				
-					if($form->isValid($formData)){
-						$artikelname = $form->getValue('Artikelname');
-						$temp = $form->getValue('Temperatur');
-						$einsatzgbt = $form->getValue('Einsatzgebiete');
-						$anschluss = $form->getValue('Anschluss');
-						$height = $form->getValue('Hoehe');
-						$width = $form->getValue('Breite');
-						
-						$data_object->setModel($artikelname);
-						$data_object->setTemperatur($temp);
-						
-						foreach($einsatzgbt as $value){
-								$einWT = new Application_Model_WaermetauscherEinsatzgebiet();
-								$einWT->setEinsatzgebiet($value);
-								
-								$data_object->insertWaermetauscherEinsatzgebiet($einWT);
-							}
-						}
-						
-						foreach($anschluss as $value){
-								$ansWT = new Application_Model_WaermetauscherAnschluss(); 
-								$ansWT->setAnschluss($value);
+		
+					if($this->_request->isPost()){
+						$formData = $this->_request->getPost();
+					
+						if($form->isValid($formData)){
+							$form->populate ( $_POST );
 							
-								$data_object->insertWaermetauscherAnschluss($ansWT); 
-						}
+							if($form->artikelAendern->isChecked()){
+							
+								$artikelname = $form->getValue('Artikelname');
+								$temp = $form->getValue('Temperatur');
+								$einsatzgbt = $form->getValue('Einsatzgebiete');
+								$anschluss = $form->getValue('Anschluss');
+								$height = $form->getValue('Hoehe');
+								$width = $form->getValue('Breite');
+								
+								$data_object->setModel($artikelname);
+								$data_object->setTemperatur($temp);
+								
+								foreach($einsatzgbt as $value){
+										$einWT = new Application_Model_WaermetauscherEinsatzgebiet();
+										$einWT->setEinsatzgebiet($value);
+										
+										$data_object->insertWaermetauscherEinsatzgebiet($einWT);
+									}
+								
+								foreach($anschluss as $value){
+										$ansWT = new Application_Model_WaermetauscherAnschluss(); 
+										$ansWT->setAnschluss($value);
+									
+										$data_object->insertWaermetauscherAnschluss($ansWT); 
+								}
+								
+								$data_object->setHoehe($height);
+								$data_object->setBreite($width);
+								
+								$db_mapper->updateWaermetauscher($data_object);
+								
+								$this->view->showMessage = true;
+								}
+							}
+				}
+					if($form->unterkategorien->isChecked()){ //TODO
+						$unterkategorien = $data_object->getWaermetauscherUnterkategorie();
 						
-						$data_object->setHoehe($height);
-						$data_object->setBreite($width);
+						echo "Unterkategorien anzeigen!";
 						
-						$db_mapper->updateWaermetauscher($data_object);
-						
-						$this->view->showMessage = true;
+						$this->view->kategorien = $unterkategorien;
+						$this->view->artikel = $data_object;
+						$this->view->showUnterkategorien = true;
 					}
-				}
-				
-				if($form->unterkategorien->isChecked()){ //TODO
-					$unterkategorien = $data_object->getWaermetauscherUnterkategorie();
-					
-					echo "Hallo";
-					
-					$this->view->kategorien = $unterkategorien;
-					$this->view->showUnterkategorien = true;
-				}
 		}
 		
 		public function deletewaermetauscherAction(){
@@ -99,11 +103,15 @@
 		
 		public function changewtunterkategorieAction(){ 
 			$request = $this->getRequest();
-			$art = $request->getParam('???'); //TODO
-			//Wie soll ich mir hier die Unterkategorie holen?!
-				
+			$art = $request->getParam('artikel'); //TODO
+			$db_mapper = new Application_Model_WaermetauscherMapper ();
+			$data_object = $db_mapper->getWaermetauscherByModel($art);
+			$unterkategorien = $data_object->getWaermetauscherUnterkategorie();
+			
+			$unterkategorie = $unterkategorien[$index];
+			
 			$form = new Application_Form_UnterkategorienBearbeiten();
-			$form->setDbdata($data_object);
+			$form->setDbdata($unterkategorie);
 			$form->startform();
 				
 			$this->view->wtunterkategorienbearbeiten = $form; 
@@ -113,13 +121,19 @@
 					$formData = $this->_request->getPost();
 				
 					if($form->isValid($formData)){
-						$name = $form->getValue('UnterkategorieName');//Modell??
 						$platten = $form->getValue('AnzahlPlatten');
 						$laenge = $form->getValue('Laenge');
 						$leergewicht = $form->getValue('Leergewicht');
 						$flaeche = $form->getValue('Flaeche');
 						
-						//TODO erstmal Dennis fragen
+						$unterkategorie->setPlatten($platten);
+						$unterkategorie->setLaenge($laenge);
+						$unterkategorie->setLeergewicht($leergewicht);
+						$unterkategorie->setFlaeche($flaeche);
+						
+						$db_mapper->updateWaermetauscher($data_object);
+						
+						$this->view->showMessageUn = true;
 			}
 		}
 	}
