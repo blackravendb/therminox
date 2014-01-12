@@ -169,5 +169,29 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
 		return $this->getDbTable()->updateWaermetauscher($waermetauscher);
 	}
+	
+	public function insertStutzenmaterial($stutzenmaterial) {
+		return $this->getDbTable()->insertStutzenmaterial($stutzenmaterial);
+	}
+	
+	public function deleteStutzenmaterial($stutzenmaterial) {
+		return $this->getDbTable()->deleteStutzenmaterial($stutzenmaterial);
+	}
+	
+	public function insertAnschluss($anschluss) {
+		return $this->getDbTable()->insertAnschluss($anschluss);
+	}
+	
+	public function deleteAnschluss($anschluss) {
+		return $this->getDbTable()->deleteAnschluss($anschluss);
+	}
+	
+	public function insertEinsatzgebiet($einsatzgebiet) {
+		return $this->getDbTable()->insertEinsatzgebiet($einsatzgebiet);
+	}
+	
+	public function deleteEinsatzgebiet($einsatzgebiet) {
+		return $this->getDbTable()->deleteEinsatzgebiet($einsatzgebiet);
+	}
 }
 

@@ -397,6 +397,36 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	$where = $this->getAdapter()->quoteInto('id = ?', $waermetauscher->getId());
     	$this->update($waermetauscherData, $where);
     }
+    
+    public function insertStutzenmaterial($stutzenmaterial) {
+    	$what = array('name' => $stutzenmaterial);
+    	$this->getStutzenmaterialDbTable()->insert($what);
+    }
+    
+    public function deleteStutzenmaterial($stutzenmaterial) {
+    	$where= $this->getAdapter()->quoteInto('name = ?', $stutzenmaterial);
+    	$this->getStutzenmaterialDbTable()->delete($where);
+    }
+    
+    public function insertAnschluss($anschluss) {
+    	$what = array('anschluss' => $anschluss);
+    	$this->getWaermetauscherAnschlussDbTable()->insert($what);
+    }
+    
+    public function deleteAnschluss($anschluss) {
+    	$where = $this->getAdapter()->quoteInto('anschluss = ?', $anschluss);
+    	$this->getWaermetauscherAnschlussDbTable()->delete($where);
+    }
+    
+    public function insertEinsatzgebiet($einsatzgebiet) {
+    	$what = array('einsatzgebiet' => $einsatzgebiet);
+    	$this->getWaermetauscherEinsatzgebietDbTable()->insert($what);
+    }
+    
+    public function deleteEinsatzgebiet($einsatzgebiet) {
+    	$where = $this->getAdapter()->quoteInto('einsatzgebiet = ?', $einsatzgebiet);
+    	$this->getWaermetauscherEinsatzgebietDbTable()->delete($where);
+    }
 
 }
 
