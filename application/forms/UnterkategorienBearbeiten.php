@@ -15,12 +15,6 @@ class Application_Form_UnterkategorienBearbeiten extends Zend_Form {
 		
 		$val1 = new Zend_Validate_Digits('1234567890');
 		$val2 = new Zend_Validate_Digits('123456789.');
-		
-		$name = new Zend_Form_Element_Text('UnterkategorieName');
-		$name->setLabel('Name:')
-		->setValue($this->dbdata->getModel()) //TODO Dennis fragen!!!
-		->addFilter('StripTags')
-		->addFilter('StringTrim');
 		 
 		$platten = new Zend_Form_Element_Text('AnzahlPlatten');
 		$platten->setLabel('Anzahl Platten:')
@@ -46,7 +40,7 @@ class Application_Form_UnterkategorienBearbeiten extends Zend_Form {
 		->addFilter('StringTrim')
 		->addErrorMessage('Eingaben überprüfen!');
 
-		$flaeche = new Zend_Form_Element_MultiCheckbox('Flaeche');
+		$flaeche = new Zend_Form_Element_Text('Flaeche');
 		$flaeche->setLabel('Fläche (m²):')
 		->addValidator($val2)
 		->setValue($this->dbdata->getFlaeche())
@@ -57,6 +51,6 @@ class Application_Form_UnterkategorienBearbeiten extends Zend_Form {
 		$submit = new Zend_Form_Element_Submit('unterkategorieAendern');
 		$submit->setLabel('Unterkategorie ändern');
 		 
-		$this->addElements(array($name, $platten, $laenge, $leergewicht, $flaeche, $submit));
+		$this->addElements(array($platten, $laenge, $leergewicht, $flaeche, $submit));
 	}
 }

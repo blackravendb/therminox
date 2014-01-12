@@ -2,32 +2,32 @@
 <div id="view-content">
 RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?<br>
 <?php 
-$neuerBenutzer = new Application_Model_Benutzer();
-$neuerBenutzer->setNachname('Brandmüller');
-$neuerBenutzer->setVorname('Dennis');
-$neuerBenutzer->setKlartextPasswort('geheim');
-$neuerBenutzer->setBerechtigung('Administrator');
-$neuerBenutzer->setAnrede('Herr');
-$neuerBenutzer->setBestaetigt(1);
+// $neuerBenutzer = new Application_Model_Benutzer();
+// $neuerBenutzer->setNachname('Brandmüller');
+// $neuerBenutzer->setVorname('Dennis');
+// $neuerBenutzer->setKlartextPasswort('geheim');
+// $neuerBenutzer->setBerechtigung('Administrator');
+// $neuerBenutzer->setAnrede('Herr');
+// $neuerBenutzer->setBestaetigt(1);
 
-$lieferadresse = new Application_Model_Rechnungsadresse();
-$lieferadresse->setFirma('Blubware');
-$lieferadresse->setNachname($neuerBenutzer->getNachname());
-$lieferadresse->setVorname($neuerBenutzer->getVorname());
-$lieferadresse->setStrasse('Martin-Greif-Str. 24');
-$lieferadresse->setPlz('83080');
-$lieferadresse->setOrt('Oberaudorf');
-$lieferadresse->setLand('Deutschland');
-$lieferadresse->setAnrede($neuerBenutzer->getAnrede());
+// $lieferadresse = new Application_Model_Rechnungsadresse();
+// $lieferadresse->setFirma('Blubware');
+// $lieferadresse->setNachname($neuerBenutzer->getNachname());
+// $lieferadresse->setVorname($neuerBenutzer->getVorname());
+// $lieferadresse->setStrasse('Martin-Greif-Str. 24');
+// $lieferadresse->setPlz('83080');
+// $lieferadresse->setOrt('Oberaudorf');
+// $lieferadresse->setLand('Deutschland');
+// $lieferadresse->setAnrede($neuerBenutzer->getAnrede());
 
-//$neuerBenutzer->insertLieferadresse($lieferadresse);
+// //$neuerBenutzer->insertLieferadresse($lieferadresse);
 
-$benutzerMapper = new Application_Model_BenutzerMapper();
-if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
-	$benutzerMapper->insertBenutzer($neuerBenutzer, 'dennis.brandmueller@stud.fh-rosenheim.de');
+// $benutzerMapper = new Application_Model_BenutzerMapper();
+// if(!$benutzerMapper->existEmail('dennis.brandmueller@stud.fh-rosenheim.de'))
+// 	$benutzerMapper->insertBenutzer($neuerBenutzer, 'dennis.brandmueller@stud.fh-rosenheim.de');
 
 
-$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
+// $alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
 
 //$alterBenutzer->setVorname("Blub");
 
@@ -42,10 +42,10 @@ $alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosen
 
 //$alterBenutzer = $benutzerMapper->getBenutzer('dennis.brandmueller@stud.fh-rosenheim.de');
 
-$la = $alterBenutzer->getRechnungsadresse();
+// $la = $alterBenutzer->getRechnungsadresse();
 
 
-$la[0]->setVorname('Dennis');
+// $la[0]->setVorname('Dennis');
 
 //$alterBenutzer->deleteRechnungsadresse($la[0]);
 
@@ -79,18 +79,18 @@ $la[0]->setVorname('Dennis');
  <?php 
  $benutzerMapper = new Application_Model_BenutzerMapper();
 
- $test = $benutzerMapper->getBenutzer("test@test.de");
- echo '<br>'.$test->getAnrede().'<br>';
+//  $test = $benutzerMapper->getBenutzer("test@test.de");
+//  echo '<br>'.$test->getAnrede().'<br>';
  
- $la = $test->getRechnungsadresse();
+//  $la = $test->getRechnungsadresse();
  //echo $la[0]->getFirma();
  
- $truefalse = $la[0] instanceof Application_Model_Lieferadresse ? true : false;
+//  $truefalse = $la[0] instanceof Application_Model_Lieferadresse ? true : false;
  
- if($truefalse)
- 	echo "ist wahr";
- else
- 	echo "ist falsch";
+//  if($truefalse)
+//  	echo "ist wahr";
+//  else
+//  	echo "ist falsch";
  
 		
 // $test->setPasswort("geheim");
@@ -183,7 +183,26 @@ echo 'Wärmetauscher:<br>';
  $wt->insertWaermetauscherEinsatzgebiet($wteinsatzgebiet);
  $wt->insertWaermetauscherUnterkategorie($unterkategorie);
  
- //$waermetauschermapper->insertWaermetauscher($wt);
+//  $waermetauschermapper->insertWaermetauscher($wt);
+
+ $blubwt = $waermetauschermapper->getWaermetauscherByModel('blubWT2');
+ 
+ $blubwt->setBetriebsdruck(10);
+ $blubwt->setBreite(10);
+ $blubwt->setHoehe(10);
+ $blubwt->setModel('blubWT2');
+ $blubwt->setStutzenmaterial('Edelstahl AISI 316 Mat. 1.4404');
+ $blubwt->setTemperatur(10);
+ $uwt = $blubwt->getWaermetauscherUnterkategorie();
+ 
+ $uwt[0]->setFlaeche(10);
+ $uwt[0]->setInhaltPrimaer(10);
+ $uwt[0]->setInhaltSekundaer(10);
+ $uwt[0]->setLaenge(10);
+ $uwt[0]->setLeergewicht(10);
+ $uwt[0]->setPlatten(10);
+ 
+// $waermetauschermapper->updateWaermetauscher($blubwt);
  
  $bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD30");
  if(!($bhd21 = $waermetauschermapper->getWaermetauscherByModel("BHD21")))

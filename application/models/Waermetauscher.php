@@ -147,6 +147,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function getWaermetauscherUnterkategorie() {
+		//möglicherweise änderung, change tag setzen
+		$this->_changed['waermetauscherUnterkategorie'] = 1;
 		return $this->_waermetauscherUnterkategorie;
 	}
 	

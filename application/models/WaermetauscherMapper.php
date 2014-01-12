@@ -1,7 +1,7 @@
 <?php
 
-class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbstract
-{
+class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbstract {
+	
 	public function getDbTable() {
 		if (null === $this->_dbTable) {
 			$this->setDbTable ('Application_Model_DbTable_Waermetauscher');
