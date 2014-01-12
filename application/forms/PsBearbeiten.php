@@ -78,6 +78,6 @@ public function startform(){
 		$submit = new Zend_Form_Element_Submit('artikelAendern');
 		$submit->setLabel('Artikel ändern');
 		 
-		$this->addElements(array($name, $speicherinhalt, $betriebsdruck, $temperatur, $einsatzgbt, $submit));
+		$this->addElements(array($name, $speicherinhalt, $betriebsdruck, $temperatur, $leergewicht, $einsatzgbt, $submit));
 	}
 }
