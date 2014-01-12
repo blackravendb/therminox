@@ -33,7 +33,43 @@ RGB is totally confusing - I mean, at least #C0FFEE should be brown, right?<br>
 
 //$benutzerMapper->updateBenutzer($alterBenutzer);
 
+$waermetauschermapper = new Application_Model_WaermetauscherMapper();
 
+$wt = new Application_Model_Waermetauscher();
+$wt->setBetriebsdruck(5);
+$wt->setBreite(5);
+$wt->setHoehe(5);
+$wt->setModel('ASDF');
+$wt->setStutzenmaterial('Edelstahl AISI 304 Mat. 1.4301');
+$wt->setTemperatur(5);
+
+$wtu = new Application_Model_WaermetauscherUnterkategorie();
+$wtu->setFlaeche(5);
+$wtu->setInhaltPrimaer(5);
+$wtu->setInhaltSekundaer(5);
+$wtu->setLaenge(5);
+$wtu->setLeergewicht(5);
+$wtu->setPlatten(5);
+
+$wt->insertWaermetauscherUnterkategorie($wtu);
+
+$wta = new Application_Model_WaermetauscherAnschluss();
+$wta->setAnschluss('3/8" IG');
+
+$wt->insertWaermetauscherAnschluss($wta);
+
+$wte = new Application_Model_WaermetauscherEinsatzgebiet();
+$wte->setEinsatzgebiet('Umrüstung von PKW`s auf Rapsöl');
+
+$wt->insertWaermetauscherEinsatzgebiet($wte);
+
+$ret = $waermetauschermapper->insertWaermetauscher($wt);
+
+if($ret === false)
+	echo "insert wärmetauscher fehlgeschlagen";
+
+else
+	echo "passt alles";
 
 
 //$alterBenutzer->insertRechnungsadresse($lieferadresse);

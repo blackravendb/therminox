@@ -79,7 +79,7 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	public function setLeergewicht($gewicht){
-		if($this->_leergewicht) {
+		if($this->_leergewicht !== $gewicht) {
 			$this->_leergewicht = $gewicht;
 			$this->_changed['leergewicht'] = 1;
 		}
@@ -91,7 +91,7 @@ class Application_Model_WaermetauscherUnterkategorie extends Application_Model_T
 	}
 	
 	public function setFlaeche($flaeche){
-		if($this->_flaeche) {
+		if($this->_flaeche !== $flaeche) {
 			$this->_flaeche = $flaeche;
 			$this->_changed['flaeche'] = 1;
 		}

@@ -42,26 +42,32 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	}
 	
 	public function getWaermetauscherByModel ($model) {
-		if($model == "")
+		if(empty($model))
 			return false;
 		
 		$data = $this->getDbTable()->getWaermetauscherByParams(array('model' => $model));
 		
- 		if($data == "")
+ 		if($data === false)
  			return false;
+ 		
+ 		if(empty($data))
+ 			return;
 	
  		$data = $this->createFullArray($data[0]);
 		return $this->setAttributs($data);
 	}
 	
 	public function getWaermetauscherById ($id) {
-		if($id == "")
+		if(empty($id))
 			return false;
 	
 		$data = $this->getDbTable()->getWaermetauscherByParams(array('id' => (int)$id));
 		
-		if($data == "")
-			return ;
+		if($data === false)
+			return false;
+		
+		if(empty($data))
+			return;
 		
 	$data = $this->createFullArray($data[0]);
 		return $this->setAttributs($data);
@@ -102,8 +108,15 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	public function getWaermetauscher() {
 		$data = $this->getDbTable()->getWaermetauscher();
+		
+		if($data === false)
+			return false;
+		
+		if(empty($data))
+			return;
+		
 		$ret = array();
-		foreach($data as $value){
+		foreach($data as $value) {
 			$value=$this->createFullArray($value);
 			$ret[] = $this->setAttributs($value);
 		}
@@ -112,6 +125,13 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	public function getModelListe() {
 		$data = $this->getDbTable()->getModelList();
+		
+		if($data === false)
+			return false;
+		
+		if(empty($data))
+			return;
+
 		$ret = array();
 		
 		foreach($data as $value){
@@ -122,6 +142,13 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	public function getAnschlussListe() {
 		$data = $this->getDbTable()->getAnschlussListe();
+		
+		if($data === false)
+			return false;
+		
+		if(empty($data))
+			return;
+		
 		$ret = array();
 		
 		foreach($data as $value){
@@ -132,6 +159,10 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	
 	public function getEinsatzgebietListe() {
 		$data = $this->getDbTable()->getEinsatzgebietListe();
+		
+		if($data === false)
+			return false;
+		
 		if(empty($data))
 			return;
 		
@@ -146,8 +177,11 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 	public function getStutzenmaterialListe() {
 		$data = $this->getDbTable()->getStutzenmaterialListe();
 		
+		if($data === false)
+			return false;
+		
 		if(empty($data))
-			$ret = array();
+			return;
 		
 		foreach($data as $value){
 			$ret[] = $value['name'];
