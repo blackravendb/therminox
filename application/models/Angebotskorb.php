@@ -62,6 +62,20 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 		return false;
 	}
 	
+	public function deleteAngebot(Application_Model_Angebot $angebot) {
+		if(empty($this->_angebot) || empty ($angebot)){
+			return false;
+		}
+		foreach($this->_angebot as $key => $value) {
+			if($value->getArtikelnummer() === $lieferadresse->getArtikelnummer()){
+				unset($this->_angebot[$key]);
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
 	public function getAngebot() {
 		return $this->_angebot;
 	}

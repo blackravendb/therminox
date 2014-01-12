@@ -27,7 +27,7 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     public function init() { 
     	$this->select = $this->select()
     		->from($this->_name)
-    		->order('erstelldatum ASC');
+    		->order('erstelldatum DESC');
     }
     
     protected function getAngebotDbTable() {

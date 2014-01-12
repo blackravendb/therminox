@@ -42,7 +42,6 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
    			->where ('angebot.angebotskorb_id = '.(int)$id);
    		
    		$data = $this->fetchAll($this->select);
-   		echo $this->select;
    		
    		$this->init();
    		
