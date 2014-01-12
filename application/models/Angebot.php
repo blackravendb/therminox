@@ -22,7 +22,7 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 	}
 	
 	public function getAngebotskorb_id() {
-		return $this->_angebtskorb_id;
+		return $this->_angebotskorb_id;
 	}
 	
 	protected function setArtikelnummer_id($id) {
@@ -63,4 +63,3 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 	}
 	
 }
-

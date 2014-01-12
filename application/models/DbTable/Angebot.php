@@ -72,6 +72,14 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
    	
    }
    
+   public function updateAngebotStatus(Application_Model_Angebot $angebot) {
+   	$where = array();
+   	$where[] = $this->getAdapter()->quoteInto('angebot.angebotskorb_id = ?', $angebot->getAngebotskorb_id());
+   	$where[] = $this->getAdapter()->quoteInto('angebot.artikelnummer_id = ?', $angebot->getArtikelnummer());
+   	$statusId = $this->getStatus_idByStatus($angebot->getStatus());
+   	$this->update(array('angebotStatus_id' => $statusId), $where);	//TODO
+   }
+   
    private function getStatus_idByStatus($status) {
    	$statusDbT = new Application_Model_DbTable_AngebotStatus();
    	$statusData = $statusDbT->getIdByStatus($status);

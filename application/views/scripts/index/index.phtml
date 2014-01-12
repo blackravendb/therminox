@@ -357,6 +357,15 @@ echo '<br><br><br>';
  echo "asdaf";
  //echo $angebot[0]->getStatus();
  
+ $ak = $angebotMapper->getAngebotskorbByEmail('dennis.brandmueller@gmx.de');
+ foreach($ak as $angebotskorb) {
+	if($angebotskorb->getId() === 26){
+		$angebot = $angebotskorb->getAngebot();
+		$angebot[0]->setStatus('In Bearbeitung');	
+		//$angebotMapper->updateAngebotStatus($angebotskorb);
+	}
+}
+ 
  echo'<br>neuerVersuch<br>';
  $angebotskorb2 = new Application_Model_Angebotskorb();
  
@@ -379,9 +388,9 @@ echo '<br><br><br>';
  
  $angebote = $angebotMapper->getAngebotskorbByEmail('dennis.brandmueller@stud.fh-rosenheim.de');
  
- foreach($angebote as $value){
-	echo $value->getId().$value->getBenutzer_email().'<br>';
-}
+//  foreach($angebote as $value){
+// 	echo $value->getId().$value->getBenutzer_email().'<br>';
+// }
  
  
  echo '<br>-------------------------------------------------------------------------------------';

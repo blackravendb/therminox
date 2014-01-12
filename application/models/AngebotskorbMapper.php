@@ -49,5 +49,9 @@ class Application_Model_AngebotskorbMapper extends Application_Model_MapperAbstr
 		}
 		return $ret;
 	}
+	
+	public function updateAngebotStatus(Application_Model_Angebotskorb $angebotskorb) {
+		return $this->getDbTable()->updateAngebotStatus($angebotskorb);
+	}
 }
 

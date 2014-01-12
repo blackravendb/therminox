@@ -99,6 +99,16 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     	return $ret;
     	
     }
+    
+    public function updateAngebotStatus(Application_Model_Angebotskorb $angebotskorb) {
+    	$angebote = $angebotskorb->getAngebot();
+    	if(empty($angebote))
+    		return false;
+    	
+    	foreach($angebote as $value) {
+    		$this->getAngebotDbTable()->updateAngebotStatus($value);
+    	}
+    }
     	
 }
 
