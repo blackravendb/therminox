@@ -21,7 +21,7 @@ class AdminController extends Zend_Controller_Action {
 		$request = $this->getRequest ();
 		$art = $request->getParam ( 'artikel' );
 		$db_mapper = new Application_Model_WaermetauscherMapper ();
-		$data_object = $db_mapper->getWaermetauscherByModel ( $art );
+		$data_object = $db_mapper->getWaermetauscherByModel ($art);
 		
 		$form = new Application_Form_WtBearbeiten ();
 		$form->setDbdata ( $data_object );
@@ -43,15 +43,29 @@ class AdminController extends Zend_Controller_Action {
 					$anschluss = $form->getValue ( 'Anschluss' );
 					$height = $form->getValue ( 'Hoehe' );
 					$width = $form->getValue ( 'Breite' );
+					$betriebsdruck = $form->getValue( 'Betriebsdruck' );
+					$stutzenmaterial = $form->getValue ( 'Stutzenmaterial' );
 					
 					$egAlt = $data_object->getWaermetauscherEinsatzgebiet ();
 					$anAlt = $data_object->getWaermetauscherAnschluss ();
 					
 					$data_object->setModel ( $artikelname );
+					$data_object->setBetriebsdruck($betriebsdruck);
 					$data_object->setTemperatur ( $temp );
+					$data_object->setStutzenmaterial($stutzenmaterial);
+					$data_object->setHoehe($height);
+					$data_object->setBreite($width);					
 					
 					// EinsatzgebietObjekte erstellen und einfügen //TODO Dennis
-					if (! empty ( $einsatzgbt )) {
+					//Einsatzgebiete löschen
+					$einsatzgebiet_alt = $data_object->getWaermetauscherEinsatzgebiet();
+					if(!empty($einsatzgebiet_alt)){
+						foreach($einsatzgebiet_alt as $value) {
+							$data_object->deleteWaermetauscherEinsatzgebiet($value);
+						}
+					}
+					
+					if (!empty ( $einsatzgbt )) {
 						foreach ( $einsatzgbt as $value ) {
 							$einsatzgbtObj = new Application_Model_WaermetauscherEinsatzgebiet ();
 							$einsatzgbtObj->setEinsatzgebiet ( $value );
@@ -59,12 +73,15 @@ class AdminController extends Zend_Controller_Action {
 							$data_object->insertWaermetauscherEinsatzgebiet ( $einsatzgbtObj );
 						}
 					}
-					if (! empty ( $egAlt )) {
-						foreach ( $egAlt as $value ) {
-							$data_object->deleteWaermetauscherEinsatzgebiet ( $value );
+					
+					//Anschlüsse löschen
+					$anschluss_alt = $data_object->getWaermetauscherAnschluss();
+					if(!empty($anschluss_alt)){
+						foreach($anschluss_alt as $value) {
+							$data_object->deleteWaermetauscherEinsatzgebiet($value);
 						}
 					}
-					
+										
 					// AnschlussObjekte erstellen und einfügen //TODO Dennis
 					if (! empty ( $anschluss )) {
 						foreach ( $anschluss as $value ) {
@@ -74,18 +91,8 @@ class AdminController extends Zend_Controller_Action {
 							$data_object->insertWaermetauscherAnschluss ( $anschObj );
 						}
 					}
-					if (! empty ( $anAlt ) && ! empty ( $anschluss )) { // alte Anschluesse löschen wenn vorhanden
-						foreach ( $anAlt as $value ) {
-							$data_object->deleteWaermetauscherAnschluss ( $value );
-						}
-					}
 					
-					$data_object->setHoehe ( $height );
-					$data_object->setBreite ( $width );
-					
-					$db_mapper->updateWaermetauscher ( $data_object );
-					
-					$this->view->showMessage = true;
+					$this->view->showMessage = $db_mapper->updateWaermetauscher ( $data_object );
 				}
 			}
 		}

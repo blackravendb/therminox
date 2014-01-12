@@ -52,6 +52,13 @@ class Application_Model_DbTable_WaermetauscherUnterkategorie extends Zend_Db_Tab
     	$this->update($wtUnterkategorieData, $where);
     }
     
+    public function deleteWaermetauscherUnterkategorie(Application_Model_WaermetauscherUnterkategorie $wtUnterkategorie) {
+    	$wtUnterkategorieData=$wtUnterkategorie->toArray();
+    	$where = $this->getAdapter()->quoteInto('waermetauscherUnterkategorie.id = ?', $wtUnterkategorie->getId());
+    	$blub = $this->delete($where);
+    	echo $blub;
+    }
+    
     
 }
 

@@ -14,6 +14,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	protected $_waermetauscherEinsatzgebiet;
 	protected $_waermetauscherAnschluss;
 	
+	protected $waermetauscherUnterkategorie2delete;
+	
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
@@ -106,6 +108,10 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		return $this->_stutzenmaterial;
 	}
 	
+	public function getWaermetauscherUnterkategorie2delete() {
+		return $this->waermetauscherUnterkategorie2delete;
+	}
+	
 	protected function setWaermetauscherUnterkategorie($wtUnterkategorie) {
 		$this->_waermetauscherUnterkategorie = $wtUnterkategorie;
 	}
@@ -140,7 +146,8 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		
 		foreach($this->_waermetauscherUnterkategorie as $key => $value) {
 			if($wtUnterkategorie->isEqual($value)) {
-				unset($this->_waermetauscherUntergebiet[$key]);
+				$this->waermetauscherUnterkategorie2delete[] = $value;
+				unset($this->_waermetauscherUnterkategorie[$key]);
 				$this->_changed['waermetauscherUnterkategorie'] = 1;
 			}
 		}
