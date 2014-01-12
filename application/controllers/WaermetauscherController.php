@@ -86,7 +86,7 @@
 				if (isset ( $_SERVER ['HTTP_REFERER'] )) {
 					$this->view->link = $_SERVER ['HTTP_REFERER'];
 				} else {
-					$this->view->link = '/Waermetauscher';
+					$this->view->link = '/waermetauscher';
 				}
 			}
 		}

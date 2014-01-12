@@ -15,25 +15,7 @@
 			$this->view->link = '/wassererwaermer';
 		}
 	}
-	/* Auf Fehler Überprüfen
-	if($data_object->getModel () == null ||
-	$data_object->getBetriebsDruck () == null ||
-	$data_object->getTemperatur () === null ||
-	$data_object->getHoehe () == null ||
-	$data_object->getBreite () == null ||
-	$data_object->getStutzenmaterial () == null ||
-	$data_object->getWaermetauscherEinsatzgebiet () == null ||
-	$data_object->getWaermetauscherAnschluss () == null ||
-	$data_object->getWaermetauscherUnterkategorie ()  == null ) {
-		echo 'Artikel konnte nicht gefunden werden';
-		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
-			$this->view->link = $_SERVER ['HTTP_REFERER'];
-		} else {
-			$this->view->link = '/wassererwaermer';
-		}
-		
-	}
-	*/
+	
 	// Artikeldaten anordnen und anzeigen
 	
 	$art_model = $data_object->getModel ();
@@ -81,7 +63,7 @@
 		echo '<br><br>';
 	echo '</div>';
 
-	echo  '<a href="/Angebot/erstellen/artikel/'.$art_model.'">Angebot über diesen Artikel einholen</a><div>';
+	echo  '<a href="/angebot/erstellen/artikel/'.$art_model.'">Angebot über diesen Artikel einholen</a><div>';
 	
 	?>
 	

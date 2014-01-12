@@ -12,7 +12,7 @@ foreach ($offers as $offer){
 	echo 'Benutzeremail: '.$offer->getBenutzer_email().'<br>';
 	echo 'Erstelldatum: '.$offer->getErstelldatum().'<br>';
 	echo 'Anzahl enthaltener Artikel: '.count($offer->getAngebot()).'<br>';
-	echo '<a href="/Admin/angebotebearbeiten/angebot/'.$offer->getId().'">Angebot bearbeiten</a><br></p><hr>';
+	echo '<a href="/admin/angebotebearbeiten/angebot/'.$offer->getId().'">Angebot bearbeiten</a><br></p><hr>';
 }
 
 echo '</fieldset>';

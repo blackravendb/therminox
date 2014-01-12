@@ -77,7 +77,7 @@ class PufferspeicherController extends Zend_Controller_Action
 			if (isset ( $_SERVER ['HTTP_REFERER'] )) {
 				$this->view->link = $_SERVER ['HTTP_REFERER'];
 			} else {
-				$this->view->link = '/Waermetauscher';
+				$this->view->link = '/waermetauscher';
 			}
 		}
 	}
@@ -118,7 +118,7 @@ class PufferspeicherController extends Zend_Controller_Action
 			if (isset ( $_SERVER ['HTTP_REFERER'] )) {
 				$this->view->link = $_SERVER ['HTTP_REFERER'];
 			} else {
-				$this->view->link = '/Waermetauscher';
+				$this->view->link = '/waermetauscher';
 			}
 		}
 	}
