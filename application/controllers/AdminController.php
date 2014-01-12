@@ -208,7 +208,7 @@
 			$db_mapper = new Application_Model_PufferspeicherMapper();
 			$data_object = $db_mapper->getPufferspeicherByModel($art);
 			
-			try{
+			try{ //TODO Dennis
 			$db_mapper->deletePufferspeicher($data_object);
 			}catch(Exception $e){
 				$_SESSION['psnotdelete'] = 1;
@@ -239,18 +239,28 @@
 						
 						if($form->attributLoeschen->isChecked()){
 							$anschLoeschen = $form->getValue('AttributLoeschen');
-							foreach($anschLoeschen as $value){
-								deleteAnschluss($value);
+							foreach($anschLoeschen as $value){ //TODO Dennis
+								try{
+									$wtmapper->deleteAnschluss($value);
+									$this->_redirect('/Admin/anschluessebearbeiten');
+								}catch(Exception $e){
+									$_SESSION['anschlNotDelete'] = 1;
+								}
 							}
 						}
 						
 						if($form->hinzufuegen->isChecked()){
-							$anschHinzufuegen = $form->getValue('attributHinzufuegen');
-							insertAnschluss($anschHinzufuegen);
+							$anschHinzufuegen = $form->getValue('attributHinzufuegen');//TODO Dennis
+								try{
+									$wtmapper->insertAnschluss($anschHinzufuegen);
+									$this->_redirect('/Admin/anschluessebearbeiten');
+								}catch(Exception $e){
+									$_SESSION['anschlNotInsert'] = 1;
+								}
 						}
 					}
 				}
-		}
+			}
 		
 		public function einsatzgebietebearbeitenAction(){ //TODO Auf Methode warten
 			$wtmapper = new Application_Model_WaermetauscherMapper();
@@ -266,16 +276,29 @@
 				$formData = $this->_request->getPost();
 				
 				if($form->isValid($formData)){
+					$form->populate($_POST);
 					
 					if($form->attributLoeschen->isChecked()){
 						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
-						//TODO Datenbankfunktion Einsatzgebiete löschen
+						foreach($einsatzgbtLöschen as $value){//TODO Dennis
+							try{
+								$wtmapper->deleteEinsatzgebiet($value);
+								$this->_redirect('/Admin/einsatzgebietebearbeiten');
+							}catch (Exception $e){
+								$_SESSION['einsatzgbtNotInsert'] = 1;
+						}
 					}
-					
+				}
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
-						//TODO Datenbankfunktion Einsatzgebiete einfügen
+						try{
+							$wtmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
+							$this->_redirect('/Admin/einsatzgebietebearbeiten');
+						}catch(Exception $e){
+							$_SESSION['einsatzgbtNotDelete'] = 1;
+						}
 					}
+					
 				}
 			}
 		}
@@ -294,15 +317,28 @@
 				$formData = $this->_request->getPost();
 				
 				if($form->isValid($formData)){
+					$form->populate($_POST);
 					
 					if($form->attributLoeschen->isChecked()){
-						$stutzenmaterialLöschen = $form->getValue('AttributLoeschen');
-						//TODO Datenbankfunktion Stutzenmaterial löschen
+						$stutzenmaterialLoeschen = $form->getValue('AttributLoeschen');
+						foreach($stutzenmaterialLoeschen as $value){//TODO Dennis
+							try{
+								$wtmapper->deleteStutzenmaterial($value);
+								$this->_redirect('/Admin/stutzenmaterialbearbeiten');
+							}catch (Exception $e){
+								$_SESSION['stutzenmaterialtNotDeleted'] = 1;
+							}
+						}
 					}
 					
 					if($form->hinzufuegen->isChecked()){
 						$stutzenmaterialHinzufuegen = $form->getValue('attributHinzufuegen');
-						//TODO Datenbankfunktion Stutzenmaterial hinzufügen
+						try{//TODO Dennis
+							$wtmapper->insertStutzenmaterial($stutzenmaterialHinzufuegen);
+							$this->_redirect('/Admin/stutzenmaterialbearbeiten');
+						}catch(Exception $e){
+							$_SESSION['stutzenmaterialNotInserted'] = 1;
+						}
 					}
 				}
 			}
@@ -322,21 +358,31 @@
 				$formData = $this->_request->getPost();
 				
 				if($form->isValid($formData)){
+					$form->populate($_POST);
 					
 					if($form->attributLoeschen->isChecked()){
 						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
-						//TODO Datenbankfunktion Einsatzgebiete löschen
+						foreach($einsatzgbtLöschen as $value){
+							try{
+							$psmapper->deleteEinsatzgebiet($value);
+							$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
+						}catch(Exception $e){
+							$_SESSION['einsatzgbtPsNotDeleted'] = 1;
+						}
+						}
 					}
+				
 					
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
-						//TODO Datenbankfunktion Einsatzgebiete hinzufügen
+						try{
+							$psmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
+							$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
+						}catch (Exception $e){
+							$_SESSION['einsatzgbtPsNotInserted'] = 1;
+						}
 					}
 				}
 			}
 		}
-		
-		
-		
-		
 	}
