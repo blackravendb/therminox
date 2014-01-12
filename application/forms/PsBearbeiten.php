@@ -54,6 +54,15 @@ public function startform(){
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für alle Felder richtige Werte eingeben!');
 		
+		$leergewicht = new Zend_Form_Element_Text('Leergewicht');
+		$leergewicht->setLabel('Leergewicht (kg):')
+		->addValidator($val)
+		->setRequired(true)
+		->setValue($this->dbdata->getLeergewicht())
+		->addFilter('StripTags')
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte für alle Felder richtige Werte eingeben!');
+		
 		$einsatzgbt = new Zend_Form_Element_MultiCheckbox('EinsatzgebietePs');
 		$einsatzgbt->setLabel('Einsatzgebiete:');
 		foreach($einsatzgebiete as $value){
