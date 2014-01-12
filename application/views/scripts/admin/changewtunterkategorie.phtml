@@ -4,10 +4,13 @@
 <?php 
 echo $this->wtunterkategorienbearbeiten; 
 
-if($this->showMessageUn == true){
+if($this->showMessageUn === true){
 ?>
 <div id="geändertUk">
 <p>Wärmetauscher Unterkategorie wurde erfolgreich geändert</p>
 </div>
+<?php }?>
+<?php if($this->showMessageUn === false){?>
+<p>Fehler beim Ändern der Unterkategorie!"</p>
 <?php }?>
 </div>

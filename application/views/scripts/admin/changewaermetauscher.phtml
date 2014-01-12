@@ -4,16 +4,17 @@
 <?php 
 echo $this->wtbearbeiten; 
 
-if($this->showMessage == true){
+if($this->showMessage === true){
 ?>
 <div id="geändert">
 <p>Wärmetauscher wurde erfolgreich geändert</p>
-<?php }else{?>
+<?php }?>
+<?php if($this->showMessage === false){?>
 <p>Fehler beim ändern des Artikels!</p>
-</div>
 <?php }?>
 </div>
-<?php if($this->showUnterkategorien == true){?>
+</div>
+<?php if($this->showUnterkategorien === true){?>
 	<h1>Unterkategorien bearbeiten</h1>
 	<table border="1">
  	 <tr>

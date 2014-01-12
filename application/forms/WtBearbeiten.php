@@ -57,14 +57,15 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
 
 		$stutzenmaterial = new Zend_Form_Element_Select('Stutzenmaterial');
-        $stutzenmaterial->setLabel('Stutzenmaterial:');
+        $stutzenmaterial->setLabel('Stutzenmaterial:')
+        				->setValue($this->dbdata->getStutzenmaterial());
         foreach($stutzenmaterialien as $value){
         	$stutzenmaterial->addMultiOption((string)$value, (string)$value); 
         }
         $stutzenmaterial->addFilter('StripTags')
            				->addFilter('StringTrim');
            			
-		$betriebsdruck = new Zend_Form_Element_Text('betriebsdruck');
+		$betriebsdruck = new Zend_Form_Element_Text('Betriebsdruck');
 		$betriebsdruck->setLabel('Betriebsdruck (bar):')
 		->addValidator($val)
 		->setValue($this->dbdata->getBetriebsdruck())
