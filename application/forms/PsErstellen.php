@@ -12,6 +12,11 @@ class Application_Form_PsErstellen extends App_Form {
     	$loadVal = new Zend_Validate_Between(array('min' => 500, 'max' => 2675));
     	$thermoVal = new Zend_Validate_Between(array('min' => 290, 'max' => 1565));
     	
+    	$name = new Zend_Form_Element_Text('Model');
+    	$name->setLabel('Artikelmodell:')
+    	->addFilter('StripTags')
+    	->addFilter('StringTrim');
+    	
     	$typ = new Zend_Form_Element_Radio('Typ');
     	$typ->setLabel('Typ:')
     		//->addMultiOptions() warten auf Datenbank
@@ -69,6 +74,6 @@ class Application_Form_PsErstellen extends App_Form {
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel vorschlagen');
         	
-        $this->addElements(array($typ, $speicherinhalt, $leergewicht, $anschlussKw, $anschlussWm, $anschlussLs, $anschlussZk, $anschlussTm, $submit));
+        $this->addElements(array($name,$typ, $speicherinhalt, $leergewicht, $anschlussKw, $anschlussWm, $anschlussLs, $anschlussZk, $anschlussTm, $submit));
 	}
   }
