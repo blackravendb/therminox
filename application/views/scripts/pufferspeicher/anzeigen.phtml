@@ -4,11 +4,11 @@
 	<?php
 	
 	$data_object = $this->dbdata;
-	if($this->dbdata === null){
-		if ( isset($this->message))
-			echo $this->message;
-	}else {
+	if(is_null($this->dbdata)){
 		echo 'Artikel konnte nicht gefunden werden';
+	}
+	if(!is_null($this->dbdata)) {
+		
 		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
 			$this->view->link = $_SERVER ['HTTP_REFERER'];
 		} else {

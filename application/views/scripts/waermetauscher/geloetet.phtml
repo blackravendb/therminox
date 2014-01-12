@@ -53,7 +53,7 @@
 			} else {
 				echo '<h3>Einsatzgebiete:</h3>';
 				foreach ( $art_loc as $each )
-					echo $each->getEinsatzgebiet();
+					echo $each->getEinsatzgebiet().'<br>';
 			}
 			echo '<br>';
 			if ( count($art_conn) >1 ) {
