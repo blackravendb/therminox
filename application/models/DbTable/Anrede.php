@@ -23,6 +23,23 @@ class Application_Model_DbTable_Anrede extends Zend_Db_Table_Abstract
     	
     	//Select Befehl wieder zurücksetzen
     	$this->init();
+    	if(empty($data)) {
+    		return;
+    	}
+    	return $data->toArray();
+    }
+    
+    public function getAnredeByAnrede_id($id) {
+    	$this->select
+    	->from($this->_name)
+    	->where('id = ?', (int)$id);
+    	
+    	$data = $this->fetchRow($this->select);
+    	
+    	$this->init();
+    	if(empty($data))
+    		return;
+    	
     	return $data->toArray();
     }
 }

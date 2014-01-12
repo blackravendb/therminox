@@ -53,8 +53,8 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 			 
 	    	 if(!empty($adressen)) {
 	    	 	$adressenData = $adressen->toArray();
-	    	 	foreach($adressenData as $value) {
-	    	 		$adressenData['anrede'] = $this->getAnrede_idByAnrede($value['anrede_id']);
+	    	 	foreach($adressenData as $key => $adresse) {
+	    	 		$adressenData[$key]['anrede'] = $this->getAnredeByAnrede_id($adresse['anrede_id']);
 	    	 	}
 	    	 }
 	    	 //Alle Daten in Array zusammenfassen zum returnen
@@ -222,10 +222,19 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     private function getAnrede_idByAnrede($anrede) {
     	$anredeDbt = new Application_Model_DbTable_Anrede();
     	$anredeData = $anredeDbt->getIdByAnrede($anrede);
-    	if($anrede == "")
+    	if(empty($anredeData))
     		return false;
     		
     	return $anredeData['id'];
     }
+    
+    private function getAnredeByAnrede_id($id) {
+    $anredeDbT = new Application_Model_DbTable_Anrede();
+    $anredeData = $anredeDbT->getAnredeByAnrede_id($id);
+    if(empty($anredeData))
+    	return false;
+    return $anredeData['anrede'];
+    }
+    
     
 }
