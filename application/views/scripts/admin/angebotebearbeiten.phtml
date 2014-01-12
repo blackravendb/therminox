@@ -5,6 +5,7 @@ $email = Zend_Auth::getInstance ()->getIdentity ()->email;
 $db_mapper = new Application_Model_BenutzerMapper();
 $nutzer =$db_mapper->getBenutzer($email);
 echo ' Erstellt von Nutzer: '.$nutzer->getVorname().' '.$nutzer->getNachname();
+echo ', <a href="mailto:'.$email.'">Nutzer kontaktieren</a>';
 echo '<br>';
 
 echo $this->form;
