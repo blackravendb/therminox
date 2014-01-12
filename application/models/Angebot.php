@@ -6,7 +6,6 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 	protected $_artikelnummer_id;
 	protected $_status;
 	protected $_bemerkung;
-	protected $_erstelldatum;
 	
 	public function toArray() {
 		return array(
@@ -14,7 +13,6 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 				"artikelnummer_id" => $this->_artikelnummer_id,
 				"status" => $this->_status,
 				"bemerkung" => $this->_bemerkung,
-				"erstelldatum" => $this->_erstelldatum
 		);
 	}
 	
@@ -64,14 +62,5 @@ class Application_Model_Angebot extends Application_Model_TableAbstract {
 		return $this->_bemerkung;
 	}
 	
-	protected function setErstelldatum($datum) {
-		$this->_erstelldatum = $datum;
-		return $this;
-	}
-	
-	public function getErstelldatum() {
-		return $this->_erstelldatum;
-	}
-
 }
 

@@ -26,7 +26,8 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     
     public function init() { 
     	$this->select = $this->select()
-    		->from($this->_name);
+    		->from($this->_name)
+    		->order('erstelldatum ASC');
     }
     
     protected function getAngebotDbTable() {
@@ -77,5 +78,27 @@ class Application_Model_DbTable_Angebotskorb extends Zend_Db_Table_Abstract
     	}
     	
     }
+    
+    public function getAngebotskoerbeStatusNotClosed(){
+    	$angebotskoerbe = $this->fetchAll($this->select);
+    	
+    	if(empty($angebotskoerbe)){
+    		return;
+    	}
+    	
+    	$ret = array();
+    	 
+    	foreach($angebotskoerbe as $value){
+    		$angebotskorbData = $value->toArray();
+    		$angebote=$this->getAngebotDbTable()->getAngebotByAngebotskorbIdAndNotClosed($angebotskorbData['id']);
+    		
+    		if(!empty($angebote))
+    			$ret[] = array($angebotskorbData, $angebote);
+    	}
+    	
+    	return $ret;
+    	
+    }
+    	
 }
 

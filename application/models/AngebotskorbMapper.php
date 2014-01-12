@@ -36,8 +36,18 @@ class Application_Model_AngebotskorbMapper extends Application_Model_MapperAbstr
 		$this->getDbTable()->insertAngebotskorb($angebotskorb);
 	}
 	
-	public function getAngebotskoerbe() {
-		$data = $this->getDbTable()->getAngebotskoerbe();
+	public function getAngebotskoerbeStatusNotClosed() {
+		$data = $this->getDbTable()->getAngebotskoerbeStatusNotClosed();
+		
+		if(empty($data))
+			return;
+		
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $this->setAttributs($value);
+		}
+		return $ret;
 	}
 }
 

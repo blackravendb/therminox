@@ -5,12 +5,14 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 	protected $_id;
 	protected $_benutzer_email;
 	protected $_angebot;
+	protected $_erstelldatum;
 	
 	public function toArray() {
 		return array(
 				"id" => $this->_id,
 				"benutzer_email" => $this->_benutzer_email,
-				"angebot" => $this->_angebot
+				"angebot" => $this->_angebot,
+				"erstelldatum" => $this->_erstelldatum
 		);
 	}
 	
@@ -62,6 +64,14 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 	
 	public function getAngebot() {
 		return $this->_angebot;
+	}
+	
+	protected function setErstelldatum($erstelldatum) {
+		$this->_erstelldatum = $erstelldatum;
+	}
+	
+	public function getErstelldatum() {
+		return $this->_erstelldatum;
 	}
 }
 
