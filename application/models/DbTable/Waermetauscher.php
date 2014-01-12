@@ -447,6 +447,12 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
 	    		unset($waermetauscherData['waermetauscherAnschluss']);
 	    	}
 	    	
+	    	//Überpüfen ob noch felder übrig sind
+	    	if(empty($waermetauscherData)){
+	    		$this->getAdapter()->commit();
+	    		return true;
+	    	}
+	    	
 	    	$where = $this->getAdapter()->quoteInto('id = ?', $waermetauscher->getId());
 	    	$this->update($waermetauscherData, $where);
 	    	$this->getAdapter()->commit();

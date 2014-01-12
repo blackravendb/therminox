@@ -147,7 +147,7 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 		foreach($this->_waermetauscherUnterkategorie as $key => $value) {
 			if($wtUnterkategorie->isEqual($value)) {
 				$this->waermetauscherUnterkategorie2delete[] = $value;
-				unset($this->_waermetauscherUntergebiet[$key]);
+				unset($this->_waermetauscherUnterkategorie[$key]);
 				$this->_changed['waermetauscherUnterkategorie'] = 1;
 			}
 		}
