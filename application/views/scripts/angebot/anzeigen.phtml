@@ -10,15 +10,27 @@ if (! empty ( $this->articles )) {
 	$db_mapper = new Application_Model_ArtikelMapper ();
 	foreach ( $articles as $article ) {
 	$model = $db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
-	echo '<br>';
+	if(strcmp($article->getStatus(),'Offen') == 0){
+		echo '<div class="offenAngebot">';
+	}
+	if(strcmp($article->getStatus(),'In Bearbeitung') == 0){
+		echo '<div class="inBearbeitungAngebot">';
+	}
+	if(strcmp($article->getStatus(),'Abgeschlossen') == 0){
+		echo '<div class="abgeschlossenAngebot">';
+	}
+	if(strcmp($article->getStatus(),'Beendet') == 0){
+		echo '<div class="beendetAngebot">';
+	}
+	
 	 echo 'Artikelname: '.$model->getModel().'<br>';
 		echo 'Erstelldatum: ' . $article->getErstelldatum () . '<br>';
 		echo 'Status: ' . $article->getStatus () . '<br>';
-		echo 'Bemerkung: ' . $article->getBemerkung () . '<br><br>';
-		echo '--------------------------------------------------------------<br><br>';
+		echo 'Bemerkung: ' . $article->getBemerkung () . '<br></div>';
+		
 	}
 }
-echo '</p></fieldset><a href="/angebot">Zur&uuml;ck</a> |	<a href="/angebot/remove">Angebot verwerfen</a></body>';
+echo '</p></fieldset><a href="/angebot">Zur&uuml;ck zur &Uuml;bersicht</a></body>';
 
 
 
