@@ -1,5 +1,4 @@
 <?php
-
 class Application_Form_Password extends App_Form
 {    
     public function init()
@@ -44,4 +43,3 @@ class Application_Form_Password extends App_Form
     	$this->addElements(array($oldPassword, $newPassword, $confirm_password, $submit));
     }
 }
-

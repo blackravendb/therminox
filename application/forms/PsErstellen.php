@@ -1,5 +1,5 @@
 <?php
-class Application_Form_ProduktberaterWt extends App_Form {
+class Application_Form_PsErstellen extends App_Form {
 
 	 public function __construct($options = null)
     {	

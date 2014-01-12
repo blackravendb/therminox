@@ -37,7 +37,7 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 				$request->setActionName('login');
 			} else {
 				$request->setControllerName('error');
-				$request->setActionName('index');
+				$request->setActionName('error');
 			}
 		}
 	}

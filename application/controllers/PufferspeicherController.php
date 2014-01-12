@@ -123,7 +123,7 @@ class PufferspeicherController extends Zend_Controller_Action
 		}
 	}
 	
-	public function hinzufuegen() {
+	public function hinzufuegenAction() {
 		$form = new Application_Form_PsErstellen();
 		
 		$this->view->form = $form;

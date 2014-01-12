@@ -27,8 +27,8 @@ class Application_Form_Register extends App_Form
     			array('NotEmpty', true),
     			array('StringLength', true, array('min' => 6, 'max' => 50))
     	));
-    	$password->getValidator('NotEmpty')->setMessage('Das Password darf nicht leer sein.');
-    	$password->getValidator('StringLength')->setMessage('Das Password muss mind. 6 Zeichen haben.');
+    	$password->getValidator('NotEmpty')->setMessage('Das Passwort darf nicht leer sein.');
+    	$password->getValidator('StringLength')->setMessage('Das Passwort muss mind. 6 Zeichen haben.');
 
     	
     	$confirm_password = new Zend_Form_Element_Password('confirm_password');
@@ -45,6 +45,7 @@ class Application_Form_Register extends App_Form
     			'Herr' => 'Herr',
     			'Frau' => 'Frau'
     	));
+    	$title->addErrorMessage('Bitte wählen Sie eine gültige Ausrede.');
     	
     	$company = new Zend_Form_Element_Text('company');
     	$company->setRequired(true)
@@ -102,20 +103,21 @@ class Application_Form_Register extends App_Form
     	$street->getValidator('StringLength')->setMessage('Die Straße muss zwischen 1 und 100 Zeichen lang sein.');   	
     	
     	$locale = Zend_Registry::getInstance()->get("Zend_Locale"); 
-    	$countries = ($locale->getTranslationList('Territory', $locale->getLanguage(), 2));
+    	$countries = $locale->getTranslationList('Territory', $locale->getLanguage(), 2);
+    	unset($countries['ZZ']);
     	asort($countries, SORT_LOCALE_STRING); 
     	$country = new Zend_Form_Element_Select('country', array(
     			'decorators' => $this->elementDecorators,
-    			'label' => _('Land'),
+    			'label' => 'Land',
     			'required' => true,
     			'filters' => array(
     					'StringTrim'
     			),
     			'class' => 'input-select'
-    	));
+    	));	
     	$country->addMultiOptions($countries)
     	->setValue($locale->getRegion());
-
+    	$country->addErrorMessage('Ungültiges Land.');
 
     	$myValidator = new App_Validate_MyPostCode();
     	$plz = new Zend_Form_Element_Text('plz');
@@ -123,6 +125,7 @@ class Application_Form_Register extends App_Form
     	->setLabel('Postleitzahl')
     	->setDecorators($this->elementDecorators)
     	->addFilter('StringTrim')
+    	->addFilter('StripTags')
     	->addValidator($myValidator, false)
     	->addErrorMessage('Bitte geben Sie eine gültige Postleitzahl für das ausgewählte Land an.');
     	
@@ -134,10 +137,10 @@ class Application_Form_Register extends App_Form
     	->addFilter('StripTags')
     	->setValidators(array(
     			array('NotEmpty', true),
-    			array('StringLength', true, array('max' => 30))
+    			array('StringLength', true, array('max' => 100))
     	));
     	$town->getValidator('NotEmpty')->setMessage('Bitte geben Sie Ihren Wohnort an.');
-    	$town->getValidator('StringLength')->setMessage('Der Ort darf höchstens 30 Zeichen lang sein.');
+    	$town->getValidator('StringLength')->setMessage('Der Ort darf höchstens 100 Zeichen lang sein.');
     	 
     	
     	$submit = new Zend_Form_Element_Submit('submit');

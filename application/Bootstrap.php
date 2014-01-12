@@ -25,9 +25,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	protected function _initLocale()
 	{
-		$locale = new Zend_Locale();
+		try {
+			$locale = new Zend_Locale();
+			if(!$locale->getRegion()) {
+				$locale = new Zend_Locale('de_DE');
+			}else if(count($locale->getTranslationList('Territory', $locale->getLanguage(), 2)) > 240) {
+				$locale = new Zend_Locale('de_DE');
+			}
+		} catch(Zend_Locale_Exception $e) {
+			$locale = new Zend_Locale('de_DE');
+		} 
 		Zend_Registry::set('Zend_Locale', $locale);
-		return $locale;
 	}
 	
 	protected function _initEmail()
@@ -75,4 +83,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Session::start();
 	}
 }
-
