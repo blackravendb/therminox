@@ -236,11 +236,6 @@
 			$this->_redirect('/Admin/showpufferspeicher');
 		}
 		
-		public function bearbeiten($attrib){//TODO evtl löschen
-			
-			
-		}
-		
 		public function anschluessebearbeitenAction(){
 				$wtmapper = new Application_Model_WaermetauscherMapper();
 				$anschluesse = $wtmapper->getAnschlussListe();
@@ -263,11 +258,11 @@
 								foreach($anschLoeschen as $value){ //TODO Dennis
 									try{
 										$wtmapper->deleteAnschluss($value);
-										$this->_redirect('/Admin/anschluessebearbeiten');
 									}catch(Exception $e){
 										$_SESSION['anschlNotDelete'] = 1;
 									}
 								}
+								$this->_redirect('/Admin/anschluessebearbeiten');
 							}
 						}
 						
@@ -308,11 +303,11 @@
 							foreach($einsatzgbtLoeschen as $value){//TODO Dennis
 								try{
 									$wtmapper->deleteEinsatzgebiet($value);
-									$this->_redirect('/Admin/einsatzgebietebearbeiten');
 								}catch (Exception $e){
 									$_SESSION['einsatzgbtNotInsert'] = 1;
 							}
 						}
+						$this->_redirect('/Admin/einsatzgebietebearbeiten');
 					}
 					}
 					if($form->hinzufuegen->isChecked()){
@@ -352,11 +347,11 @@
 							foreach($stutzenmaterialLoeschen as $value){//TODO Dennis
 								try{
 									$wtmapper->deleteStutzenmaterial($value);
-									$this->_redirect('/Admin/stutzenmaterialbearbeiten');
 								}catch (Exception $e){
 									$_SESSION['stutzenmaterialNotDeleted'] = 1;
 								}
 							}
+							$this->_redirect('/Admin/stutzenmaterialbearbeiten');
 						}
 					}
 					
@@ -397,11 +392,11 @@
 							foreach($einsatzgbtLöschen as $value){
 								try{ //TODO Dennis
 								$psmapper->deleteEinsatzgebiet($value);
-								$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
 							}catch(Exception $e){
 								$_SESSION['einsatzgbtPsNotDeleted'] = 1;
 							}
 							}
+							$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
 						}
 					}
 				
