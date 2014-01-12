@@ -1,7 +1,7 @@
  <?php
 	class WaermetauscherController extends Zend_Controller_Action {
 		public function init() { 
-			require_once 'Cart/ShoppingCart.php';
+			
 			$this->view->showVor = false;
 			$this->view->keineVorschläge = false;
 		}
