@@ -1,9 +1,7 @@
 <?php
 class AdminController extends Zend_Controller_Action {
 	public function init() {
-		$this->view->showMessage = false;
-		$this->view->showUnterkategorien = false;
-		$this->view->showMessageUn = false;
+
 	}
 	public function indexAction() {
 	}
