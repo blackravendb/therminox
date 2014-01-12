@@ -1,0 +1,48 @@
+<?php
+/*****************************************************************************
+ * 											 								**
+ * Allgemeine Infos:														**
+ * Höhe: dynamisch (je nach geladenen Menüpunkten)							**
+ * Breite: 150px (kann jedoch noch abweichen)								**
+ * 																			**
+ *****************************************************************************/
+?>
+
+<ul class="topnav">
+	<li><a href="#">Ihr Warenkorb</a>
+		<ul>
+		<?php
+		echo '<li><a href="#">Hinzugefügte Artikel</a><ul>';
+		if (isset ( $_SESSION ['angebotskorb'] )) {
+			$angebotskorb = $_SESSION ['angebotskorb'];
+			$articles = $angebotskorb->getAngebot ();
+			foreach ( $articles as $position ) {
+				$mapper = new Application_Model_ArtikelMapper ();
+				$artikel = $mapper->getArtikelByArtikelnummer ( $position->getArtikelnummer () );
+				if ($artikel instanceof Application_Model_Waermetauscher) {
+					// Link auf wärmetauscher
+					echo '<li><a href="/Waermetauscher/geloetet/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
+				}
+				if ($artikel instanceof Application_Model_Pufferspeicher) {
+					// Link auf pufferspeicher
+					echo '<li><a href="/Pufferspeicher/anzeigen/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
+				}
+			}
+			echo '</ul></li>';
+			
+		}
+		if (! isset ( $_SESSION ['angebotskorb'] )) {
+			echo '<li><a>Ihr Warenkorb enthält</a></li>';
+			echo '<li><a> noch keine Artikel</a></li>';
+			echo '</li>';
+			echo '</ul></li>';
+		}
+		// Artikel löschen aus Warenkorb
+		echo '<li><a href="#">Warenkorb bearbeiten</a><ul>';
+		echo '</ul></li>';
+		echo '</ul></li>';
+		?>
+		
+
+	
+</ul>
