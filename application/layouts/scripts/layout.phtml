@@ -22,10 +22,13 @@
 					<div id = "menu"><?php echo $this->render('_layout/menu.phtml');?></div>
 					<div id = "admin_letzteProdukte">
 					<?php
-					if($this->isAdmin()) {
+					$role = App_Util::getRole();
+					if($role === 'Administrator') {
 						echo $this->render('_layout/admin.phtml');
-					} else {
+					} elseif ($role === 'Benutzer') {
 						echo $this->render('_layout/letzteProdukte.phtml');
+					} else {
+						echo '<p>Hier könnte Ihre Werbung stehen.</p>';
 					}
 					?>
 					</div>

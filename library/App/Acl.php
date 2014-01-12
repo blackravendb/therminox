@@ -21,7 +21,7 @@ class App_Acl extends Zend_Acl
 		
 		
 		$this->allow('Gast'); 
-		$this->deny('Gast', 'account'); //TODO deny moar stuff
+		$this->deny('Gast', 'account');
 		$this->deny('Gast', 'admin');
 		$this->deny('Gast', 'angebot');
 		$this->deny('Gast', 'pufferspeicher', array('hinzufuegen'));

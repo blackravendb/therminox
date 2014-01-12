@@ -9,4 +9,13 @@ class App_Util
 	public static function generateHexString($bytes = 20) {
 		return bin2hex(mcrypt_create_iv($bytes, MCRYPT_DEV_URANDOM));
 	}
+	
+	public static function getRole(){
+		$auth = Zend_Auth::getInstance();
+		if ($auth->hasIdentity()) {
+			return $auth->getIdentity()->berechtigung;
+		} else {
+			return 'Gast';
+		}
+	}
 }

@@ -15,7 +15,7 @@ class Application_Form_AngebotBearbeiten extends App_Form {
 			$art_name->setLabel ( 'Artikelname: ' )->setValue ( $art )->setAttrib ( 'disabled', 'disabled' );
 			$this->addElement ( $art_name );
 			
-			$art_text = new Zend_Form_Element_Text ( 'arttext' );
+			$art_text = new Zend_Form_Element_Textarea ( 'arttext' );
 			$art_text->setLabel ( 'Bemerkung des Nutzers: ' )->setValue ( $artikel->getBemerkung () )->setAttrib ( 'disabled', 'disabled' );
 			$this->addElement ( $art_text );
 			
