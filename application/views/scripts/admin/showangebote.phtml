@@ -11,7 +11,8 @@ foreach ($offers as $offer){
 	echo 'Angebotskorb ID: '.$offer->getId().'<br>';
 	echo 'Benutzeremail: '.$offer->getBenutzer_email().'<br>';
 	echo 'Erstelldatum: '.$offer->getErstelldatum().'<br>';
-	echo '<a href="/Admin/angebotebearbeiten/angebot'.$offer->getId().'">Angebot bearbeiten</a><br></p><hr>';
+	echo 'Anzahl enthaltener Artikel: '.count($offer->getAngebot()).'<br>';
+	echo '<a href="/Admin/angebotebearbeiten/angebot/'.$offer->getId().'">Angebot bearbeiten</a><br></p><hr>';
 }
 
 echo '</fieldset>';

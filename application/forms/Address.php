@@ -105,7 +105,7 @@ class Application_Form_Address extends App_Form
     	->addFilter('StripTags')
     	->setValidators(array(
     			array('NotEmpty', true),
-    			array('StringLength', true, array('max' => 30))
+    			array('StringLength', true, array('max' => 100))
     	));
     	$town->getValidator('NotEmpty')->setMessage('Bitte geben Sie Ihren Wohnort an.');
     	$town->getValidator('StringLength')->setMessage('Der Ort darf höchstens 30 Zeichen lang sein.');

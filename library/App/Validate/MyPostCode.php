@@ -13,7 +13,7 @@ class App_Validate_MyPostCode extends Zend_Validate_Abstract {
 		try {
 			$validator = new Zend_Validate_PostCode ( $locale );
 		} catch (Exception $e) {
-			return true;
+			$validator = new Zend_Validate_StringLength(array('min' => 1, 'max' => 10, 'encoding' => 'UTF-8'));
 		}
 		
 		return $validator->isValid($value);

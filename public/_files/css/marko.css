@@ -91,3 +91,9 @@ table th.angebote {
 .legendtag {
 	float: right;
 }
+
+label, dd#Anschluss-element, dd#Einsatzgebiete-element{
+    width: 10em;
+    display: block;
+    float: left;
+}

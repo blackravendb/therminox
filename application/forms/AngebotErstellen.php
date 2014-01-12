@@ -5,8 +5,12 @@ class Application_Form_AngebotErstellen extends App_Form {
 		
 		parent::__construct ( $options );
 		
-		$userdata = $this->_userinfo;
-		$articledata = $this->_articleinfo;
+		$data = new Application_Model_Angebotskorb();
+		$data = $this->offer_data;
+		$articles = $data->getAngebot();
+		foreach ($articles as $pos => $article){
+			echo $article->getStatus();
+		}
 				
 		$extraInfo = new Zend_Form_Element_Textarea('extraInfo');
 		$extraInfo->setLabel('Weiter würden mich folgende Informationen interessieren:')
