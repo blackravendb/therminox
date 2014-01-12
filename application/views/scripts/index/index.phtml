@@ -336,12 +336,20 @@ echo 'Wärmetauscher:<br>';
  
  $angebotMapper = new Application_Model_AngebotskorbMapper();
  
+ $test = $angebotMapper->getAngebotskoerbeStatusNotClosed();
+ echo '<br><br><br>';
+ foreach($test as $value){
+	echo $value->getId().'<br>';
+	echo $value->getErstelldatum().'<br>';
+}
+echo '<br><br><br>';
+ 
  $angebotskorbe = $angebotMapper->getAngebotskorbByEmail('dennis.brandmueller@gmx.de');
  
  foreach($angebotskorbe as $angebotskorb) {
  	$angebote =$angebotskorb->getAngebot();
  	foreach($angebote as $angebot){
-		echo $angebot->getErstelldatum().'<br>a';
+	//	echo $angebot->getErstelldatum().'<br>a';
 		echo $angebot->getBemerkung().'<br>b';
 	}
  

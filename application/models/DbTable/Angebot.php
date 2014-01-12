@@ -32,7 +32,7 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
     
     public function init() {
     	$this->select = $this->select()
-    		->from($this->_name, array('angebotskorb_id', 'artikelnummer_id as artikelnummer', 'bemerkung', 'erstelldatum'))
+    		->from($this->_name, array('angebotskorb_id', 'artikelnummer_id as artikelnummer', 'bemerkung'))
     		->join('angebotStatus', "$this->_name.angebotStatus_id = angebotStatus.id", 'status')
     		->setIntegrityCheck(false);
     }
@@ -49,6 +49,14 @@ class Application_Model_DbTable_Angebot extends Zend_Db_Table_Abstract
    			return;
    		
    		return $data->toArray();
+   }
+   
+   public function getAngebotByAngebotskorbIdAndNotClosed($id) {
+   	$where = $this->getAdapter()->quoteInto('angebotStatus.status != ?', 'Abgeschlossen');
+   	$this->select
+   		->where($where);
+   	
+   	return $this->getAngebotByAngebotskorbId($id);
    }
    
    public function insertAngebot (Application_Model_Angebot $angebot, $angebotskorbId){
