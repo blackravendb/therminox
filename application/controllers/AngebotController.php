@@ -130,6 +130,13 @@ class AngebotController extends Zend_Controller_Action {
 	public function abschickenAction() {
 		// action body
 		// in db schreiben + email schicken
+		$angebotskorb= $_SESSION['angebotskorb'];
+		
+		$mapper = new Application_Model_AngebotskorbMapper ();
+		$mapper->insertAngebotskorb ( $angebotskorb );
+		unset ( $_SESSION ['angebotskorb'] );
+			
+		$this->_redirect ( 'angebot/' );
 	}
 	public function removeAction() {
 		$request = $this->getRequest ();
