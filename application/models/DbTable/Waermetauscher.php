@@ -283,7 +283,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	return $this->delete($where);
     }
     
-    public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {	//TODO
+    public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
     	$waermetauscherData = $waermetauscher->toArray();
     	
     	//Daten zwischenspeichern
@@ -341,8 +341,61 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     	
     }
     
-    public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {	//TODO
+    public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
+    	$waermetauscherData = $waermetauscher->toArray();
     	
+    	foreach($waermetauscherData as $key => $value) {
+    		if(!$waermetauscher->isChanged($key)) {
+    			unset($waermetauscherData[$key]);
+    		}
+    	}
+    	
+    	//Stutzenmaterial wurde geändert
+    	if(key_exists('stutzenmaterial', $waermetauscherData)) {
+    		$waermetauscherData['stutzenmaterial_id'] = $this->getStutzenmaterialDbTable()->getIdByStutzenmaterial($waermetauscherData['stutzenmaterial']);
+    		unset($waermetauscherData['stutzenmaterial']);
+    	}
+    	
+    	//Unterkategorie wurde geändert
+    	if(key_exists('waermetauscherUnterkategorie', $waermetauscherData)) {
+    		foreach($waermetauscherData['waermetauscherUnterkategorie'] as $value) {
+    			$this->getWaermetauscherUnterkategorieDbTable()->changeWaermetauscherUnterkategorie($value);
+    		}
+    		unset($waermetauscherData['waermetauscherUnterkategorie']);
+    	}
+    	
+    	//Einsatzgebiet wurde geändert
+    	if(key_exists('waermetauscherEinsatzgebiet', $waermetauscherData)) {
+    		//Einsatzgebiete löschen
+    		$where = $this->getAdapter()->quoteInto('waermetauscher_id = ?', $waermetauscher->getId());
+    		$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->delete($where);
+    		
+    		//neue Einsatzgebiete schreiben
+    		foreach($wtEinsatzgebiet as $value) {
+    			$einsatzgebietId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherEinsatzgebietDbTable()->getIdByEinsatzgebiet($value);
+    			
+    			$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->insert(array('waermetauscher_id' => $waermetauscher->getId(), 'waermetauscherEinsatzgebiet_id' => $einsatzgebietId));
+    		}  		
+    		unset($waermetauscherData['waermetauscherEinsatzgebiet']);
+    	}
+    	
+    	//Anschluss wurde verändert
+    	if(key_exists('waermetauscherAnschluss', $waermetauscherData)) {
+    		//Anschlüsse löschen
+    		$where = $this->getAdapter()->quoteInto('waermetauscher_id = ?', $waermetauscher->getId());
+    		$this->getWaermetauscher2waermetauscherAnschlussDbTable()->delete($where);
+    		
+    		//neue Anschlüsse schreiben
+    		foreach($wtAnschluss as $value) {
+    			$anschlussId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherAnschlussDbTable()->getIdByAnschluss($value);
+    			 
+    			$this->getWaermetauscher2waermetauscherAnschlussDbTable()->insert(array('waermetauscher_id' => $waermetauscher->getId(), 'waermetauscherAnschluss_id' => $anschlussId));
+    		}
+    		unset($waermetauscherData['waermetauscherAnschluss']);
+    	}
+    	
+    	$where = $this->getAdapter()->quoteInto('id = ?', $waermetauscher->getId());
+    	$this->update($waermetauscherData, $where);
     }
 
 }
