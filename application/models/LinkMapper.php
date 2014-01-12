@@ -33,7 +33,7 @@ class Application_Model_LinkMapper extends Application_Model_MapperAbstract {
 	public function getLinkByHexaString($string) {
 		$data = $this->getDbTable()->getLinkByHexaString($string);
 		
-		if($data == "")
+		if(empty($data))
 			return;
 		
 		return $this->setAttributs($data[0]);
