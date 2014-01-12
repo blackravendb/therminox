@@ -16,8 +16,9 @@
 		if (isset ( $_SESSION ['angebotskorb'] )) {
 			$angebotskorb = $_SESSION ['angebotskorb'];
 			$articles = $angebotskorb->getAngebot ();
+			$mapper = new Application_Model_ArtikelMapper ();
 			foreach ( $articles as $position ) {
-				$mapper = new Application_Model_ArtikelMapper ();
+				
 				$artikel = $mapper->getArtikelByArtikelnummer ( $position->getArtikelnummer () );
 				if ($artikel instanceof Application_Model_Waermetauscher) {
 					// Link auf wärmetauscher
@@ -45,9 +46,9 @@
 			$angebotskorb = $_SESSION ['angebotskorb'];
 			$articles = $angebotskorb->getAngebot ();
 			//$posindex = 0;
-			foreach ($angebotskorb as $posindex => $artikel){
-				$mapper = new Application_Model_ArtikelMapper ();
-				$artikel = $mapper->getArtikelByArtikelnummer ( $posindex->getArtikelnummer () );
+			$mapper = new Application_Model_ArtikelMapper ();
+			foreach ($articles as $posindex => $artikel){
+				$artikel = $mapper->getArtikelByArtikelnummer ( $artikel->getArtikelnummer () );
 				if ($artikel instanceof Application_Model_Waermetauscher) {
 					// Link auf wärmetauscher
 					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
