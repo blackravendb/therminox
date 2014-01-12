@@ -141,7 +141,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 	    		return true;
 	    	}
 	    	
-	    	return $this->update($benutzerData, $where);
+	    	$this->update($benutzerData, $where);
 	    	$this->getAdapter()->commit();
 	    	return true;
     	}
@@ -193,12 +193,15 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
     
     public function deleteBenutzer ($email){
     	try {
-    	$where = $this->getAdapter()->quoteInto('email = ?', $email);
-    	
-    	$this->delete($where);
-    	return true;
+    		$this->getAdapter()->beginTransaction();
+	    	$where = $this->getAdapter()->quoteInto('email = ?', $email);
+	    	
+	    	$this->delete($where);
+	    	$this->getAdapter()->commit();
+	    	return true;
     	}
     	catch(Exception $e) {
+    		$this->getAdapter->rollBack();
     		return false;
     	}
     }
