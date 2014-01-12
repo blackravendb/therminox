@@ -314,7 +314,7 @@ class AccountController extends Zend_Controller_Action
     			$data = array(
     					'type'		=> $type,
     					'company'	=> $address->getFirma(),
-    					'title' 	=> 'Herr', //TODO getAnrede() not working
+    					'title' 	=> $address->getAnrede(),
     					'name'  	=> $address->getVorname(),
     					'lastname' 	=> $address->getNachname(),
     					'street' 	=> $address->getStrasse(),
