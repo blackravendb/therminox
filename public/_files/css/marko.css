@@ -87,3 +87,7 @@ table th.angebote {
 .even {
 	background-color: #c0c0c0;
 }
+
+.legendtag {
+	float: right;
+}
