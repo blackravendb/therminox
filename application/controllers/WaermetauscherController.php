@@ -128,11 +128,11 @@
 					foreach ( $einsatzgbt as $gebiet ) {
 						$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet();
 						$eingebiet->setEinsatzgebiet ( $gebiet );
-						$newWT->insertEinsatzgebiet ( $eingebiet );
+						$newWT->insertWaermetauscherEinsatzgebiet($eingebiet);
 					}
 					foreach ( $conn as $anschluss ) {
 						$einanschl = new Application_Model_WaermetauscherAnschluss();
-						$einanschl->setEinsatzgebiet ( $anschluss );
+						$einanschl->setAnschluss($anschluss);
 						$newWT->insertWaermetauscherAnschluss($einanschl);
 					}
 			

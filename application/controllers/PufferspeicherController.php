@@ -98,7 +98,7 @@ class PufferspeicherController extends Zend_Controller_Action {
 						
 				foreach ( $einsatzgbt as $gebiet ) {
 					$eingebiet = new Application_Model_PufferspeicherEinsatzgebiet ();
-					$eingebiet->setEinsatzgebiet ( $value );
+					$eingebiet->setEinsatzgebiet ( $gebiet );
 					
 					$newPS->insertEinsatzgebiet ( $eingebiet );
 				}
