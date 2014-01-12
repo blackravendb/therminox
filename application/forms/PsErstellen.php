@@ -46,12 +46,11 @@ class Application_Form_PsErstellen extends App_Form {
 		$einsatzgbt->setLabel('Einsatzgebiete:')	
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
-		$db_mapper = new Application_Model_WaermetauscherMapper();
+		$db_mapper = new Application_Model_PufferspeicherMapper();
 		$gebiete = $db_mapper->getEinsatzgebietListe();
 		foreach ($gebiete as $gebiet){
 			$einsatzgbt->addMultiOption("$gebiet", "$gebiet");
 		}
-		 	
        
 		$submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Artikel erzeugen');
