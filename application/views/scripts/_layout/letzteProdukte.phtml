@@ -22,11 +22,11 @@
 				$artikel = $mapper->getArtikelByArtikelnummer ( $position->getArtikelnummer () );
 				if ($artikel instanceof Application_Model_Waermetauscher) {
 					// Link auf wärmetauscher
-					echo '<li><a href="/Waermetauscher/geloetet/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
+					echo '<li><a href="/waermetauscher/geloetet/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
 				}
 				if ($artikel instanceof Application_Model_Pufferspeicher) {
 					// Link auf pufferspeicher
-					echo '<li><a href="/Pufferspeicher/anzeigen/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
+					echo '<li><a href="/pufferspeicher/anzeigen/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
 				}
 			}
 			
@@ -51,12 +51,12 @@
 				$artikel = $mapper->getArtikelByArtikelnummer ( $artikel->getArtikelnummer () );
 				if ($artikel instanceof Application_Model_Waermetauscher) {
 					// Link auf wärmetauscher
-					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
+					echo '<li><a href="/angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
 					//$posindex = $posindex + 1;
 				}
 				if ($artikel instanceof Application_Model_Pufferspeicher) {
 					// Link auf pufferspeicher
-					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
+					echo '<li><a href="/angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
 					//$posindex = $posindex + 1;
 				}
 			}
@@ -66,7 +66,7 @@
 		}
 		if (isset ( $_SESSION ['angebotskorb'] )) {
 			echo '<hr>';
-			echo '<li><a href="/Angebot/abschicken">Angebot fertigstellen</a>';
+			echo '<li><a href="/angebot/abschicken">Angebot fertigstellen</a>';
 			echo '</li>';
 			}
 		

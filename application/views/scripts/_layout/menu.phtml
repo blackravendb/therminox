@@ -10,9 +10,9 @@
 <ul class="topnav">
 	<li><a href="#">W&auml;rmetauscher</a>
 		<ul>
-			<li><a href="/Waermetauscher/index">Gel&ouml;tet</a>
+			<li><a href="/waermetauscher/index">Gel&ouml;tet</a>
 				<ul>
-					<li><a href="/Waermetauscher/index">Produktberater</a></li>
+					<li><a href="/waermetauscher/index">Produktberater</a></li>
 					<?php 
 // Menü dynamisch anhand der DB füllen
 					$wt_mapper = new Application_Model_WaermetauscherMapper ();
@@ -26,12 +26,12 @@
 					}
 					?>			
 				</ul></li>
-			<li><a href="/Waermetauscher/geschraubt">Geschraubt</a></li>
-			<li><a href="/Waermetauscher/rohrbuendel">Rohrb&uuml;ndel</a></li>
+			<li><a href="/waermetauscher/geschraubt">Geschraubt</a></li>
+			<li><a href="/waermetauscher/rohrbuendel">Rohrb&uuml;ndel</a></li>
 		</ul></li>
 	<li><a href="#">Pufferspeicher</a>
 		<ul>
-			<li><a href="/Pufferspeicher/index">Produktberater</a></li>
+			<li><a href="/pufferspeicher/index">Produktberater</a></li>
 			<?php 
 // Menü dynamisch anhand der DB füllen
 			$ps_mapper = new Application_Model_PufferspeicherMapper ();
@@ -42,7 +42,7 @@
 			}
 			if (! is_null ( $ps_list )) {
 				foreach ( $ps_list as $articlename )
-					echo '<li><a href="/Pufferspeicher/anzeigen/artikel/' . $articlename . '">' . $articlename . '</a></li>';
+					echo '<li><a href="/pufferspeicher/anzeigen/artikel/' . $articlename . '">' . $articlename . '</a></li>';
 			}
 			?>
 			<!-- 			
