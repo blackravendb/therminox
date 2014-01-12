@@ -23,44 +23,14 @@ dt{
 	float:left;	
 }
 
-label, dd#Anschluss-element, dd#Einsatzgebiete-element{
-    width: 10em;
+label, dd#Anschluss-element, dd#Einsatzgebiete-element, dd#AttributLoeschen-element{ 
+    width: 15em;
     display: block;
     float: left;
 }
 
-dd#artikelÄndern-element, dd#artikelPsÄndern-element, dd#artikelPsVorschlagen-element, dd#artikelVorschlagen-element{
-	position:absolute;
-	float:left;
-	height:30px;
-	width: 150px;
-	left: 170px;
-}
-
-dd#artikelVorschlagen-element{
-	margin-top: 80px;	
-}
-
-dd#artikelPsVorschlagen-element{
-	margin-top: 20px;	
-}
-
-dd#artikelÄndern-element{
-	margin-top: 80px;	
-}
-
-dd#artikelPsÄndern-element{
-	margin-top: 30px;
-}
-
-input#submit{
-	position:absolute;
-	float:left;
-	height:30px;
-	width: 150px;
-	margin-top: 80px;
-	left: 170px;
-	
+dd#attributLoeschen-element, dd#artikelAendern-element, dd#unterkategorien-element, dd#artikelVorschlagen-element, dd#unterkategorieAendern-element{
+	clear:both;
 }
 
 div#TabelleWt{

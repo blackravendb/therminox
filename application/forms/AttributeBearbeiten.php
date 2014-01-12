@@ -15,15 +15,6 @@ class Application_Form_AttributeBearbeiten extends Zend_Form{
 		
 		//TODO Validators
 		
-		$attribut = new Zend_Form_Element_MultiCheckbox('AttributLoeschen');
-		$attribut->setLabel('Bitte alle zu löschenden Attribute auswählen:');
-		foreach($this->dbdata as $value){
-			$attribut->addMultiOption((string)$value, (string)$value);
-		}
-
-		$attribLoeschen = new Zend_Form_Element_Submit('attributLoeschen');
-		$attribLoeschen->setLabel('Löschen');
-		
 		$new = new Zend_Form_Element_Text('attributHinzufuegen');
 		$new->setLabel('Attribut hinzufuegen:')
 			->addFilter('StripTags')
@@ -31,7 +22,16 @@ class Application_Form_AttributeBearbeiten extends Zend_Form{
 		
 		$submit = new Zend_Form_Element_Submit('hinzufuegen');
 		$submit->setLabel('hinzufügen');
-			
-		$this->addElements(array($attribut, $attribLoeschen, $new, $submit));
+		
+		$attribut = new Zend_Form_Element_MultiCheckbox('AttributLoeschen');
+		$attribut->setLabel('zu löschende Attribute:');
+		foreach($this->dbdata as $value){
+			$attribut->addMultiOption((string)$value, (string)$value);
+		}
+		
+		$attribLoeschen = new Zend_Form_Element_Submit('attributLoeschen');
+		$attribLoeschen->setLabel('Löschen');
+		
+		$this->addElements(array($new, $submit, $attribut, $attribLoeschen));
 		}
 	}
