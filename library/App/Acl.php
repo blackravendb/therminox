@@ -24,6 +24,8 @@ class App_Acl extends Zend_Acl
 		$this->deny('Gast', 'account'); //TODO deny moar stuff
 		$this->deny('Gast', 'admin');
 		$this->deny('Gast', 'angebot');
+		$this->deny('Gast', 'pufferspeicher', array('hinzufuegen'));
+		$this->deny('Gast', 'waermetauscher', array('hinzufuegen'));
 		$this->allow('Gast', 'account', array('login', 'register', 'confirm', 'recover', 'lost'));
 		
  		$this->allow('Benutzer', 'account');
@@ -32,5 +34,7 @@ class App_Acl extends Zend_Acl
  		$this->allow('Administrator', 'admin');
  		$this->deny('Administrator', 'account', array('profile', 'update', 'delete', 'address'));
  		$this->deny('Administrator', 'angebot');
+ 		$this->allow('Administrator', 'waermetauscher');
+ 		$this->allow('Administrator', 'pufferspeicher');
 	}
 }

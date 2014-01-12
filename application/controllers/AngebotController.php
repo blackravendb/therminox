@@ -35,7 +35,7 @@ class AngebotController extends Zend_Controller_Action {
 		$form = new Application_Form_AngebotErstellen ();
 		
 		$form->setMethod ( 'post' );
-		$action = '/Angebot/erstellen/artikelnummer/' . $art_nr;
+		$action = '/angebot/erstellen/artikelnummer/' . $art_nr;
 		$form->setAction ( $action );
 		$this->view->form = $form;
 		
@@ -104,29 +104,7 @@ class AngebotController extends Zend_Controller_Action {
 		
 		$this->view->articles = $articles;
 	}
-	public function addAction() {
-		$request = $this->getRequest ();
-		$artnr = $request->getParam ( 'artID' );
-		if (null != $artnr) {
-			$cart = null;
-			if (isset ( $_SESSION ['angebotskorb'] ) && $_SESSION ['angebotskorb'] instanceof ShoppingCartIf) {
-				$cart = $_SESSION ['angebotskorb'];
-			} else {
-				$cart = new ShoppingCart ();
-			}
-			$cart->addItem ( $artnr );
-			$_SESSION ['angebotskorb'] = $cart;
-			
-			$this->_redirect ( '/artikel' );
-		} else {
-			$this->view->message = 'Artikel konnte nicht hinzugefügt werden';
-			if (isset ( $_SERVER ['HTTP_REFERER'] )) {
-				$this->view->link = $_SERVER ['HTTP_REFERER'];
-			} else {
-				$this->view->link = '/artikel';
-			}
-		}
-	}
+	
 	public function abschickenAction() {
 		// action body
 		// in db schreiben + email schicken

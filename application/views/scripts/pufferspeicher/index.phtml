@@ -19,7 +19,7 @@
   </tr>
   <?php foreach($this->vorschläge as $value){?>
    <tr>
-	<?php $url = "/Pufferspeicher/artikel/" . $value->getModel(); //TODO Link anpassen?> 
+	<?php $url = "/pufferspeicher/artikel/" . $value->getModel(); //TODO Link anpassen?> 
     <td> <a href="<?php echo $url;?>"><?php echo $value->getModel();?></a></td> 
     <td><?php foreach($value->getEinsatzgebiet() as $gbt){
     					echo $gbt->getEinsatzgebiet();
