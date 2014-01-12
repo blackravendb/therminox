@@ -201,7 +201,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 	    	return true;
     	}
     	catch(Exception $e) {
-    		$this->getAdapter->rollBack();
+    		$this->getAdapter()->rollBack();
     		return false;
     	}
     }
