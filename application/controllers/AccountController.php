@@ -12,7 +12,7 @@ class AccountController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+    	$this->_forward('profile');
     }
     
     public function deleteAction(){
@@ -34,7 +34,7 @@ class AccountController extends Zend_Controller_Action
     {
     	$auth = Zend_Auth::getInstance();
     	if ($auth->hasIdentity()) {
-    		return $this->_forward('index');
+    		return $this->_forward('profile');
     	}
 		$form = new Application_Form_Login();
 		if ($this->_request->isPost()) {
