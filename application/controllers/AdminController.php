@@ -198,9 +198,11 @@ class AdminController extends Zend_Controller_Action {
 				$speicherinhalt = $form->getValue ( 'Speicherinhalt' );
 				$betriebsdruck = $form->getValue ('Betriebsdruck');
 				$temperatur = $form->getValue('Temperatur');
+				$leergewicht =$form->getValue('Leergewicht');
 				
 				$data_object->setModel($artikelname);
 				$data_object->setSpeicherinhalt($speicherinhalt);
+				$data_object->setLeergewicht($leergewicht);
 				$data_object->setBetriebsdruck($betriebsdruck);
 				$data_object->setTemperaturMax($temperatur);
 			
