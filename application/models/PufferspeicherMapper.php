@@ -114,7 +114,13 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 	}
 	
 	public function getModelListe() {
-				 //TODO
+		$data = $this->getDbTable()->getModelList();
+		$ret = array();
+		
+		foreach($data as $value){
+			$ret[] = $value['model'];
+		}
+		return $ret;
 	}
 
 }

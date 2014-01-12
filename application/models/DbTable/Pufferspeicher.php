@@ -197,6 +197,14 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	$where = $this->getAdapter()->quoteInto('einsatzgebiet = ?', $einsatzgebiet);
     	$this->getPufferspeicherEinsatzgebietDbTable()->delete($where);
     }
+    
+    public function getModelList() {
+    	$select
+    	->from($this->_name,'model');
+    	 
+    	$data = parent::fetchAll($select);
+    	return $data->toArray();
+    }
 
 }
 
