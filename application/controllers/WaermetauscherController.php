@@ -154,6 +154,7 @@
 					
 					$db_mapper = new Application_Model_WaermetauscherMapper ();
 					$db_mapper->insertWaermetauscher ( $newWT );
+					$this->_redirect('admin/showwaermetauscher');
 				}
 			}
 			

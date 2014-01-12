@@ -106,6 +106,7 @@ class PufferspeicherController extends Zend_Controller_Action {
 				}
 				$db_mapper = new Application_Model_PufferspeicherMapper ();
 				$db_mapper->insertPufferspeicher ( $newPS );
+				$this->_redirect('admin/showpufferspeicher');
 			}
 		}
 		$this->view->form = $form;
