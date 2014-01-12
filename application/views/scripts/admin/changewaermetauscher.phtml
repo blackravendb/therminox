@@ -11,3 +11,30 @@ if($this->showMessage == true){
 </div>
 <?php }?>
 </div>
+<?php if($this->showUnterkategorien == true){?>
+	<h1>Unterkategorien bearbeiten</h1>
+	<table border="1">
+ 	 <tr>
+    	<th>Unterkategorie</th>
+    	<th>Anzahl Platten</th>
+    	<th>Länge</th>
+    	<th>Leergewicht</th>
+    	<th>Fläche</th>
+   	 	<th></th>
+    	<th></th>
+  	</tr>
+	<?php foreach($this->kategorien as $value){?>
+		<tr>
+			<?php echo '<td>Modell ' . '-' . $value->getPlatten().'</td>'; ?>
+			<td><?php echo $value->getPlatten();?></td>
+			<td><?php echo $value->getLaenge();?></td>
+			<td><?php echo $value->getLeergewicht();?></td>
+			<td><?php echo $value->getFlaeche();?></td>
+			<?php //$urlBearbeiten = "/Admin/changewtunterkategorie/kategorie/" . $value->get //TODO?>
+			<td><a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td>
+			<?php //$urlLoeschen = "/Admin/deletewtunterkategorie/kategorie" . $value->get //TODO?>
+			<td><a href="<?php echo $urlLoewchen;?>">bearbeiten</a></td>
+			</tr>
+			</table>
+<?php }
+	}?>

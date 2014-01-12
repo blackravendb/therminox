@@ -71,9 +71,12 @@ class Application_Form_WtBearbeiten extends Zend_Form {
         }
 		$einsatzgbt->setValue($checkedEinsatzgebiete);
 					
-		$submit = new Zend_Form_Element_Submit('artikelÄndern');
+		$submit = new Zend_Form_Element_Submit('artikelAendern');
 		$submit->setLabel('Artikel ändern');
+		
+		$unterkategorien = new Zend_Form_Element_Submit('unterkategorien');
+		$unterkategorien->setLabel('Unterkategorien bearbeiten');
 		 
-		$this->addElements(array($name, $temp, $height, $width, $anschluss, $einsatzgbt, $submit));
+		$this->addElements(array($name, $temp, $height, $width, $anschluss, $einsatzgbt, $submit, $unterkategorien));
 	}
 }

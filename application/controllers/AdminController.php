@@ -3,6 +3,7 @@
 		
 		public function init(){
 			$this->view->showMessage = false;
+			$this->view->showUnterkategorien = false;
 		}
 		
 		public function indexAction(){
@@ -33,58 +34,54 @@
 				
 				$this->view->wtbearbeiten = $form; 
 				
+				if($form->artikelAendern->isChecked()){
 				if($this->_request->isPost()){
 					$formData = $this->_request->getPost();
 				
 					if($form->isValid($formData)){
 						$artikelname = $form->getValue('Artikelname');
 						$temp = $form->getValue('Temperatur');
-						$einsatzgbt = $form->getValue('EinsatzgebietePs');
+						$einsatzgbt = $form->getValue('Einsatzgebiete');
 						$anschluss = $form->getValue('Anschluss');
 						$height = $form->getValue('Hoehe');
 						$width = $form->getValue('Breite');
 						
-						$wt = new Application_Model_WaermetauscherMapper();
-						$wt_art = $wt->getWaermetauscherByModel($artikelname);
+						$data_object->setModel($artikelname);
+						$data_object->setTemperatur($temp);
 						
-						if (!empty($artikelname)) {
-							$wt_art->setModel($artikelname);
-						}
-						if(!empty($temp)){
-							$wt_art->setTemperatur($temp);
-						}
-						
-						if(!empty($einsatzgbt)){
-							foreach($einsatzgbt as $value){
+						foreach($einsatzgbt as $value){
 								$einWT = new Application_Model_WaermetauscherEinsatzgebiet();
-								$einWT->setAnschluss($value);
+								$einWT->setEinsatzgebiet($value);
 								
-								$wt_art->insertWaermetauscherEinsatzgebiet($einWT);
+								$data_object->insertWaermetauscherEinsatzgebiet($einWT);
 							}
 						}
 						
-						if(!empty($anschluss)){
-							foreach($anschluss as $value){
-								$ansWT = new Application_Model_WaermetauscherAnschluss(); //jedes mal neu erstellen? //TODO
+						foreach($anschluss as $value){
+								$ansWT = new Application_Model_WaermetauscherAnschluss(); 
 								$ansWT->setAnschluss($value);
 							
-								$wt_art->insertWaermetauscherAnschluss($ansWT); //kann die öfter angesprochen werden? /TODO
+								$data_object->insertWaermetauscherAnschluss($ansWT); 
 						}
 						
-						if(!empty($height)){
-							$wt_art->setHoehe($height);
-						}
-						if(!empty($width)){
-							$wt_art->setBreite($width);
-						}
+						$data_object->setHoehe($height);
+						$data_object->setBreite($width);
 						
-						$wt->updateWaermetauscher($wt_art);
+						$db_mapper->updateWaermetauscher($data_object);
 						
 						$this->view->showMessage = true;
 					}
 				}
-			}
-		} 
+				
+				if($form->unterkategorien->isChecked()){ //TODO
+					$unterkategorien = $data_object->getWaermetauscherUnterkategorie();
+					
+					echo "Hallo";
+					
+					$this->view->kategorien = $unterkategorien;
+					$this->view->showUnterkategorien = true;
+				}
+		}
 		
 		public function deletewaermetauscherAction(){
 			$request = $this->getRequest();
@@ -98,6 +95,41 @@
 				$_SESSION['wtnotdelete'] = 1;
 			}
 			$this->_redirect('/Admin/showwaermetauscher');
+		}
+		
+		public function changewtunterkategorieAction(){ 
+			$request = $this->getRequest();
+			$art = $request->getParam('???'); //TODO
+			//Wie soll ich mir hier die Unterkategorie holen?!
+				
+			$form = new Application_Form_UnterkategorienBearbeiten();
+			$form->setDbdata($data_object);
+			$form->startform();
+				
+			$this->view->wtunterkategorienbearbeiten = $form; 
+			
+			if($form->unterkategorieAendern->isChecked()){
+				if($this->_request->isPost()){
+					$formData = $this->_request->getPost();
+				
+					if($form->isValid($formData)){
+						$name = $form->getValue('UnterkategorieName');//Modell??
+						$platten = $form->getValue('AnzahlPlatten');
+						$laenge = $form->getValue('Laenge');
+						$leergewicht = $form->getValue('Leergewicht');
+						$flaeche = $form->getValue('Flaeche');
+						
+						//TODO erstmal Dennis fragen
+			}
+		}
+	}
+}
+		
+		public function deletewtunterkategorieAction(){ //TODO
+			$request = $this->getRequest();
+			$art = $request->getParam('???'); //TODO
+			
+			
 		}
 		
 		public function changepufferspeicherAction(){
@@ -116,27 +148,24 @@
 				
 					if($form->isValid($formData)){
 						$artikelname = $form->getValue('Artikelname');
-						$einsatzgbt = $form->getValue('Einsatzgebiet');
+						$einsatzgbt = $form->getValue('Einsatzgebiete');
 						$speicherinhalt = $form->getValue('Speicherinhalt');
 						$betriebsdruck = $form->getValue('Speicherinhalt');
 						
-						$ps = new Application_Model_PufferspeicherMapper();
-						$ps_art = $ps->getPufferspeicherByModel($artikelname);
+						$data_object->setModel($artikelname);
 						
-						if (!empty($artikelname)) {
-							$ps->setModel($artikelname);
+						foreach($einsatzgbt as $value){
+							$einPS = new Application_Model_PufferspeicherEinsatzgebiet();
+							$einPS->setEinsatzgebiet($value);
+							
+							$data_object->insertEinsatzgebiet($einPS); //TODO
 						}
 						
-						$ps->setPufferspeicherEinsatzgebiet($einsatzgbt);
 						
-						if(!empty($speicherinhalt)){
-							$ps->setSpeicherinhalt($speicherinhalt);
-						}
-						if(!empty($betriebsdruck)){
-							$ps->setBetriebsdruck($betriebsdruck);
-						}
+						$data_object->setSpeicherinhalt($speicherinhalt);
+						$data_object->setBetriebsdruck($betriebsdruck);
 						
-						$ps->updatePufferspeicher($ps);
+						$db_mappert->updatePufferspeicher($data_object);
 						
 						$this->view->showMessage = true;
 				}
