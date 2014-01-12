@@ -235,15 +235,18 @@
 					$formData = $this->_request->getPost();
 				
 					if($form->isValid($formData)){ 
+						$form->populate($_POST);
 						
 						if($form->attributLoeschen->isChecked()){
-							$anschLöschen = $form->getValue('AttributLoeschen');
-							//TODO Datenbankfunktion Anschluesse löschen
+							$anschLoeschen = $form->getValue('AttributLoeschen');
+							foreach($anschLoeschen as $value){
+								deleteAnschluss($value);
+							}
 						}
 						
 						if($form->hinzufuegen->isChecked()){
 							$anschHinzufuegen = $form->getValue('attributHinzufuegen');
-							//TODO Datenbankfunktion Anschluss hinzufuegen
+							insertAnschluss($anschHinzufuegen);
 						}
 					}
 				}
