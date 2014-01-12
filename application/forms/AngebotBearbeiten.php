@@ -30,7 +30,7 @@ class Application_Form_AngebotBearbeiten extends App_Form {
 					'multiOptions' => array (
 							'NULL' => 'Bitte Status wählen',
 							'In Bearbeitung' => 'In Bearbeitung',
-							'Abeschlossen' => 'Abgeschlossen',
+							'Abgeschlossen' => 'Abgeschlossen',
 							'Beendet' => 'Beendet' 
 					) 
 			) );
