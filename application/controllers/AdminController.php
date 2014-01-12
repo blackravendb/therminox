@@ -1,9 +1,9 @@
 <?php
 class AdminController extends Zend_Controller_Action {
 	public function init() {
-		$this->view->showMessage;
+		$this->view->showMessage = false;
 		$this->view->showUnterkategorien = false;
-		$this->view->showMessageUn;
+		$this->view->showMessageUn = false;
 	}
 	public function indexAction() {
 	}
@@ -99,8 +99,6 @@ class AdminController extends Zend_Controller_Action {
 		if ($form->unterkategorien->isChecked ()) { // TODO
 			$unterkategorien = $data_object->getWaermetauscherUnterkategorie ();
 			
-			echo "Unterkategorien anzeigen!";
-			
 			$this->view->kategorien = $unterkategorien;
 			$this->view->artikel = $data_object;
 			$this->view->showUnterkategorien = true;
@@ -168,7 +166,7 @@ class AdminController extends Zend_Controller_Action {
 				
 				$db_mapper->updateWaermetauscher ( $data_object );
 				
-				$this->view->showMessageUn = $db_mapper->updateWaermetauscher ( $data_object );
+				$this->view->showMessageUn = true;
 			}
 		}
 	}
