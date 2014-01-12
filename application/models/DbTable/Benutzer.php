@@ -54,7 +54,7 @@ class Application_Model_DbTable_Benutzer extends Zend_Db_Table_Abstract
 	    	 if(!empty($adressen)) {
 	    	 	$adressenData = $adressen->toArray();
 	    	 	foreach($adressenData as $value) {
-	    	 		$adressenData['anrede'] = $this->getAnrede_idByAnrede($adressenData['anrede_id']);
+	    	 		$adressenData['anrede'] = $this->getAnrede_idByAnrede($value['anrede_id']);
 	    	 	}
 	    	 }
 	    	 //Alle Daten in Array zusammenfassen zum returnen
