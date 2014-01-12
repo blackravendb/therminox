@@ -21,8 +21,6 @@ class Application_Model_DbTable_WaermetauscherAnschluss extends Zend_Db_Table_Ab
     	
     	$data = $this->fetchRow($this->select);
     	
-    	echo $this->select;
-    	
     	if(empty($data))
     		return false;
     	
