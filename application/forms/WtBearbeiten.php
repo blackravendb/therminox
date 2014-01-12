@@ -24,6 +24,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
 		->setValue($this->dbdata->getModel())
+		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
 		 
@@ -31,6 +32,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$temp->setLabel('Temperatur (°C):')
 		->addValidator($val)
 		->setValue($this->dbdata->getTemperatur())
+		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
@@ -39,6 +41,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$height->setLabel('Höhe (mm):')
 		->addValidator($val)
 		->setValue($this->dbdata->getHoehe())
+		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
@@ -47,29 +50,36 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$width->setLabel('Breite (mm):')
 		->addValidator($val)
 		->setValue($this->dbdata->getBreite())
+		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
 		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
 
 		$anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
-		$anschluss->setLabel('Anschlüsse:');
+		$anschluss->setLabel('Anschlüsse:')
+		->setRequired(true)
+		->addErrorMessage('Ein Wärmetauscher muss einen Anschluss besitzen!');
 		foreach($anschluesse as $value){
        		$anschluss->addMultiOption((string)$value, (string)$value);
        	}
 		foreach($this->dbdata->getWaermetauscherAnschluss() as $ans){
-    					$checkedAnschluesse[] = $ans->getAnschluss();
-  						}
+	    					$checkedAnschluesse[] = $ans->getAnschluss();
+	  						}
 		$anschluss->setValue($checkedAnschluesse);
+       	
 		
 		$einsatzgbt = new Zend_Form_Element_MultiCheckbox('Einsatzgebiete');
 		$einsatzgbt->setLabel('Einsatzgebiete:');
 		foreach($einsatzgebiete as $value){
         	$einsatzgbt->addMultiOption((string)$value, (string)$value);
         }
-        foreach($this->dbdata->getWaermetauscherEinsatzgebiet() as $value){
-        	$checkedEinsatzgebiete[] = $value->getEinsatzgebiet();
+        $einsatzgbtValues = $this->dbdata->getWaermetauscherEinsatzgebiet();
+        if(!empty($einsatzgbtValues)){
+	        foreach($einsatzgbtValues as $value){
+	        	$checkedEinsatzgebiete[] = $value->getEinsatzgebiet();
+	        }
+	        $einsatzgbt->setValue($checkedEinsatzgebiete);
         }
-		$einsatzgbt->setValue($checkedEinsatzgebiete);
 					
 		$submit = new Zend_Form_Element_Submit('artikelAendern');
 		$submit->setLabel('Artikel ändern');

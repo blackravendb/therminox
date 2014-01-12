@@ -3,4 +3,11 @@
 <div id ="anschluessebearbeiten">
 <?php echo $this->attributeBearbeiten;?>
 </div>
-
+<?php if(isset($_SESSION['anschlNotDelete'])){
+			echo "Anschluss darf nicht gelöscht werden, da mindestens ein Artikel diesen Anschluss besitzt!";
+			unset($_SESSION['anschlNotDelete']);
+			}?>
+<?php if(isset($_SESSION['anschlNotInsert'])){
+			echo "Anschluss kann nicht hinzugefügt werden, da er schon existiert!";
+			unset($_SESSION['anschlNotInsert']);
+			}?>

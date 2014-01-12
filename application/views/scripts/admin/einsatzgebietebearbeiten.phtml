@@ -3,3 +3,11 @@
 <div id ="einsatzgebietebearbeiten">
 <?php echo $this->attributeBearbeiten;?>
 </div>
+<?php if(isset($_SESSION['einsatzgbtNotInsert'])){
+			echo "Einsatzgebiet darf nicht gelöscht werden, da mindestens ein Artikel dieses Einsatzgebiet besitzt!";
+			unset($_SESSION['einsatzgbtNotDelete']);
+			}?>
+<?php if(isset($_SESSION['einsatzgbtNotDelete'])){
+			echo "Einsatzgebiet kann nicht hinzugefügt werden, da es schon existiert!";
+			unset($_SESSION['einsatzgbtNotDelete']);
+			}?>

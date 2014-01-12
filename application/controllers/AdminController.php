@@ -50,21 +50,40 @@
 								$height = $form->getValue('Hoehe');
 								$width = $form->getValue('Breite');
 								
+								$egAlt = $data_object->getWaermetauscherEinsatzgebiet();
+								$anAlt = $data_object->getWaermetauscherAnschluss();
+								
 								$data_object->setModel($artikelname);
 								$data_object->setTemperatur($temp);
 								
-								foreach($einsatzgbt as $value){
-										$einWT = new Application_Model_WaermetauscherEinsatzgebiet();
-										$einWT->setEinsatzgebiet($value);
+								//EinsatzgebietObjekte erstellen und einfügen //TODO Dennis
+								if(!empty($einsatzgbt)){
+									foreach($einsatzgbt as $value){
+										$einsatzgbtObj = new Application_Model_WaermetauscherEinsatzgebiet();
+										$einsatzgbtObj->setEinsatzgebiet($value);
 										
-										$data_object->insertWaermetauscherEinsatzgebiet($einWT);
+										$data_object->insertWaermetauscherEinsatzgebiet($einsatzgbtObj);
 									}
+								}
+								if(!empty($egAlt)){
+									foreach($egAlt as $value){
+										$data_object->deleteWaermetauscherEinsatzgebiet($value);
+									}
+								}
 								
-								foreach($anschluss as $value){
-										$ansWT = new Application_Model_WaermetauscherAnschluss(); 
-										$ansWT->setAnschluss($value);
-									
-										$data_object->insertWaermetauscherAnschluss($ansWT); 
+								//AnschlussObjekte erstellen und einfügen //TODO Dennis
+								if(!empty($anschluss)){
+									foreach($anschluss as $value){
+										$anschObj = new Application_Model_WaermetauscherAnschluss();
+										$anschObj->setAnschluss($value);
+										
+										$data_object->insertWaermetauscherAnschluss($anschObj);
+										}
+								}
+								if(!empty($anAlt) && !empty($anschluss)){//alte Anschluesse löschen wenn vorhanden
+									foreach($anAlt as $value){ 
+										$data_object->deleteWaermetauscherAnschluss($value);
+									}
 								}
 								
 								$data_object->setHoehe($height);
@@ -185,6 +204,7 @@
 						
 						$data_object->setModel($artikelname);
 						
+						//TODO wie bei WT
 						foreach($einsatzgbt as $value){
 							$einPS = new Application_Model_PufferspeicherEinsatzgebiet();
 							$einPS->setEinsatzgebiet($value);
@@ -239,24 +259,28 @@
 						
 						if($form->attributLoeschen->isChecked()){
 							$anschLoeschen = $form->getValue('AttributLoeschen');
-							foreach($anschLoeschen as $value){ //TODO Dennis
-								try{
-									$wtmapper->deleteAnschluss($value);
-									$this->_redirect('/Admin/anschluessebearbeiten');
-								}catch(Exception $e){
-									$_SESSION['anschlNotDelete'] = 1;
+							if(!empty($anschLoeschen)){
+								foreach($anschLoeschen as $value){ //TODO Dennis
+									try{
+										$wtmapper->deleteAnschluss($value);
+										$this->_redirect('/Admin/anschluessebearbeiten');
+									}catch(Exception $e){
+										$_SESSION['anschlNotDelete'] = 1;
+									}
 								}
 							}
 						}
 						
 						if($form->hinzufuegen->isChecked()){
 							$anschHinzufuegen = $form->getValue('attributHinzufuegen');//TODO Dennis
-								try{
-									$wtmapper->insertAnschluss($anschHinzufuegen);
-									$this->_redirect('/Admin/anschluessebearbeiten');
-								}catch(Exception $e){
-									$_SESSION['anschlNotInsert'] = 1;
-								}
+							if(!empty($anschHinzufuegen)){
+									try{
+										$wtmapper->insertAnschluss($anschHinzufuegen);
+										$this->_redirect('/Admin/anschluessebearbeiten');
+									}catch(Exception $e){
+										$_SESSION['anschlNotInsert'] = 1;
+									}
+							}
 						}
 					}
 				}
@@ -279,26 +303,29 @@
 					$form->populate($_POST);
 					
 					if($form->attributLoeschen->isChecked()){
-						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
-						foreach($einsatzgbtLöschen as $value){//TODO Dennis
-							try{
-								$wtmapper->deleteEinsatzgebiet($value);
-								$this->_redirect('/Admin/einsatzgebietebearbeiten');
-							}catch (Exception $e){
-								$_SESSION['einsatzgbtNotInsert'] = 1;
+						$einsatzgbtLoeschen = $form->getValue('AttributLoeschen');
+						if(!empty($einsatzgbtLoeschen)){
+							foreach($einsatzgbtLoeschen as $value){//TODO Dennis
+								try{
+									$wtmapper->deleteEinsatzgebiet($value);
+									$this->_redirect('/Admin/einsatzgebietebearbeiten');
+								}catch (Exception $e){
+									$_SESSION['einsatzgbtNotInsert'] = 1;
+							}
 						}
 					}
-				}
+					}
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
-						try{
-							$wtmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
-							$this->_redirect('/Admin/einsatzgebietebearbeiten');
-						}catch(Exception $e){
-							$_SESSION['einsatzgbtNotDelete'] = 1;
+						if(!empty($einsatzgbtHinzufuegen)){
+							try{
+								$wtmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
+								$this->_redirect('/Admin/einsatzgebietebearbeiten');
+							}catch(Exception $e){
+								$_SESSION['einsatzgbtNotDelete'] = 1;
+							}
 						}
 					}
-					
 				}
 			}
 		}
@@ -321,23 +348,27 @@
 					
 					if($form->attributLoeschen->isChecked()){
 						$stutzenmaterialLoeschen = $form->getValue('AttributLoeschen');
-						foreach($stutzenmaterialLoeschen as $value){//TODO Dennis
-							try{
-								$wtmapper->deleteStutzenmaterial($value);
-								$this->_redirect('/Admin/stutzenmaterialbearbeiten');
-							}catch (Exception $e){
-								$_SESSION['stutzenmaterialtNotDeleted'] = 1;
+						if(!empty($stutzenmaterialLoeschen)){
+							foreach($stutzenmaterialLoeschen as $value){//TODO Dennis
+								try{
+									$wtmapper->deleteStutzenmaterial($value);
+									$this->_redirect('/Admin/stutzenmaterialbearbeiten');
+								}catch (Exception $e){
+									$_SESSION['stutzenmaterialNotDeleted'] = 1;
+								}
 							}
 						}
 					}
 					
 					if($form->hinzufuegen->isChecked()){
 						$stutzenmaterialHinzufuegen = $form->getValue('attributHinzufuegen');
-						try{//TODO Dennis
-							$wtmapper->insertStutzenmaterial($stutzenmaterialHinzufuegen);
-							$this->_redirect('/Admin/stutzenmaterialbearbeiten');
-						}catch(Exception $e){
-							$_SESSION['stutzenmaterialNotInserted'] = 1;
+						if(!empty($stutzenmaterialHinzufuegen)){
+							try{//TODO Dennis
+								$wtmapper->insertStutzenmaterial($stutzenmaterialHinzufuegen);
+								$this->_redirect('/Admin/stutzenmaterialbearbeiten');
+							}catch(Exception $e){
+								$_SESSION['stutzenmaterialNotInserted'] = 1;
+							}
 						}
 					}
 				}
@@ -362,24 +393,28 @@
 					
 					if($form->attributLoeschen->isChecked()){
 						$einsatzgbtLöschen = $form->getValue('AttributLoeschen');
-						foreach($einsatzgbtLöschen as $value){
-							try{
-							$psmapper->deleteEinsatzgebiet($value);
-							$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
-						}catch(Exception $e){
-							$_SESSION['einsatzgbtPsNotDeleted'] = 1;
-						}
+						if(!empty($einsatzgbtLöschen)){
+							foreach($einsatzgbtLöschen as $value){
+								try{ //TODO Dennis
+								$psmapper->deleteEinsatzgebiet($value);
+								$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
+							}catch(Exception $e){
+								$_SESSION['einsatzgbtPsNotDeleted'] = 1;
+							}
+							}
 						}
 					}
 				
 					
 					if($form->hinzufuegen->isChecked()){
 						$einsatzgbtHinzufuegen = $form->getValue('attributHinzufuegen');
-						try{
-							$psmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
-							$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
-						}catch (Exception $e){
-							$_SESSION['einsatzgbtPsNotInserted'] = 1;
+						if(!empty($einsatzgbtHinzufuegen)){
+							try{//TODO Dennis
+								$psmapper->insertEinsatzgebiet($einsatzgbtHinzufuegen);
+								$this->_redirect('/Admin/einsatzgebietepsbearbeiten');
+							}catch (Exception $e){
+								$_SESSION['einsatzgbtPsNotInserted'] = 1;
+							}
 						}
 					}
 				}
