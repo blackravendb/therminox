@@ -59,7 +59,7 @@ class AngebotController extends Zend_Controller_Action {
 					$offer->setBemerkung ( $form_message );
 					$offer->setStatus ( 'Offen' );
 					$_SESSION ['angebotskorb']->insertAngebot ( $offer );
-					$this->_redirect ( $this->_request->getPost ( 'return' ) );
+					$this->_redirect ( '/startseite' );
 				}
 				if ($form->submit->isChecked ()) {
 					if (isset ( $_SESSION ['angebotskorb'] )) {
@@ -117,6 +117,7 @@ class AngebotController extends Zend_Controller_Action {
 		$this->_redirect ( 'angebot/' );
 	}
 	public function removeAction() {
+		
 		$request = $this->getRequest ();
 		$pos = $request->getParam ( 'position' );
 		if (null !== $pos) {
@@ -130,6 +131,7 @@ class AngebotController extends Zend_Controller_Action {
 			if (! is_null ( $angebotskorb->getAngebot () )) {
 				$_SESSION ['angebotskorb'] = $angebotskorb;
 			}
+			$this->_redirect('/angebot');
 		}
 	}
 }

@@ -4,15 +4,9 @@
 
 	$data_object = $this->dbdata;
 	if($this->dbdata === null){
-		if ( isset($this->message))
-			echo $this->message;
-		else 
+		 
 		echo 'Artikel konnte nicht gefunden werden';
-		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
-			$this->view->link = $_SERVER ['HTTP_REFERER'];
-		} else {
-			$this->view->link = '/wassererwaermer';
-		}
+		
 	}
 
 	// Artikeldaten anordnen und anzeigen
