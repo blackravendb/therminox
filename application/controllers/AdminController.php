@@ -418,6 +418,9 @@ class AdminController extends Zend_Controller_Action {
 			$form->setMethod ( 'post' );
 			$form->setAction ( $action );
 			
+			$this->view->form = $form;
+			$this->view->infoData = $change_offer;
+			
 			if ($this->_request->isPost ()) {
 				$formData = $this->getRequest ()->getPost ();
 				
@@ -426,42 +429,9 @@ class AdminController extends Zend_Controller_Action {
 					foreach ( $articles as $index => $article ) {
 						$newState = $formData ["newState$index"];
 						$article->setStatus ( $newState );
-						
-						if ($form->isValid ( $formData )) {
-							$form->populate ( $_POST );
-							
-							if ($form->attributLoeschen->isChecked ()) {
-								$einsatzgbtLöschen = $form->getValue ( 'AttributLoeschen' );
-								if (! empty ( $einsatzgbtLöschen )) {
-									foreach ( $einsatzgbtLöschen as $value ) {
-										try { // TODO Dennis
-											$psmapper->deleteEinsatzgebiet ( $value );
-											$this->_redirect ( '/admin/einsatzgebietepsbearbeiten' );
-										} catch ( Exception $e ) {
-											$_SESSION ['einsatzgbtPsNotDeleted'] = 1;
-										}
-									}
-								}
-							}
-							
-							$db_mapper->updateAngebotStatus ( $change_offer );
-							$this->_redirect ( '/Admin/showangebote' );
-							
-							if ($form->hinzufuegen->isChecked ()) {
-								$einsatzgbtHinzufuegen = $form->getValue ( 'attributHinzufuegen' );
-								if (! empty ( $einsatzgbtHinzufuegen )) {
-									try { // TODO Dennis
-										$psmapper->insertEinsatzgebiet ( $einsatzgbtHinzufuegen );
-										$this->_redirect ( '/admin/einsatzgebietepsbearbeiten' );
-									} catch ( Exception $e ) {
-										$_SESSION ['einsatzgbtPsNotInserted'] = 1;
-									}
-								}
-							}
-						}
 					}
-					$this->view->form = $form;
-					$this->view->infoData = $change_offer;
+					$db_mapper->updateAngebotStatus ( $change_offer );
+					$this->_redirect ( '/Admin/showangebote' );
 				}
 			}
 		}
