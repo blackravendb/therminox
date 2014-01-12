@@ -78,7 +78,7 @@ class AdminController extends Zend_Controller_Action {
 					$anschluss_alt = $data_object->getWaermetauscherAnschluss();
 					if(!empty($anschluss_alt)){
 						foreach($anschluss_alt as $value) {
-							$data_object->deleteWaermetauscherEinsatzgebiet($value);
+							$data_object->deleteWaermetauscherAnschluss($value);
 						}
 					}
 										
