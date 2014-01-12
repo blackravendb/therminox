@@ -151,7 +151,7 @@ class Application_Model_Lieferadresse extends Application_Model_TableAbstract
 	}
 	
 	public function getAnrede() {
-		return $this->_Anrede;
+		return $this->_anrede;
 	}
 
 }

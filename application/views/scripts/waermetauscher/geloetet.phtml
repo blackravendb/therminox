@@ -26,9 +26,10 @@
 	echo '<div class="static_text2"><h1>Wärmetauscher ' . $art_model . '</h1></div>';
 	
 	echo '<br>';
-
+	$imagepath = '_files/images/waermetauscher/geloetet/'.$art_model.'.png';
+	if(file_exists($imagepath)){
 	echo '<div class="bild"><img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder"></div>';
-	
+	}
 	echo '<div class="daten">';
 		echo '<div class="grunddaten">';
 			echo '<h2>Grunddaten:</h2>';
@@ -53,7 +54,7 @@
 			} else {
 				echo '<h3>Einsatzgebiete:</h3>';
 				foreach ( $art_loc as $each )
-					echo $each->getEinsatzgebiet();
+					echo $each->getEinsatzgebiet().'<br>';
 			}
 			echo '<br>';
 			if ( count($art_conn) >1 ) {
@@ -91,7 +92,7 @@
 		
 	echo '</div>';
 	if (Zend_Auth::getInstance()->hasIdentity()){
-	echo  '<br><a href="/angebot/erstellen/artikelnummer/'.$art_nr.'">Angebot über diesen Artikel einholen</a><div>';
+	echo  '<a href="/angebot/erstellen/artikelnummer/'.$art_nr.'">Angebot über diesen Artikel einholen</a><div>';
 	}
 	
 	?>

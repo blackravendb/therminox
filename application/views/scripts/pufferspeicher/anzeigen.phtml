@@ -4,11 +4,11 @@
 	<?php
 	
 	$data_object = $this->dbdata;
-	if($this->dbdata === null){
-		if ( isset($this->message))
-			echo $this->message;
-	}else {
+	if(is_null($this->dbdata)){
 		echo 'Artikel konnte nicht gefunden werden';
+	}
+	if(!is_null($this->dbdata)) {
+		
 		if (isset ( $_SERVER ['HTTP_REFERER'] )) {
 			$this->view->link = $_SERVER ['HTTP_REFERER'];
 		} else {
@@ -29,8 +29,11 @@
 	echo '<h1>Pufferspeicher ' . $art_model . '</h1>';
 	
 	echo '<br>';
+	$imagepath = '_files/images/waermetauscher/geloetet/'.$art_model.'.png';
+	if(file_exists($imagepath)){
 	echo '<div class="bild"><img src="/_files/images/pufferspeicher/vvx/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder">';
 	echo '<br>Konstruktionszeichnung</div>';
+	}
 	echo '<div class="daten">';
 		echo '<div class="grunddaten">';
 			echo '<h2>Grunddaten:</h2>';
