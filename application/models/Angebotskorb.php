@@ -67,7 +67,7 @@ class Application_Model_Angebotskorb extends Application_Model_TableAbstract {
 			return false;
 		}
 		foreach($this->_angebot as $key => $value) {
-			if($value->getArtikelnummer() === $lieferadresse->getArtikelnummer()){
+			if($value->getArtikelnummer() === $angebot->getArtikelnummer()){
 				unset($this->_angebot[$key]);
 				return true;
 			}
