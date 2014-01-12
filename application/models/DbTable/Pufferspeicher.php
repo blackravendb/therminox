@@ -187,6 +187,16 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     	$where = $this->getAdapter()->quoteInto('id = ?', $pufferspeicher->getId());
     	$this->update($pufferspeicherData, $where);
     }
+    
+    public function insertEinsatzgebiet($einsatzgebiet) {
+    	$what = array('einsatzgebiet' => $einsatzgebiet);
+    	$this->getPufferspeicherEinsatzgebietDbTable()->insert($what);
+    }
+    
+    public function deleteEinsatzgebiet($einsatzgebiet) {
+    	$where = $this->getAdapter()->quoteInto('einsatzgebiet = ?', $einsatzgebiet);
+    	$this->getPufferspeicherEinsatzgebietDbTable()->delete($where);
+    }
 
 }
 

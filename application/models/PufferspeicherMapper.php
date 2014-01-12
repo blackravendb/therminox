@@ -105,6 +105,14 @@ class Application_Model_PufferspeicherMapper extends Application_Model_MapperAbs
 		return $this->getDbTable()->updatePufferspeicher($pufferspeicher);
 	}
 	
+	public function insertEinsatzgebiet($einsatzgebiet) {
+		return $this->getDbTable()->insertEinsatzgebiet($einsatzgebiet);
+	}
+	
+	public function deleteEinsatzgebiet($einsatzgebiet) {
+		return $this->getDbTable()->deleteEinsatzgebiet($einsatzgebiet);
+	}
+	
 	public function getModelListe() {
 				 //TODO
 	}
