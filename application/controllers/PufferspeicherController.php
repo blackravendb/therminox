@@ -95,14 +95,15 @@ class PufferspeicherController extends Zend_Controller_Action {
 				$newPS->setTemperaturMax ( $temp );
 				$newPS->setBetriebsdruck ( $druck );
 				$newPS->setLeergewicht ( $leergewicht );
-						
-				foreach ( $einsatzgbt as $gebiet ) {
-					$eingebiet = new Application_Model_PufferspeicherEinsatzgebiet ();
-					$eingebiet->setEinsatzgebiet ( $gebiet );
-					
-					$newPS->insertEinsatzgebiet ( $eingebiet );
-				}
 				
+				if (! empty ( $eingebiet )) {
+					foreach ( $einsatzgbt as $gebiet ) {
+						$eingebiet = new Application_Model_PufferspeicherEinsatzgebiet ();
+						$eingebiet->setEinsatzgebiet ( $gebiet );
+						
+						$newPS->insertEinsatzgebiet ( $eingebiet );
+					}
+				}
 				$db_mapper = new Application_Model_PufferspeicherMapper ();
 				$db_mapper->insertPufferspeicher ( $newPS );
 			}
