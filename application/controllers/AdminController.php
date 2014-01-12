@@ -104,6 +104,7 @@ class AdminController extends Zend_Controller_Action {
 			$this->view->showUnterkategorien = true;
 		}
 	}
+	
 	public function deletewaermetauscherAction() {
 		$request = $this->getRequest ();
 		$art = $request->getParam ( 'artikel' );
@@ -119,7 +120,7 @@ class AdminController extends Zend_Controller_Action {
 	}
 	public function changewtunterkategorieAction() {
 		$request = $this->getRequest ();
-		$art = $request->getParam ( 'artikel' ); // TODO
+		$art = $request->getParam ( 'artikel' ); 
 		$db_mapper = new Application_Model_WaermetauscherMapper ();
 		$data_object = $db_mapper->getWaermetauscherByModel ( $art );
 		$unterkategorien = $data_object->getWaermetauscherUnterkategorie ();
@@ -175,6 +176,7 @@ class AdminController extends Zend_Controller_Action {
 		$art = $request->getParam ( '???' ); // TODO
 	}
 	public function changepufferspeicherAction() {
+			
 		$request = $this->getRequest ();
 		$art = $request->getParam ( 'artikel' );
 		$db_mapper = new Application_Model_PufferspeicherMapper ();
@@ -186,32 +188,46 @@ class AdminController extends Zend_Controller_Action {
 		
 		$this->view->psbearbeiten = $form;
 		
-		$formData = $this->_request->getPost ();
+		if($this->_request->isPost()){
+			$formData = $this->_request->getPost();
 		
 		if ($form->isValid ( $formData )) {
-			$artikelname = $form->getValue ( 'Artikelname' );
-			$einsatzgbt = $form->getValue ( 'Einsatzgebiete' );
-			$speicherinhalt = $form->getValue ( 'Speicherinhalt' );
-			$betriebsdruck = $form->getValue ( 'Speicherinhalt' );
-			
-			$data_object->setModel ( $artikelname );
-			
-			// TODO wie bei WT
-			foreach ( $einsatzgbt as $value ) {
-				$einPS = new Application_Model_PufferspeicherEinsatzgebiet ();
-				$einPS->setEinsatzgebiet ( $value );
+			$form->populate($_POST);
+
+			if($form->artikelAendern->isChecked()){ //funktioniert
+				$artikelname = $form->getValue ( 'Artikelname' );
+				$einsatzgbt = $form->getValue ( 'EinsatzgebietePs' );
+				$speicherinhalt = $form->getValue ( 'Speicherinhalt' );
+				$betriebsdruck = $form->getValue ('Betriebsdruck');
+				$temperatur = $form->getValue('Temperatur');
 				
-				$data_object->insertEinsatzgebiet ( $einPS ); // TODO
+				$data_object->setModel($artikelname);
+				$data_object->setSpeicherinhalt($speicherinhalt);
+				$data_object->setBetriebsdruck($betriebsdruck);
+				$data_object->setTemperaturMax($temperatur);
+			
+				$einsatzgebiet_alt = $data_object->getEinsatzgebiet();
+					if(!empty($einsatzgebiet_alt)){
+						foreach($einsatzgebiet_alt as $value) {
+							$data_object->deleteEinsatzgebiet($value);
+						}
+					}
+					
+					if (!empty ( $einsatzgbt )) {
+						foreach ( $einsatzgbt as $value ) {
+							$einsatzgbtObj = new Application_Model_PufferspeicherEinsatzgebiet ();
+							$einsatzgbtObj->setEinsatzgebiet ( $value );
+							
+							$data_object->insertEinsatzgebiet ( $einsatzgbtObj );
+						}
+					}
+					
+					$this->view->showMessage = $db_mapper->updatePufferspeicher ( $data_object );
+				}
 			}
-			
-			$data_object->setSpeicherinhalt ( $speicherinhalt );
-			$data_object->setBetriebsdruck ( $betriebsdruck );
-			
-			$db_mappert->updatePufferspeicher ( $data_object );
-			
-			$this->view->showMessage = true;
 		}
 	}
+	
 	public function deletepufferspeicherAction() {
 		$request = $this->getRequest ();
 		$art = $request->getParam ( 'artikel' );

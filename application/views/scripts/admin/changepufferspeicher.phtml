@@ -4,10 +4,13 @@
 <?php 
 echo $this->psbearbeiten; 
 
-if($this->showMessage == true){
+if($this->showMessage === true){
 ?>
 <div id="geändert">
 <p>Wärmetauscher wurde erfolgreich geändert</p>
 </div>
+<?php }?>
+<?php if($this->showMessage === false){?>
+<p>Fehler beim Ändern des Artikels!</p>
 <?php }?>
 </div>

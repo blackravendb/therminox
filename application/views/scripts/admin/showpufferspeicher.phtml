@@ -6,7 +6,9 @@
     <th>Produktname</th>
     <th>Einsatzgebiet</th>
     <th>Speicherinhalt</th>
+    <th>Leergewicht</th>
     <th>Betriebsdruck</th>
+    <th>Temperatur</th>
     <th></th>
     <th></th>
   </tr>
@@ -23,7 +25,9 @@
     					echo $gbt->getEinsatzgebiet();
     					} ?></td>
     <td><?php echo $value->getSpeicherinhalt(); ?></td>
+    <td><?php echo $value->getLeergewicht();?></td>
     <td><?php echo $value->getBetriebsdruck(); ?></td>
+    <td><?php echo $value->getTemperaturMax();?>
     <?php $urlBearbeiten = "/Admin/changepufferspeicher/artikel/" . $value->getModel();?>
     <td> <a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td>
     <?php $urlLoeschen = "/Admin/deletepufferspeicher/artikel/" . $value->getModel();?>
