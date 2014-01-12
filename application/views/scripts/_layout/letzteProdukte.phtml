@@ -28,8 +28,8 @@
 					echo '<li><a href="/Pufferspeicher/anzeigen/artikel/' . $artikel->getModel () . '">' . $artikel->getModel () . '</a></li>';
 				}
 			}
-			echo '</ul></li>';
 			
+		echo '</ul></li>';	
 		}
 		if (! isset ( $_SESSION ['angebotskorb'] )) {
 			echo '<li><a>Ihr Warenkorb enthält</a></li>';
@@ -37,9 +37,36 @@
 			echo '</li>';
 			echo '</ul></li>';
 		}
+		
 		// Artikel löschen aus Warenkorb
-		echo '<li><a href="#">Warenkorb bearbeiten</a><ul>';
-		echo '</ul></li>';
+		if (isset ( $_SESSION ['angebotskorb'] )) {
+			echo '<hr>';
+			echo '<li><a href="#">Artikel bearbeiten, klicken zum Löschen</a><ul>';
+			$angebotskorb = $_SESSION ['angebotskorb'];
+			$articles = $angebotskorb->getAngebot ();
+			$posindex = 0;
+			foreach ( $articles as $position ) {
+				$mapper = new Application_Model_ArtikelMapper ();
+				$artikel = $mapper->getArtikelByArtikelnummer ( $position->getArtikelnummer () );
+				if ($artikel instanceof Application_Model_Waermetauscher) {
+					// Link auf wärmetauscher
+					echo '<li><a href="/Angebot/remove/postition/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
+					$posindex = $posindex + 1;
+				}
+				if ($artikel instanceof Application_Model_Pufferspeicher) {
+					// Link auf pufferspeicher
+					echo '<li><a href="/Angebot/remove/position/' . $posindex . '">' . $artikel->getModel () . '</a></li>';
+					$posindex = $posindex + 1;
+				}
+			}
+				
+			echo '</ul></li>';
+			echo '</ul></li>';
+		}
+		
+		
+		
+		
 		echo '</ul></li>';
 		?>
 		

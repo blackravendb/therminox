@@ -125,7 +125,7 @@ class AngebotController extends Zend_Controller_Action {
 			} else {
 				$this->view->link = '/artikel';
 			}
-		}
+		}	
 	}
 	public function abschickenAction() {
 		// action body
@@ -133,22 +133,19 @@ class AngebotController extends Zend_Controller_Action {
 	}
 	public function removeAction() {
 		$request = $this->getRequest ();
-		$artnr = $request->getParam ( 'artID' );
-		if (null != $artnr) {
-			$db_mapper = new Application_Model_AngebotskorbMapper ();
-			$email = Zend_Auth::getInstance ()->getIdentity ()->email;
-			$offers = $db_mapper->getAngebotskorbByEmail ( $email );
-			$deleteoffer = null;
-			foreach ( $offers as $offer ) {
-				if($offer->getId() == $artnr){
-					$deleteoffer = $offer->getAngebot();
-				}
-			}
-			foreach ($deleteoffer as $articles){
-				$articles->setStatus('Beendet');
-			}
+		$pos = $request->getParam ( 'position' );
+		if (null != $pos) {
+			$angebotskorb = $_SESSION['angebotskorb'];
+			$angebot = new Application_Model_Angebot();
+			$angebot = $angebotskorb->getAngebot();
+			$angebot = $angebot[$pos];
+			$angebotskorb->deleteAngebot($angebot);
+			
+			$_SESSION['angebotskorb'] = $angebotskorb;
+			
+			//$_SESSION['angebotskorb']->deleteAngebot($angebot);
 		}
 		
-		$this->_redirect ( Angebot );
+		
 	}
 }
