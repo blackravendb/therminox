@@ -55,8 +55,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setModel($model) {
-		$this->_model = $model;
-		$this->_changed['model'] = 1;
+		if($this->_model !== $model) {
+			$this->_model = $model;
+			$this->_changed['model'] = 1;
+		}
+		return $this;
 	}
 	
 	public function getModel () {
@@ -64,8 +67,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setBetriebsdruck($druck) {
-		$this->_betriebsdruck = $druck;
-		$this->_changed['betriebsdruck'] = 1;
+		if($this->_betriebsdruck !== $druck) {
+			$this->_betriebsdruck = $druck;
+			$this->_changed['betriebsdruck'] = 1;
+		}
+		return $this;
 	}
 	
 	public function getBetriebsdruck () {
@@ -73,8 +79,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setTemperatur($temperatur) {
-		$this->_temperatur = $temperatur;
-		$this->_changed['temperatur'] = 1;
+		if($this->_temperatur !== $temperatur) {
+			$this->_temperatur = $temperatur;
+			$this->_changed['temperatur'] = 1;
+		}
+		return $this;
 	}
 	
 	public function getTemperatur () {
@@ -82,8 +91,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setHoehe($hoehe) {
-		$this->_hoehe = $hoehe;
-		$this->_changed['hoehe'] = 1;
+		if($this->_hoehe !== $hoehe) {
+			$this->_hoehe = $hoehe;
+			$this->_changed['hoehe'] = 1;
+		}
+		return $this;
 	}
 	
 	public function getHoehe () {
@@ -91,8 +103,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setBreite($breite) {
-		$this->_breite = $breite;
-		$this->_changed['breite'] = 1;
+		if($this->_breite !== $breite) {
+			$this->_breite = $breite;
+			$this->_changed['breite'] = 1;
+		}
+		return $this;
 	}
 	
 	public function getBreite () {
@@ -100,8 +115,11 @@ class Application_Model_Waermetauscher extends Application_Model_TableAbstract
 	}
 	
 	public function setStutzenmaterial($material) {
-		$this->_stutzenmaterial = $material;
-		$this->_changed['stutzenmaterial'] = 1;
+		if($this->_stutzenmaterial !== $material) {
+			$this->_stutzenmaterial = $material;
+			$this->_changed['stutzenmaterial'] = 1;
+		}
+		return true;
 	}
 	
 	public function getStutzenmaterial () {
