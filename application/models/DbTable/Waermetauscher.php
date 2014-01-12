@@ -280,12 +280,19 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     
     public function deleteWaermetauscher($id) {
     	$where = $this->getAdapter()->quoteInto('id = ?', $id);
-    	return $this->delete($where);
+    	try{
+    		$this->delete($where);
+    	}catch(Exception $e){
+    		return false;
+    	}
+    	return true;
     }
     
     public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
-    	$waermetauscherData = $waermetauscher->toArray();
+    	$this->getAdapter()->beginTransaction();
     	
+    	$waermetauscherData = $waermetauscher->toArray();
+    	try {
     	//Daten zwischenspeichern
     	$wtUnterkategorie = $waermetauscherData['waermetauscherUnterkategorie'];
     	$wtEinsatzgebiet = $waermetauscherData['waermetauscherEinsatzgebiet'];
@@ -338,7 +345,11 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		}
     	}
 
-    	
+    	}catch(Exception $e){
+    			//TODO
+    	}
+    	$this->getDbAdapter()->commit();
+    	return true;    	
     }
     
     public function updateWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
@@ -371,7 +382,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->delete($where);
     		
     		//neue Einsatzgebiete schreiben
-    		foreach($wtEinsatzgebiet as $value) {
+    		foreach($waermetauscherData['waermetauscherEinsatzgebiet'] as $value) {
     			$einsatzgebietId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherEinsatzgebietDbTable()->getIdByEinsatzgebiet($value);
     			
     			$this->getWaermetauscher2waermetauscherEinsatzgebietDbTable()->insert(array('waermetauscher_id' => $waermetauscher->getId(), 'waermetauscherEinsatzgebiet_id' => $einsatzgebietId));
@@ -386,7 +397,7 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
     		$this->getWaermetauscher2waermetauscherAnschlussDbTable()->delete($where);
     		
     		//neue Anschlüsse schreiben
-    		foreach($wtAnschluss as $value) {
+    		foreach($waermetauscherData['waermetauscherAnschluss'] as $value) {
     			$anschlussId = is_int($value->getId()) ? $value->getId() : $this->getWaermetauscherAnschlussDbTable()->getIdByAnschluss($value);
     			 
     			$this->getWaermetauscher2waermetauscherAnschlussDbTable()->insert(array('waermetauscher_id' => $waermetauscher->getId(), 'waermetauscherAnschluss_id' => $anschlussId));
