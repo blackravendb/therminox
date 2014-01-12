@@ -1,7 +1,7 @@
 <div id="view-content">
 		
 	<?php
-	// TODO Ausnahmen abfangen! ->schlumpfhandling -.-
+
 	$data_object = $this->dbdata;
 	if($this->dbdata === null){
 		if ( isset($this->message))
@@ -32,7 +32,7 @@
 	echo '<div class="static_text2"><h1>Wärmetauscher ' . $art_model . '</h1></div>';
 	
 	echo '<br>';
-	// TODO funzt noch ned
+
 	echo '<div class="bild"><img src="/_files/images/waermetauscher/geloetet/'.$art_model.'.png" alt="'.$art_model.'" id ="bilder"></div>';
 	
 	echo '<div class="daten">';
@@ -99,7 +99,7 @@
 	if (Zend_Auth::getInstance()->hasIdentity()){
 	echo  '<br><a href="/angebot/erstellen/artikelnummer/'.$art_nr.'">Angebot über diesen Artikel einholen</a><div>';
 	}
-	var_dump($_SESSION);
+	
 	?>
 	
 </div>
