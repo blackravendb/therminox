@@ -244,11 +244,11 @@ class AdminController extends Zend_Controller_Action {
 						foreach ( $anschLoeschen as $value ) { // TODO Dennis
 							try {
 								$wtmapper->deleteAnschluss ( $value );
-								$this->_redirect ( '/Admin/anschluessebearbeiten' );
 							} catch ( Exception $e ) {
 								$_SESSION ['anschlNotDelete'] = 1;
 							}
 						}
+						$this->_redirect ( '/Admin/anschluessebearbeiten' );
 					}
 				}
 				
@@ -288,11 +288,11 @@ class AdminController extends Zend_Controller_Action {
 						foreach ( $einsatzgbtLoeschen as $value ) { // TODO Dennis
 							try {
 								$wtmapper->deleteEinsatzgebiet ( $value );
-								$this->_redirect ( '/Admin/einsatzgebietebearbeiten' );
 							} catch ( Exception $e ) {
 								$_SESSION ['einsatzgbtNotInsert'] = 1;
 							}
 						}
+						$this->_redirect ( '/Admin/einsatzgebietebearbeiten' );
 					}
 				}
 				if ($form->hinzufuegen->isChecked ()) {
@@ -331,11 +331,11 @@ class AdminController extends Zend_Controller_Action {
 						foreach ( $stutzenmaterialLoeschen as $value ) { // TODO Dennis
 							try {
 								$wtmapper->deleteStutzenmaterial ( $value );
-								$this->_redirect ( '/Admin/stutzenmaterialbearbeiten' );
 							} catch ( Exception $e ) {
 								$_SESSION ['stutzenmaterialNotDeleted'] = 1;
 							}
 						}
+						$this->_redirect ( '/Admin/stutzenmaterialbearbeiten' );
 					}
 				}
 				
@@ -375,11 +375,11 @@ class AdminController extends Zend_Controller_Action {
 						foreach ( $einsatzgbtLöschen as $value ) {
 							try { // TODO Dennis
 								$psmapper->deleteEinsatzgebiet ( $value );
-								$this->_redirect ( '/Admin/einsatzgebietepsbearbeiten' );
 							} catch ( Exception $e ) {
 								$_SESSION ['einsatzgbtPsNotDeleted'] = 1;
 							}
 						}
+						$this->_redirect ( '/Admin/einsatzgebietepsbearbeiten' );
 					}
 				}
 				
