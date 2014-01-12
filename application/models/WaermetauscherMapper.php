@@ -155,11 +155,16 @@ class Application_Model_WaermetauscherMapper extends Application_Model_MapperAbs
 		return $ret;
 	}
 	
+	/*
+	 *Rückgabewerte (true, false)
+	 **/
 	public function deleteWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
+		//Wärmetauscher hat keine ID => wurde noch nicht in DB eingepflegt
 		$id = $waermetauscher->getId();
 		if(empty($id))
 			return false;
-		$this->getDbTable()->deleteWaermetauscher($id);
+		
+		return $this->getDbTable()->deleteWaermetauscher($id);
 	}
 	
 	public function insertWaermetauscher(Application_Model_Waermetauscher $waermetauscher) {
