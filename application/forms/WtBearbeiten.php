@@ -27,7 +27,8 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setValue($this->dbdata->getModel())
 		->setRequired(true)
 		->addFilter('StripTags')
-		->addFilter('StringTrim');
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte in alle Felder bis auf einen gültigen Wert eingeben!');
 		 
 		$temp = new Zend_Form_Element_Text('Temperatur');
 		$temp->setLabel('Temperatur (°C):')
@@ -36,7 +37,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf einen gültigen Wert eingeben!');
 		
 		$height = new Zend_Form_Element_Text('Hoehe');
 		$height->setLabel('Höhe (mm):')
@@ -45,7 +46,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf einen gültigen Wert eingeben!');
 
 		$width = new Zend_Form_Element_Text('Breite');
 		$width->setLabel('Breite (mm):')
@@ -54,7 +55,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf einen gültigen Wert eingeben!');
 
 		$stutzenmaterial = new Zend_Form_Element_Select('Stutzenmaterial');
         $stutzenmaterial->setLabel('Stutzenmaterial:')
@@ -72,7 +73,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf einen gültigen Wert eingeben!');
 		
 		$anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
 		$anschluss->setLabel('Anschlüsse:')
