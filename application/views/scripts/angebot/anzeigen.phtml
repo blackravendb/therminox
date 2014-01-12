@@ -10,6 +10,7 @@ if (! empty ( $this->articles )) {
 	$db_mapper = new Application_Model_ArtikelMapper ();
 	foreach ( $articles as $article ) {
 	$model = $db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
+	
 	if(strcmp($article->getStatus(),'Offen') == 0){
 		echo '<div class="offenAngebot">';
 	}
@@ -27,6 +28,7 @@ if (! empty ( $this->articles )) {
 		echo 'Erstelldatum: ' . $article->getErstelldatum () . '<br>';
 		echo 'Status: ' . $article->getStatus () . '<br>';
 		echo 'Bemerkung: ' . $article->getBemerkung () . '<br></div>';
+		echo '<hr>';
 		
 	}
 }
