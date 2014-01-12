@@ -35,5 +35,9 @@ class Application_Model_AngebotskorbMapper extends Application_Model_MapperAbstr
 	public function insertAngebotskorb(Application_Model_Angebotskorb $angebotskorb) {
 		$this->getDbTable()->insertAngebotskorb($angebotskorb);
 	}
+	
+	public function getAngebotskoerbe() {
+		$data = $this->getDbTable()->getAngebotskoerbe();
+	}
 }
 
