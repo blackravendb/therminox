@@ -199,6 +199,7 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     }
     
     public function getModelList() {
+    	$select = $this->select();
     	$select
     	->from($this->_name,'model');
     	 
