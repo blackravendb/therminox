@@ -10,6 +10,7 @@ if (! empty ( $this->articles )) {
 	$db_mapper = new Application_Model_ArtikelMapper ();
 	foreach ( $articles as $article ) {
 	$model = $db_mapper->getArtikelByArtikelnummer($article->getArtikelnummer());
+	
 	if(strcmp($article->getStatus(),'Offen') == 0){
 		echo '<div class="offenAngebot">';
 	}
@@ -27,11 +28,14 @@ if (! empty ( $this->articles )) {
 		echo 'Erstelldatum: ' . $article->getErstelldatum () . '<br>';
 		echo 'Status: ' . $article->getStatus () . '<br>';
 		echo 'Bemerkung: ' . $article->getBemerkung () . '<br></div>';
+		echo '<hr>';
 		
 	}
 }
-echo '</p></fieldset><a href="/angebot">Zur&uuml;ck zur &Uuml;bersicht</a></body>';
-
+echo '</p></fieldset><a href="/angebot">Zur&uuml;ck zur &Uuml;bersicht</a>';
+echo '<div align="right">Legende: <a class ="offenAngebot">Angebot ist noch offen</a>|<a class="inBearbeitungAngebot">Angebot wird bearbeitet</a>|<a class="abgeschlossenAngebot">Angebot ist abgeschlossen</a>|<a class="beendetAngebot">Angebot wurde beendet</a></div>';
+echo '</body>';
 
 
 ?>
+

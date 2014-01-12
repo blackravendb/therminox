@@ -58,32 +58,32 @@
 }
 
 .offenAngebot {
-	background_color: #ECF1EF;	 
+	background-color: #ECF1EF;	 
 }
 
 .beendetAngebot {
-	background_color: #C1CDCD;
+	background-color: #C1CDCD;
 }
 
 .inBearbeitungAngebot {
-	background_color: #FFD39B;
+	background-color: #FFD39B;
 }
 
 .abgeschlossenAngebot {
-	background_color: #90EE90;
+	background-color: #90EE90;
 }
 
-table th {
+table th.angebote {
 	background-color: gray;
 	text-align: left;
 	color: white;
 	font-weight: bold;
 }
 
-table tr.odd {
+.odd {
 	background-color: white;
 }
 
-table tr.even {
+.even {
 	background-color: #c0c0c0;
 }
