@@ -31,12 +31,8 @@ if($this->showMessage == true){
 			<td><?php echo $value->getLaenge();?></td>
 			<td><?php echo $value->getLeergewicht();?></td>
 			<td><?php echo $value->getFlaeche();?></td>
-			<?php
-					$_SESSION['unterkategorieIn' . $i] = $i; 
-					$i++; 
-					echo $i;
-					echo $_SESSION['unterkategorieIn' . ($i-1)];?>
-			<?php $urlBearbeiten = "/Admin/changewtunterkategorie/artikel/" . $this->artikel->getModel();?>
+			<?php $urlBearbeiten = "/Admin/changewtunterkategorie/artikel/" . $this->artikel->getModel() . "?index=" . $i;?>
+			<?php $i++; ?>
 			<td><a href="<?php echo $urlBearbeiten;?>">bearbeiten</a></td>
 			<?php $urlLoeschen = "/Admin/deletewtunterkategorie/artikel" . $this->artikel->getModel();?>
 			<td><a href="<?php echo $urlLoeschen;?>">löschen</a></td>

@@ -107,7 +107,7 @@
 			$db_mapper = new Application_Model_WaermetauscherMapper ();
 			$data_object = $db_mapper->getWaermetauscherByModel($art);
 			$unterkategorien = $data_object->getWaermetauscherUnterkategorie();
-			
+			$index = $_GET["index"];
 			$unterkategorie = $unterkategorien[$index];
 			
 			$form = new Application_Form_UnterkategorienBearbeiten();
@@ -115,8 +115,7 @@
 			$form->startform();
 				
 			$this->view->wtunterkategorienbearbeiten = $form; 
-			
-			if($form->unterkategorieAendern->isChecked()){
+		
 				if($this->_request->isPost()){
 					$formData = $this->_request->getPost();
 				
@@ -125,11 +124,29 @@
 						$laenge = $form->getValue('Laenge');
 						$leergewicht = $form->getValue('Leergewicht');
 						$flaeche = $form->getValue('Flaeche');
+						$inhaltPrimaer = $form->getValue('inhaltPrimaer');
+						$inhaltSekundaer = $form->getValue('inhaltSekundaer');
+						
+						$leergewicht = str_replace(",", ".", $leergewicht);
+						$flaeche = str_replace(",", ".", $flaeche);
+						
+						if(!empty($inhaltPrimaer)){
+							$inhaltPrimaer = str_replace(",", ".", $inhaltPrimaer);
+						}
+						if(!empty($inhaltSekundaer)){
+							$inhaltSekundaer = str_replace(",", ".", $inhaltSekundaer);
+						}
 						
 						$unterkategorie->setPlatten($platten);
 						$unterkategorie->setLaenge($laenge);
 						$unterkategorie->setLeergewicht($leergewicht);
 						$unterkategorie->setFlaeche($flaeche);
+						if(!empty($inhaltPrimaer)){
+							$unterkategorie->setInhaltPrimaer($inhaltPrimaer);
+						}
+						if(!empty($inhaltSekundaer)){
+							$unterkategorie->setInhaltSekundaer($inhaltSekundaer);
+						}
 						
 						$db_mapper->updateWaermetauscher($data_object);
 						
@@ -137,7 +154,7 @@
 			}
 		}
 	}
-}
+
 		
 		public function deletewtunterkategorieAction(){ //TODO
 			$request = $this->getRequest();
