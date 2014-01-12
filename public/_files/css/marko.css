@@ -54,5 +54,36 @@
 }
 
 #extraInfo {
-    resize: none;
+	resize: none;
+}
+
+.offenAngebot {
+	background_color: #ECF1EF;	 
+}
+
+.beendetAngebot {
+	background_color: #C1CDCD;
+}
+
+.inBearbeitungAngebot {
+	background_color: #FFD39B;
+}
+
+.abgeschlossenAngebot {
+	background_color: #90EE90;
+}
+
+table th {
+	background-color: gray;
+	text-align: left;
+	color: white;
+	font-weight: bold;
+}
+
+table tr.odd {
+	background-color: white;
+}
+
+table tr.even {
+	background-color: #c0c0c0;
 }

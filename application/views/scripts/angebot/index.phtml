@@ -6,21 +6,22 @@ if (empty ( $offers )) {
 if (! empty ( $offers )) {
 	print <<<tablehead
 		<h2>Meine Angebote</h2>
-<table border="1">
+<table border="0">
 	<tr>
 		<th>Angebotsnummer</th>
 		<th>Erstelldatum</th>
 		<th>&#160;</th>
-			<th>&#160;</th>
+		<th>&#160;</th>
 	</tr>
 tablehead;
-	
+	$rowCssIdx = 0; // odd or even row
 	foreach ( $offers as $offer ) {
-		
-		echo '<tr><td>' . $offer->getId () . '</td>';
+		++ $rowCssIdx;
+		$rowCssClass = $rowCssIdx % 2 ? 'even' : 'odd';
+		echo '<tr class="'.$rowCssClass.'">';
+		echo '<td>' . $offer->getId () . '</td>';
 		$art = $offer->getAngebot ();
 		$dat = $art[0]->getErstelldatum();
-		// echo '<td>' . $offer->getErstelldatum () . '</td>';
 		echo '<td>'.$dat.'</td>';
 		echo '<td><a href="/Angebot/anzeigen/id/' . $offer->getId () . '">Anzeigen</a></td>';
 		echo '<td><a href="/Angebot/remove/id/' . $offer->getId () . '">Verwerfern</a></td></tr>';

@@ -1,7 +1,6 @@
 <?php
 class AngebotController extends Zend_Controller_Action {
 	public function init() {
-		require_once 'Cart/ShoppingCart.php';
 	}
 	public function indexAction() {
 		$db_mapper = new Application_Model_AngebotskorbMapper ();
@@ -80,7 +79,7 @@ class AngebotController extends Zend_Controller_Action {
 					}
 					$mapper = new Application_Model_AngebotskorbMapper ();
 					$mapper->insertAngebotskorb ( $angebotskorb );
-					unset($_SESSION['angebotskorb']);
+					unset ( $_SESSION ['angebotskorb'] );
 					
 					$this->_redirect ( 'angebot/' );
 				}
@@ -102,7 +101,7 @@ class AngebotController extends Zend_Controller_Action {
 				$articles = $offer->getAngebot ();
 			}
 		}
-				
+		
 		$this->view->articles = $articles;
 	}
 	public function addAction() {
@@ -133,7 +132,23 @@ class AngebotController extends Zend_Controller_Action {
 		// in db schreiben + email schicken
 	}
 	public function removeAction() {
+		$request = $this->getRequest ();
+		$artnr = $request->getParam ( 'artID' );
+		if (null != $artnr) {
+			$db_mapper = new Application_Model_AngebotskorbMapper ();
+			$email = Zend_Auth::getInstance ()->getIdentity ()->email;
+			$offers = $db_mapper->getAngebotskorbByEmail ( $email );
+			$deleteoffer = null;
+			foreach ( $offers as $offer ) {
+				if($offer->getId() == $artnr){
+					$deleteoffer = $offer->getAngebot();
+				}
+			}
+			foreach ($deleteoffer as $articles){
+				$articles->setStatus('Beendet');
+			}
+		}
+		
 		$this->_redirect ( Angebot );
-		// $this->_redirect ( $_SERVER ['HTTP_REFERER'] );
 	}
 }
