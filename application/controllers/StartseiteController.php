@@ -28,6 +28,10 @@ class StartseiteController extends Zend_Controller_Action
     	
     }
     
+    public function impressumAction(){
+    	 
+    }
+ 
     public function kontaktAction(){
     	$form = new Application_Form_Kontakt();
     	if ($this->_request->isPost()) {

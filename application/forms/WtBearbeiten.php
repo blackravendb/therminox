@@ -20,6 +20,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		$wtmapper = new Application_Model_WaermetauscherMapper();
         $einsatzgebiete = $wtmapper->getEinsatzgebietListe();
         $anschluesse = $wtmapper->getAnschlussListe();
+        $stutzenmaterialien = $wtmapper->getStutzenmaterialListe();
 		
 		$name = new Zend_Form_Element_Text('Artikelname');
 		$name->setLabel('Artikelname:')
@@ -35,7 +36,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
 		
 		$height = new Zend_Form_Element_Text('Hoehe');
 		$height->setLabel('Höhe (mm):')
@@ -44,7 +45,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
 
 		$width = new Zend_Form_Element_Text('Breite');
 		$width->setLabel('Breite (mm):')
@@ -53,8 +54,25 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		->setRequired(true)
 		->addFilter('StripTags')
 		->addFilter('StringTrim')
-		->addErrorMessage('Bitte für Temperatur, Höhe und Breite nur Zahlen eingeben!');
+		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
 
+		$stutzenmaterial = new Zend_Form_Element_Select('Stutzenmaterial');
+        $stutzenmaterial->setLabel('Stutzenmaterial:');
+        foreach($stutzenmaterialien as $value){
+        	$stutzenmaterial->addMultiOption((string)$value, (string)$value); 
+        }
+        $stutzenmaterial->addFilter('StripTags')
+           				->addFilter('StringTrim');
+           			
+		$betriebsdruck = new Zend_Form_Element_Text('betriebsdruck');
+		$betriebsdruck->setLabel('Betriebsdruck (bar):')
+		->addValidator($val)
+		->setValue($this->dbdata->getBetriebsdruck())
+		->setRequired(true)
+		->addFilter('StripTags')
+		->addFilter('StringTrim')
+		->addErrorMessage('Bitte in alle Felder bis auf "Artikelname" nur Zahlen eingeben!');
+		
 		$anschluss = new Zend_Form_Element_MultiCheckbox('Anschluss');
 		$anschluss->setLabel('Anschlüsse:')
 		->setRequired(true)
@@ -66,8 +84,7 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	    					$checkedAnschluesse[] = $ans->getAnschluss();
 	  						}
 		$anschluss->setValue($checkedAnschluesse);
-       	
-		
+
 		$einsatzgbt = new Zend_Form_Element_MultiCheckbox('Einsatzgebiete');
 		$einsatzgbt->setLabel('Einsatzgebiete:');
 		foreach($einsatzgebiete as $value){
@@ -80,13 +97,13 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 	        }
 	        $einsatzgbt->setValue($checkedEinsatzgebiete);
         }
-					
+        
 		$submit = new Zend_Form_Element_Submit('artikelAendern');
 		$submit->setLabel('Artikel ändern');
 		
 		$unterkategorien = new Zend_Form_Element_Submit('unterkategorien');
 		$unterkategorien->setLabel('Unterkategorien bearbeiten');
 		 
-		$this->addElements(array($name, $temp, $height, $width, $anschluss, $einsatzgbt, $submit, $unterkategorien));
+		$this->addElements(array($name, $temp, $height, $width, $stutzenmaterial, $betriebsdruck, $anschluss, $einsatzgbt, $submit, $unterkategorien));
 	}
 }

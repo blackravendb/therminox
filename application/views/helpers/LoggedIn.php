@@ -7,12 +7,11 @@ class Zend_View_Helper_LoggedIn extends Zend_View_Helper_Abstract
 		$auth = Zend_Auth::getInstance();
 		if ($auth->hasIdentity()) {
 			$vorname = $auth->getIdentity()->vorname;
-			$logoutUrl = $this->view->url(array('controller'=>'account', 'action'=>'logout'));
 			if($auth->getIdentity()->berechtigung === 'Administrator') {
-				return 'Willkommen, ' . $vorname . '.  ' . '<a href="' . $logoutUrl . '">Abmelden</a>';
+				return 'Willkommen, ' . $vorname . '.  ' . '<a href="/account/logout">Abmelden</a>';
 			}
 				
-			return 'Willkommen, ' . $vorname . '. <a href="/account/profile">Mein Profil</a> <a href="/angebot">Meine Angebote</a> <a href="' . $logoutUrl .'">Abmelden</a>';
+			return 'Willkommen, ' . $vorname . '. <a href="/account/profile">Mein Profil</a> <a href="/angebot">Meine Angebote</a> <a href="/account/logout">Abmelden</a>';
 			
 		}
 
@@ -22,9 +21,7 @@ class Zend_View_Helper_LoggedIn extends Zend_View_Helper_Abstract
 		if($controller === 'account' && $action === 'login') {
 			return '';
 		}
-		$loginUrl = $this->view->url(array('controller'=>'account', 'action'=>'login'));
-		$registerUrl = $this->view->url(array('controller'=>'account', 'action'=>'register'));
-		return  '<a href="' . $loginUrl . '"> Anmelden </a>' . ' - ' . '<a href="' . $registerUrl . '"> Registrieren </a>';
+		return  '<a href="/account/login"> Anmelden </a>' . ' - ' . '<a href="/account/register"> Registrieren </a>';
 		
 	}
 }
