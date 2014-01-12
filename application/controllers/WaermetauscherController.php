@@ -102,12 +102,47 @@
 		public function hinzufuegenAction() {
 			$form = new Application_Form_WtErstellen ();
 			
+			if ($this->_request->isPost ()) {
+				$formData = $this->_request->getPost ();
+					
+				if ($form->isValid ( $formData )) {
+			
+					$modell = $form->getValue ( 'Model' );
+					$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
+					$conn = $form->getValue ( 'Anschluss' );
+					$material = $form->getValue ( 'Stutzenmaterial' );
+					$temp = $form->getValue ( 'Temperatur' );
+					$druck = $form->getValue ( 'Betriebsdruck' );
+					$height = $form->getValue ( 'Hoehe' );
+					$width = $form->getValue ( 'Breite' );
+					
+			
+					$newWT = new Application_Model_Waermetauscher();
+					$newWT->setModel($modell);
+					$newWT->setTemperatur($temp);
+					$newWT->setBetriebsdruck($druck);
+					$newWT->setStutzenmaterial($material);
+					$newWT->setHoehe($height);
+					$newWT->setBreite($width);
+			
+					foreach ( $einsatzgbt as $gebiet ) {
+						$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet();
+						$eingebiet->setEinsatzgebiet ( $gebiet );
+						$newWT->insertWaermetauscherEinsatzgebiet($eingebiet);
+					}
+					foreach ( $conn as $anschluss ) {
+						$einanschl = new Application_Model_WaermetauscherAnschluss();
+						$einanschl->setAnschluss($anschluss);
+						$newWT->insertWaermetauscherAnschluss($einanschl);
+					}
+			
+					$db_mapper = new Application_Model_WaermetauscherMapper();
+					$db_mapper->insertWaermetauscher($newWT);
+				}
+			}
 			$this->view->form = $form;
 		}
-		public function entfernenAction() { /*
-		   * Artikeldaten aus Registry/Session laden $artID = $_SESSION['artikel']; $artID = $artID['ID']; if(buttonpushed){ Query: DELETE FROM artikel WHERE artikelID IN(SELECT artikelID	FROM artikel WHERE artikelID = '$artID' ); } $this->view->artikel = $_SESSION['artikel'];
-		   */
-		}
+		
 	}
 
 

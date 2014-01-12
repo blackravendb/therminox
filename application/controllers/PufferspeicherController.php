@@ -77,6 +77,36 @@ class PufferspeicherController extends Zend_Controller_Action {
 	public function hinzufuegenAction() {
 		$form = new Application_Form_PsErstellen ();
 		
+		if ($this->_request->isPost ()) {
+			$formData = $this->_request->getPost ();
+			
+			if ($form->isValid ( $formData )) {
+				
+				$modell = $form->getValue ( 'Model' );
+				$einsatzgbt = $form->getValue ( 'Einsatzgebiet' );
+				$speicherinhalt = $form->getValue ( 'Speicherinhalt' );
+				$leergewicht = $form->getValue ( 'Leergewicht' );
+				$temp = $form->getValue ( 'TemperaturMax' );
+				$druck = $form->getValue ( 'Betriebsdruck' );
+				
+				$newPS = new Application_Model_Pufferspeicher ();
+				$newPS->setModel ( $modell );
+				$newPS->setSpeicherinhalt ( $speicherinhalt );
+				$newPS->setTemperaturMax ( $temp );
+				$newPS->setBetriebsdruck ( $druck );
+				$newPS->setLeergewicht ( $leergewicht );
+						
+				foreach ( $einsatzgbt as $gebiet ) {
+					$eingebiet = new Application_Model_PufferspeicherEinsatzgebiet ();
+					$eingebiet->setEinsatzgebiet ( $gebiet );
+					
+					$newPS->insertEinsatzgebiet ( $eingebiet );
+				}
+				
+				$db_mapper = new Application_Model_PufferspeicherMapper ();
+				$db_mapper->insertPufferspeicher ( $newPS );
+			}
+		}
 		$this->view->form = $form;
 	}
 }

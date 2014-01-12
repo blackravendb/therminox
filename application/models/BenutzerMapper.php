@@ -34,6 +34,9 @@ class Application_Model_BenutzerMapper extends Application_Model_MapperAbstract 
 		
 		$data = $this->getDbTable()->getBenutzer($email);
 		
+		if($data === false)
+			return false;
+		
 		if(empty($data))
 			return;
 		

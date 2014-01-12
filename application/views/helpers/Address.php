@@ -33,7 +33,8 @@ EMPTY;
 <div>
 <h4>{$count}.</h4>
 <ul class="address">
-	<li> {$address->getVorname()} {$address->getNachname()} </li>
+	<li> {$address->getFirma()}</li>
+	<li> {$address->getAnrede()} {$address->getVorname()} {$address->getNachname()} </li>
 	<li> {$address->getStrasse()} </li>
 	<li> {$address->getPlz()}  {$address->getOrt()} </li>
 	<li> {$address->getLand()} </li>
@@ -65,7 +66,8 @@ EMPTY;
 <div>
 <h4>{$count}.</h4>
 <ul class="address">
-	<li> {$address->getVorname()} {$address->getNachname()} </li>
+	<li> {$address->getFirma()}</li>
+	<li> {$address->getAnrede()} {$address->getVorname()} {$address->getNachname()} </li>
 	<li> {$address->getStrasse()} </li>
 	<li> {$address->getPlz()}  {$address->getOrt()} </li>
 	<li> {$address->getLand()} </li>

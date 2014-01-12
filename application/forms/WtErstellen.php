@@ -67,10 +67,13 @@ class Application_Form_WtErstellen extends App_Form {
 		$maxWidth->setLabel('Maximale Breite in cm:')
 		->addFilter('StripTags')
 		->addFilter('StringTrim');
+		
+		$addcat =  new Zend_Form_Element_Submit('submit');
+		$addcat->setLabel('Ausführung hinzufügen');
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Artikel erzeugen');
 		 
-		$this->addElements(array($name,$temp, $pressure, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $material, $submit));
+		$this->addElements(array($name,$temp, $pressure, $einsatzgbt, $anschluss, $maxHeight, $maxWidth, $material,$addcat,$submit));
 	}
 }
