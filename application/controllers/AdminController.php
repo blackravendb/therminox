@@ -168,7 +168,7 @@ class AdminController extends Zend_Controller_Action {
 				
 				$db_mapper->updateWaermetauscher ( $data_object );
 				
-				$this->view->showMessageUn = true;
+				$this->view->showMessageUn = $db_mapper->updateWaermetauscher ( $data_object );
 			}
 		}
 	}
