@@ -12,7 +12,7 @@ class App_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract {
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 		
 		$session = new Zend_Session_Namespace('mysession');
-		$controller = $request->getControllerName();
+		$controller = strtolower($request->getControllerName());
 		$action = $request->getActionName();
 		$role = null;
 		
