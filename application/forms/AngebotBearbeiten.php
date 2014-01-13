@@ -5,21 +5,21 @@ class Application_Form_AngebotBearbeiten extends App_Form {
 		
 		$offer = $_SESSION ['otc'];
 		$articles = $offer->getAngebot ();
-		$db_mapper = new Application_Model_ArtikelMapper ();
+		$art_mapper = new Application_Model_ArtikelMapper ();
 		
 		foreach ( $articles as $index => $artikel ) {
-			$art = $db_mapper->getArtikelByArtikelnummer ( $artikel->getArtikelnummer () );
-			$art = $art->getModel ();
+			$art_nr = $art_mapper->getArtikelByArtikelnummer ( $artikel->getArtikelnummer () );
+			$art = $art_nr->getModel ();
 			
-			$art_name = new Zend_Form_Element_Text ( 'artname' );
+			$art_name = new Zend_Form_Element_Text ( "artname$index" );
 			$art_name->setLabel ( 'Artikelname: ' )->setValue ( $art )->setAttrib ( 'disabled', 'disabled' );
 			$this->addElement ( $art_name );
 			
-			$art_text = new Zend_Form_Element_Textarea ( 'arttext' );
+			$art_text = new Zend_Form_Element_Textarea ( "arttext$index" );
 			$art_text->setLabel ( 'Bemerkung des Nutzers: ' )->setValue ( $artikel->getBemerkung () )->setAttrib ( 'disabled', 'disabled' );
 			$this->addElement ( $art_text );
 			
-			$art_state = new Zend_Form_Element_Text ( 'artstate' );
+			$art_state = new Zend_Form_Element_Text ( "artstate$index" );
 			$art_state->setLabel ( 'Aktueller Status: ' )->setValue ( $artikel->getStatus () )->setAttrib ( 'disabled', 'disabled' );
 			$this->addElement ( $art_state );
 			
@@ -34,6 +34,9 @@ class Application_Form_AngebotBearbeiten extends App_Form {
 							'Beendet' => 'Beendet' 
 					) 
 			) );
+			
+			
+			
 		}
 		
 		$submit = new Zend_Form_Element_Submit ( 'submit' );

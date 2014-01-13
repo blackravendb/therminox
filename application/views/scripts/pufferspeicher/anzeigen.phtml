@@ -17,6 +17,7 @@
 	$art_pressure = $data_object->getBetriebsDruck ();
 	$art_temp = $data_object->getTemperaturMax ();
 	$art_loc = $data_object->getEinsatzgebiet ();
+	$art_nr = $data_object->getArtikelnummer();
 	
 	echo '<br>';
 	echo '<h1>Pufferspeicher ' . $art_model . '</h1>';
@@ -58,7 +59,7 @@
 		echo '<br><br>';
 	echo '</div>';
 
-	echo  '<a href="/angebot/erstellen/artikel/'.$art_model.'">Angebot über diesen Artikel einholen</a>';
+	echo  '<a href="/angebot/erstellen/artikelnummer/'.$art_model.'">Angebot über diesen Artikel einholen</a>';
 	
 	?>
 	
