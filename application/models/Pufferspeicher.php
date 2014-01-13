@@ -46,8 +46,10 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	}
 	
 	public function setModel($model) {
-		$this->_model = $model;
-		$this->_changed['model'] = 1;
+		if($this->_model !== $model) {
+			$this->_model = $model;
+			$this->_changed['model'] = 1;
+		}
 		return $this;
 	}
 	
@@ -56,8 +58,10 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	}
 	
 	public function setSpeicherinhalt($inhalt) {
-		$this->_speicherinhalt = $inhalt;
-		$this->_changed['speicherinhalt'] = 1;
+		if($this->_speicherinhalt !== $inhalt) {
+			$this->_speicherinhalt = $inhalt;
+			$this->_changed['speicherinhalt'] = 1;
+		}
 		return $this;
 	}
 	
@@ -66,8 +70,10 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	}
 	
 	public function setLeergewicht($gewicht) {
-		$this->_leergewicht = $gewicht;
-		$this->_changed['leergewicht'] = 1;
+		if($this->_leergewicht !== $gewicht) {
+			$this->_leergewicht = $gewicht;
+			$this->_changed['leergewicht'] = 1;
+		}
 		return $this;
 	}
 	
@@ -76,8 +82,10 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	}
 	
 	public function setBetriebsdruck($druck) {
-		$this->_betriebsdruck = $druck;
-		$this->_changed['betriebsdruck'] = 1;
+		if($this->_betriebsdruck !== $druck) {
+			$this->_betriebsdruck = $druck;
+			$this->_changed['betriebsdruck'] = 1;
+		}
 		return $this;
 	}
 	
@@ -86,8 +94,10 @@ class Application_Model_Pufferspeicher extends Application_Model_TableAbstract {
 	}
 	
 	public function setTemperaturMax($temp) {
-		$this->_temperaturMax = $temp;
-		$this->_changed['temperatur'] = 1;
+		if($this->_temperaturMax !== $temp) {
+			$this->_temperaturMax = $temp;
+			$this->_changed['temperaturMax'] = 1;
+		}
 		return $this;
 	}
 	
