@@ -13,7 +13,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headTitle('Therminox Wärmetechnik')->setSeparator(' - ');
 		$view->headLink()->appendStylesheet('/_files/css/layout.css');
 		$view->headLink()->appendStylesheet('/_files/css/menu.css');
-		$view->headLink()->appendStylesheet('/_files/css/marko.css');
+		$view->headLink()->appendStylesheet('/_files/css/produkte.css');
 		$view->headScript()->appendFile('/_files/js/global.js');
 	}
 	
@@ -44,10 +44,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			'auth' => 'login',
 			'ssl' => 'tls',
 			'port' => 587,
-			'username' => 'test.therminox@gmail.com',
-			'password' => 'asdF123$'
+			'username' => 'admin@emailadresse.com',
+			'password' => 'geheimespasswort'
 		);
-		$transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+		$transport = new Zend_Mail_Transport_Smtp('smtp.emailadresse.com', $config);
 		Zend_Mail::setDefaultTransport($transport);
 	}
 
