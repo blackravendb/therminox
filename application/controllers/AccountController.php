@@ -90,7 +90,7 @@ class AccountController extends Zend_Controller_Action
         			$shipping->setVorname($form->getValue('name'));
         			$shipping->setNachname($form->getValue('lastname'));
         			$shipping->setStrasse($form->getValue('street'));
-        			$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+        			$locale = Zend_Registry::get("Zend_Locale");
         			$values = $locale->getTranslationList('Territory', 'de', 2);
         			$country = $values[$form->getValue('country')];
         			$shipping->setLand($country);
@@ -308,7 +308,7 @@ class AccountController extends Zend_Controller_Action
     		
     		if(is_int($number) && $number >= 0 && $number < count($addresses)) {
     			$address = $addresses[$number];
-    			$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+    			$locale = Zend_Registry::get("Zend_Locale");
     			$country = $locale->getTranslationList('Territory', 'de', 2);
     			$key = array_search($address->getLand(), $country);
     			$data = array(
@@ -349,7 +349,7 @@ class AccountController extends Zend_Controller_Action
     				$billing->setVorname($form->getValue('name'));
     				$billing->setNachname($form->getValue('lastname'));
     				$billing->setStrasse($form->getValue('street'));
-    				$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+    				$locale = Zend_Registry::get("Zend_Locale");
     				$values = $locale->getTranslationList('Territory', 'de', 2);
     				$country = $values[$form->getValue('country')];
     				$billing->setLand($country);

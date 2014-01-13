@@ -72,7 +72,7 @@ class Application_Form_Address extends App_Form
     	$street->getValidator('NotEmpty')->setMessage('Bitte geben Sie Ihre Straße an.');
     	$street->getValidator('StringLength')->setMessage('Die Straße muss zwischen 1 und 100 Zeichen lang sein.');
     	 
-    	$locale = Zend_Registry::getInstance()->get("Zend_Locale");
+    	$locale = Zend_Registry::get("Zend_Locale");
     	$countries = ($locale->getTranslationList('Territory', $locale->getLanguage(), 2));
     	asort($countries, SORT_LOCALE_STRING);
     	$country = new Zend_Form_Element_Select('country', array(

@@ -95,16 +95,15 @@ class AngebotController extends Zend_Controller_Action {
 		$email = Zend_Auth::getInstance ()->getIdentity ()->email;
 		$offers = $db_mapper->getAngebotskorbByEmail ( $email );
 		$articles = array ();
-		
-		foreach ( $offers as $offer ) {
-			if ($offerID == $offer->getId ()) {
-				$articles = $offer->getAngebot ();
+		if (! is_null ( $offers )) {
+			foreach ( $offers as $offer ) {
+				if ($offerID == $offer->getId ()) {
+					$articles = $offer->getAngebot ();
+				}
 			}
 		}
-		
 		$this->view->articles = $articles;
 	}
-	
 	public function abschickenAction() {
 		// action body
 		// in db schreiben + email schicken
@@ -117,7 +116,6 @@ class AngebotController extends Zend_Controller_Action {
 		$this->_redirect ( 'angebot/' );
 	}
 	public function removeAction() {
-		
 		$request = $this->getRequest ();
 		$pos = $request->getParam ( 'position' );
 		if (null !== $pos) {
@@ -131,7 +129,7 @@ class AngebotController extends Zend_Controller_Action {
 			if (! is_null ( $angebotskorb->getAngebot () )) {
 				$_SESSION ['angebotskorb'] = $angebotskorb;
 			}
-			$this->_redirect('/angebot');
+			$this->_redirect ( '/angebot' );
 		}
 	}
 }
