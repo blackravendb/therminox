@@ -172,8 +172,8 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
      	//Einsatzgebiete überprüfen ob was verändert wurde
     	if(key_exists('einsatzgebiet', $pufferspeicherData)) {
     		//alte Gebiete löschen
-    		$where = $this->getAdapter()->quoteInto('pufferspeicher_id = ?', $pufferspeicher->getId());
-    		$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->delete($where);
+	    	$where = $this->getAdapter()->quoteInto('pufferspeicher_id = ?', $pufferspeicher->getId());
+	    	$this->getPufferspeicher2pufferspeicherEinsatzgebietDbTable()->delete($where);
     	
     		//neue Gebiete einfügen
     		foreach($pufferspeicherData['einsatzgebiet'] as $value) {
@@ -183,6 +183,9 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
     		}
     	unset($pufferspeicherData['einsatzgebiet']);
     	}
+    	
+    	if(empty($pufferspeicherData))
+    		return true;
     	
     	$where = $this->getAdapter()->quoteInto('id = ?', $pufferspeicher->getId());
     	$this->update($pufferspeicherData, $where);
