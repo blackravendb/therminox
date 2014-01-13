@@ -42,11 +42,11 @@ class Application_Form_WtErstellen extends App_Form {
 		$this->addElement ( $material );
 		
 		$maxHeight = new Zend_Form_Element_Text ( 'Hoehe' );
-		$maxHeight->setLabel ( 'Maximale Höhe in cm:' )->addFilter ( 'StripTags' )->setRequired(true)->addFilter ( 'StringTrim' );
+		$maxHeight->setLabel ( 'Maximale Höhe in mm:' )->addFilter ( 'StripTags' )->setRequired(true)->addFilter ( 'StringTrim' );
 		$this->addElement ( $maxHeight );
 		
 		$maxWidth = new Zend_Form_Element_Text ( 'Breite' );
-		$maxWidth->setLabel ( 'Maximale Breite in cm:' )->addFilter ( 'StripTags' )->setRequired(true)->addFilter ( 'StringTrim' );
+		$maxWidth->setLabel ( 'Maximale Breite in mm:' )->addFilter ( 'StripTags' )->setRequired(true)->addFilter ( 'StringTrim' );
 		$this->addElement ( $maxWidth );
 		
 		$plates = new Zend_Form_Element_Text ( 'plates' );
