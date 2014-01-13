@@ -110,12 +110,7 @@ label, dd#Anschluss-element,#optional{
     clear: both;
 }
 
-dd#Einsatzgebiete-element {
-   width: 15em;
-    display: block;
-    float: left;
-    clear: both;
-}
+
 
 #submit-element {
 clear: both;
