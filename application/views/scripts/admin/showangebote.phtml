@@ -1,20 +1,23 @@
 <h1>Liste aller nicht abgeschlossenen Angebote</h1>
-<?php 
-
+<?php
 $offers = $this->open_offers;
 $rowCssIdx = 0; // odd or even row
 echo '<fieldset id="inhalte">';
-foreach ($offers as $offer){
-	++ $rowCssIdx;
-	$rowCssClass = $rowCssIdx % 2 ? 'even' : 'odd';
-	echo '<p class="'.$rowCssClass.'">';
-	echo 'Angebotskorb ID: '.$offer->getId().'<br>';
-	echo 'Benutzeremail: '.$offer->getBenutzer_email().'<br>';
-	echo 'Erstelldatum: '.$offer->getErstelldatum().'<br>';
-	echo 'Anzahl enthaltener Artikel: '.count($offer->getAngebot()).'<br>';
-	echo '<a href="/admin/angebotebearbeiten/angebot/'.$offer->getId().'">Angebot bearbeiten</a><br></p><hr>';
+if (empty ( $offers )) {
+	echo 'Derzeit keine nicht abgeschlossenen Angebote vorhanden.';
 }
-
+if (! empty ( $offers )) {
+	foreach ( $offers as $offer ) {
+		++ $rowCssIdx;
+		$rowCssClass = $rowCssIdx % 2 ? 'even' : 'odd';
+		echo '<p class="' . $rowCssClass . '">';
+		echo 'Angebotskorb ID: ' . $offer->getId () . '<br>';
+		echo 'Benutzeremail: ' . $offer->getBenutzer_email () . '<br>';
+		echo 'Erstelldatum: ' . $offer->getErstelldatum () . '<br>';
+		echo 'Anzahl enthaltener Artikel: ' . count ( $offer->getAngebot () ) . '<br>';
+		echo '<a href="/admin/angebotebearbeiten/angebot/' . $offer->getId () . '">Angebot bearbeiten</a><br></p><hr>';
+	}
+}
 echo '</fieldset>';
 ?>
 
