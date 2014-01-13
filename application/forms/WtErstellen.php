@@ -65,13 +65,11 @@ class Application_Form_WtErstellen extends App_Form {
 		$area->setLabel ( 'Fläche in m²: ' )->setRequired(true);
 		$this->addElement ( $area );
 		
-		$anschluss = new Zend_Form_Element_MultiCheckbox ( 'Anschluss', array (
-				'multiOptions' => array (
-						'3/8" IG' => '3/8" IG',
-						'1/2" AG' => '1/2" AG',
-						'3/4" AG' => '3/4" AG'
-				)
-		) );
+		$anschluss = new Zend_Form_Element_MultiCheckbox ( 'Anschluss');
+		$anschluesse = $db_mapper->getAnschlussListe ();
+		foreach ( $anschluesse as $anschluss ) {
+			$anschluss->addMultiOption ( "$anschluss", "$anschluss" );
+		}
 		$anschluss->setLabel ( 'Anschlüsse:' )->setRequired(true);
 		$this->addElement ( $anschluss );
 		
