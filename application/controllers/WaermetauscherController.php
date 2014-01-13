@@ -124,15 +124,19 @@
 					$newWT->setHoehe ( $height );
 					$newWT->setBreite ( $width );
 					
-					foreach ( $einsatzgbt as $gebiet ) {
-						$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet ();
-						$eingebiet->setEinsatzgebiet ( $gebiet );
-						$newWT->insertWaermetauscherEinsatzgebiet ( $eingebiet );
+					if (! empty ( $einsatzgbt )) {
+						foreach ( $einsatzgbt as $gebiet ) {
+							$eingebiet = new Application_Model_WaermetauscherEinsatzgebiet ();
+							$eingebiet->setEinsatzgebiet ( $gebiet );
+							$newWT->insertWaermetauscherEinsatzgebiet ( $eingebiet );
+						}
 					}
-					foreach ( $conn as $anschluss ) {
-						$einanschl = new Application_Model_WaermetauscherAnschluss ();
-						$einanschl->setAnschluss ( $anschluss );
-						$newWT->insertWaermetauscherAnschluss ( $einanschl );
+					if (! empty ( $conn )) {
+						foreach ( $conn as $anschluss ) {
+							$einanschl = new Application_Model_WaermetauscherAnschluss ();
+							$einanschl->setAnschluss ( $anschluss );
+							$newWT->insertWaermetauscherAnschluss ( $einanschl );
+						}
 					}
 					
 					$plates = $form->getValue ( 'plates' );
@@ -140,16 +144,17 @@
 					$weight = $form->getValue ( 'weight' );
 					$area = $form->getValue ( 'area' );
 					
-					$cat = new Application_Model_WaermetauscherUnterkategorie();
-					$cat->setLaenge($length);
-					$cat->setPlatten($plates);
-					$cat->setFlaeche($area);
-					$cat->setLeergewicht($weight);
+					$cat = new Application_Model_WaermetauscherUnterkategorie ();
+					$cat->setLaenge ( $length );
+					$cat->setPlatten ( $plates );
+					$cat->setFlaeche ( $area );
+					$cat->setLeergewicht ( $weight );
 					
-					$newWT->insertWaermetauscherUnterkategorie($cat);
+					$newWT->insertWaermetauscherUnterkategorie ( $cat );
 					
 					$db_mapper = new Application_Model_WaermetauscherMapper ();
 					$db_mapper->insertWaermetauscher ( $newWT );
+					$this->_redirect('admin/showwaermetauscher');
 				}
 			}
 			

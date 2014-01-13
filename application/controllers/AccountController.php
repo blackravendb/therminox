@@ -149,7 +149,7 @@ class AccountController extends Zend_Controller_Action
 	    		$this->view->errorMessage = 'Schlüssel nicht gefunden.';
 	    	}
 		} else {
-			$this->view->errorMessage = 'Schlüssel hat kein gültiges Format';
+			$this->view->errorMessage = 'Schlüssel hat kein gültiges Format.';
 		}
     }
     

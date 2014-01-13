@@ -92,16 +92,23 @@ table th.angebote {
 	float: right;
 }
 
-label, dd#Anschluss-element, dd#Einsatzgebiete-element, #optional{
+label, dd#Anschluss-element,#optional{
     width: 15em;
     display: block;
     float: left;
     
 }
-#optional{
+#Einsatzgebiet-label{
    width: 15em;
     display: block;
-    
+    float: left;
+    clear: both;
+}
+
+dd#Einsatzgebiete-element {
+   width: 15em;
+    display: block;
+    float: left;
     clear: both;
 }
 
