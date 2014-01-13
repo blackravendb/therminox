@@ -67,8 +67,8 @@ class Application_Form_WtErstellen extends App_Form {
 		
 		$anschluss = new Zend_Form_Element_MultiCheckbox ( 'Anschluss');
 		$anschluesse = $db_mapper->getAnschlussListe ();
-		foreach ( $anschluesse as $anschluss ) {
-			$anschluss->addMultiOption ( "$anschluss", "$anschluss" );
+		foreach ( $anschluesse as $anschl) {
+			$anschluss->addMultiOption ( "$anschl", "$anschl" );
 		}
 		$anschluss->setLabel ( 'Anschlüsse:' )->setRequired(true);
 		$this->addElement ( $anschluss );
