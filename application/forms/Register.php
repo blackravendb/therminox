@@ -102,7 +102,7 @@ class Application_Form_Register extends App_Form
     	$street->getValidator('NotEmpty')->setMessage('Bitte geben Sie Ihre Straße an.');
     	$street->getValidator('StringLength')->setMessage('Die Straße muss zwischen 1 und 100 Zeichen lang sein.');   	
     	
-    	$locale = Zend_Registry::getInstance()->get("Zend_Locale"); 
+    	$locale = Zend_Registry::get("Zend_Locale"); 
     	$countries = $locale->getTranslationList('Territory', $locale->getLanguage(), 2);
     	unset($countries['ZZ']);
     	asort($countries, SORT_LOCALE_STRING); 
@@ -150,4 +150,3 @@ class Application_Form_Register extends App_Form
     	$this->addElements(array($email, $password, $confirm_password, $company, $title, $name, $lastname, $street, $country, $plz, $town, $submit));
     }
 }
-
