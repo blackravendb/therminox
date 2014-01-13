@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 12. Jan 2014 um 14:27
+-- Erstellungszeit: 13. Jan 2014 um 02:14
 -- Server Version: 5.5.34
 -- PHP-Version: 5.3.10-1ubuntu3.9
 
@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   KEY `anrede_id` (`anrede_id`),
   KEY `benutzer_e-mail` (`benutzer_email`),
   KEY `plz` (`plz`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=79 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Daten für Tabelle `adresse`
 --
 
 INSERT INTO `adresse` (`id`, `benutzer_email`, `firma`, `nachname`, `vorname`, `strasse`, `plz`, `ort`, `land`, `anrede_id`, `lieferadresse`) VALUES
-(77, 'dennis.brandmueller@gmx.de', 'BlubWare', 'Brandmüller', 'Dennis', 'Blubstraße 1', '83080', 'Oberaudorf', 'Deutschland', 1, 0),
-(78, 'blackravendb@gmx.net', 'blub', 'bl', 'bl', 'l', '55555', 'asdf', 'Deutschland', 1, 0);
+(1, 'admin@therminox.de', 'Therminox', 'Min', 'Ad', 'Therminox-Gasse 2', '83098', 'Brannenburg', 'Deutschland', 1, 0),
+(2, 'irgendein@kunde.de', 'BlubWare GmbH', 'Mustermann', 'Irgendein', 'Musterstraße 5', '83098', 'Brannenburg', 'Deutschland', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -69,17 +69,6 @@ CREATE TABLE IF NOT EXISTS `angebot` (
   KEY `angebotskorb_id` (`angebotskorb_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Daten für Tabelle `angebot`
---
-
-INSERT INTO `angebot` (`artikelnummer_id`, `angebotskorb_id`, `angebotStatus_id`, `bemerkung`) VALUES
-(1, 1, 3, NULL),
-(1, 24, 2, 'asdfasdf'),
-(3, 25, 2, 'sdfksdfjlsdfsdflsdfsdf'),
-(3, 26, 2, 'sdsdfsdfasdfsdfsdfsdf'),
-(14, 26, 2, 'asdsdsdfasdfsdfsdfsdf');
-
 -- --------------------------------------------------------
 
 --
@@ -92,17 +81,7 @@ CREATE TABLE IF NOT EXISTS `angebotskorb` (
   `erstelldatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `benutzer_email` (`benutzer_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
-
---
--- Daten für Tabelle `angebotskorb`
---
-
-INSERT INTO `angebotskorb` (`id`, `benutzer_email`, `erstelldatum`) VALUES
-(1, 'test@test.de', '2014-12-01 13:25:10'),
-(24, 'dennis.brandmueller@gmx.de', '2014-12-01 13:25:10'),
-(25, 'blackravendb@gmx.net', '2014-12-01 13:25:10'),
-(26, 'dennis.brandmueller@gmx.de', '2014-12-01 13:25:10');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -159,44 +138,23 @@ CREATE TABLE IF NOT EXISTS `artikelnummer` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pufferspeicher_id` (`pufferspeicher_id`),
   UNIQUE KEY `waermetauscher_id` (`waermetauscher_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Daten für Tabelle `artikelnummer`
 --
 
 INSERT INTO `artikelnummer` (`id`, `pufferspeicher_id`, `waermetauscher_id`) VALUES
-(1, NULL, 2),
-(2, 1, NULL),
-(3, NULL, 3),
-(4, NULL, 6),
-(13, 13, NULL),
-(14, NULL, 7);
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `begriff`
---
-
-CREATE TABLE IF NOT EXISTS `begriff` (
-  `begriff` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `begrifferklaerung_id` int(11) NOT NULL,
-  PRIMARY KEY (`begriff`),
-  KEY `begrifferklaerung_id` (`begrifferklaerung_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `begrifferklaerung`
---
-
-CREATE TABLE IF NOT EXISTS `begrifferklaerung` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `erklaerung` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+(29, NULL, 18),
+(30, NULL, 19),
+(31, NULL, 20),
+(32, NULL, 21),
+(33, NULL, 22),
+(34, 18, NULL),
+(35, 19, NULL),
+(36, 20, NULL),
+(37, 21, NULL),
+(38, 22, NULL);
 
 -- --------------------------------------------------------
 
@@ -222,10 +180,8 @@ CREATE TABLE IF NOT EXISTS `benutzer` (
 --
 
 INSERT INTO `benutzer` (`email`, `nachname`, `vorname`, `passwort`, `salt`, `berechtigung`, `anrede_id`, `bestaetigt`) VALUES
-('admin@therminox.de', 'min', 'ad', 'b0014d0e690fa1080574f2f6096b532eb4880cc6', '6f00afc6550ad5c19d20288ab7545771b4a66c10', 'Administrator', 1, 1),
-('blackravendb@gmx.net', 'bl', 'bl', 'b9da0fee29ef5efb24e66ce7a22b31a1da4b2494', '5e2b15f5a51ca2e408244d46da2ed9fa03d3aab9', 'Benutzer', 1, 1),
-('dennis.brandmueller@gmx.de', 'Brandmüller', 'Dennis', '25ee9f5cd40b1b84cd492c3af106d7ed2477c7c8', 'd072d3a7e267d42c25dca6ad281c668a6ed84ae0', 'Benutzer', 1, 1),
-('test@test.de', 'test', 'test', 'b0014d0e690fa1080574f2f6096b532eb4880cc6', '6f00afc6550ad5c19d20288ab7545771b4a66c10', 'Benutzer', 2, 0);
+('admin@therminox.de', 'Min', 'Ad', '99c13757f3c5a1f637afb7646a2a197da6758f7b', '9794c4f3eee28bb6ef9a11b2e72d127aa1056d82', 'Administrator', 1, 1),
+('irgendein@kunde.de', 'Mustermann', 'Irgendein', '8e4b32a9bb0587aece8499fddc668ee6caaf66c7', '8953a6fa5f5a03e39cb7562420843d6c20b5e8db', 'Benutzer', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -240,7 +196,14 @@ CREATE TABLE IF NOT EXISTS `link` (
   `typ` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `benutzer_email` (`benutzer_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `link`
+--
+
+INSERT INTO `link` (`id`, `benutzer_email`, `hexaString`, `typ`) VALUES
+(3, 'irgendein@kunde.de', '8e0324fbfb4c122ce4835d752aceadabed399b77', 0);
 
 -- --------------------------------------------------------
 
@@ -256,15 +219,18 @@ CREATE TABLE IF NOT EXISTS `pufferspeicher` (
   `betriebsdruck` int(11) NOT NULL,
   `temperaturMax` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Daten für Tabelle `pufferspeicher`
 --
 
 INSERT INTO `pufferspeicher` (`id`, `model`, `speicherinhalt`, `leergewicht`, `betriebsdruck`, `temperaturMax`) VALUES
-(1, 'VVX200', 200, 50, 500, 95),
-(13, 'blub3', 2000, 100, 5000, 100);
+(18, 'VVX200', 200, 50, 10, 95),
+(19, 'VVX500', 500, 72, 10, 95),
+(20, 'VVX3000', 3000, 390, 10, 95),
+(21, 'LAS200', 200, 50, 15, 120),
+(22, 'LAS500', 500, 95, 15, 120);
 
 -- --------------------------------------------------------
 
@@ -284,8 +250,12 @@ CREATE TABLE IF NOT EXISTS `pufferspeicher2pufferspeicherEinsatzgebiet` (
 --
 
 INSERT INTO `pufferspeicher2pufferspeicherEinsatzgebiet` (`pufferspeicher_id`, `pufferspeicherEinsatzgebiet_id`) VALUES
-(1, 1),
-(13, 1);
+(18, 1),
+(19, 1),
+(21, 1),
+(22, 1),
+(22, 3),
+(20, 4);
 
 -- --------------------------------------------------------
 
@@ -297,14 +267,16 @@ CREATE TABLE IF NOT EXISTS `pufferspeicherEinsatzgebiet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `einsatzgebiet` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Daten für Tabelle `pufferspeicherEinsatzgebiet`
 --
 
 INSERT INTO `pufferspeicherEinsatzgebiet` (`id`, `einsatzgebiet`) VALUES
-(1, 'Einfacher Boiler');
+(1, 'Einfacher Boiler'),
+(3, 'Solaranlage'),
+(4, 'Gebäude bis 500qm³');
 
 -- --------------------------------------------------------
 
@@ -324,7 +296,9 @@ CREATE TABLE IF NOT EXISTS `stutzenmaterial` (
 
 INSERT INTO `stutzenmaterial` (`id`, `name`) VALUES
 (1, 'Edelstahl AISI 304 Mat. 1.4301'),
-(2, 'Edelstahl AISI 316 Mat. 1.4404');
+(2, 'Edelstahl AISI 316 Mat. 1.4404'),
+(4, 'Edelstahl AISI 316 Mat. 1.5407'),
+(5, 'Edelstahl AISI 316 Mat. 1.8411');
 
 -- --------------------------------------------------------
 
@@ -342,17 +316,18 @@ CREATE TABLE IF NOT EXISTS `waermetauscher` (
   `breite` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `stutzenmaterial_id` (`stutzenmaterial_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Daten für Tabelle `waermetauscher`
 --
 
 INSERT INTO `waermetauscher` (`id`, `model`, `betriebsdruck`, `temperatur`, `stutzenmaterial_id`, `hoehe`, `breite`) VALUES
-(2, 'BHD21', 30, 195, 1, 191, 73),
-(3, 'BHD30', 30, 195, 2, 315, 73),
-(6, 'BHM21', 30, 195, 1, 203, 73),
-(7, 'blubWT2', 10, 10, 2, 10, 10);
+(18, 'BHD21', 30, 195, 1, 191, 73),
+(19, 'BHM24', 30, 195, 1, 461, 89),
+(20, 'BHM56 CFL', 45, 195, 5, 532, 271),
+(21, 'BHM130', 25, 155, 4, 1092, 387),
+(22, 'BHD30', 30, 220, 1, 315, 73);
 
 -- --------------------------------------------------------
 
@@ -372,11 +347,17 @@ CREATE TABLE IF NOT EXISTS `waermetauscher2waermetauscherAnschluss` (
 --
 
 INSERT INTO `waermetauscher2waermetauscherAnschluss` (`waermetauscher_id`, `waermetauscherAnschluss_id`) VALUES
-(2, 1),
-(2, 2),
-(7, 2),
-(2, 3),
-(3, 3);
+(18, 1),
+(18, 2),
+(22, 2),
+(18, 3),
+(19, 3),
+(22, 3),
+(22, 7),
+(20, 8),
+(21, 8),
+(20, 9),
+(21, 9);
 
 -- --------------------------------------------------------
 
@@ -396,9 +377,14 @@ CREATE TABLE IF NOT EXISTS `waermetauscher2waermetauscherEinsatzgebiet` (
 --
 
 INSERT INTO `waermetauscher2waermetauscherEinsatzgebiet` (`waermetauscher_id`, `waermetauscherEinsatzgebiet_id`) VALUES
-(2, 1),
-(7, 1),
-(3, 2);
+(18, 1),
+(22, 1),
+(19, 2),
+(20, 4),
+(21, 4),
+(20, 5),
+(20, 6),
+(21, 6);
 
 -- --------------------------------------------------------
 
@@ -410,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `waermetauscherAnschluss` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `anschluss` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Daten für Tabelle `waermetauscherAnschluss`
@@ -419,7 +405,10 @@ CREATE TABLE IF NOT EXISTS `waermetauscherAnschluss` (
 INSERT INTO `waermetauscherAnschluss` (`id`, `anschluss`) VALUES
 (1, '3/8" IG'),
 (2, '1/2" AG'),
-(3, '3/4" AG');
+(3, '3/4" AG'),
+(7, '1" AG'),
+(8, '1 1/4" AG'),
+(9, 'Compac Flansch DN 65');
 
 -- --------------------------------------------------------
 
@@ -431,7 +420,7 @@ CREATE TABLE IF NOT EXISTS `waermetauscherEinsatzgebiet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `einsatzgebiet` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Daten für Tabelle `waermetauscherEinsatzgebiet`
@@ -439,7 +428,10 @@ CREATE TABLE IF NOT EXISTS `waermetauscherEinsatzgebiet` (
 
 INSERT INTO `waermetauscherEinsatzgebiet` (`id`, `einsatzgebiet`) VALUES
 (1, 'Umrüstung von PKW`s auf Rapsöl'),
-(2, 'Umrüstung großerer Nutzfahrzeuge auf Rapsöl');
+(2, 'Umrüstung großerer Nutzfahrzeuge auf Rapsöl'),
+(4, 'Fußbodenheizung'),
+(5, 'Solaranlage'),
+(6, 'Erdwärme via Erdbohrung');
 
 -- --------------------------------------------------------
 
@@ -458,20 +450,18 @@ CREATE TABLE IF NOT EXISTS `waermetauscherUnterkategorie` (
   `inhaltSekundaer` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `waermetauscherGeloetet_id` (`waermetauscher_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Daten für Tabelle `waermetauscherUnterkategorie`
 --
 
 INSERT INTO `waermetauscherUnterkategorie` (`id`, `waermetauscher_id`, `platten`, `laenge`, `leergewicht`, `flaeche`, `inhaltPrimaer`, `inhaltSekundaer`) VALUES
-(1, 2, 12, 27, 0.9, 0.14, NULL, NULL),
-(2, 2, 20, 45, 1.2, 0.24, NULL, NULL),
-(3, 2, 30, 67, 1.4, 0.36, NULL, NULL),
-(4, 3, 20, 45, 1.9, 0.46, NULL, NULL),
-(5, 3, 30, 65, 2.7, 0.64, NULL, NULL),
-(6, 3, 40, 90, 3.8, 0.92, NULL, NULL),
-(7, 7, 10, 10, 10, 10, 10, 10);
+(10, 18, 12, 27, 0, 0, NULL, NULL),
+(11, 19, 10, 36, 2, 0, NULL, NULL),
+(12, 20, 30, 84, 26.6, 3.64, NULL, NULL),
+(13, 21, 120, 297, 103, 20, NULL, NULL),
+(14, 22, 20, 45, 1.9, 0.46, NULL, NULL);
 
 --
 -- Constraints der exportierten Tabellen
@@ -504,12 +494,6 @@ ALTER TABLE `angebotskorb`
 ALTER TABLE `artikelnummer`
   ADD CONSTRAINT `artikelnummer_ibfk_3` FOREIGN KEY (`waermetauscher_id`) REFERENCES `waermetauscher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `artikelnummer_ibfk_4` FOREIGN KEY (`pufferspeicher_id`) REFERENCES `pufferspeicher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints der Tabelle `begriff`
---
-ALTER TABLE `begriff`
-  ADD CONSTRAINT `begriff_ibfk_2` FOREIGN KEY (`begrifferklaerung_id`) REFERENCES `begrifferklaerung` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints der Tabelle `benutzer`

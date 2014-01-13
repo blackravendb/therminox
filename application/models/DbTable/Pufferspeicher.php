@@ -86,22 +86,22 @@ class Application_Model_DbTable_Pufferspeicher extends Zend_Db_Table_Abstract
 	
 	public function setSpeicherinhaltMin($speicherinhalt) {
 		$this->produktberaterSelect
-			->where('speicherinhalt > ?', (int)$speicherinhalt);
+			->where('speicherinhalt >= ?', (int)$speicherinhalt);
 	}
 	
 	public function setSpeicherinhaltMax($speicherinhalt) {
 		$this->produktberaterSelect
-			->where('speicherinhalt < ?', (int)$speicherinhalt);
+			->where('speicherinhalt <= ?', (int)$speicherinhalt);
 	}
 	
 	public function setBetriebsdruckMin($betriebsdruck) {
 		$this->produktberaterSelect
-			->where('betriebsdruck > ?', (int)$betriebsdruck);
+			->where('betriebsdruck >= ?', (int)$betriebsdruck);
 	}
 	
 	public function setBetriebsdruckMax($betriebsdruck) {
 		$this->produktberaterSelect
-			->where('betriebsdruck < ?', (int)$betriebsdruck);
+			->where('betriebsdruck <= ?', (int)$betriebsdruck);
 	}
 	
 	public function getPufferspeicher() {
