@@ -1,25 +1,30 @@
 .bild {
 	float: left;
-	width: 45%;
+	width: 35%;
 	display: inline;
+	overflow: hidden;
+}
+
+img#bilder {
+	width: 100%
 }
 
 .daten {
-	float: left;
-	width: 55%;
+	float: right;
+	width: 60%;
 	display: inline;
 	color: #696969;
 }
 
 .grunddaten {
 	float: left;
-	width: 35%;
+	width: 45%;
 	display: inline;
 }
 
 .modelle {
 	float: left;
-	width: 25%;
+	width: 32%;
 	display: inline;
 }
 
