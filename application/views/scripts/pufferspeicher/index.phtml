@@ -1,4 +1,4 @@
-<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<?php $this->headLink()->appendStylesheet('/_files/css/form.css');?>
 <h1>Produktberater</h1>
 <div id="produktberaterPs">
 <?php echo $this->produktberaterPs;?>
@@ -21,9 +21,15 @@
    <tr>
 	<?php $url = "/pufferspeicher/artikel/" . $value->getModel(); //TODO Link anpassen?> 
     <td> <a href="<?php echo $url;?>"><?php echo $value->getModel();?></a></td> 
-    <td><?php foreach($value->getEinsatzgebiet() as $gbt){
+    <td><?php 	$x=0;
+    			foreach($value->getEinsatzgebiet() as $gbt){
+    				if($x==count($value->getEinsatzgebiet())-1){
     					echo $gbt->getEinsatzgebiet();
-    					} ?></td>
+    					}else{
+    						echo $gbt->getEinsatzgebiet() . ", ";
+    						$x++;
+    					} 
+  					}?></td>
     <td><?php echo $value->getSpeicherinhalt(); ?></td>
     <td><?php echo $value->getBetriebsdruck(); ?></td>
     </tr>
