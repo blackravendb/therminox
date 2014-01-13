@@ -48,6 +48,9 @@ class Application_Model_DbTable_WaermetauscherUnterkategorie extends Zend_Db_Tab
     			unset($wtUnterkategorieData[$key]);
     	}
     	
+    	if(empty($wtUnterkategorieData))
+    		return;
+    	
     	$where = $this->getAdapter()->quoteInto('id = ?', $wtUnterkategorie->getId());
     	$this->update($wtUnterkategorieData, $where);
     }

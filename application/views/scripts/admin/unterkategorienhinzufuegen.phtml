@@ -1,0 +1,17 @@
+<div id="unterkategoriehinzufuegen">
+<?php $this->headLink()->appendStylesheet('/_files/css/olli.css');?>
+<h1>Wärmetauscher Unterkategorien hinzufuegen</h1>
+<?php 
+echo $this->unterkategorieHinzufuegen; 
+
+//TODO
+if($this->showMessage === true){
+?>
+<div id="geändertUk">
+<p>Wärmetauscher Unterkategorie wurde erfolgreich geändert</p>
+</div>
+<?php }?>
+<?php if($this->showMessage === false){?>
+<p>Fehler beim Ändern der Unterkategorie!"</p>
+<?php }?>
+</div>

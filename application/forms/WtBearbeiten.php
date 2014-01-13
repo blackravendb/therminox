@@ -105,7 +105,10 @@ class Application_Form_WtBearbeiten extends Zend_Form {
 		
 		$unterkategorien = new Zend_Form_Element_Submit('unterkategorien');
 		$unterkategorien->setLabel('Unterkategorien bearbeiten');
-		 
-		$this->addElements(array($name, $temp, $height, $width, $stutzenmaterial, $betriebsdruck, $anschluss, $einsatzgbt, $submit, $unterkategorien));
+		
+		$unhinzufuegen = new Zend_Form_Element_Submit('unterkategorienHinzufuegen');
+		$unhinzufuegen->setLabel('Unterkategorien hinzufuegen');
+		
+		$this->addElements(array($name, $temp, $height, $width, $stutzenmaterial, $betriebsdruck, $anschluss, $einsatzgbt, $submit, $unterkategorien, $unhinzufuegen));
 	}
 }

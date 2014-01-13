@@ -412,7 +412,13 @@ class Application_Model_DbTable_Waermetauscher extends Zend_Db_Table_Abstract
 	    			}
 	    		}
 	    		foreach($waermetauscherData['waermetauscherUnterkategorie'] as $value) {
-	    			$this->getWaermetauscherUnterkategorieDbTable()->changeWaermetauscherUnterkategorie($value);
+	    			$wtUId = $value->getId();
+	    			if(empty($wtUId)) {
+	    				$this->getWaermetauscherUnterkategorieDbTable()->insertWaermetauscherUnterkategorie($value, $waermetauscher->getId());
+	    			}
+	    			else {
+	    				$this->getWaermetauscherUnterkategorieDbTable()->changeWaermetauscherUnterkategorie($value);
+	    			}
 	    		}
 	    		unset($waermetauscherData['waermetauscherUnterkategorie']);
 	    	}

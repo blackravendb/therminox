@@ -101,6 +101,52 @@ class AdminController extends Zend_Controller_Action {
 			$this->view->artikel = $data_object;
 			$this->view->showUnterkategorien = true;
 		}
+		if ($form->unterkategorienHinzufuegen->isChecked ()) {
+			$this->_redirect ( '/admin/unterkategorienhinzufuegen/artikel/' . $data_object->getModel());
+		}
+	}
+	
+	public function unterkategorienhinzufuegenAction(){
+		$request = $this->getRequest ();
+		$art = $request->getParam ( 'artikel' );
+		$db_mapper = new Application_Model_WaermetauscherMapper ();
+		$data_object = $db_mapper->getWaermetauscherByModel ( $art );
+		$unterkategorie = new Application_Model_WaermetauscherUnterkategorie();
+		
+		$form = new Application_Form_UnterkategorieHinzufuegen ();
+		$form->startform ();
+		
+		$this->view->unterkategorieHinzufuegen = $form;
+		
+		if ($this->_request->isPost ()) {
+			$formData = $this->_request->getPost ();
+			
+			if ($form->isValid ( $formData )) {
+				$platten = $form->getValue('AnzahlPlatten');
+				$laenge = $form->getValue('Laenge');
+				$leergewicht = $form->getValue('Leergewicht');
+				$flaeche = $form->getValue('Flaeche');
+				
+				if (! empty ( $leergewicht )) {
+					$leergewicht = str_replace ( ",", ".", $leergewicht );
+				}
+				
+				if (! empty ( $flaeche )) {
+					$flaeche = str_replace ( ",", ".", $flaeche );
+				}
+				
+				$unterkategorie->setPlatten( $platten );
+				$unterkategorie->setLaenge($laenge);
+				$unterkategorie->setLeergewicht ( $leergewicht );
+				$unterkategorie->setFlaeche($flaeche);
+				
+				echo "Platte: $platten Laenge: $laenge Leergewicht: $leergewicht Flaeche: $flaeche"; 
+				
+				$data_object->insertWaermetauscherUnterkategorie($unterkategorie);
+				$this->view->showMessage = $db_mapper->updateWaermetauscher($data_object);
+				
+			}
+		}
 	}
 	
 	public function deletewaermetauscherAction() {
@@ -205,7 +251,9 @@ class AdminController extends Zend_Controller_Action {
 				$data_object->setLeergewicht($leergewicht);
 				$data_object->setBetriebsdruck($betriebsdruck);
 				$data_object->setTemperaturMax($temperatur);
-			
+				
+				echo $data_object->getTemperaturMax();
+				
 				$einsatzgebiet_alt = $data_object->getEinsatzgebiet();
 					if(!empty($einsatzgebiet_alt)){
 						foreach($einsatzgebiet_alt as $value) {
@@ -269,7 +317,7 @@ class AdminController extends Zend_Controller_Action {
 								$_SESSION ['anschlNotDelete'] = 1;
 							}
 						}
-						$this->_redirect ( '/Admin/anschluessebearbeiten' );
+						$this->_redirect ( '/admin/anschluessebearbeiten' );
 					}
 				}
 				
@@ -278,7 +326,7 @@ class AdminController extends Zend_Controller_Action {
 					if (! empty ( $anschHinzufuegen )) {
 						try {
 							$wtmapper->insertAnschluss ( $anschHinzufuegen );
-							$this->_redirect ( '/Admin/anschluessebearbeiten' );
+							$this->_redirect ( '/admin/anschluessebearbeiten' );
 						} catch ( Exception $e ) {
 							$_SESSION ['anschlNotInsert'] = 1;
 						}
@@ -313,7 +361,7 @@ class AdminController extends Zend_Controller_Action {
 								$_SESSION ['einsatzgbtNotInsert'] = 1;
 							}
 						}
-						$this->_redirect ( '/Admin/einsatzgebietebearbeiten' );
+						$this->_redirect ( '/admin/einsatzgebietebearbeiten' );
 					}
 				}
 				if ($form->hinzufuegen->isChecked ()) {
@@ -400,7 +448,7 @@ class AdminController extends Zend_Controller_Action {
 								$_SESSION ['einsatzgbtPsNotDeleted'] = 1;
 							}
 						}
-						$this->_redirect ( '/Admin/einsatzgebietepsbearbeiten' );
+						$this->_redirect ( '/admin/einsatzgebietepsbearbeiten' );
 					}
 				}
 				
@@ -409,7 +457,7 @@ class AdminController extends Zend_Controller_Action {
 					if (! empty ( $einsatzgbtHinzufuegen )) {
 						try { // TODO Dennis
 							$psmapper->insertEinsatzgebiet ( $einsatzgbtHinzufuegen );
-							$this->_redirect ( '/Admin/einsatzgebietepsbearbeiten' );
+							$this->_redirect ( '/admin/einsatzgebietepsbearbeiten' );
 						} catch ( Exception $e ) {
 							$_SESSION ['einsatzgbtPsNotInserted'] = 1;
 						}
@@ -435,7 +483,7 @@ class AdminController extends Zend_Controller_Action {
 			
 			// FORMULAR übermitteln und dann auswerten
 			$form = new Application_Form_AngebotBearbeiten ();
-			$action = '/Admin/angebotebearbeiten/angebot/' . $pos;
+			$action = '/admin/angebotebearbeiten/angebot/' . $pos;
 			$form->setMethod ( 'post' );
 			$form->setAction ( $action );
 			
@@ -452,7 +500,7 @@ class AdminController extends Zend_Controller_Action {
 						$article->setStatus ( $newState );
 					}
 					$db_mapper->updateAngebotStatus ( $change_offer );
-					$this->_redirect ( '/Admin/showangebote' );
+					$this->_redirect ( '/admin/showangebote' );
 				}
 			}
 		}
