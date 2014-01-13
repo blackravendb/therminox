@@ -23,13 +23,13 @@ dt{
 	float:left;	
 }
 
-label, dd#Anschluss-element, dd#Einsatzgebiete-element, dd#AttributLoeschen-element{ 
+label, dd#Anschluss-element, dd#Einsatzgebiete-element, dd#AttributLoeschen-element, dd#EinsatzgebietePs-element{ 
     width: 15em;
     display: block;
     float: left;
 }
 
-dd#attributLoeschen-element, dd#artikelAendern-element, dd#unterkategorien-element, dd#artikelVorschlagen-element, dd#unterkategorieAendern-element{
+dd#attributLoeschen-element, dd#artikelAendern-element, dd#unterkategorien-element, dd#unterkategorienHinzufuegen-element, dd#artikelVorschlagen-element, dd#unterkategorieAendern-element, dd#hinzufuegen-element{
 	clear:both;
 }
 
